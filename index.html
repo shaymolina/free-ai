@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free AI – כל קורסי ה-AI, בחינם</title>
+<meta name="description" content="לומדים Claude, Lovable, סוכני AI ואוטומציות n8n – בחינם לגמרי. בלי קורסים יקרים, בלי כרטיס אשראי.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a href="index.html" class="logo">Free<span>AI</span></a>
+  <nav><a class="link" href="#courses">קורסים</a><a class="link" href="#how">איך זה עובד</a><a class="link" href="#join">עדכונים</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div class="badge">100% חינם · בלי כרטיס אשראי · בלי הרשמה</div>
+  <h1>כל מה שמוכרים לכם בקורסי AI<br><em>כאן בחינם.</em></h1>
+  <p>Claude, Lovable, סוכני AI ואוטומציות n8n – שיעורים קצרים, בעברית, שאפשר ליישם כבר היום.</p>
+  <div class="ctas"><a class="btn" href="#courses">מתחילים ללמוד</a><a class="btn ghost" href="#how">איך זה עובד?</a></div>
+  <div class="strip" id="stats"></div>
+</div></div>
+
+<section id="courses"><div class="wrap">
+  <h2 class="sec-title">המסלולים</h2>
+  <p class="sec-sub">בחרו מאיפה להתחיל. כל מסלול עומד בפני עצמו.</p>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <h2 class="sec-title">איך זה עובד</h2>
+  <p class="sec-sub">מאפס ועד מערכת שרצה לבד – בארבעה שלבים.</p>
+  <div class="steps">
+    <div class="step"><h4>לומדים לדבר עם AI</h4><p>מתחילים ב-Claude ומבינים איך לקבל ממנו תוצאות אמיתיות.</p></div>
+    <div class="step"><h4>בונים בלי קוד</h4><p>אתרים ואפליקציות עם Lovable ו-Claude Code.</p></div>
+    <div class="step"><h4>מוסיפים סוכנים ואוטומציות</h4><p>n8n וסוכני AI שעושים את העבודה בשבילכם.</p></div>
+    <div class="step"><h4>מעלים לאוויר</h4><p>שרת משלכם שמריץ הכל 24/7.</p></div>
+  </div>
+</div></section>
+
+<section id="join"><div class="wrap">
+  <div class="join">
+    <h2 class="sec-title">שיעור חדש עולה? תדעו ראשונים.</h2>
+    <p class="sec-sub" style="margin:0">בלי ספאם. רק שיעורים חדשים.</p>
+    <form id="f"><input type="email" required placeholder="המייל שלכם"><button class="btn" style="border:0;font:inherit;font-weight:800;cursor:pointer">עדכנו אותי</button></form>
+    <div class="ok" id="ok">תודה! נעדכן אותך בשיעור הבא.</div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">© <span id="y"></span> Free AI · ידע צריך להיות חופשי</div></footer>
+
+<script src="assets/courses.js"></script>
+<script>
+const C=window.COURSES;
+document.getElementById('grid').innerHTML=C.map(c=>`
+  <a class="card" href="course.html?c=${c.id}">
+    <div class="ic">${c.icon}</div><h3>${c.title}</h3><p>${c.tagline}</p>
+    <div class="meta"><span>${c.lessons.length} שיעורים</span><span>${c.level}</span><span>חינם</span></div>
+  </a>`).join('');
+const total=C.reduce((a,c)=>a+c.lessons.length,0);
+document.getElementById('stats').innerHTML=`<div><b>${C.length}</b>מסלולים</div><div><b>${total}</b>שיעורים</div><div><b>₪0</b>מחיר</div>`;
+document.getElementById('y').textContent=new Date().getFullYear();
+document.getElementById('f').onsubmit=e=>{e.preventDefault();e.target.style.display='none';document.getElementById('ok').style.display='block'};
+</script>
+</body>
+</html>

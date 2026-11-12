@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free AI – קורס</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a href="index.html" class="logo">Free<span>AI</span></a>
+  <nav><a class="link" href="index.html#courses">כל הקורסים</a></nav>
+</div></header>
+<div class="wrap">
+  <div class="c-head"><a class="back" href="index.html#courses">→ כל הקורסים</a><h1 id="t"></h1><p id="d"></p></div>
+  <div class="c-body">
+    <div>
+      <div class="player" id="pl"></div>
+      <div class="now" id="now"></div>
+      <div class="navbtns"><button class="btn ghost" id="prev" style="font:inherit;cursor:pointer">→ הקודם</button><button class="btn" id="next" style="border:0;font:inherit;font-weight:800;cursor:pointer">הבא ←</button></div>
+    </div>
+    <div class="list" id="ls"></div>
+  </div>
+</div>
+<footer><div class="wrap">© Free AI · ידע צריך להיות חופשי</div></footer>
+<script src="assets/courses.js"></script>
+<script>
+const id=new URLSearchParams(location.search).get('c');
+const c=window.COURSES.find(x=>x.id===id)||window.COURSES[0];
+document.title='Free AI – '+c.title;
+t.textContent=c.title;d.textContent=c.tagline;
+let i=0;
+function show(k){
+  i=Math.max(0,Math.min(c.lessons.length-1,k));const L=c.lessons[i];
+  pl.innerHTML=L.video?`<iframe src="${L.video}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`:`<div><div style="font-size:40px">▶</div>השיעור עולה בקרוב</div>`;
+  now.textContent=`שיעור ${i+1}: ${L.title}`;
+  ls.innerHTML=c.lessons.map((l,j)=>`<button class="${j===i?'on':''}" onclick="show(${j})"><span class="n">${j+1}</span>${l.title}</button>`).join('');
+  prev.style.visibility=i?'visible':'hidden';next.style.visibility=i<c.lessons.length-1?'visible':'hidden';
+}
+prev.onclick=()=>show(i-1);next.onclick=()=>show(i+1);show(0);
+</script>
+</body>
+</html>
