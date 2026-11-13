@@ -1,0 +1,40 @@
+@font-face{font-family:FaHeebo;src:url(./heebo-hebrew-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+FB1D-FB4F}
+@font-face{font-family:FaHeebo;src:url(./heebo-latin-wght-normal.woff2) format("woff2");font-weight:100 900}
+.fa {
+  & .ss-stage { --gutter: 32px; overflow: hidden; border-radius: 14px; background: var(--ss-well); font-family: FaHeebo, system-ui, sans-serif; }
+  .fa-win { position: absolute; top: var(--gutter); left: var(--gutter); right: var(--gutter); height: 460px; }
+  .fa-page { display: flex; height: 100%; font-family: FaHeebo, system-ui, sans-serif; }
+  .fa-main { flex: 1; padding: 20px 22px; min-width: 0; }
+  .fa-kicker { font-size: 12px; color: var(--ss-text-faint); line-height: 1.3; }
+  .fa-title { font-size: 20px; font-weight: 600; margin-top: 4px; line-height: 1.3; color: var(--ss-text-strong); }
+  .fa-video { position: relative; margin-top: 14px; aspect-ratio: 2 / 1; border-radius: 10px; overflow: hidden; background: #14161c; }
+  .fa-video-art { position: absolute; inset: 0; background: radial-gradient(120% 90% at 70% 20%, #2b3350 0%, #14161c 60%); transition: filter .6s ease; }
+  .fa-video[data-playing] .fa-video-art { filter: brightness(1.25); }
+  .fa-slide { position: absolute; inset: 0; padding: 28px 30px; color: #fff; opacity: 0; transform: translateY(6px); transition: opacity .5s ease .2s, transform .6s cubic-bezier(.2,.8,.2,1) .2s; }
+  .fa-slide[data-show] { opacity: 1; transform: none; }
+  .fa-slide-k { font-size: 12px; color: rgba(255,255,255,.6); line-height: 1.3; }
+  .fa-slide-t { font-size: 22px; font-weight: 600; margin-top: 6px; line-height: 1.25; max-width: 300px; }
+  .fa-slide-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; opacity: .35; }
+  .fa-play { position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: #fff; color: #14161c; display: grid; place-items: center; transition: opacity .25s ease, transform .25s ease; }
+  .fa-play svg { margin-left: 3px; }
+  .fa-play[data-hover] { transform: scale(1.06); }
+  .fa-play[data-hide] { opacity: 0; transform: scale(.9); }
+  .fa-track { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.18); }
+  .fa-fill { height: 100%; background: #fff; transform-origin: right; transition: transform 3s linear; }
+  .fa-actions { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+  .fa-done { flex: none; }
+  .fa-next { font-size: 13px; color: var(--ss-accent); }
+  .fa-side { width: 200px; flex: none; border-right: 1px solid var(--ss-line); background: var(--ss-surface); padding: 16px 12px; }
+  .fa-side-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 600; padding: 0 4px 10px; color: var(--ss-text-strong); }
+  .fa-count { gap: 4px; font-weight: 400; color: var(--ss-text-faint); display: inline-flex; }
+  .fa-lesson { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-radius: 8px; font-size: 13px; }
+  .fa-lesson[data-current] { background: var(--ss-well); }
+  .fa-lesson-t { line-height: 1.3; }
+  .fa-signup { position: absolute; left: 50%; top: 96px; width: 280px; margin-left: -140px; padding: 20px 20px 20px; border-radius: 14px; background: var(--ss-raised, #fff); box-shadow: var(--ss-shadow-hero); text-align: center; opacity: 0; transform: translateY(8px) scale(.98); transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1); pointer-events: none; font-family: FaHeebo, system-ui, sans-serif; }
+  .fa-signup[data-show] { opacity: 1; transform: none; }
+  .fa-signup { will-change: transform; }
+  .fa-signup-title { font-size: 17px; font-weight: 600; line-height: 1.3; }
+  .fa-signup-sub { font-size: 12px; color: var(--ss-text-faint); margin-top: 4px; line-height: 1.3; }
+  .fa-google { margin-top: 16px; display: flex; gap: 8px; align-items: center; justify-content: center; height: 38px; border-radius: 8px; border: 1px solid var(--ss-line); font-size: 13px; font-weight: 500; transition: background .15s ease; }
+  .fa-google[data-hover] { background: var(--ss-well); }
+}
