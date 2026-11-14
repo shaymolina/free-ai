@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]><html lang="he" dir="rtl"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="he" dir="rtl">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>בדיקת אבטחה לאתר ולאפליקציה – סקיל ל-Claude | Free AI</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="סקיל חינמי ל-Claude שבודק 34 פרצות אבטחה באתר או באפליקציה שבניתם עם AI ונותן דוח אדום / כתום / ירוק בעברית.">
+
+    <!-- font -->
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/icon/icomoon/style.css">
+    <!-- css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/slick.theme.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css">
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+    <style>
+        .list-tags span.tags-item { display: flex; align-items: center; padding: 7px 15px; border-radius: 99px;
+            color: var(--neutral-300); background: var(--neutral-700); border: 1px solid var(--neutral-600); }
+        .skill-example { display: flex; align-items: center; gap: 24px; margin-top: 12px; }
+        .skill-example .example-box { flex: 1; padding: 32px; border-radius: 24px; background: var(--neutral-100); }
+        .skill-example .example-box.dark { background: #18181B; }
+        .skill-example .example-arrow { font-size: 28px; transform: rotate(-135deg); }
+        @media (max-width: 767px) {
+            .skill-example { flex-direction: column; align-items: stretch; }
+            .skill-example .example-arrow { align-self: center; transform: rotate(135deg); }
+        }
+    </style>
+</head>
+
+<body class="">
+    <canvas class="cursor-trail" id="trail" style="display: none;"></canvas>
+
+    <!-- Scroll Top -->
+    <button id="goTop">
+        <span class="border-progress"></span>
+        <span class="ic-wrap">
+            <span class="icon icon-long-arrow-alt-up-solid"></span>
+        </span>
+    </button>
+    <!-- /Scroll Top -->
+
+    <!-- #wrapper -->
+    <main id="wrapper">
+
+        <!-- Header -->
+        <header class="tf-header header2">
+            <div class="header-inner">
+                <a href="index.html" class="logo-site">
+                    <img src="assets/images/logo/logo.svg" alt="Free AI">
+                </a>
+                <div class="box-navigation">
+                    <ul class="nav-menu-main">
+                        <li class="menu-item">
+                            <a href="index.html" class="item-link link1">דף הבית</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="service.html" class="item-link link1">קורסים</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="work.html" class="item-link link1 active">סקילים</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="blog-standard.html" class="item-link link1">בלוג</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="about.html" class="item-link link1">עליי</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="contact.html" class="item-link link1">צור קשר</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="contact.html#signup" class="tf-btn d-lg-flex d-none">
+                    הרשמה חינם
+                </a>
+                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
+                    <i class="icon icon-grip-lines-solid"></i>
+                </a>
+            </div>
+        </header>
+        <!-- /Header -->
+        <!-- Hero Banner -->
+        <div class="section-hero v2">
+            <div class="hero-image">
+            </div>
+            <div class="container">
+                <div class="content-wrap text-center">
+                    <div class="title text-display-2 effectFade fadeRotateX">
+                        <span class="title1 fw-semibold text-gradient-1">בדיקת אבטחה</span>
+                        <br>
+                        <div class="title2 d-flex gap-20 justify-content-center flex-wrap">
+                            <span class="fw-semibold text-gradient-1">לאתר ולאפליקציה</span>
+                            <div class="title-icon">
+                                <div class="box"></div>
+                                <div class="title-icon-wrap">
+                                    <img src="assets/images/item/item-13.svg" alt="" class="img-1 img-transform-3">
+                                    <img src="assets/images/item/item-14.svg" alt="" class="img-2 img-transform-3">
+                                    <img src="assets/images/item/item-15.svg" alt="" class="img-3 img-transform-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text effectFade fadeUp">
+                        סקיל ל-Claude שבודק 34 פרצות אבטחה באתר או באפליקציה שבניתם עם AI, <br> ונותן דוח אדום / כתום / ירוק בעברית פשוטה.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /Hero Banner -->
+        <!-- section-work-single -->
+        <div id="works" class="section-work-single flat-spacing pt-0">
+            <div class="container">
+                <div class="row mb-32">
+                    <div class="col-12">
+                        <div class="wrap-image mb-60 effectFade fadeZoom">
+                            <img src="assets/images/section/work-single-1.jpg" alt="">
+                        </div>
+                        <h2 class="heading fw-semibold mb-32 effectFade fadeUp">מה הסקיל עושה</h2>
+                        <p class="text-secondary effectFade fadeUp">
+                            בניתם אתר או אפליקציה עם Lovable, Bolt, Base44 או Claude Code? הכלים האלה בונים מהר, אבל לא תמיד סוגרים את כל הדלתות.
+                            הסקיל הזה מלמד את Claude לעבור על 34 פרצות אבטחה נפוצות – ולהסביר כל בעיה בעברית פשוטה, בלי מונחים טכניים.
+                            <br><br>
+                            בסוף מקבלים דוח בצבעים: אדום – לתקן עכשיו, כתום – לתקן בקרוב, ירוק – תקין. כך יודעים בדיוק מה לתקן קודם.
+                        </p>
+                    </div>
+                </div>
+                <div class="row mb-60">
+                    <div class="col-md-8 md-mb-24">
+                        <div class="text-body-1 fw-semibold text-secondary mb-15 effectFade fadeUp">
+                            מתאים לאתרים שנבנו עם
+                        </div>
+                        <div class="list-tags effectFade fadeUp">
+                            <span class="tags-item fw-semibold">Lovable</span>
+                            <span class="tags-item fw-semibold">Bolt</span>
+                            <span class="tags-item fw-semibold">Base44</span>
+                            <span class="tags-item fw-semibold">Claude Code</span>
+                            <span class="tags-item fw-semibold">ועוד</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-body-1 fw-semibold text-secondary mb-15 effectFade fadeUp" data-delay="0.1">
+                            קטגוריה
+                        </div>
+                        <div class="list-tags effectFade fadeUp" data-delay="0.1">
+                            <a href="work.html" class="tags-item fw-semibold">אבטחה</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-60">
+                    <div class="col-12">
+                        <h2 class="heading fw-semibold mb-20 effectFade fadeUp">דוגמה לשימוש</h2>
+                        <div class="skill-example effectFade fadeUp">
+                            <div class="example-box">
+                                <div class="text-body-1 fw-semibold text-secondary mb-12">כותבים ל-Claude</div>
+                                <h5 class="fw-semibold">"תבדוק לי את האבטחה של האתר"</h5>
+                            </div>
+                            <i class="icon icon-arrow-top-right example-arrow"></i>
+                            <div class="example-box dark">
+                                <div class="text-body-1 fw-semibold text-neutral-400 mb-12">מקבלים</div>
+                                <h5 class="fw-semibold text-white">רשימה של כל החורים באתר, מסודרת לפי דחיפות – ומה לתקן קודם.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-60">
+                    <div class="col-12">
+                        <div class="wrap-image effectFade fadeZoom">
+                            <img src="assets/images/section/work-single-2.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="heading fw-semibold mb-20 effectFade fadeUp">הורדה והתקנה</h2>
+                        <p class="text-secondary effectFade fadeUp">
+                            הסקיל חינמי. נרשמים, מורידים קובץ ZIP ומעלים אותו ל-Claude – כל התהליך לוקח פחות מדקה.
+                            לא בטוחים איך? <a href="blog-single.html" class="link-underline">המדריך "איך מתקינים סקיל"</a> מסביר צעד אחרי צעד.
+                            רוצים לראות מה יש בפנים לפני שמתקינים? כל הקוד פתוח ב-GitHub.
+                        </p>
+                        <div class="d-flex gap-16 flex-wrap mt-4 effectFade fadeUp">
+                            <a href="contact.html#signup" class="tf-btn" data-download="https://github.com/openforge-lab/website-security/archive/refs/heads/main.zip">
+                                הורדה חינם
+                            </a>
+                            <a href="https://github.com/openforge-lab/website-security" class="tf-btn-2" target="_blank" rel="noopener">
+                                קוד המקור ב-GitHub
+                            </a>
+                            <a href="blog-single.html" class="tf-btn-2">
+                                איך מתקינים סקיל
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /section-work-single -->
+        <!-- section-featured-works -->
+        <div class="section-featured-works flat-spacing">
+            <div class="container">
+                <div class="heading-section center mb-64">
+                    <div class="heading-sub fw-semibold effectFade fadeUp">עוד סקיל</div>
+                    <div class="heading-title text-gradient-3 effectFade fadeRotateX">גם זה בחינם</div>
+                </div>
+                <div class="featured-works-list position-relative">
+                    <div class="element effectFade fadeUp">
+                        <div class="featured-works-item">
+                            <div class="image main-mouse-hover">
+                                <img src="assets/images/section/featured-works-2.jpg" alt="בדיקת מהירות לאתר">
+                                <a href="contact.html#signup" class="tf-mouse view-project h6">
+                                    הורדה חינם
+                                    <i class="icon icon-arrow-top-right"></i>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <div class="pagi-dot">
+                                    <span></span>
+                                    <span class="active"></span>
+                                </div>
+                                <div class="bot">
+                                    <h4 class="heading fw-semibold">בדיקת מהירות <br> לאתר</h4>
+                                    <div class="grid-text">
+                                        <div class="item">
+                                            <div class="title text-secondary">מה הוא עושה</div>
+                                            <div class="text-body-3 fw-semibold">בודק 69 דברים שמאטים את האתר, כולל מיקום השרת מול הגולשים בישראל, ומדרג תיקונים לפי כמה שניות כל אחד חוסך.</div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="title text-secondary">כותבים ל-Claude</div>
+                                            <div class="fw-semibold text-body-3">"האתר שלי איטי, תבדוק"</div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="title text-secondary">קטגוריה</div>
+                                            <div class="fw-semibold text-body-3">ביצועים</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-5">
+                    <a href="work.html" class="tf-btn-2 effectFade fadeUp">לכל הסקילים</a>
+                </div>
+            </div>
+        </div>
+        <!-- /section-featured-works -->
+        <!-- footer -->
+        <footer>
+            <div class="footer-image">
+                <img class="effectFade fadeUp" src="assets/images/logo/logo-footer.png" alt="">
+            </div>
+            <div class="container">
+                <div class="footer-content">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/images/logo/logo-2.svg" alt="Free AI">
+                    </a>
+                    <div class="title h6 fw-semibold">כל הידע של AI. <br> פתוח לכולם, בחינם.</div>
+                    <div class="text">שיעור חדש עולה כל שבוע.</div>
+                    <div class="tf-social-1 justify-content-center">
+                        <a href="service.html" class="text-body-1 fw-semibold">
+                            קורסים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="work.html" class="text-body-1 fw-semibold">
+                            סקילים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="blog-standard.html" class="text-body-1 fw-semibold">
+                            מדריכים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="contact.html" class="text-body-1 fw-semibold">
+                            צור קשר
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <ul class="footer-links d-flex gap-24 align-items-center">
+                        <li>
+                            <a href="about.html" class="fw-semibold link-underline link1">עליי</a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="fw-semibold link-underline link1">צור קשר</a>
+                        </li>
+                        <li>
+                            <a href="privacy.html" class="fw-semibold link-underline link1">פרטיות</a>
+                        </li>
+                        <li>
+                            <a href="terms.html" class="fw-semibold link-underline link1">תנאי שימוש</a>
+                        </li>
+                    </ul>
+                    <p class="text-secondary coppy-rights text-center">© 2026 Free AI. כל הזכויות שמורות.</p>
+                    <a href="#" class="action-go-top d-flex gap-8 align-items-center justify-content-end link1">
+                        <span class="fw-semibold">חזרה למעלה</span>
+                        <i class="icon icon-long-arrow-alt-up-solid fs-20"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <!-- /footer -->
+    </main>
+    <!-- /wrapper -->
+
+    <!-- Mobile Menu -->
+    <div class="offcanvas-menu">
+        <div class="offcanvas-content">
+            <div class="container h-100">
+                <div class="offcanvas-content_wrapin">
+                    <div class="canvas_head">
+                        <a href="index.html" class="logo-site">
+                            <img src="assets/images/logo/logo-2.svg" alt="Free AI" style="height:48px">
+                        </a>
+                        <div class="btn-mobile-menu close-mb-menu text-caption link">
+                            <i class="icon icon-close"></i>
+                            סגירה
+                        </div>
+                    </div>
+                    <div class="canvas_center">
+                        <ul class="nav-ul-mb" id="mobile-menu">
+                            <li>
+                                <div class="item">
+                                    <a href="index.html" class="mb-menu-link text-display-1">
+                                        <span class="text">דף הבית</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="service.html" class="mb-menu-link text-display-1">
+                                        <span class="text">קורסים</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="work.html" class="mb-menu-link text-display-1">
+                                        <span class="text">סקילים</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="blog-standard.html" class="mb-menu-link text-display-1">
+                                        <span class="text">בלוג</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="about.html" class="mb-menu-link text-display-1">
+                                        <span class="text">עליי</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="contact.html" class="mb-menu-link text-display-1">
+                                        <span class="text">צור קשר</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="canvas_foot">
+                        <div class="left">
+                            <a href="contact.html#signup" class="text-caption text-neutral-200">הרשמה חינם</a>
+                            <p class="text-caption text-neutral-200">
+                                ישראל <span class="clock"></span>
+                            </p>
+                        </div>
+                        <div class="right">
+                            <a href="work.html" class="tf-link-icon text-caption text-neutral-200">
+                                <i class="icon icon-arrow-top-right"></i>
+                                סקילים
+                            </a>
+                            <a href="blog-standard.html" class="tf-link-icon text-caption text-neutral-200">
+                                <i class="icon icon-arrow-top-right"></i>
+                                מדריכים
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Mobile Menu -->
+
+    <!-- Javascript -->
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    
+    <script src="assets/js/carousel.js"></script>
+    <script src="assets/js/infinityslide.js"></script>
+    <script src="assets/js/ScrollSmooth.js"></script>
+    <script src="assets/js/gsap.min.js"></script>
+    
+    <script src="assets/js/ScrollTrigger.min.js"></script>
+    <script src="assets/js/ScrollToPlugin.min.js"></script>
+    <script src="assets/js/gsapAnimation.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]><html lang="he" dir="rtl"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="he" dir="rtl">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>איך מתקינים סקיל ב-Claude – המדריך הקצר | Free AI</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="מה זה סקיל ב-Claude, איך מתקינים אותו מקובץ zip דרך ההגדרות, ואיך משתמשים בו בשיחה חדשה. מדריך קצר בעברית.">
+
+    <!-- font -->
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/icon/icomoon/style.css">
+    <!-- css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/slick.theme.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css">
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+    <style>
+        /* blog – RTL */
+        .article-blog .infor_name { -webkit-line-clamp: 2; }
+        .article-blog .infor_excerpt { margin-top: 10px; -webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; overflow: hidden; }
+        .article-blog .tf-btn-2 .icon { transform: scaleX(-1); }
+        .sidebar-cta .text { margin-bottom: 20px; }
+        @media (min-width: 426px) { .article-blog.style-horizontal .blog-image { flex: 0 0 300px; } }
+        .blog-single-wrap .article-body { display: flex; flex-direction: column; gap: 20px; }
+        .blog-single-wrap .article-body h2 { font-size: 28px; line-height: 1.3; margin: 16px 0 0; }
+        .blog-single-wrap .article-body ol, .blog-single-wrap .article-body ul { padding-right: 22px; padding-left: 0; display: flex; flex-direction: column; gap: 10px; }
+        .blog-single-wrap .article-body ol { list-style: decimal; }
+        .blog-single-wrap .article-body ul { list-style: disc; }
+        .blog-single-wrap .article-body li { display: list-item; list-style: inherit; }
+        .blog-single-wrap .article-body li::marker { color: var(--primary); font-weight: 600; }
+        .blog-single-wrap .article-body a:not(.tf-btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+        .blog-single-wrap .path { direction: rtl; unicode-bidi: isolate; font-weight: 600; }
+        .blockquote-wrap { padding: 56px 56px 64px 39px; }
+        .blockquote-wrap svg { right: auto; left: 40px; }
+        .blockquote-wrap .tf-btn-2 { margin-top: 24px; position: relative; z-index: 1; }
+        .blockquote-wrap p { position: relative; z-index: 1; }
+        .entry-footer .tags-links { max-width: none; }
+        .legal-wrap .updated { color: var(--neutral-400); }
+        @media (max-width: 767px) {
+            .blockquote-wrap { padding: 36px 24px 76px; }
+            .blog-single-wrap .article-body h2 { font-size: 23px; }
+        }
+    </style>
+</head>
+
+<body class="">
+    <canvas class="cursor-trail" id="trail" style="display: none;"></canvas>
+
+    <!-- Scroll Top -->
+    <button id="goTop">
+        <span class="border-progress"></span>
+        <span class="ic-wrap">
+            <span class="icon icon-long-arrow-alt-up-solid"></span>
+        </span>
+    </button>
+    <!-- /Scroll Top -->
+
+    <!-- #wrapper -->
+    <main id="wrapper">
+
+        <!-- Header -->
+        <header class="tf-header header2">
+            <div class="header-inner">
+                <a href="index.html" class="logo-site">
+                    <img src="assets/images/logo/logo.svg" alt="Free AI">
+                </a>
+                <div class="box-navigation">
+                    <ul class="nav-menu-main">
+                        <li class="menu-item">
+                            <a href="index.html" class="item-link link1">דף הבית</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="service.html" class="item-link link1">קורסים</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="work.html" class="item-link link1">סקילים</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="blog-standard.html" class="item-link link1 active">בלוג</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="about.html" class="item-link link1">עליי</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="contact.html" class="item-link link1">צור קשר</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="contact.html#signup" class="tf-btn d-lg-flex d-none">
+                    הרשמה חינם
+                </a>
+                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
+                    <i class="icon icon-grip-lines-solid"></i>
+                </a>
+            </div>
+        </header>
+        <!-- /Header -->
+        <!-- page-title -->
+        <div class="section-page-title">
+            <div class="container text-center">
+                <h1 class="page-title fw-semibold effectFade fadeZoom">מדריכים</h1>
+                <div class="breadcrumbs effectFade fadeUp">
+                    <a href="index.html" class="link1">דף הבית</a>
+                    <div>/</div>
+                    <a href="blog-standard.html" class="link1">בלוג</a>
+                    <div>/</div>
+                    <div>סקילים</div>
+                </div>
+            </div>
+        </div>
+        <!-- /page-title -->
+        <!-- Blog With Sidebar -->
+        <section class="section-blog flat-spacing">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-lg-7">
+                        <div class="blog-single-wrap">
+                            <h2 class="h3 fw-semibold mb-0">איך מתקינים סקיל ב-Claude – המדריך הקצר</h2>
+                            <div class="image effectFade fadeZoom">
+                                <img loading="lazy" width="777" height="548" src="assets/images/blog/blog-4.jpg" alt="איך מתקינים סקיל ב-Claude – המדריך הקצר">
+                            </div>
+                            <div class="meta-list">
+                                <div class="meta-item">
+                                    <i class="icon icon-user-solid"></i>
+                                    <span>Free AI</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="icon icon-clock-solid"></i>
+                                    <span>14 בנובמבר 2026</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="icon icon-book-open-solid"></i>
+                                    <span>3 דקות קריאה</span>
+                                </div>
+                            </div>
+                            <div class="article-body text-body-2">
+                                <p>סקיל הוא דרך ללמד את Claude לעשות משימה מסוימת בדיוק כמו שאתם רוצים – בכל פעם מחדש, בלי להסביר מההתחלה. במדריך הזה תראו מה זה סקיל, איך מתקינים אותו בכמה לחיצות ואיך משתמשים בו בשיחה.</p>
+
+                                <h2 class="fw-semibold">מה זה סקיל?</h2>
+                                <p>סקיל (Skill) הוא תיקייה קטנה עם הוראות, ולפעמים גם קבצים ותסריטים, שמסבירה ל-Claude איך לבצע משימה אחת: לבדוק אבטחה של אתר, למדוד מהירות, לכתוב מסמך בפורמט קבוע ועוד. התיקייה מגיעה כקובץ zip.</p>
+                                <p>היתרון הגדול: Claude טוען את הסקיל רק כשהוא רלוונטי. אתם לא צריכים להדביק פרומפט ארוך או לזכור את כל השלבים – מספיק לבקש את המשימה במילים רגילות.</p>
+
+                                <h2 class="fw-semibold">איך מתקינים סקיל – צעד אחרי צעד</h2>
+                                <ol>
+                                    <li>מורידים את קובץ ה-zip של הסקיל. לא צריך לפתוח אותו.</li>
+                                    <li>נכנסים ל-Claude ולוחצים על השם שלכם בפינה, ואז על <span class="path">הגדרות</span> (Settings).</li>
+                                    <li>עוברים ללשונית <span class="path">יכולות</span> (Capabilities) וגוללים לאזור <span class="path">סקילים</span> (Skills).</li>
+                                    <li>לוחצים על <span class="path">העלאת סקיל</span> (Upload skill) ובוחרים את קובץ ה-zip.</li>
+                                    <li>מוודאים שהמתג שליד הסקיל החדש דלוק.</li>
+                                </ol>
+                                <p>לא רואים את אזור הסקילים? בדקו שבאותו מסך מופעלת גם האפשרות של יצירת קבצים והרצת קוד – סקילים נשענים עליה.</p>
+
+                                <h2 class="fw-semibold">איך משתמשים בסקיל</h2>
+                                <p>פותחים שיחה חדשה ומבקשים את המשימה בשפה רגילה. למשל, אחרי שהתקנתם את סקיל בדיקת האבטחה, כותבים: "תבדוק את האבטחה של האתר שלי" ומצרפים את הקבצים או את הכתובת. Claude מזהה לבד שיש לו סקיל מתאים ומשתמש בו.</p>
+                                <p>כדאי לפתוח שיחה חדשה אחרי ההתקנה, כדי ש-Claude יכיר את הסקיל מההתחלה. רוצים להפסיק להשתמש בו? מכבים את המתג באותו מסך, או מוחקים אותו.</p>
+                            </div>
+                            <div class="blockquote-wrap">
+                                <h5 class="fw-medium text-white">טיפ אבטחה: סקיל יכול להריץ קוד. התקינו רק סקילים ממקור שאתם סומכים עליו, ואם יש לכם ספק – פתחו את הקבצים ובדקו מה כתוב בהם.</h5>
+                                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M44.375 70.4063V41.0938C44.375 33.0729 47.0729 26.3646 52.4687 20.9688C58.0104 15.4271 65.5208 11.6354 75 9.59375V29.0625C71.3542 30.2292 68.9479 31.6875 67.7812 33.4375C66.6146 35.0417 65.9583 37.0833 65.8125 39.5625H75V70.4063H44.375ZM5 70.4063V41.0938C5 33.0729 7.69792 26.3646 13.0938 20.9688C18.6354 15.4271 26.1458 11.6354 35.625 9.59375V29.0625C32.125 30.2292 29.7187 31.6875 28.4062 33.4375C27.2396 35.0417 26.5833 37.0833 26.4375 39.5625H35.625V70.4063H5Z" fill="#27272A"/>
+                                </svg>
+                            </div>
+                            <div class="article-body text-body-2">
+                                <h2 class="fw-semibold">מאיפה מביאים סקילים?</h2>
+                                <p>ב<a href="work.html">ספריית הסקילים של Free AI</a> תמצאו סקילים מוכנים בעברית – למשל בדיקת אבטחה לאתר ובדיקת מהירות לאתר. כל סקיל מגיע עם הסבר קצר, קובץ להורדה ודוגמה לשימוש.</p>
+                            </div>
+                            <div class="blockquote-wrap">
+                                <h5 class="fw-semibold text-white">רוצים ללמוד את כל זה לעומק?</h5>
+                                <p class="text-body-2 text-secondary mt-12">נרשמים בחינם ומקבלים גישה לקורס Claude מאפס, לכל הסקילים ולקבצים להורדה. בלי כרטיס אשראי.</p>
+                                <a href="contact.html#signup" class="tf-btn-2">הרשמה חינם</a>
+                            </div>
+                            <div class="entry-footer">
+                                <div class="tags-links">
+                                    <h6 class="text-body-1">נושאים:</h6>
+                                    <div class="list-tags">
+                                        <a href="blog-standard.html" class="tags-item fw-semibold">Claude</a>
+                                        <a href="blog-standard.html" class="tags-item fw-semibold">סקילים</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog-sidebar m-lg-0">
+                            <div class="sidebar-item effectFade fadeUp no-div">
+                                <h5 class="sidebar-title">
+                                    מדריכים אחרונים
+                                </h5>
+                                <div class="list-relatest-post">
+                                    <div class="relatest-post-item">
+                                        <div class="image">
+                                            <img loading="lazy" width="80" height="80" src="assets/images/blog/blog-1.jpg" alt="איך מתקינים סקיל ב-Claude – המדריך הקצר">
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title text-body-1">
+                                                <a href="blog-single.html" class="link1">
+                                                    איך מתקינים סקיל ב-Claude – המדריך הקצר
+                                                </a>
+                                            </h6>
+                                            <p class="time text-body-3 text-white-64">14 בנובמבר 2026</p>
+                                        </div>
+                                    </div>
+                                    <div class="relatest-post-item">
+                                        <div class="image">
+                                            <img loading="lazy" width="80" height="80" src="assets/images/blog/blog-2.jpg" alt="מה זה Claude ואיך מתחילים">
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title text-body-1">
+                                                <a href="blog-single.html" class="link1">
+                                                    מה זה Claude ואיך מתחילים
+                                                </a>
+                                            </h6>
+                                            <p class="time text-body-3 text-white-64">14 בנובמבר 2026</p>
+                                        </div>
+                                    </div>
+                                    <div class="relatest-post-item">
+                                        <div class="image">
+                                            <img loading="lazy" width="80" height="80" src="assets/images/blog/blog-3.jpg" alt="איך בוחרים אחסון לאתר שבניתם עם AI">
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title text-body-1">
+                                                <a href="blog-single.html" class="link1">
+                                                    איך בוחרים אחסון לאתר שבניתם עם AI
+                                                </a>
+                                            </h6>
+                                            <p class="time text-body-3 text-white-64">14 בנובמבר 2026</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar-item effectFade fadeUp no-div">
+                                <h5 class="sidebar-title">
+                                    נושאים
+                                </h5>
+                                <div class="sidebar-categories">
+                                    <div class="item">
+                                        <a href="blog-standard.html" class="text-body-1 link1">Claude</a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="blog-standard.html" class="text-body-1 link1">סקילים</a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="blog-standard.html" class="text-body-1 link1">Lovable</a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="blog-standard.html" class="text-body-1 link1">n8n</a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="blog-standard.html" class="text-body-1 link1">אחסון</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar-item sidebar-cta effectFade fadeUp no-div">
+                                <h5 class="sidebar-title">
+                                    לומדים בחינם
+                                </h5>
+                                <p class="text text-body-2 text-secondary">קורסים מלאים בעברית, קבצים להורדה וסקילים מוכנים לעבודה עם Claude. ההרשמה לוקחת פחות מדקה.</p>
+                                <a href="contact.html#signup" class="tf-btn w-100">הרשמה חינם</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /Blog With Sidebar -->
+        <!-- footer -->
+        <footer>
+            <div class="footer-image">
+                <img class="effectFade fadeUp" src="assets/images/logo/logo-footer.png" alt="">
+            </div>
+            <div class="container">
+                <div class="footer-content">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/images/logo/logo-2.svg" alt="Free AI">
+                    </a>
+                    <div class="title h6 fw-semibold">כל הידע של AI. <br> פתוח לכולם, בחינם.</div>
+                    <div class="text">שיעור חדש עולה כל שבוע.</div>
+                    <div class="tf-social-1 justify-content-center">
+                        <a href="service.html" class="text-body-1 fw-semibold">
+                            קורסים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="work.html" class="text-body-1 fw-semibold">
+                            סקילים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="blog-standard.html" class="text-body-1 fw-semibold">
+                            מדריכים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="contact.html" class="text-body-1 fw-semibold">
+                            צור קשר
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <ul class="footer-links d-flex gap-24 align-items-center">
+                        <li>
+                            <a href="about.html" class="fw-semibold link-underline link1">עליי</a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="fw-semibold link-underline link1">צור קשר</a>
+                        </li>
+                        <li>
+                            <a href="privacy.html" class="fw-semibold link-underline link1">פרטיות</a>
+                        </li>
+                        <li>
+                            <a href="terms.html" class="fw-semibold link-underline link1">תנאי שימוש</a>
+                        </li>
+                    </ul>
+                    <p class="text-secondary coppy-rights text-center">© 2026 Free AI. כל הזכויות שמורות.</p>
+                    <a href="#" class="action-go-top d-flex gap-8 align-items-center justify-content-end link1">
+                        <span class="fw-semibold">חזרה למעלה</span>
+                        <i class="icon icon-long-arrow-alt-up-solid fs-20"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <!-- /footer -->
+    </main>
+    <!-- Mobile Menu -->
+    <div class="offcanvas-menu">
+        <div class="offcanvas-content">
+            <div class="container h-100">
+                <div class="offcanvas-content_wrapin">
+                    <div class="canvas_head">
+                        <a href="index.html" class="logo-site">
+                            <img src="assets/images/logo/logo-2.svg" alt="Free AI" style="height:48px">
+                        </a>
+                        <div class="btn-mobile-menu close-mb-menu text-caption link">
+                            <i class="icon icon-close"></i>
+                            סגירה
+                        </div>
+                    </div>
+                    <div class="canvas_center">
+                        <ul class="nav-ul-mb" id="mobile-menu">
+                            <li>
+                                <div class="item">
+                                    <a href="index.html" class="mb-menu-link text-display-1">
+                                        <span class="text">דף הבית</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="service.html" class="mb-menu-link text-display-1">
+                                        <span class="text">קורסים</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="work.html" class="mb-menu-link text-display-1">
+                                        <span class="text">סקילים</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="blog-standard.html" class="mb-menu-link text-display-1">
+                                        <span class="text">בלוג</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="about.html" class="mb-menu-link text-display-1">
+                                        <span class="text">עליי</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="contact.html" class="mb-menu-link text-display-1">
+                                        <span class="text">צור קשר</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="canvas_foot">
+                        <div class="left">
+                            <a href="contact.html#signup" class="text-caption text-neutral-200">הרשמה חינם</a>
+                            <p class="text-caption text-neutral-200">
+                                ישראל <span class="clock"></span>
+                            </p>
+                        </div>
+                        <div class="right">
+                            <a href="work.html" class="tf-link-icon text-caption text-neutral-200">
+                                <i class="icon icon-arrow-top-right"></i>
+                                סקילים
+                            </a>
+                            <a href="blog-standard.html" class="tf-link-icon text-caption text-neutral-200">
+                                <i class="icon icon-arrow-top-right"></i>
+                                מדריכים
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Mobile Menu -->
+
+    <!-- Javascript -->
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    
+    <script src="assets/js/carousel.js"></script>
+    <script src="assets/js/infinityslide.js"></script>
+    <script src="assets/js/ScrollSmooth.js"></script>
+    <script src="assets/js/gsap.min.js"></script>
+    
+    <script src="assets/js/ScrollTrigger.min.js"></script>
+    <script src="assets/js/ScrollToPlugin.min.js"></script>
+    <script src="assets/js/gsapAnimation.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+/* Free AI – התאמות לעברית ולכיוון ימין-לשמאל */
+body { text-align: right; }
+.text-center, .center { text-align: center; }
+.tool-name { font-size: 26px; font-weight: 700; color: var(--neutral-400); white-space: nowrap; padding: 0 32px; direction: ltr; }
+.awards-item .skill-icon { font-size: 30px; color: var(--white); }
+.section-process .group-btn-slider { flex-direction: row-reverse; justify-content: flex-end; }

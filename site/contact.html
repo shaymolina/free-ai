@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]><html lang="he" dir="rtl"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="he" dir="rtl">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>צור קשר והרשמה – Free AI</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="נרשמים בחינם ל-Free AI ומתחילים ללמוד AI בעברית. שאלה? כתבו לנו בוואטסאפ.">
+
+    <!-- font -->
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/icon/icomoon/style.css">
+    <!-- css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/slick.theme.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css">
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+
+    <style>
+        /* תיקוני RTL לעמוד */
+        .section-hero .content-wrap .text { text-wrap: balance; }
+        .form-contact input[dir="ltr"] { text-align: right; }
+        .form-contact input[dir="ltr"]::placeholder { text-align: right; }
+        .awards-item .skill-icon { font-size: 30px; color: var(--white); }
+        .tool-wrap .free-ai-center { width: 204px; height: 70px; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 50% 0, #3a3a3a, #272727); color: #fff; font-size: 28px; font-weight: 600; direction: ltr; }
+        @media (max-width: 767px) { .tool-wrap .free-ai-center { width: 100px; height: 34px; font-size: 14px; } }
+        .box-quotes .image img.quote-neutral { object-fit: cover; height: 100%; }
+    </style>
+</head>
+
+<body class="">
+    <canvas class="cursor-trail" id="trail" style="display: none;"></canvas>
+
+    <!-- Scroll Top -->
+    <button id="goTop">
+        <span class="border-progress"></span>
+        <span class="ic-wrap">
+            <span class="icon icon-long-arrow-alt-up-solid"></span>
+        </span>
+    </button>
+    <!-- /Scroll Top -->
+
+    <!-- #wrapper -->
+    <main id="wrapper">
+
+        <!-- Header -->
+        <header class="tf-header header2">
+            <div class="header-inner">
+                <a href="index.html" class="logo-site">
+                    <img src="assets/images/logo/logo.svg" alt="Free AI">
+                </a>
+                <div class="box-navigation">
+                    <ul class="nav-menu-main">
+                        <li class="menu-item">
+                            <a href="index.html" class="item-link link1">דף הבית</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="service.html" class="item-link link1">קורסים</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="work.html" class="item-link link1">סקילים</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="blog-standard.html" class="item-link link1">בלוג</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="about.html" class="item-link link1">עליי</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="contact.html" class="item-link link1 active">צור קשר</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="contact.html#signup" class="tf-btn d-lg-flex d-none">
+                    הרשמה חינם
+                </a>
+                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
+                    <i class="icon icon-grip-lines-solid"></i>
+                </a>
+            </div>
+        </header>
+        <!-- /Header -->
+        <!-- Hero Banner -->
+        <div class="section-hero v1">
+            <div class="hero-image">
+            </div>
+            <div class="container">
+                <div class="content-wrap text-center">
+                    <div class="title text-display-2 effectFade fadeRotateX">
+                        <span class="title1 fw-semibold text-gradient-1">נרשמים פעם אחת.</span>
+                        <br>
+                        <div class="title2 d-flex gap-20 justify-content-center flex-wrap">
+                            <span class="fw-semibold text-gradient-1">לומדים לתמיד</span>
+                            <div class="title-icon">
+                                <div class="box"></div>
+                                <div class="title-icon-wrap">
+                                    <img src="assets/images/item/item-13.svg" alt="" class="img-1 img-transform-3">
+                                    <img src="assets/images/item/item-14.svg" alt="" class="img-2 img-transform-3">
+                                    <img src="assets/images/item/item-15.svg" alt="" class="img-3 img-transform-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text effectFade fadeUp">
+                        הרשמה חינם בפחות מדקה – בלי סיסמה ובלי כרטיס אשראי. <br> יש שאלה? כתבו לנו בוואטסאפ.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /Hero Banner -->
+        <!-- section-contact -->
+        <div id="contact" class="flat-spacing">
+            <div class="section-contact p-0">
+                <div class="container">
+                    <div class="row mb-60">
+                        <div class="col-md-4 md-mb-24">
+                            <div class="box-contact-item text-center effectFade fadeUp">
+                                <i class="icon icon-envelope-solid"></i>
+                                <h6 class="title fw-semibold">קוד כניסה למייל</h6>
+                                <p class="text">
+                                    בלי סיסמה – מקבלים קוד ונכנסים
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 md-mb-24">
+                            <div class="box-contact-item text-center effectFade fadeUp" data-delay="0.1">
+                                <i class="icon icon-comments-solid"></i>
+                                <h6 class="title fw-semibold">שאלה? כתבו לנו בוואטסאפ</h6>
+                                <a href="https://wa.me/" target="_blank" rel="noopener" class="text" data-whatsapp>
+                                    פתיחת שיחה
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box-contact-item text-center effectFade fadeUp" data-delay="0.2">
+                                <i class="icon icon-check-solid"></i>
+                                <h6 class="title fw-semibold">בחינם, לתמיד</h6>
+                                <p class="text">
+                                    בלי כרטיס אשראי ובלי מנוי
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 lg-mb-24">
+                            <div class="col-left p-0">
+                                <div class="mb-24">
+                                    <div class="heading-section mb-48">
+                                        <div class="heading-sub fw-semibold effectFade fadeUp">הרשמה</div>
+                                        <div class="heading-title text-gradient-3 effectFade fadeRotateX">
+                                            מתחילים מהשיעור <br> הראשון
+                                        </div>
+                                    </div>
+                                    <p class="text effectFade fadeUp">משאירים שם ומייל, מקבלים קוד כניסה, ומתחילים. ההרשמה שומרת לכם את ההתקדמות, פותחת את הסרטונים וההורדות, ומאפשרת לקבל תעודה בסוף כל מסלול.</p>
+                                </div>
+                                <div class="tf-social-1 gap-24 effectFade fadeRotateX">
+                                    <a href="https://wa.me/" target="_blank" rel="noopener" class="text-body-1 fw-semibold" data-whatsapp>
+                                        וואטסאפ
+                                        <div class="social-item">
+                                            <i class="icon icon-comments-solid"></i>
+                                        </div>
+                                    </a>
+                                    <a href="service.html" class="text-body-1 fw-semibold">
+                                        קורסים
+                                        <div class="social-item">
+                                            <i class="icon icon-arrow-top-right"></i>
+                                        </div>
+                                    </a>
+                                    <a href="work.html" class="text-body-1 fw-semibold">
+                                        סקילים
+                                        <div class="social-item">
+                                            <i class="icon icon-arrow-top-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <form class="form-contact m-0 effectFade fadeUp" id="signup" data-signup>
+                                <h4 class="heading fw-semibold">הרשמה חינם</h4>
+                                <fieldset class="mb-21">
+                                    <label class="fw-semibold text-body-3 mb-20" for="signup-name">שם מלא</label>
+                                    <input type="text" id="signup-name" name="name" autocomplete="name" placeholder="השם שיופיע בתעודה" required>
+                                </fieldset>
+                                <fieldset class="mb-21">
+                                    <label class="fw-semibold text-body-3 mb-20" for="signup-email">מייל</label>
+                                    <input type="email" id="signup-email" name="email" autocomplete="email" dir="ltr" placeholder="name@example.com" required>
+                                </fieldset>
+                                <button type="submit" class="tf-btn w-100">שלחו לי קוד כניסה</button>
+                                <p class="text-body-3 text-secondary mt-3 mb-0">בהרשמה אתם מסכימים ל<a href="terms.html" class="link-underline">תנאי השימוש</a> ול<a href="privacy.html" class="link-underline">מדיניות הפרטיות</a>.</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /section-contact -->
+        <!-- section-faqs -->
+        <div class="section-faqs flat-spacing">
+            <div class="container">
+                <div class="heading-section center mb-64">
+                    <div class="heading-sub fw-semibold effectFade fadeUp">שאלות נפוצות</div>
+                    <div class="heading-title text-gradient-3 effectFade fadeRotateX">
+                        שאלות <br>ותשובות
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="accordion-asked" id="accordion-asked">
+                            <div class="accordion-asked-item effectFade fadeRotateX">
+                                <div class="accordion-asked-title" id="asked1">
+                                    <button class="accordion-button text-body-1 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                        זה באמת בחינם?
+                                        <span class="right-icon"></span>
+                                    </button>
+                                </div>
+                                <div id="collapse1" role="region" class="accordion-collapse collapse show" aria-labelledby="asked1" data-bs-parent="#accordion-asked">
+                                    <div class="accordion-body">
+                                        כן. כל השיעורים, הקבצים, הסקילים והתעודות – בחינם, בלי כרטיס אשראי ובלי מנוי.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-asked-item effectFade fadeRotateX" data-delay="0.1">
+                                <div class="accordion-asked-title" id="asked2">
+                                    <button class="accordion-button text-body-1 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                        למה צריך להירשם?
+                                        <span class="right-icon"></span>
+                                    </button>
+                                </div>
+                                <div id="collapse2" role="region" class="accordion-collapse collapse" aria-labelledby="asked2" data-bs-parent="#accordion-asked">
+                                    <div class="accordion-body">
+                                        ההרשמה שומרת לכם את ההתקדמות, פותחת את הסרטונים וההורדות, ומאפשרת לקבל תעודה בסוף מסלול. היא לוקחת פחות מדקה.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-asked-item effectFade fadeRotateX" data-delay="0.2">
+                                <div class="accordion-asked-title" id="asked3">
+                                    <button class="accordion-button text-body-1 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                        לא קיבלתי קוד, מה עושים?
+                                        <span class="right-icon"></span>
+                                    </button>
+                                </div>
+                                <div id="collapse3" role="region" class="accordion-collapse collapse" aria-labelledby="asked3" data-bs-parent="#accordion-asked">
+                                    <div class="accordion-body">
+                                        חכו דקה ובדקו גם בתיקיית הספאם או קידומי מכירות. אם הקוד עדיין לא הגיע, בקשו קוד חדש או כתבו לנו בוואטסאפ.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-asked-item effectFade fadeRotateX" data-delay="0.3">
+                                <div class="accordion-asked-title" id="asked4">
+                                    <button class="accordion-button text-body-1 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                        מה תעשו עם המייל שלי?
+                                        <span class="right-icon"></span>
+                                    </button>
+                                </div>
+                                <div id="collapse4" role="region" class="accordion-collapse collapse" aria-labelledby="asked4" data-bs-parent="#accordion-asked">
+                                    <div class="accordion-body">
+                                        נשתמש בו כדי שתוכלו להיכנס לאתר ולשמור את ההתקדמות שלכם. לא נמכור אותו ולא נעביר אותו לאף אחד. כל הפרטים במדיניות הפרטיות.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /section-faqs -->
+        <!-- footer -->
+        <footer>
+            <div class="footer-image">
+                <img class="effectFade fadeUp" src="assets/images/logo/logo-footer.png" alt="">
+            </div>
+            <div class="container">
+                <div class="footer-content">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/images/logo/logo-2.svg" alt="Free AI">
+                    </a>
+                    <div class="title h6 fw-semibold">כל הידע של AI. <br> פתוח לכולם, בחינם.</div>
+                    <div class="text">שיעור חדש עולה כל שבוע.</div>
+                    <div class="tf-social-1 justify-content-center">
+                        <a href="service.html" class="text-body-1 fw-semibold">
+                            קורסים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="work.html" class="text-body-1 fw-semibold">
+                            סקילים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="blog-standard.html" class="text-body-1 fw-semibold">
+                            מדריכים
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                        <a href="contact.html" class="text-body-1 fw-semibold">
+                            צור קשר
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <ul class="footer-links d-flex gap-24 align-items-center">
+                        <li>
+                            <a href="about.html" class="fw-semibold link-underline link1">עליי</a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="fw-semibold link-underline link1">צור קשר</a>
+                        </li>
+                        <li>
+                            <a href="privacy.html" class="fw-semibold link-underline link1">פרטיות</a>
+                        </li>
+                        <li>
+                            <a href="terms.html" class="fw-semibold link-underline link1">תנאי שימוש</a>
+                        </li>
+                    </ul>
+                    <p class="text-secondary coppy-rights text-center">© 2026 Free AI. כל הזכויות שמורות.</p>
+                    <a href="#" class="action-go-top d-flex gap-8 align-items-center justify-content-end link1">
+                        <span class="fw-semibold">חזרה למעלה</span>
+                        <i class="icon icon-long-arrow-alt-up-solid fs-20"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <!-- /footer -->
+    </main>
+    <!-- /wrapper -->
+
+    <!-- Mobile Menu -->
+    <div class="offcanvas-menu">
+        <div class="offcanvas-content">
+            <div class="container h-100">
+                <div class="offcanvas-content_wrapin">
+                    <div class="canvas_head">
+                        <a href="index.html" class="logo-site">
+                            <img src="assets/images/logo/logo-2.svg" alt="Free AI" style="height:48px">
+                        </a>
+                        <div class="btn-mobile-menu close-mb-menu text-caption link">
+                            <i class="icon icon-close"></i>
+                            סגירה
+                        </div>
+                    </div>
+                    <div class="canvas_center">
+                        <ul class="nav-ul-mb" id="mobile-menu">
+                            <li>
+                                <div class="item">
+                                    <a href="index.html" class="mb-menu-link text-display-1">
+                                        <span class="text">דף הבית</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="service.html" class="mb-menu-link text-display-1">
+                                        <span class="text">קורסים</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="work.html" class="mb-menu-link text-display-1">
+                                        <span class="text">סקילים</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="blog-standard.html" class="mb-menu-link text-display-1">
+                                        <span class="text">בלוג</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="about.html" class="mb-menu-link text-display-1">
+                                        <span class="text">עליי</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item">
+                                    <a href="contact.html" class="mb-menu-link text-display-1">
+                                        <span class="text">צור קשר</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="canvas_foot">
+                        <div class="left">
+                            <a href="contact.html#signup" class="text-caption text-neutral-200">הרשמה חינם</a>
+                            <p class="text-caption text-neutral-200">
+                                ישראל <span class="clock"></span>
+                            </p>
+                        </div>
+                        <div class="right">
+                            <a href="work.html" class="tf-link-icon text-caption text-neutral-200">
+                                <i class="icon icon-arrow-top-right"></i>
+                                סקילים
+                            </a>
+                            <a href="blog-standard.html" class="tf-link-icon text-caption text-neutral-200">
+                                <i class="icon icon-arrow-top-right"></i>
+                                מדריכים
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Mobile Menu -->
+
+    <!-- Javascript -->
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    
+    <script src="assets/js/carousel.js"></script>
+    <script src="assets/js/infinityslide.js"></script>
+    <script src="assets/js/ScrollSmooth.js"></script>
+    <script src="assets/js/gsap.min.js"></script>
+    
+    <script src="assets/js/ScrollTrigger.min.js"></script>
+    <script src="assets/js/ScrollToPlugin.min.js"></script>
+    <script src="assets/js/gsapAnimation.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
