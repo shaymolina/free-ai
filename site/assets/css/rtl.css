@@ -4,5 +4,5 @@ body { text-align: right; }
 .tool-name { font-size: 26px; font-weight: 700; color: var(--neutral-400); white-space: nowrap; padding: 0 32px; direction: ltr; }
 .awards-item .skill-icon { font-size: 30px; color: var(--white); }
 .section-process .group-btn-slider { flex-direction: row-reverse; justify-content: flex-end; }
-:root { --bs-font-sans-serif: '4Kobi', sans-serif; --bs-body-font-family: '4Kobi', sans-serif; }
-body { font-family: '4Kobi', sans-serif; }
+:root { --bs-font-sans-serif: 'Kobi', sans-serif; --bs-body-font-family: 'Kobi', sans-serif; }
+body { font-family: 'Kobi', sans-serif; }

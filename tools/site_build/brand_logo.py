@@ -1,6 +1,6 @@
 """Free AI brand marks: app-icon tile with the word "חינם".
 
-Colour: #D97757 tile, cream text. Font: 4Kobi Black (Fontly).
+Colour: #D97757 tile, cream text. Font: Kobi Black (Fontly).
 """
 import os
 from fontTools.ttLib import TTFont
@@ -10,7 +10,7 @@ from fontTools.pens.boundsPen import BoundsPen
 
 HERE = os.path.dirname(__file__)
 OUT = os.path.join(HERE, "..", "..", "site", "assets", "images", "logo")
-FONT = TTFont(os.path.join(HERE, "fonts", "4Kobi-Black.ttf"))
+FONT = TTFont(os.path.join(HERE, "fonts", "Kobi-Black.ttf"))
 GS, CMAP = FONT.getGlyphSet(), FONT.getBestCmap()
 
 BRAND, CREAM = "#D97757", "#FAF3EE"
