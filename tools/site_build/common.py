@@ -58,7 +58,7 @@ def mobile_menu():
                 <div class="offcanvas-content_wrapin">
                     <div class="canvas_head">
                         <a href="index.html" class="logo-site">
-                            <img src="assets/images/logo/logo-2.svg" alt="Free AI" style="height:48px">
+                            <img src="assets/images/logo/logo.svg" alt="Free AI" style="height:44px">
                         </a>
                         <div class="btn-mobile-menu close-mb-menu text-caption link">
                             <i class="icon icon-close"></i>

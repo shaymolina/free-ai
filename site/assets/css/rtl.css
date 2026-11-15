@@ -29,3 +29,5 @@ input, textarea, select, button { font-family: "Urbanist", "Heebo", sans-serif; 
 .section-process .group-btn-slider { display: none; }
 .section-process .process-card .bot .number { font-size: 32px; line-height: 32px; }
 .section-process .process-card .content .title { font-size: 22px; line-height: 28px; }
+:root { --bs-font-sans-serif: 'Kobi', sans-serif; --bs-body-font-family: 'Kobi', sans-serif; --font_instrument: 'Kobi', sans-serif; }
+body, input, textarea, select, button { font-family: 'Kobi', sans-serif; }
