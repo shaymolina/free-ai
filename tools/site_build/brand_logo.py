@@ -1,76 +1,70 @@
-"""Free AI brand marks: header logo, square mark, favicon, footer wordmark."""
+"""Free AI brand marks: app-icon tile ("Free / AI") + header lockups + favicon.
+
+Colour: #D97757 tile, cream text. Font: Hanken Grotesk SemiBold (OFL).
+"""
 import os
 from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
+from fontTools.pens.boundsPen import BoundsPen
 
 HERE = os.path.dirname(__file__)
 OUT = os.path.join(HERE, "..", "..", "site", "assets", "images", "logo")
-FONT = TTFont(os.path.join(HERE, "fonts", "Urbanist-SemiBold.ttf"))
+FONT = TTFont(os.path.join(HERE, "fonts", "HankenGrotesk-SemiBold.woff2"))
 GS, CMAP, UPM = FONT.getGlyphSet(), FONT.getBestCmap(), FONT["head"].unitsPerEm
 
-ORANGE, ORANGE_D, INK = "#FF5A1F", "#E63E0C", "#09090B"
+BRAND, CREAM, INK = "#D97757", "#FAF3EE", "#1F1F1E"
 
 
-def text_path(text, size, x0, baseline, tracking=0.0):
+def text_path(text, size):
     s = size / UPM
-    x, parts = x0, []
+    x, parts, bp = 0.0, [], BoundsPen(GS)
     for ch in text:
         g = CMAP[ord(ch)]
+        t = (s, 0, 0, -s, x, 0)
         pen = SVGPathPen(GS)
-        GS[g].draw(TransformPen(pen, (s, 0, 0, -s, x, baseline)))
+        GS[g].draw(TransformPen(pen, t))
+        GS[g].draw(TransformPen(bp, t))
         parts.append(pen.getCommands())
-        x += GS[g].width * s + tracking * size
-    return " ".join(parts), x
+        x += GS[g].width * s
+    return " ".join(parts), bp.bounds
 
 
-LENS = [1, .78, .93, .7, .98, .8, .9, .72, 1, .76]
-WIDTH = [.11, .1, .12, .09, .11, .1, .12, .09, .11, .1]
-JITTER = [0, 4, -3, 5, -2, 3, -4, 2, -3, 4]
+def tile(x, y, size):
+    """Rounded square with 'Free' over 'AI', centred."""
+    k = size / 100
+    fs, lead = 34 * k, 1.05
+    cap = fs * 0.72
+    total = cap * 2 + fs * (lead - 0.72)
+    y0 = y + size / 2 - total / 2 + cap
+    out = f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="{22*k:.2f}" fill="{BRAND}"/>'
+    for i, line in enumerate(["Free", "AI"]):
+        d, b = text_path(line, fs)
+        tx = x + size / 2 - (b[2] - b[0]) / 2 - b[0]
+        out += f'<path transform="translate({tx:.2f} {y0 + i*fs*lead:.2f})" d="{d}" fill="{CREAM}"/>'
+    return out
 
 
-def mark(x, y, size, uid=None, color=ORANGE):
-    """Free AI spark: ten soft rays of uneven length."""
-    import math
-    cx, cy, R = x + size / 2, y + size / 2, size / 2 * 0.94
-    out = []
-    for i, (L, w, j) in enumerate(zip(LENS, WIDTH, JITTER)):
-        a = math.radians(-90 + 36 * i + j)
-        ux, uy = math.cos(a), math.sin(a)
-        px, py = -uy, ux
-        r1, W = L * R, w * R
-        m = r1 / 2
-        tx, ty = cx + ux * r1, cy + uy * r1
-        mx, my = cx + ux * m, cy + uy * m
-        out.append(f"M{cx:.2f} {cy:.2f} Q{mx+px*W:.2f} {my+py*W:.2f} {tx:.2f} {ty:.2f} "
-                   f"Q{mx-px*W:.2f} {my-py*W:.2f} {cx:.2f} {cy:.2f}Z")
-    return (f'<path d="{" ".join(out)}" fill="{color}" stroke="{color}" '
-            f'stroke-width="{R*0.07:.2f}" stroke-linejoin="round"/>')
+def save(name, svg):
+    open(os.path.join(OUT, name), "w").write(svg)
 
 
-def lockup(color_word, fname, h=30):
-    size = 22
-    free, x = text_path("Free", size, h + 6, 22)
-    ai, x2 = text_path("AI", size, x + 5, 22)
-    w = int(x2 + 2)
-    svg = f'''<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" fill="none" xmlns="http://www.w3.org/2000/svg">
-{mark(0, 0, h, fname)}
-<path d="{free}" fill="{color_word}"/>
-<path d="{ai}" fill="{ORANGE}"/>
-</svg>'''
-    open(os.path.join(OUT, fname), "w").write(svg)
+def lockup(name, word_color, h=32):
+    d, b = text_path("Free AI", 22)
+    x = h + 9
+    w = int(x + (b[2] - b[0]) + 2)
+    save(name, f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" fill="none" xmlns="http://www.w3.org/2000/svg">'
+               f'{tile(0, 0, h)}<path transform="translate({x - b[0]:.2f} {h/2 + 8:.2f})" d="{d}" fill="{word_color}"/></svg>')
 
 
-def square(fname, size):
-    svg = f'''<svg width="{size}" height="{size}" viewBox="0 0 {size} {size}" fill="none" xmlns="http://www.w3.org/2000/svg">
-{mark(0, 0, size, fname)}
-</svg>'''
-    open(os.path.join(OUT, fname), "w").write(svg)
+def square(name, size):
+    save(name, f'<svg width="{size}" height="{size}" viewBox="0 0 {size} {size}" fill="none" '
+               f'xmlns="http://www.w3.org/2000/svg">{tile(0, 0, size)}</svg>')
 
 
 if __name__ == "__main__":
-    lockup(INK, "logo.svg")
-    lockup("#FFFFFF", "logo-1.svg")
+    square("logo.svg", 44)
+    square("logo-1.svg", 44)
     square("logo-2.svg", 86)
     square("favicon.svg", 64)
     print("ok")
