@@ -304,7 +304,7 @@ def build_single():
         ("+ Product Research & Discovery", "+ סרטון קצר וממוקד"),
         ("+ AI & Automation Integration", "+ סיכום וקישורים מתחת לסרטון"),
         ("+ Design System Architecture", "+ קבצים ופרומפטים להורדה"),
-        ("+ Continuous Optimization & Testing", "+ סימון ✓ ושמירת התקדמות"),
+        ("+ Continuous Optimization & Testing", "+ שמירת התקדמות"),
         ('''<a href="contact.html" class="tf-btn effectFade fadeRotateX">
                             Let’s Connect
                         </a>''', '''<a href="contact.html#signup" class="tf-btn effectFade fadeRotateX">

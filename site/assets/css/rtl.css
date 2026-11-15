@@ -4,3 +4,25 @@ body { text-align: right; }
 .tool-name { font-size: 26px; font-weight: 700; color: var(--neutral-400); white-space: nowrap; padding: 0 32px; direction: ltr; }
 .awards-item .skill-icon { font-size: 30px; color: var(--white); }
 .section-process .group-btn-slider { flex-direction: row-reverse; justify-content: flex-end; }
+:root { --font_instrument: "Urbanist", "Heebo", sans-serif; }
+input, textarea, select, button { font-family: "Urbanist", "Heebo", sans-serif; }
+
+/* קומפקטי: פחות טקסט → פחות ריווח */
+.flat-spacing { padding-top: 72px; padding-bottom: 72px; }
+.heading-section.mb-80, .heading-section.mb-64 { margin-bottom: 40px; }
+.heading-section.mb-48 { margin-bottom: 32px; }
+@media (min-width: 768px) {
+  .heading-section .heading-title { font-size: 56px; line-height: 62px; }
+}
+.process-card { padding: 24px; }
+.process-card .content { margin-bottom: 24px; }
+.process-card .content .title { padding-bottom: 12px; margin-bottom: 12px; }
+.process-card .bot .number { font-size: 44px; line-height: 44px; }
+.features-item.style-2 { padding: 28px; }
+.features-item.style-2 .icon { width: 56px; height: 56px; margin-bottom: 20px; }
+.section-featured-works .featured-works-item .image { height: 440px; }
+.section-featured-works .featured-works-item .image img { object-position: center top; }
+@media (max-width: 767px) {
+  .flat-spacing { padding-top: 48px; padding-bottom: 48px; }
+  .section-featured-works .featured-works-item .image { height: 240px; }
+}
