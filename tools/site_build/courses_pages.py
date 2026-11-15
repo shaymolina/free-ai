@@ -146,7 +146,7 @@ def build_service():
     html = apply_common(html, "service.html", "הקורס – Claude מאפס, בחינם | Free AI",
                         "קורס Claude המלא בעברית ובחינם: 5 פרקים ו-8 שיעורים קצרים, מהשאלה הראשונה ועד אתר שבניתם עם Claude Code.")
 
-    html = hero(html, "קורס Claude", "המלא, בחינם",
+    html = hero(html, "קורס Claude", "מאפס, בחינם",
                 "קורס אחד, מאפס ועד הסוף – מהשאלה הראשונה ל-Claude ועד אתר <br> שבניתם בעצמכם עם Claude Code. בלי לשלם שקל.")
 
     # ---------- Services → פרקי הקורס ----------
@@ -170,7 +170,7 @@ def build_service():
          "גרפים, מסמכים וכלים קטנים שנבנים ישר בתוך השיחה, ואפשר לשלוח בקישור.",
          ["שיעור 4", "מסמכים וגרפים", "כלים קטנים"]),
         ("סקילים ו-Claude Code", "claude-code.jpg",
-         "מתקינים סקילים, מחברים את Claude למייל וליומן, ובונים אתר שלם עם Claude Code – ומעלים אותו לאוויר.<br><small class=\"text-neutral-400\">" + DISCLOSURE + "</small>",
+         "מתקינים סקילים, מחברים את Claude למייל וליומן, ובונים אתר שלם עם Claude Code – ומעלים אותו לאוויר.<br><small class=\"text-secondary\">" + DISCLOSURE + "</small>",
          ["שיעורים 5–8", "סקילים", "Claude Code"]),
     ]
     items = []
@@ -283,7 +283,7 @@ def build_single():
                             <div>
                                 <div class="fw-semibold mb-4">בשיעור 8 מעלים את האתר לאוויר עם 4CODE</div>
                                 <p class="text-secondary mb-0">כדי שהאתר יעבוד 24/7 צריך אחסון. בשיעור מראים צעד אחרי צעד איך מחברים דומיין ואחסון ב-4CODE – חברת האחסון שאנחנו עובדים איתה.</p>
-                                <p class="text-body-3 text-neutral-400 mt-2 mb-0">{DISCLOSURE}</p>
+                                <p class="text-body-3 text-secondary mt-2 mb-0">{DISCLOSURE}</p>
                             </div>
                         </div>
                     </div>

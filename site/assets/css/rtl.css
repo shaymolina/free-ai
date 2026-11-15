@@ -32,3 +32,18 @@ input, textarea, select, button { font-family: "Urbanist", "Heebo", sans-serif; 
 :root { --bs-font-sans-serif: 'Kobi', sans-serif; --bs-body-font-family: 'Kobi', sans-serif; --font_instrument: 'Kobi', sans-serif; }
 body, input, textarea, select, button { font-family: 'Kobi', sans-serif; }
 .tf-header .header-inner { padding: 8px; }
+
+/* מספור "01/03" נקרא משמאל לימין גם בעברית */
+.process-card .bot .number { direction: ltr; }
+/* כרטיס "קבצים מוכנים להורדה": תמונות בצד שמאל, הרחק מהכותרת */
+.benefits-design .benefits-design-inner { margin-right: 0; margin-left: 16px; }
+.benefits-design .benefits-design-inner .item-img-2 { right: auto; left: 226px; }
+.benefits-design .benefits-design-inner .item-img-3 { right: auto; left: -65px; }
+@media (max-width: 767px) { .benefits-design .benefits-design-inner { margin-right: 0; margin-left: 30px; } }
+@media (max-width: 575px) { .benefits-design .benefits-design-inner .item-img-3 { right: auto; left: calc(50% - 180px); } }
+/* כרטיס "תוצאה, לא תיאוריה": נושאים עם ✓, בלי פסים ריקים */
+.benefits-progress-inner { display: flex; flex-wrap: wrap; gap: 12px; }
+.benefits-progress-inner .benefits-progress-item .progress-line { display: none; }
+.benefits-progress-inner .benefits-progress-item .progress-text .icon { color: var(--brand); font-size: 18px; }
+/* כפתור "חזרה למעלה" בצד שמאל, כדי לא להסתיר טקסט */
+#goTop { right: auto; left: 20px; }

@@ -11,3 +11,9 @@
 - לעדכן את הבונים ב-`tools/site_build/` ולא רק את קבצי ה-HTML.
 
 האתר עולה אוטומטית ל-4CODE מהענף `claude/modest-mccarthy-4tu0v3`.
+
+## כפתור וואטסאפ צף (חובה באפיון)
+חסר מספר הטלפון לוואטסאפ. ברגע שיש מספר – להוסיף כפתור צף בכל הדפים דרך `tools/site_build/common.py`.
+
+## סדר הרצת הבונים
+index_page → courses_pages → skills_pages → blog_pages → shorten → claude_icons → finish (מתוך `tools/site_build/`).

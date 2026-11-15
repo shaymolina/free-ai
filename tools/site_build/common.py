@@ -1,6 +1,8 @@
 """חלקים משותפים לכל העמודים: תפריט עליון, תפריט מובייל, פוטר."""
 import re
 
+SITE_URL = "https://free-ai.co.il"
+
 NAV = [
     ("index.html", "דף הבית"),
     ("service.html", "הקורס"),
@@ -89,7 +91,7 @@ def mobile_menu():
 
 
 FOOTER = '''<!-- footer -->
-        <footer>
+        <footer class="tf-footer">
             <div class="footer-image">
                 <img class="effectFade fadeUp" src="assets/images/logo/logo-footer.png" alt="">
             </div>
@@ -98,7 +100,7 @@ FOOTER = '''<!-- footer -->
                     <a href="index.html" class="footer-logo">
                         <img src="assets/images/logo/logo-2.svg" alt="Free AI">
                     </a>
-                    <div class="title h6 fw-semibold">קורס Claude המלא. <br> פתוח לכולם, בחינם.</div>
+                    <div class="title h6 fw-semibold">קורס Claude מאפס. <br> פתוח לכולם, בחינם.</div>
                     <div class="text">שיעור חדש עולה כל שבוע.</div>
                     <div class="tf-social-1 justify-content-center">
                         <a href="service.html" class="text-body-1 fw-semibold">
@@ -141,8 +143,22 @@ def apply_common(html, active, title, description):
     html = re.sub(r"<title>.*?</title>", f"<title>{title}</title>", html, flags=re.S)
     html = re.sub(r'<meta name="author" content="[^"]*">', '<meta name="author" content="Free AI">', html)
     html = re.sub(r'<meta name="description"\s+content="[^"]*">', f'<meta name="description" content="{description}">', html, flags=re.S)
+    page = "" if active == "index.html" and title.startswith("Free AI") else active
+    og = f'''<meta property="og:type" content="website">
+    <meta property="og:site_name" content="Free AI">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:title" content="{title}">
+    <meta property="og:description" content="{description}">
+    <meta property="og:image" content="{SITE_URL}/assets/images/og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="assets/images/logo/logo.svg" type="image/svg+xml">
+    '''
+    html = re.sub(r'(<meta name="description" content="[^"]*">)', lambda m: m.group(1) + "\n    " + og.rstrip(), html, count=1)
+    html = html.replace('<button id="goTop">', '<button id="goTop" aria-label="חזרה למעלה">')
     html = html.replace('<link rel="stylesheet" type="text/css" href="assets/css/styles.css">',
-                        '<link rel="stylesheet" type="text/css" href="assets/css/styles.css?v=2">\n    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css">')
+                        '<link rel="stylesheet" type="text/css" href="assets/css/styles.css?v=2">\n    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css?v=3">')
     html = re.sub(r"<!-- Header -->.*?<!-- /Header -->", lambda m: header(active), html, flags=re.S)
     html = re.sub(r"<!-- footer -->.*?<!-- /footer -->", lambda m: FOOTER, html, flags=re.S)
     html = re.sub(r"<!-- Mobile Menu -->.*?<!-- /Mobile Menu -->", lambda m: mobile_menu(), html, flags=re.S)
@@ -150,6 +166,9 @@ def apply_common(html, active, title, description):
     for a, b in [("item-10", "hero-1"), ("item-11", "hero-2"), ("item-12", "hero-3"),
                  ("item-13", "hero-1"), ("item-14", "hero-2"), ("item-15", "hero-3")]:
         html = html.replace(f"assets/images/item/{a}.svg", f"assets/images/item/{b}.svg")
+    # כתום המותג במקום האדום של התבנית, ותמונת רקע חמה לטופס ההרשמה
+    html = html.replace('stop-color="#EA2B16"', 'stop-color="#C2603F"').replace('stop-color="#FF3B26"', 'stop-color="#D97757"')
+    html = html.replace("assets/images/section/contact-image-bg.jpg", "assets/images/section/contact-warm.jpg")
     # מסירים את כפתור ההגדרות של התבנית
     html = re.sub(r"\s*<!-- Left Bar -->.*?<!-- /Setting Color -->", "", html, flags=re.S)
     return html

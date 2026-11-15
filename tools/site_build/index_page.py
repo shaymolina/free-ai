@@ -47,7 +47,7 @@ html = html.replace('<span class="fw-semibold link1">Scroll for more</span>', '<
 html = html.replace('<div class="heading-sub fw-semibold effectFade fadeUp">About Us</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">הקורס</div>')
 html = html.replace('<div class="heading-title text-gradient-2 effectFade fadeRotateX">Human-Centered AI, <br> Built for Production</div>',
                     '<div class="heading-title text-gradient-2 effectFade fadeRotateX">Claude, <br> בעברית פשוטה</div>')
-html = html.replace("Available for worldwide project", "קורס Claude המלא, בחינם")
+html = html.replace("Available for worldwide project", "קורס Claude מאפס, בחינם")
 html = html.replace('<h5 class="title fw-semibold text-white">Based in <span class="text-brand">Montréal, Canada</span></h5>',
                     '<h5 class="title fw-semibold text-white">לומדים ב<span class="text-brand">עברית, מאפס</span></h5>')
 html = html.replace('''<a href="contact.html" class="tf-btn">
@@ -153,7 +153,7 @@ html = html.replace('<div dir="ltr" class="swiper tf-swiper swiper-box-shadow" d
 html = html.replace('<div class="heading-sub fw-semibold effectFade fadeUp">Benefits</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">איך לומדים</div>')
 html = html.replace('<div class="heading-title text-gradient-3 effectFade fadeRotateX">Why Choose Us</div>', '<div class="heading-title text-gradient-3 effectFade fadeRotateX">לומדים בעשייה</div>')
 for a, b in [
-    ("Accuracy\n", "Connector\n"), ("Latency\n", "Projects\n"), ("Safety\n", "Database\n"), ("Cost\n", "Skills\n"),
+    ("Accuracy\n", "Projects\n"), ("Latency\n", "Artifacts\n"), ("Safety\n", "סקילים\n"), ("Cost\n", "Claude Code\n"),
     ("Outcome over Output", "תוצאה, לא תיאוריה"),
     ("We measure what matters - accuracy, latency, safety, and <br> cost - so every sprint ships business value, not just features.", "כל שיעור נגמר במשהו שעובד – תשובה, מסמך, כלי או <br> אתר. לא רק להבין, אלא לבנות."),
     ("Eval-First Reliability", "שומר את ההתקדמות"),
@@ -333,6 +333,11 @@ html = html.replace('href="service.html" class="tf-mouse view-project h6">\n    
 
 # ---------- בלי בלוק מחירים ----------
 html = re.sub(r"\s*<!-- section-pricing -->.*?<!-- /section-pricing -->", "", html, count=1, flags=re.S)
+
+# ---------- כרטיס "תוצאה, לא תיאוריה": רשימת נושאים עם ✓ במקום פסים ריקים ----------
+html = re.sub(r'(<div class="benefits-progress-inner">.*?</div>\s*<div class="content">)',
+              lambda m: re.sub(r'icon-(bullseye|tachometer-alt|shield-alt|coins)-solid', 'icon-check-solid', m.group(1)),
+              html, count=1, flags=re.S)
 
 (ROOT / "site/index.html").write_text(html)
 left = re.findall(r">\s*([A-Za-z][A-Za-z ,’'&\-]{6,})\s*<", html)

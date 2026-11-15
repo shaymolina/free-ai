@@ -169,7 +169,7 @@ html = replace_section(html, "section-featured-works", f'''<!-- section-featured
 {chr(10).join(cat_tags)}
                     </div>
                 </div>
-                <p class="skills-empty text-secondary text-center" hidden>עוד אין סקילים בקטגוריה הזו – הם בדרך.</p>
+                <p class="skills-empty text-secondary text-center" hidden aria-live="polite"></p>
                 <div class="featured-works-list position-relative">
 {items}
                 </div>
@@ -288,14 +288,15 @@ html = html.replace("</body>", """<script>
     var empty = document.querySelector('.skills-empty');
     var cat = 'all';
     function run() {
-        var q = (input.value || '').trim();
+        var q = (input.value || '').trim().toLowerCase();
         var shown = 0;
         items.forEach(function (el) {
-            var ok = (cat === 'all' || el.dataset.cat === cat) && (!q || el.dataset.search.indexOf(q) !== -1);
+            var ok = (cat === 'all' || el.dataset.cat === cat) && (!q || el.dataset.search.toLowerCase().indexOf(q) !== -1);
             el.hidden = !ok;
             if (ok) shown++;
         });
         empty.hidden = shown > 0;
+        empty.textContent = q ? 'לא מצאנו סקיל כזה. נסו מילה אחרת.' : 'עוד אין סקילים בקטגוריה הזו – הם בדרך.';
         if (window.ScrollTrigger) ScrollTrigger.refresh();
     }
     btns.forEach(function (b) {
