@@ -24,23 +24,33 @@ def text_path(text, size, x0, baseline, tracking=0.0):
     return " ".join(parts), x
 
 
-def mark(x, y, size, uid):
-    """Rounded square with a terminal prompt '>_'."""
-    k = size / 100
-    r = 24 * k
-    sw = 11 * k
-    chev = f"M{x+27*k:.2f} {y+33*k:.2f} L{x+45*k:.2f} {y+50*k:.2f} L{x+27*k:.2f} {y+67*k:.2f}"
-    cur = f"M{x+53*k:.2f} {y+67*k:.2f} H{x+74*k:.2f}"
-    return f'''<defs><linearGradient id="g{uid}" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="{ORANGE}"/><stop offset="1" stop-color="{ORANGE_D}"/></linearGradient></defs>
-<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="{r:.2f}" fill="url(#g{uid})"/>
-<path d="{chev}" stroke="#fff" stroke-width="{sw:.2f}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-<path d="{cur}" stroke="#fff" stroke-width="{sw:.2f}" stroke-linecap="round" fill="none"/>'''
+LENS = [1, .78, .93, .7, .98, .8, .9, .72, 1, .76]
+WIDTH = [.11, .1, .12, .09, .11, .1, .12, .09, .11, .1]
+JITTER = [0, 4, -3, 5, -2, 3, -4, 2, -3, 4]
+
+
+def mark(x, y, size, uid=None, color=ORANGE):
+    """Free AI spark: ten soft rays of uneven length."""
+    import math
+    cx, cy, R = x + size / 2, y + size / 2, size / 2 * 0.94
+    out = []
+    for i, (L, w, j) in enumerate(zip(LENS, WIDTH, JITTER)):
+        a = math.radians(-90 + 36 * i + j)
+        ux, uy = math.cos(a), math.sin(a)
+        px, py = -uy, ux
+        r1, W = L * R, w * R
+        m = r1 / 2
+        tx, ty = cx + ux * r1, cy + uy * r1
+        mx, my = cx + ux * m, cy + uy * m
+        out.append(f"M{cx:.2f} {cy:.2f} Q{mx+px*W:.2f} {my+py*W:.2f} {tx:.2f} {ty:.2f} "
+                   f"Q{mx-px*W:.2f} {my-py*W:.2f} {cx:.2f} {cy:.2f}Z")
+    return (f'<path d="{" ".join(out)}" fill="{color}" stroke="{color}" '
+            f'stroke-width="{R*0.07:.2f}" stroke-linejoin="round"/>')
 
 
 def lockup(color_word, fname, h=30):
     size = 22
-    free, x = text_path("Free", size, h + 8, 22)
+    free, x = text_path("Free", size, h + 6, 22)
     ai, x2 = text_path("AI", size, x + 5, 22)
     w = int(x2 + 2)
     svg = f'''<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" fill="none" xmlns="http://www.w3.org/2000/svg">
