@@ -47,7 +47,7 @@ html = html.replace('<span class="fw-semibold link1">Scroll for more</span>', '<
 html = html.replace('<div class="heading-sub fw-semibold effectFade fadeUp">About Us</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">הקורס</div>')
 html = html.replace('<div class="heading-title text-gradient-2 effectFade fadeRotateX">Human-Centered AI, <br> Built for Production</div>',
                     '<div class="heading-title text-gradient-2 effectFade fadeRotateX">Claude, <br> בעברית פשוטה</div>')
-html = html.replace("Available for worldwide project", "הקורס הראשון באתר")
+html = html.replace("Available for worldwide project", "קורס Claude המלא, בחינם")
 html = html.replace('<h5 class="title fw-semibold text-white">Based in <span class="text-brand">Montréal, Canada</span></h5>',
                     '<h5 class="title fw-semibold text-white">לומדים ב<span class="text-brand">עברית, מאפס</span></h5>')
 html = html.replace('''<a href="contact.html" class="tf-btn">

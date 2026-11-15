@@ -3,7 +3,7 @@ import re
 
 NAV = [
     ("index.html", "דף הבית"),
-    ("service.html", "קורסים"),
+    ("service.html", "הקורס"),
     ("work.html", "סקילים"),
     ("blog-standard.html", "בלוג"),
     ("about.html", "עליי"),
@@ -105,11 +105,11 @@ FOOTER = '''<!-- footer -->
                     <a href="index.html" class="footer-logo">
                         <img src="assets/images/logo/logo-2.svg" alt="Free AI">
                     </a>
-                    <div class="title h6 fw-semibold">כל הידע של AI. <br> פתוח לכולם, בחינם.</div>
+                    <div class="title h6 fw-semibold">קורס Claude המלא. <br> פתוח לכולם, בחינם.</div>
                     <div class="text">שיעור חדש עולה כל שבוע.</div>
                     <div class="tf-social-1 justify-content-center">
                         <a href="service.html" class="text-body-1 fw-semibold">
-                            קורסים
+                            הקורס
                             <div class="social-item">
                                 <i class="icon icon-arrow-top-right"></i>
                             </div>

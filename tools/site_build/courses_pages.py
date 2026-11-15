@@ -1,4 +1,4 @@
-"""עמודי הקורסים של Free AI: service.html (כל המסלולים) ו-service-single.html (מסלול Claude מאפס)."""
+"""עמודי הקורס של Free AI: service.html (פרקי קורס Claude) ו-service-single.html (רשימת השיעורים)."""
 import re
 from pathlib import Path
 from common import apply_common
@@ -121,7 +121,7 @@ def check_english(name, html):
     body = html.split("<body", 1)[1]
     body = re.sub(r"<script.*?</script>", "", body, flags=re.S)
     left = re.findall(r">\s*([^<>]*[A-Za-z]{3,}[^<>]*?)\s*<", body)
-    allowed = ("Claude", "Lovable", "n8n", "Free AI", "Artifacts", "Google", "4CODE", "ChatGPT", "Gemini", "Cursor", "Supabase", "Code")
+    allowed = ("Claude", "Lovable", "n8n", "Free AI", "Artifacts", "Google", "4CODE", "ChatGPT", "Gemini", "Cursor", "Supabase", "Code", "Projects", "Skills", "MCP", "Desktop", "Mobile")
     bad = [x for x in left if re.sub("|".join(allowed), "", x) and re.search(r"[A-Za-z]{3,}", re.sub("|".join(allowed), "", x))]
     print(f"{name} done; leftover English:", bad[:20])
 
@@ -129,7 +129,7 @@ def check_english(name, html):
 PROCESS_STEPS = [
     ("נרשמים", "בלחיצה עם Google, או עם קוד שמגיע למייל. בלי סיסמה ובלי כרטיס אשראי.", "דקה אחת"),
     ("צופים ומתרגלים", "סרטון קצר, סיכום, קישורים וקבצים להורדה בכל שיעור. האתר זוכר איפה עצרתם.", "בקצב שלכם"),
-    ("מקבלים תעודה", "מסיימים מסלול ומקבלים תעודת סיום עם השם שלכם – להראות ללקוחות ולמעסיקים.", "בסוף מסלול"),
+    ("מקבלים תעודה", "מסיימים את הקורס ומקבלים תעודת סיום עם השם שלכם – להראות ללקוחות ולמעסיקים.", "בסוף הקורס"),
 ]
 
 COMMON_CSS = '''        .accordion-faq_item.style-1 .accordion-title { gap: 16px; }
@@ -139,58 +139,57 @@ COMMON_CSS = '''        .accordion-faq_item.style-1 .accordion-title { gap: 16px
 
 
 # =====================================================================
-# service.html – כל המסלולים
+# service.html – פרקי הקורס
 # =====================================================================
 def build_service():
     html = (ROOT / "aigocy-about/service.html").read_text()
-    html = apply_common(html, "service.html", "קורסים – Free AI",
-                        "5 מסלולי AI בעברית, בחינם: Claude מאפס, Lovable, סוכני AI, אוטומציות n8n והעלאה לאוויר.")
+    html = apply_common(html, "service.html", "הקורס – Claude מאפס, בחינם | Free AI",
+                        "קורס Claude המלא בעברית ובחינם: 5 פרקים ו-8 שיעורים קצרים, מהשאלה הראשונה ועד אתר שבניתם עם Claude Code.")
 
-    html = hero(html, "קורסי AI", "בעברית, בחינם",
-                "חמישה מסלולים קצרים ומעשיים – מהשאלה הראשונה ל-Claude ועד אתר, אפליקציה <br> או אוטומציה שעובדים באוויר. בלי לשלם שקל.")
+    html = hero(html, "קורס Claude", "המלא, בחינם",
+                "קורס אחד, מאפס ועד הסוף – מהשאלה הראשונה ל-Claude ועד אתר <br> שבניתם בעצמכם עם Claude Code. בלי לשלם שקל.")
 
-    # ---------- Services → המסלולים ----------
+    # ---------- Services → פרקי הקורס ----------
     html = rep(html, [
-        ('<div class="heading-sub fw-semibold effectFade fadeUp">Services</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">המסלולים</div>'),
-        ('<div class="heading-title text-gradient-3 effectFade fadeRotateX">End-to-End AI Services</div>', '<div class="heading-title text-gradient-3 effectFade fadeRotateX">מה לומדים כאן</div>'),
+        ('<div class="heading-sub fw-semibold effectFade fadeUp">Services</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">פרקי הקורס</div>'),
+        ('<div class="heading-title text-gradient-3 effectFade fadeRotateX">End-to-End AI Services</div>', '<div class="heading-title text-gradient-3 effectFade fadeRotateX">מה לומדים בקורס</div>'),
         ("We turn ambiguous AI ideas into production features your users trust—combining strategy, <br> design, engineering, and rigorous evaluation.",
-         "המסלול הראשון כבר פתוח, והשאר מצטרפים בהדרגה. <br> כל מסלול מתחיל מאפס ונגמר במשהו שעובד באמת."),
+         "חמישה פרקים, שמונה שיעורים קצרים. <br> כל פרק נגמר במשהו שעובד באמת."),
     ])
     tracks = [
-        ("Claude מאפס", True, "service-5.jpg",
-         "הקורס המלא – מהשאלה הראשונה ועד עבודה יומיומית עם Claude. 8 שיעורים קצרים: איך מבקשים נכון, פרויקטים וקבצים, Artifacts, סקילים, חיבור לכלים, ובסוף בונים אתר עם Claude Code ומעלים אותו לאוויר.",
-         ["8 שיעורים", "מתחילים", "לרשימת השיעורים"]),
-        ("בונים אפליקציה עם Lovable", False, "service-6.jpg",
-         "מרעיון לאפליקציה אמיתית – בלי לכתוב קוד. מסכים ועיצוב, משתמשים והרשמה, ומסד נתונים שמחזיק את המידע.",
-         ["מסכים ועיצוב", "משתמשים והרשמה", "מסד נתונים"]),
-        ("סוכני AI", False, "service-7.jpg",
-         "עוזרים שעובדים בשבילכם, גם כשאתם לא. בונים סוכן שעונה ללקוחות, מתחבר לכלים שלכם ומבצע משימות לבד.",
-         ["סוכן שירות לקוחות", "חיבור לכלים", "משימות אוטומטיות"]),
-        ("אוטומציות עם n8n", False, "service-8.jpg",
-         "תהליכים שרצים לבד וחוסכים שעות כל שבוע: לידים שנכנסים ל-CRM, מיילים והודעות שיוצאים בזמן, ותבניות מוכנות להורדה.",
-         ["לידים ו-CRM", "מיילים והודעות", "תבניות מוכנות"]),
-        ("מעלים לאוויר", False, "service-1.jpg",
-         "דומיין, אחסון ושרת שעובד 24/7 – צעד אחרי צעד, עם 4CODE. כדי שכל מה שבניתם במסלולים האחרים יהיה זמין לכולם.<br><small class=\"text-neutral-400\">" + DISCLOSURE + "</small>",
-         ["דומיין", "אחסון", "שרת שרץ כל הזמן"]),
+        ("מתחילים עם Claude", "claude-start.jpg",
+         "פותחים חשבון, מכירים את המסך ושואלים את השאלה הראשונה. בלי ידע קודם.",
+         ["שיעור 1", "פותחים חשבון", "השאלה הראשונה"]),
+        ("לבקש נכון", "claude-prompt.jpg",
+         "איך כותבים בקשה שמקבלת תשובה טובה כבר בפעם הראשונה – ואיך מתקנים כשלא.",
+         ["שיעור 2", "בקשה טובה", "דוגמאות מוכנות"]),
+        ("Projects וקבצים", "claude-projects.jpg",
+         "מלמדים את Claude על העסק שלכם פעם אחת – מעלים מסמכים, והוא זוכר.",
+         ["שיעור 3", "מסמכים", "עוזר לעסק"]),
+        ("Artifacts", "claude-artifacts.jpg",
+         "גרפים, מסמכים וכלים קטנים שנבנים ישר בתוך השיחה, ואפשר לשלוח בקישור.",
+         ["שיעור 4", "מסמכים וגרפים", "כלים קטנים"]),
+        ("סקילים ו-Claude Code", "claude-code.jpg",
+         "מתקינים סקילים, מחברים את Claude למייל וליומן, ובונים אתר שלם עם Claude Code – ומעלים אותו לאוויר.<br><small class=\"text-neutral-400\">" + DISCLOSURE + "</small>",
+         ["שיעורים 5–8", "סקילים", "Claude Code"]),
     ]
     items = []
-    for i, (title, is_open, img, text, tags) in enumerate(tracks, 1):
+    for i, (title, img, text, tags) in enumerate(tracks, 1):
         first = i == 1
-        status = '<span class="track-status open">פתוח עכשיו</span>' if is_open else '<span class="track-status soon">בקרוב</span>'
-        href = "service-single.html" if is_open else "contact.html#signup"
+        href = "service-single.html"
         tag_html = "\n".join(f'                                        <a href="{href}" class="tags-item fw-semibold">{t}</a>' for t in tags)
         items.append(f'''                    <div class="accordion-faq_item style-1 effectFade fadeRotateX" role="presentation">
                         <div class="accordion-action{'' if first else ' collapsed'}" data-bs-target="#faq-{i}" role="button"
                             data-bs-toggle="collapse" aria-controls="faq-{i}" aria-expanded="{'true' if first else 'false'}">
                             <div class="accordion-title">
-                                <span>{title} {status}</span>
+                                <span>{title}</span>
                                 <i class="icon icon-arrow-top-right"></i>
                             </div>
                         </div>
                         <div id="faq-{i}" class="collapse{' show' if first else ''}" data-bs-parent="#accordion-services">
                             <div class="accordion-content">
                                 <div class="image">
-                                    <img src="assets/images/section/{img}" alt="">
+                                    <img src="assets/images/claude/{img}" alt="">
                                 </div>
                                 <div class="content">
                                     <div class="text-body-3 text-neutral-300 text">{text}</div>
@@ -206,8 +205,8 @@ def build_service():
                 lambda m: m.group(1) + "\n" + "\n".join(items) + m.group(2))
 
     # ---------- Partner → הכלים שלומדים ----------
-    tools = ["Claude", "Lovable", "n8n", "Claude Code", "ChatGPT", "Gemini", "Cursor", "Supabase"]
-    html = rep(html, [('<p class="text-secondary text fw-semibold">Trusted by 100+ <br> top-tier brands</p>', '<p class="text-secondary text fw-semibold">הכלים <br> שלומדים כאן</p>')])
+    tools = ["Claude", "Projects", "Artifacts", "Skills", "Claude Code", "MCP", "Desktop", "Mobile"]
+    html = rep(html, [('<p class="text-secondary text fw-semibold">Trusted by 100+ <br> top-tier brands</p>', '<p class="text-secondary text fw-semibold">מה לומדים <br> בקורס</p>')])
     html = sub1(html, r'(<div class="infiniteSlide infiniteSlide_partner" data-clone="5">).*?(</div>)',
                 lambda m: m.group(1) + "".join(f'\n                                    <span class="tool-name">{t}</span>' for t in tools) + "\n                                " + m.group(2))
 
@@ -219,11 +218,11 @@ def build_service():
 
     # ---------- FAQ ----------
     html = faqs(html, [
-        ("הקורסים באמת בחינם?", "כן. כל המסלולים, השיעורים, הקבצים והתעודות – בחינם, בלי כרטיס אשראי ובלי מנוי."),
-        ("באיזה מסלול כדאי להתחיל?", "אם אתם חדשים ב-AI – ב-Claude מאפס. הוא נותן את הבסיס לכל שאר המסלולים, ובסופו כבר תבנו אתר ותעלו אותו לאוויר."),
-        ("מתי ייפתחו שאר המסלולים?", "המסלולים נפתחים אחד אחרי השני, לפי קצב הצילום. מי שנרשם יראה כל מסלול חדש ברגע שהוא עולה."),
-        ("צריך ידע קודם או ידע בקוד?", "לא. כל מסלול מתחיל מאפס ומסביר כל צעד בעברית פשוטה. גם בשיעורים שבונים בהם אתרים לא כותבים קוד."),
-        ("למה צריך להירשם?", "ההרשמה פותחת את הסרטונים וההורדות, שומרת את ההתקדמות ומאפשרת לקבל תעודה בסוף מסלול. היא לוקחת פחות מדקה – עם Google או עם קוד למייל."),
+        ("הקורס באמת בחינם?", "כן. כל השיעורים, הקבצים, הסקילים והתעודה – בחינם, בלי כרטיס אשראי ובלי מנוי."),
+        ("צריך מנוי בתשלום ל-Claude?", "לא בשביל להתחיל. רוב השיעורים עובדים עם החשבון החינמי של Claude. בשיעורים שצריך מנוי – כתוב את זה מראש."),
+        ("מתי עולים השיעורים?", "השיעורים עולים אחד אחרי השני, לפי קצב הצילום. מי שנרשם יראה כל שיעור חדש ברגע שהוא עולה."),
+        ("צריך ידע קודם או ידע בקוד?", "לא. הקורס מתחיל מפתיחת חשבון ומסביר כל צעד בעברית פשוטה. גם בשיעור על Claude Code לא כותבים קוד."),
+        ("למה צריך להירשם?", "ההרשמה פותחת את הסרטונים וההורדות, שומרת את ההתקדמות ומאפשרת לקבל תעודה בסוף הקורס. היא לוקחת פחות מדקה – עם Google או עם קוד למייל."),
     ])
 
     # ---------- Contact → הרשמה ----------
@@ -235,7 +234,7 @@ def build_service():
 
 
 # =====================================================================
-# service-single.html – מסלול Claude מאפס
+# service-single.html – רשימת השיעורים
 # =====================================================================
 def build_single():
     html = (ROOT / "aigocy-about/service-single.html").read_text()
@@ -248,10 +247,10 @@ def build_single():
     # ---------- תיאור ----------
     html = rep(html, [
         ('<div class="heading fw-semibold mb-20 effectFade fadeUp">Innovative AI UX & Product Design</div>',
-         '<div class="heading fw-semibold mb-20 effectFade fadeUp">על המסלול</div>'),
+         '<div class="heading fw-semibold mb-20 effectFade fadeUp">על הקורס</div>'),
     ])
     html = sub1(html, r'(<div class="col-md-7 md-mb-24">\s*<p class="text-secondary effectFade fadeUp">).*?(</p>)',
-                lambda m: m.group(1) + "\n                            Claude הוא אחד מכלי ה-AI החזקים שיש היום, אבל רוב האנשים משתמשים רק בחלק קטן ממה שהוא יודע לעשות. במסלול הזה עוברים צעד אחרי צעד: פותחים חשבון, לומדים לבקש נכון, עובדים עם קבצים ופרויקטים, בונים מסמכים ודפים בתוך הצ'אט, מתקינים סקילים ומחברים את Claude לכלים שאתם כבר משתמשים בהם. בסוף המסלול בונים אתר שלם עם Claude Code – בלי לכתוב שורת קוד – ומעלים אותו לאוויר.\n                        " + m.group(2))
+                lambda m: m.group(1) + "\n                            Claude הוא אחד מכלי ה-AI החזקים שיש היום, אבל רוב האנשים משתמשים רק בחלק קטן ממה שהוא יודע לעשות. בקורס הזה עוברים צעד אחרי צעד: פותחים חשבון, לומדים לבקש נכון, עובדים עם קבצים ופרויקטים, בונים מסמכים ודפים בתוך הצ'אט, מתקינים סקילים ומחברים את Claude לכלים שאתם כבר משתמשים בהם. בסוף הקורס בונים אתר שלם עם Claude Code – בלי לכתוב שורת קוד – ומעלים אותו לאוויר.\n                        " + m.group(2))
     html = sub1(html, r'(<div class="col-md-5">\s*<p class="text-secondary mb-30 effectFade fadeUp">).*?(</p>)',
                 lambda m: m.group(1) + "\n                            מתאים לבעלי עסקים, לפרילנסרים ולכל מי שסקרן. לא צריך ידע קודם – רק מחשב וחשבון Claude. כל שיעור קצר וממוקד, ונגמר במשהו שאפשר להשתמש בו מיד.\n                        " + m.group(2))
     html = sub1(html, r'(<div class="list-tags effectFade fadeUp">).*?(</div>)',
@@ -296,7 +295,7 @@ def build_single():
     html = rep(html, [
         ('<div class="heading fw-semibold mb-20 effectFade fadeUp">Key Deliverables</div>', '<div class="heading fw-semibold mb-20 effectFade fadeUp">מה מקבלים</div>'),
         ("Identify high-ROI use cases and define a realistic, measurable AI roadmap. Our AI Strategy & Mapping process aligns technology with business goals through stakeholder discovery, KPI modeling, and data readiness assessment to ensure sustainable growth and measurable transformation. ",
-         "בסוף המסלול תדעו לעבוד עם Claude כל יום – ויהיה לכם אתר משלכם שעובד באוויר."),
+         "בסוף הקורס תדעו לעבוד עם Claude כל יום – ויהיה לכם אתר משלכם שעובד באוויר."),
         ("Human-centered AI experiences that feel intuitive and intelligent", "שליטה בכלים של Claude: פרויקטים, קבצים, Artifacts וסקילים"),
         ("Seamless integration of AI into digital products and workflows", "Claude שמחובר למייל, ליומן ולמסמכים שלכם"),
         ("Data-driven design decisions informed by real user behavior", "אתר שבניתם בעצמכם עם Claude Code – ועובד באוויר"),
@@ -314,10 +313,10 @@ def build_single():
     ])
 
     # ---------- Process ----------
-    html = process(html, "איך לומדים <br> במסלול", [
+    html = process(html, "איך לומדים <br> בקורס", [
         ("נרשמים", "בלחיצה עם Google, או עם קוד שמגיע למייל. בלי סיסמה ובלי כרטיס אשראי.", "דקה אחת"),
         ("צופים לפי הסדר", "שיעור אחרי שיעור, כל אחד קצר וממוקד. מסמנים ✓ וממשיכים בדיוק מאיפה שעצרתם.", "8 שיעורים"),
-        ("בונים ומעלים לאוויר", "בונים אתר עם Claude Code, מעלים אותו לאוויר ומקבלים תעודת סיום.", "בסוף מסלול"),
+        ("בונים ומעלים לאוויר", "בונים אתר עם Claude Code, מעלים אותו לאוויר ומקבלים תעודת סיום.", "בסוף הקורס"),
     ])
 
     # ---------- FAQ ----------
@@ -326,7 +325,7 @@ def build_single():
         ("מתי עולים הסרטונים?", "השיעורים בצילום עכשיו ויעלו בהדרגה. מי שנרשם יראה כל שיעור ברגע שהוא עולה, והאתר ישמור לו את ההתקדמות."),
         ("צריך לדעת לתכנת?", "לא. גם בשיעור על Claude Code לא כותבים קוד – מתארים במילים מה רוצים, ו-Claude בונה."),
         ("כמה עולה להעלות את האתר לאוויר?", "אחסון ודומיין עולים כסף אצל כל חברת אחסון. בשיעור 8 מראים איך עושים את זה עם 4CODE. " + DISCLOSURE),
-        ("מקבלים תעודה?", "כן. מסיימים את כל 8 השיעורים ומקבלים תעודת סיום עם השם שלכם, המסלול והתאריך."),
+        ("מקבלים תעודה?", "כן. מסיימים את כל 8 השיעורים ומקבלים תעודת סיום עם השם שלכם והתאריך."),
     ])
 
     # ---------- Contact → הרשמה ----------

@@ -242,7 +242,7 @@ html = rep(html, [
                                         הרשמה חינם
                                     </a>'''),
     ('<div class="title fw-semibold mb-4">What’s included</div>', '<div class="title fw-semibold mb-4">מה מקבלים</div>'),
-    ("Compliance-ready delivery for complex orgs—multi-env releases, canaries, and change management.", "הורדה של כל סקיל בלחיצה, וגישה לכל הקורסים באתר."),
+    ("Compliance-ready delivery for complex orgs—multi-env releases, canaries, and change management.", "הורדה של כל סקיל בלחיצה, וגישה לכל קורס Claude."),
     ("Everything in Starter", "כל מה שבלי הרשמה"),
     ("CI/CD, tracing, alerts, guardrails", "הורדה של כל הסקילים"),
     ("Full eval dashboard", "סקילים חדשים ברגע שעולים"),
@@ -254,7 +254,7 @@ faqs = [
     ("מה זה סקיל?", "סקיל הוא חבילת הוראות ש-Claude טוען כשצריך אותה. הוא מלמד את Claude לעשות משימה מסוימת כמו מומחה – למשל לבדוק אבטחה של אתר – בלי שתצטרכו לכתוב פרומפט ארוך כל פעם."),
     ("איך מתקינים סקיל?", "מורידים קובץ ZIP, מעלים אותו ל-Claude בהגדרות ומפעילים. <a href=\"blog-single.html\" class=\"link-underline\">במדריך המלא</a> יש הסבר צעד אחרי צעד."),
     ("זה בטוח להוריד?", "כל סקיל מגיע עם קישור לקוד המקור ב-GitHub, כך שאפשר לראות בדיוק מה יש בו לפני שמתקינים."),
-    ("למה צריך להירשם כדי להוריד?", "ההרשמה חינם ולוקחת פחות מדקה. היא פותחת את כל ההורדות והקורסים באתר."),
+    ("למה צריך להירשם כדי להוריד?", "ההרשמה חינם ולוקחת פחות מדקה. היא פותחת את כל ההורדות ואת קורס Claude."),
 ]
 html = rep(html, [
     ('<div class="heading-sub fw-semibold effectFade fadeUp">FAQs</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">שאלות נפוצות</div>'),

@@ -49,7 +49,7 @@ SIGNUP_FORM = '''<form class="form-contact{extra} effectFade fadeUp" id="signup"
 
 WHATSAPP = "https://wa.me/"
 
-TOOLS = ["Claude", "Lovable", "n8n", "Claude Code", "ChatGPT", "Gemini", "Cursor", "Supabase"]
+TOOLS = ["Claude", "Projects", "Artifacts", "Skills", "Claude Code", "MCP", "Desktop", "Mobile"]
 
 PAGE_CSS = '''
     <style>
@@ -78,7 +78,7 @@ html = apply_common(
     html,
     "about.html",
     "עליי – למה בניתי את Free AI",
-    "הסיפור מאחורי Free AI: קורסי AI בעברית עולים אלפי שקלים, אז פתחתי את כל הידע – Claude, Lovable, סוכנים ו-n8n – בחינם, בעברית, צעד אחרי צעד.",
+    "הסיפור מאחורי Free AI: קורסי Claude בעברית עולים אלפי שקלים, אז פתחתי את כל הקורס – בחינם, בעברית, צעד אחרי צעד.",
 )
 html = add_css(html)
 
@@ -87,7 +87,7 @@ html = rep(html, [
     ('<span class="title1 fw-semibold text-gradient-1">Aigocy Empowering</span>', '<span class="title1 fw-semibold text-gradient-1">למה בניתי את</span>'),
     ('<span class="fw-semibold text-gradient-1">Industries</span>', '<span class="fw-semibold text-gradient-1">Free AI</span>'),
     ("We build human-centered AI solutions that transform workflows, enhance decision-making, <br> and accelerate innovation across diverse global industries.",
-     "קורסי AI בעברית עולים אלפי שקלים, ורוב האנשים פשוט מוותרים. <br> אז פתחתי את כל הידע לכולם – בחינם, בעברית, צעד אחרי צעד."),
+     "קורסי Claude בעברית עולים אלפי שקלים, ורוב האנשים פשוט מוותרים. <br> אז פתחתי את כל הקורס לכולם – בחינם, בעברית, צעד אחרי צעד."),
 ])
 
 # ---------- About (הסיפור) ----------
@@ -105,8 +105,8 @@ html = rep(html, [
                                 </a>'''),
     ('<h4 class="title fw-semibold effectFade fadeUp">Our Mission</h4>', '<h4 class="title fw-semibold effectFade fadeUp">המטרה</h4>'),
     ("Based in Montréal, Canada, we build human-centered AI for production. Our mission is to create intelligent systems that empower people and organizations. By uniting research, design, and engineering, we deliver scalable and reliable AI solutions—technology that’s practical, trustworthy, and designed to make a meaningful impact in the real world.",
-     "ראיתי בעלי עסקים, פרילנסרים וסתם סקרנים שרוצים ללמוד AI – ונתקעים מול קורסים שעולים אלפי שקלים. "
-     "רובם מוותרים. אז בניתי את Free AI: כל הידע – Claude, Lovable, סוכני AI, אוטומציות n8n והעלאה לאוויר – "
+     "ראיתי בעלי עסקים, פרילנסרים וסתם סקרנים שרוצים ללמוד Claude – ונתקעים מול קורסים שעולים אלפי שקלים. "
+     "רובם מוותרים. אז בניתי את Free AI: קורס Claude המלא – מהשאלה הראשונה ועד אתר שבניתם עם Claude Code – "
      "בחינם, בעברית פשוטה, צעד אחרי צעד. בלי מנוי, בלי כרטיס אשראי, ולתמיד."),
     # עד שתהיה תמונה אמיתית של שי – תמונה ניטרלית, לא פנים של מישהו אחר
     ('<img src="assets/images/section/quotes-1.jpg" alt="">', '<img src="assets/images/section/service-3.jpg" alt="" class="quote-neutral">'),
@@ -117,7 +117,7 @@ html = rep(html, [
 
 # ---------- Partner → הכלים שלומדים ----------
 html = rep(html, [('<p class="text-secondary text fw-semibold">Trusted by 100+ <br> top-tier brands</p>',
-                   '<p class="text-secondary text fw-semibold">הכלים <br> שלומדים כאן</p>')])
+                   '<p class="text-secondary text fw-semibold">מה לומדים <br> בקורס</p>')])
 html = sub1(r'(<div class="infiniteSlide infiniteSlide_partner" data-clone="5">).*?(</div>)',
             lambda m: m.group(1) + "".join(f'\n                                    <span class="tool-name">{t}</span>' for t in TOOLS) + "\n                                " + m.group(2),
             html)
@@ -132,10 +132,10 @@ html = rep(html, [
      "ההרשמה נדרשת רק כדי לשמור לכם את ההתקדמות ולהנפיק תעודה."),
     ('<h4 class="title fw-semibold">Creativity</h4>', '<h4 class="title fw-semibold">בעברית פשוטה</h4>'),
     ("Creativity is the core of our agency. We transform ideas into compelling experiences that inspire, engage, and resonate. By blending imagination with strategy, we craft innovative solutions that stand out in crowded markets. Every project is an opportunity to explore new perspectives, push boundaries, and deliver work that is both original and impactful, leaving a lasting impression.",
-     "בלי מונחים מסובכים ובלי להניח שאתם כבר יודעים. כל מסלול מתחיל מאפס, וכל צעד מוסבר כאילו זו הפעם הראשונה."),
+     "בלי מונחים מסובכים ובלי להניח שאתם כבר יודעים. הקורס מתחיל מאפס, וכל צעד מוסבר כאילו זו הפעם הראשונה."),
     ('<h4 class="title fw-semibold">Collaboration</h4>', '<h4 class="title fw-semibold">לומדים בעשייה</h4>'),
     ("At the heart of our work lies collaboration—bringing together diverse talents, perspectives, and expertise to achieve results. We foster open communication, encourage co-creation, and build strong partnerships with clients, ensuring every project reflects shared vision and purpose. By working together, we transform ideas into impactful solutions that drive innovation and lasting value.",
-     "לא רק להבין, אלא לבנות. כל שיעור נגמר במשהו שעובד – אתר, אפליקציה, סוכן או אוטומציה – "
+     "לא רק להבין, אלא לבנות. כל שיעור נגמר במשהו שעובד – תשובה, מסמך, כלי או אתר – "
      "ומגיע עם קבצים ותבניות מוכנים להורדה."),
     ('<h4 class="title fw-semibold">Excellence</h4>', '<h4 class="title fw-semibold">עד שזה באוויר</h4>'),
     ("Excellence drives everything we do. From concept to execution, we pursue the highest standards in design, strategy, and delivery. Every detail matters, every decision is intentional, and every outcome reflects our commitment to quality. By continually refining our skills and processes, we ensure each project not only meets expectations but sets new benchmarks in creativity and performance.",
@@ -144,15 +144,15 @@ html = rep(html, [
 
 # ---------- Tools ----------
 html = rep(html, [
-    ('<div class="heading-sub fw-semibold effectFade fadeUp">Tools</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">הכלים</div>'),
+    ('<div class="heading-sub fw-semibold effectFade fadeUp">Tools</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">Claude</div>'),
     ('<div class="heading-title text-gradient-3 effectFade fadeRotateX">We work with <br> powerful AI tools</div>',
-     '<div class="heading-title text-gradient-3 effectFade fadeRotateX">לומדים את <br> הכלים הכי חזקים</div>'),
+     '<div class="heading-title text-gradient-3 effectFade fadeRotateX">כל מה ש-Claude <br> יודע לעשות</div>'),
     ("We design, build, and evaluate with a modern AI stack—LLMs, vector <br> search, orchestration, and observability—so your features are fast, <br> reliable, and secure.",
-     "Claude, Lovable, n8n, Cursor ועוד – הכלים שבעלי עסקים <br> ופרילנסרים משתמשים בהם היום, בהסבר צעד אחרי צעד."),
+     "Projects, Artifacts, סקילים, חיבורים ו-Claude Code – באתר, במחשב <br> ובטלפון, בהסבר צעד אחרי צעד."),
     ('''<a href="contact.html" class="tf-btn effectFade fadeRotateX">
                     Get Started
                 </a>''', '''<a href="service.html" class="tf-btn effectFade fadeRotateX">
-                    לכל הקורסים
+                    לקורס Claude
                 </a>'''),
 ])
 
@@ -173,25 +173,25 @@ html = rep(html, [
     ('<div class="heading-title text-white effectFade fadeRotateX">Human-centered <br> AI, built for <br> production</div>',
      '<div class="heading-title text-white effectFade fadeRotateX">כל הידע. <br> בלי המחיר. <br> לתמיד.</div>'),
     ("We shipped our first copilot in 7 weeks and cut support tickets by 31%. The eval dashboards made every decision obvious.",
-     "קורסי AI בעברית עולים אלפי שקלים. כאן מקבלים את אותו ידע – מסלולים מלאים, קבצים ותעודה – בחינם."),
-    ('<div class="title fw-semibold text-body-1">OUR GROWTH</div>', '<div class="title fw-semibold text-body-1">מחיר לכל הקורסים</div>'),
+     "קורסי Claude בעברית עולים אלפי שקלים. כאן מקבלים את אותו ידע – קורס מלא, קבצים ותעודה – בחינם."),
+    ('<div class="title fw-semibold text-body-1">OUR GROWTH</div>', '<div class="title fw-semibold text-body-1">מחיר הקורס</div>'),
     ('<span class="number text-white fw-semibold">230</span>\n                                                <span class="prefix text-brand">K</span>',
      '<span class="prefix text-brand">₪</span>\n                                                <span class="number text-white fw-semibold">0</span>'),
-    ('<div class="title fw-semibold text-body-1">UPTIME FOR KEY FLOWS</div>', '<div class="title fw-semibold text-body-1">מסלולי לימוד</div>'),
+    ('<div class="title fw-semibold text-body-1">UPTIME FOR KEY FLOWS</div>', '<div class="title fw-semibold text-body-1">פרקים בקורס</div>'),
     ('<span class="number text-white fw-semibold">95</span>\n                                                <span class="prefix text-brand">%</span>',
-     '<span class="number text-white fw-semibold">5</span>\n                                                <span class="prefix text-brand">+</span>'),
+     '<span class="number text-white fw-semibold">5</span>'),
     ('<div class="title fw-semibold text-body-1">ON TIME DELIVERY</div>', '<div class="title fw-semibold text-body-1">בעברית</div>'),
     ('<span class="number text-white fw-semibold">99</span>\n                                                <span class="prefix text-brand">%</span>',
      '<span class="number text-white fw-semibold">100</span>\n                                                <span class="prefix text-brand">%</span>'),
 ])
 
-# ---------- Awards → מה לומדים כאן (המסלולים) ----------
+# ---------- Awards → פרקי הקורס ----------
 tracks = [
-    ("book-open-solid", "Claude מאפס", "מהשאלה הראשונה ועד עבודה יומיומית עם Claude", "01"),
-    ("desktop-solid", "בונים אפליקציה עם Lovable", "מרעיון לאפליקציה אמיתית – בלי לכתוב קוד", "02"),
-    ("robot-solid", "סוכני AI", "עוזרים שעובדים בשבילכם, גם כשאתם לא", "03"),
-    ("plug-solid", "אוטומציות עם n8n", "תהליכים שרצים לבד וחוסכים שעות כל שבוע", "04"),
-    ("global", "מעלים לאוויר", "דומיין, אחסון ושרת שעובד 24/7", "05"),
+    ("book-open-solid", "מתחילים עם Claude", "פותחים חשבון ושואלים את השאלה הראשונה", "01"),
+    ("comments-solid", "לבקש נכון", "בקשה שמקבלת תשובה טובה כבר בפעם הראשונה", "02"),
+    ("desktop-solid", "Projects וקבצים", "Claude שמכיר את העסק שלכם וזוכר", "03"),
+    ("bolt-solid", "Artifacts", "מסמכים, גרפים וכלים שנבנים בתוך השיחה", "04"),
+    ("global", "סקילים ו-Claude Code", "יכולות חדשות, ואתר שלם שעובד באוויר", "05"),
 ]
 rows = []
 for i, (icon, title, text, num) in enumerate(tracks):
@@ -207,14 +207,14 @@ for i, (icon, title, text, num) in enumerate(tracks):
 html = sub1(r'(<div class="d-grid gap-16">).*?(\n                    </div>\n                </div>\n            </div>\n            <!-- /section-awards -->)',
             lambda m: m.group(1) + "\n" + "\n".join(rows) + m.group(2), html)
 html = rep(html, [('<div class="heading-sub fw-semibold style-1 mb-0 effectFade fadeUp">Awards</div>',
-                   '<div class="heading-sub fw-semibold style-1 mb-0 effectFade fadeUp">מה לומדים כאן</div>')])
+                   '<div class="heading-sub fw-semibold style-1 mb-0 effectFade fadeUp">פרקי הקורס</div>')])
 
 # ---------- FAQ ----------
 html = faq(html, [
-    ("מי עומד מאחורי Free AI?", "אני, שי. בניתי את Free AI כי ראיתי כמה אנשים רוצים ללמוד AI ומוותרים בגלל המחיר. כל השיעורים כאן נבנים כדי שתוכלו ללמוד לבד, בקצב שלכם."),
+    ("מי עומד מאחורי Free AI?", "אני, שי. בניתי את Free AI כי ראיתי כמה אנשים רוצים ללמוד Claude ומוותרים בגלל המחיר. כל השיעורים כאן נבנים כדי שתוכלו ללמוד לבד, בקצב שלכם."),
     ("למה הכל בחינם?", "כי ידע כזה לא צריך לעלות אלפי שקלים. המטרה היא שכל מי שרוצה – בעל עסק, פרילנסר או סקרן – יוכל ללמוד ולבנות בעצמו."),
     ("איך האתר מרוויח אם הכל חינם?", "בשיעורים שבהם צריך אחסון אני ממליץ על חברת אחסון שאני עובד איתה, ומקבל עמלה אם נרשמים דרכי. זה לא עולה לכם כלום, ותמיד כתוב בגלוי כשמדובר בהמלצה כזו."),
-    ("למי זה מתאים?", "לבעלי עסקים שרוצים לחסוך זמן, לפרילנסרים שרוצים לבנות ללקוחות, ולכל מי שסקרן להבין AI ולהשתמש בו ביומיום. לא צריך ידע קודם."),
+    ("למי זה מתאים?", "לבעלי עסקים שרוצים לחסוך זמן, לפרילנסרים שרוצים לבנות ללקוחות, ולכל מי שסקרן להבין את Claude ולהשתמש בו ביומיום. לא צריך ידע קודם."),
 ])
 
 # ---------- Contact → הרשמה ----------
@@ -300,7 +300,7 @@ html = rep(html, [
     ('<div class="heading-sub fw-semibold effectFade fadeUp">Contact</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">הרשמה</div>'),
     ("Let’s Build <br> Intelligent Things", "מתחילים מהשיעור <br> הראשון"),
     ("combining creativity, technology, and strategy to craft solutions that think, adapt, and inspire. Connect with us to turn visionary ideas into meaningful, data-driven realities.",
-     "משאירים שם ומייל, מקבלים קוד כניסה, ומתחילים. ההרשמה שומרת לכם את ההתקדמות, פותחת את הסרטונים וההורדות, ומאפשרת לקבל תעודה בסוף כל מסלול."),
+     "משאירים שם ומייל, מקבלים קוד כניסה, ומתחילים. ההרשמה שומרת לכם את ההתקדמות, פותחת את הסרטונים וההורדות, ומאפשרת לקבל תעודה בסוף הקורס."),
 ])
 html = sub1(r'<div class="tf-social-1 gap-24 effectFade fadeRotateX">.*?\n                                </div>\n                            </div>\n                        </div>',
             f'''<div class="tf-social-1 gap-24 effectFade fadeRotateX">
@@ -311,7 +311,7 @@ html = sub1(r'<div class="tf-social-1 gap-24 effectFade fadeRotateX">.*?\n      
                                         </div>
                                     </a>
                                     <a href="service.html" class="text-body-1 fw-semibold">
-                                        קורסים
+                                        הקורס
                                         <div class="social-item">
                                             <i class="icon icon-arrow-top-right"></i>
                                         </div>
@@ -334,7 +334,7 @@ html = sub1(r"\s*<!-- map -->.*?<!-- /map -->", "", html)
 # ---------- FAQ ----------
 html = faq(html, [
     ("זה באמת בחינם?", "כן. כל השיעורים, הקבצים, הסקילים והתעודות – בחינם, בלי כרטיס אשראי ובלי מנוי."),
-    ("למה צריך להירשם?", "ההרשמה שומרת לכם את ההתקדמות, פותחת את הסרטונים וההורדות, ומאפשרת לקבל תעודה בסוף מסלול. היא לוקחת פחות מדקה."),
+    ("למה צריך להירשם?", "ההרשמה שומרת לכם את ההתקדמות, פותחת את הסרטונים וההורדות, ומאפשרת לקבל תעודה בסוף הקורס. היא לוקחת פחות מדקה."),
     ("לא קיבלתי קוד, מה עושים?", "חכו דקה ובדקו גם בתיקיית הספאם או קידומי מכירות. אם הקוד עדיין לא הגיע, בקשו קוד חדש או כתבו לנו בוואטסאפ."),
     ("מה תעשו עם המייל שלי?", "נשתמש בו כדי שתוכלו להיכנס לאתר ולשמור את ההתקדמות שלכם. לא נמכור אותו ולא נעביר אותו לאף אחד. כל הפרטים במדיניות הפרטיות."),
 ])
