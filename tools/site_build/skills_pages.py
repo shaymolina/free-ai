@@ -347,14 +347,11 @@ detail = f'''<!-- section-work-single -->
                 <div class="row mb-60">
                     <div class="col-md-8 md-mb-24">
                         <div class="text-body-1 fw-semibold text-secondary mb-15 effectFade fadeUp">
-                            מתאים לאתרים שנבנו עם
+                            מתאים ל
                         </div>
                         <div class="list-tags effectFade fadeUp">
-                            <span class="tags-item fw-semibold">Lovable</span>
-                            <span class="tags-item fw-semibold">Bolt</span>
-                            <span class="tags-item fw-semibold">Base44</span>
-                            <span class="tags-item fw-semibold">Claude Code</span>
-                            <span class="tags-item fw-semibold">ועוד</span>
+                            <span class="tags-item fw-semibold">אתרים מ-Claude Code</span>
+                            <span class="tags-item fw-semibold">כל אתר אחר</span>
                         </div>
                     </div>
                     <div class="col-md-4">

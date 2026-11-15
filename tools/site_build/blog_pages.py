@@ -40,18 +40,24 @@ STYLE = '''    <style>
 POSTS = [
     {
         "img": "blog-1.jpg",
+        "href": "blog-single.html", "hero": "blog-4.jpg", "read": "3", "tags": ["Claude", "סקילים"],
+        "desc": "מה זה סקיל ב-Claude, איך מתקינים אותו מקובץ zip דרך ההגדרות, ואיך משתמשים בו בשיחה חדשה. מדריך קצר בעברית.",
         "cat": "סקילים",
         "title": "איך מתקינים סקיל ב-Claude – המדריך הקצר",
         "excerpt": "מה זה סקיל, איפה מעלים את קובץ ה-zip ואיך משתמשים בו בשיחה חדשה. חמש דקות, בלי ידע טכני.",
     },
     {
         "img": "blog-2.jpg",
+        "href": "blog-claude.html", "hero": "blog-2.jpg", "read": "2", "tags": ["Claude"],
+        "desc": "מה זה Claude, איך פותחים חשבון ואיך כותבים בקשה ראשונה שמקבלת תשובה טובה. מדריך קצר בעברית.",
         "cat": "Claude",
         "title": "מה זה Claude ואיך מתחילים",
         "excerpt": "הכירו את Claude: מה הוא יודע לעשות, איך פותחים חשבון, ואיך לנסח בקשה ראשונה שמקבלת תשובה טובה.",
     },
     {
         "img": "blog-3.jpg",
+        "href": "blog-hosting.html", "hero": "blog-3.jpg", "read": "2", "tags": ["Claude Code", "אחסון"],
+        "desc": "מה לבדוק לפני שבוחרים אחסון לאתר שבניתם עם Claude Code. מדריך קצר בעברית.",
         "cat": "אחסון",
         "title": "איך בוחרים אחסון לאתר שבניתם עם Claude",
         "excerpt": "בניתם אתר עם Claude Code? הנה מה חשוב לבדוק לפני שבוחרים אחסון, ומה ההבדל בין אחסון רגיל לשרת.",
@@ -86,7 +92,7 @@ def sidebar():
                                         </div>
                                         <div class="content">
                                             <h6 class="title text-body-1">
-                                                <a href="blog-single.html" class="link1">
+                                                <a href="{p['href']}" class="link1">
                                                     {p['title']}
                                                 </a>
                                             </h6>
@@ -152,7 +158,7 @@ html = apply_common(html, "blog-standard.html", "בלוג מדריכים – Fre
                     "מדריכים פתוחים בעברית ל-Claude, סקילים, Claude Code ואחסון אתרים. קצר, ברור ובחינם.")
 html = page_title(html, "בלוג מדריכים", [("בלוג", None)])
 cards = "\n".join(f'''                            <div class="article-blog style-horizontal hover-img effectFade fadeUp no-div">
-                                <a href="blog-single.html" class="blog-image img-style">
+                                <a href="{p['href']}" class="blog-image img-style">
                                     <img loading="lazy" width="426" height="307" src="assets/images/blog/{p['img']}" alt="{p['title']}">
                                 </a>
                                 <div class="blog-content">
@@ -161,13 +167,13 @@ cards = "\n".join(f'''                            <div class="article-blog style
                                             {p['cat']}
                                         </p>
                                         <h6 class="fw-semibold">
-                                            <a href="blog-single.html" class="link1 infor_name">
+                                            <a href="{p['href']}" class="link1 infor_name">
                                                 {p['title']}
                                             </a>
                                         </h6>
                                         <p class="infor_excerpt text-body-3 text-secondary">{p['excerpt']}</p>
                                     </div>
-                                    <a href="blog-single.html" class="tf-btn-2">
+                                    <a href="{p['href']}" class="tf-btn-2">
                                         לקריאה
                                         <i class="icon icon-arrow-top-right"></i>
                                     </a>
@@ -180,29 +186,11 @@ html = replace_sidebar(html)
 finish(html, "blog-standard.html")
 
 
-# ======================= blog-single.html =======================
+# ======================= מאמרים =======================
 SINGLE_SRC = (SRC / "blog-single.html").read_text()
-ART_TITLE = POSTS[0]["title"]
 
-article = f'''<div class="blog-single-wrap">
-                            <div class="image effectFade fadeZoom">
-                                <img loading="lazy" width="777" height="548" src="assets/images/blog/blog-4.jpg" alt="{ART_TITLE}">
-                            </div>
-                            <div class="meta-list">
-                                <div class="meta-item">
-                                    <i class="icon icon-user-solid"></i>
-                                    <span>Free AI</span>
-                                </div>
-                                <div class="meta-item">
-                                    <i class="icon icon-clock-solid"></i>
-                                    <span>{DATE}</span>
-                                </div>
-                                <div class="meta-item">
-                                    <i class="icon icon-book-open-solid"></i>
-                                    <span>3 דקות קריאה</span>
-                                </div>
-                            </div>
-                            <div class="article-body text-body-2">
+BODIES = {}
+BODIES["blog-single.html"] = '''<div class="article-body text-body-2">
                                 <p>סקיל הוא דרך ללמד את Claude לעשות משימה מסוימת בדיוק כמו שאתם רוצים – בכל פעם מחדש, בלי להסביר מההתחלה. במדריך הזה תראו מה זה סקיל, איך מתקינים אותו בכמה לחיצות ואיך משתמשים בו בשיחה.</p>
 
                                 <h2 class="fw-semibold">מה זה סקיל?</h2>
@@ -233,7 +221,75 @@ article = f'''<div class="blog-single-wrap">
                                 <h2 class="fw-semibold">מאיפה מביאים סקילים?</h2>
                                 <p>ב<a href="work.html">ספריית הסקילים של Free AI</a> תמצאו סקילים מוכנים בעברית – למשל בדיקת אבטחה לאתר ובדיקת מהירות לאתר. כל סקיל מגיע עם הסבר קצר, קובץ להורדה ודוגמה לשימוש.</p>
                             </div>
-                            <div class="blockquote-wrap">
+'''
+BODIES["blog-claude.html"] = '''<div class="article-body text-body-2">
+                                <p>Claude הוא עוזר AI של חברת Anthropic. כותבים לו בעברית רגילה, והוא עונה, כותב, מסכם ובונה.</p>
+
+                                <h2 class="fw-semibold">מה Claude יודע לעשות?</h2>
+                                <ul>
+                                    <li>לכתוב ולערוך: מיילים, פוסטים, הצעות מחיר.</li>
+                                    <li>לקרוא קבצים: PDF, אקסל ותמונות, ולסכם אותם.</li>
+                                    <li>לבנות: מסמכים, טבלאות, כלים קטנים ואפילו אתר שלם.</li>
+                                </ul>
+
+                                <h2 class="fw-semibold">איך פותחים חשבון</h2>
+                                <ol>
+                                    <li>נכנסים ל-<span class="path">claude.ai</span>.</li>
+                                    <li>נרשמים עם Google או עם מייל.</li>
+                                    <li>לקורס צריך מנוי Pro ומעלה: לוחצים על <span class="path">שדרוג</span> (Upgrade).</li>
+                                    <li>רוצים גם במחשב או בטלפון? מורידים את האפליקציה של Claude.</li>
+                                </ol>
+
+                                <h2 class="fw-semibold">הבקשה הראשונה</h2>
+                                <p>שלושה דברים בכל בקשה: מי אתם, מה אתם צריכים, ואיך התשובה צריכה להיראות.</p>
+                                <p>למשל: "יש לי מספרה בתל אביב. תכתוב לי 3 פוסטים קצרים לאינסטגרם על תספורת לחג, עם אימוג'י."</p>
+                                <p>התשובה לא מדויקת? ממשיכים באותה שיחה: "יותר קצר", "יותר מצחיק", "בלי אימוג'י".</p>
+                            </div>
+'''
+BODIES["blog-hosting.html"] = '''<div class="article-body text-body-2">
+                                <p>בניתם אתר עם Claude Code? כדי שכולם יוכלו להיכנס אליו צריך אחסון ודומיין.</p>
+
+                                <h2 class="fw-semibold">מה לבדוק לפני שבוחרים</h2>
+                                <ul>
+                                    <li>שהאחסון תומך בסוג האתר שלכם: דפים פשוטים, או אתר עם שרת ומסד נתונים.</li>
+                                    <li>שאפשר לחבר אותו ל-GitHub, כך שכל שינוי עולה לאתר לבד.</li>
+                                    <li>שיש חיבור דומיין ותעודת אבטחה (SSL) בלי תוספת תשלום.</li>
+                                    <li>שהשרת קרוב לגולשים שלכם, כדי שהאתר ייטען מהר.</li>
+                                    <li>שיש תמיכה שעונה מהר, רצוי בעברית.</li>
+                                </ul>
+
+                                <h2 class="fw-semibold">דומיין</h2>
+                                <p>הדומיין הוא הכתובת של האתר, למשל mysite.co.il. קונים אותו פעם בשנה ומחברים לאחסון.</p>
+
+                                <h2 class="fw-semibold">צעד אחרי צעד</h2>
+                                <p>בשיעור 8 בקורס מעלים אתר לאוויר עם 4CODE, מההתחלה ועד הסוף.</p>
+                                <p class="text-secondary">גילוי נאות: קישור שותפים ל-4CODE. המחיר לא משתנה.</p>
+                            </div>
+'''
+
+
+def article(p):
+    tags = "\n".join(f'                                        <a href="blog-standard.html" class="tags-item fw-semibold">{t}</a>' for t in p["tags"])
+    return f'''<div class="blog-single-wrap">
+                            <h2 class="h3 fw-semibold mb-0">{p['title']}</h2>
+                            <div class="image effectFade fadeZoom">
+                                <img loading="lazy" width="777" height="548" src="assets/images/blog/{p['hero']}" alt="{p['title']}">
+                            </div>
+                            <div class="meta-list">
+                                <div class="meta-item">
+                                    <i class="icon icon-user-solid"></i>
+                                    <span>Free AI</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="icon icon-clock-solid"></i>
+                                    <span>{DATE}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="icon icon-book-open-solid"></i>
+                                    <span>{p['read']} דקות קריאה</span>
+                                </div>
+                            </div>
+                            {BODIES[p['href']]}                            <div class="blockquote-wrap">
                                 <h5 class="fw-semibold text-white">רוצים ללמוד את כל זה לעומק?</h5>
                                 <p class="text-body-2 text-secondary mt-12">נרשמים בחינם ומקבלים גישה לקורס Claude מאפס, לכל הסקילים ולקבצים להורדה. בלי כרטיס אשראי.</p>
                                 <a href="contact.html#signup" class="tf-btn-2">הרשמה חינם</a>
@@ -242,8 +298,7 @@ article = f'''<div class="blog-single-wrap">
                                 <div class="tags-links">
                                     <h6 class="text-body-1">נושאים:</h6>
                                     <div class="list-tags">
-                                        <a href="blog-standard.html" class="tags-item fw-semibold">Claude</a>
-                                        <a href="blog-standard.html" class="tags-item fw-semibold">סקילים</a>
+                                        {tags}
                                     </div>
                                 </div>
                             </div>
@@ -251,16 +306,14 @@ article = f'''<div class="blog-single-wrap">
                     </div>
                     '''
 
-html = apply_common(SINGLE_SRC, "blog-standard.html", f"{ART_TITLE} | Free AI",
-                    "מה זה סקיל ב-Claude, איך מתקינים אותו מקובץ zip דרך ההגדרות, ואיך משתמשים בו בשיחה חדשה. מדריך קצר בעברית.")
-html = page_title(html, "מדריכים", [("בלוג", "blog-standard.html"), ("סקילים", None)])
-html, n = re.subn(r'<div class="blog-single-wrap">.*?</div>\s*</div>\s*(?=<div class="col-lg-4">)', lambda m: article, html, count=1, flags=re.S)
-assert n == 1
-html = replace_sidebar(html)
-# כותרת המאמר מעל התמונה
-html = html.replace('<div class="blog-single-wrap">\n                            <div class="image effectFade fadeZoom">',
-                    f'<div class="blog-single-wrap">\n                            <h2 class="h3 fw-semibold mb-0">{ART_TITLE}</h2>\n                            <div class="image effectFade fadeZoom">', 1)
-finish(html, "blog-single.html")
+
+for p in POSTS:
+    html = apply_common(SINGLE_SRC, "blog-standard.html", f"{p['title']} | Free AI", p["desc"])
+    html = page_title(html, "מדריכים", [("בלוג", "blog-standard.html"), (p["cat"], None)])
+    html, n = re.subn(r'<div class="blog-single-wrap">.*?</div>\s*</div>\s*(?=<div class="col-lg-4">)', lambda m: article(p), html, count=1, flags=re.S)
+    assert n == 1
+    html = replace_sidebar(html)
+    finish(html, p["href"])
 
 
 # ======================= privacy.html / terms.html =======================
