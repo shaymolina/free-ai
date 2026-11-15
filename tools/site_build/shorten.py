@@ -146,7 +146,12 @@ T = {
 
 # מקטעים שמוסרים לגמרי (חוזרים על עצמם)
 DROP = {
-    "index.html": ["section-features", "section-statistic"],
+    "index.html": ["section-about-us", "section-partner", "section-featured-works", "section-features",
+                   "section-tools", "section-statistic"],
+    "service.html": ["section-partner", "section-process"],
+    "service-single.html": ["section-process"],
+    "about.html": ["section-partner", "section-features", "section-tools", "section-statistic", "section-awards"],
+    "work.html": ["section-pricing"],
 }
 
 
@@ -169,6 +174,8 @@ def run():
                 return ">" + T[key] + "<"
             return m.group(0)
         html = re.sub(r">([^<>]+)<", sub, html)
+        if f.name == "index.html":
+            html = html.replace('href="#about" class="scroll-more"', 'href="#services" class="scroll-more"')
         # <br> שנשאר לפני טקסט שנמחק
         html = re.sub(r"<br>\s*(?=</)", "", html)
         f.write_text(html)

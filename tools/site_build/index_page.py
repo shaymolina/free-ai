@@ -153,7 +153,7 @@ html = html.replace('<div dir="ltr" class="swiper tf-swiper swiper-box-shadow" d
 html = html.replace('<div class="heading-sub fw-semibold effectFade fadeUp">Benefits</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">איך לומדים</div>')
 html = html.replace('<div class="heading-title text-gradient-3 effectFade fadeRotateX">Why Choose Us</div>', '<div class="heading-title text-gradient-3 effectFade fadeRotateX">לומדים בעשייה</div>')
 for a, b in [
-    ("Accuracy\n", "Chat\n"), ("Latency\n", "Projects\n"), ("Safety\n", "Artifacts\n"), ("Cost\n", "Skills\n"),
+    ("Accuracy\n", "Connector\n"), ("Latency\n", "Projects\n"), ("Safety\n", "Database\n"), ("Cost\n", "Skills\n"),
     ("Outcome over Output", "תוצאה, לא תיאוריה"),
     ("We measure what matters - accuracy, latency, safety, and <br> cost - so every sprint ships business value, not just features.", "כל שיעור נגמר במשהו שעובד – תשובה, מסמך, כלי או <br> אתר. לא רק להבין, אלא לבנות."),
     ("Eval-First Reliability", "שומר את ההתקדמות"),
@@ -221,8 +221,6 @@ for a, b in [
 skills = [
     ("shield-alt-solid", "בדיקת אבטחה לאתר", "34 בדיקות – דוח אדום / כתום / ירוק בעברית", "/ אבטחה"),
     ("tachometer-alt-solid", "בדיקת מהירות לאתר", "69 בדיקות ופרומפט מוכן לכל תיקון", "/ ביצועים"),
-    ("book-solid", "סקילים לכתיבה", "פוסטים, מיילים ודפי נחיתה בסגנון שלכם", "/ בקרוב"),
-    ("bullseye-solid", "סקילים לשיווק", "מודעות, קהלים ותוכן לרשתות", "/ בקרוב"),
 ]
 rows = []
 for i, (img, title, text, year) in enumerate(skills):

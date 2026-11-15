@@ -31,7 +31,7 @@ SKILLS = [
         "src": "https://github.com/openforge-lab/site-speed",
     },
 ]
-CATEGORIES = [("אבטחה", True), ("ביצועים", True), ("כתיבה", False), ("שיווק", False), ("עסק", False), ("קוד", False)]
+CATEGORIES = [("אבטחה", True), ("ביצועים", True)]
 
 
 def zip_url(src):
