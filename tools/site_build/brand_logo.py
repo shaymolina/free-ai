@@ -1,6 +1,6 @@
-"""Free AI brand marks: app-icon tile ("Free / AI") + header lockups + favicon.
+"""Free AI brand marks: app-icon tile (big "AI", "free" running up the left side) + header lockups + favicon.
 
-Colour: #D97757 tile, cream text. Font: Hanken Grotesk SemiBold (OFL).
+Colour: #D97757 tile, cream text. Font: Hanken Grotesk Bold (OFL).
 """
 import os
 from fontTools.ttLib import TTFont
@@ -10,13 +10,13 @@ from fontTools.pens.boundsPen import BoundsPen
 
 HERE = os.path.dirname(__file__)
 OUT = os.path.join(HERE, "..", "..", "site", "assets", "images", "logo")
-FONT = TTFont(os.path.join(HERE, "fonts", "HankenGrotesk-SemiBold.woff2"))
+FONT = TTFont(os.path.join(HERE, "fonts", "HankenGrotesk-Bold.woff2"))
 GS, CMAP, UPM = FONT.getGlyphSet(), FONT.getBestCmap(), FONT["head"].unitsPerEm
 
 BRAND, CREAM, INK = "#D97757", "#FAF3EE", "#1F1F1E"
 
 
-def text_path(text, size):
+def text_path(text, size, track=0.0):
     s = size / UPM
     x, parts, bp = 0.0, [], BoundsPen(GS)
     for ch in text:
@@ -26,22 +26,22 @@ def text_path(text, size):
         GS[g].draw(TransformPen(pen, t))
         GS[g].draw(TransformPen(bp, t))
         parts.append(pen.getCommands())
-        x += GS[g].width * s
+        x += GS[g].width * s + track * size
     return " ".join(parts), bp.bounds
 
 
 def tile(x, y, size):
-    """Rounded square with 'Free' over 'AI', centred."""
+    """Rounded square, 'AI' centred, 'free' rotated up the left edge."""
     k = size / 100
-    fs, lead = 34 * k, 1.05
-    cap = fs * 0.72
-    total = cap * 2 + fs * (lead - 0.72)
-    y0 = y + size / 2 - total / 2 + cap
     out = f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="{22*k:.2f}" fill="{BRAND}"/>'
-    for i, line in enumerate(["Free", "AI"]):
-        d, b = text_path(line, fs)
-        tx = x + size / 2 - (b[2] - b[0]) / 2 - b[0]
-        out += f'<path transform="translate({tx:.2f} {y0 + i*fs*lead:.2f})" d="{d}" fill="{CREAM}"/>'
+    d, b = text_path("AI", 54 * k, -0.04)
+    ax = x + size / 2 - (b[2] - b[0]) / 2 - b[0]
+    ay = y + size / 2 - (b[1] + b[3]) / 2
+    out += f'<path transform="translate({ax:.2f} {ay:.2f})" d="{d}" fill="{CREAM}"/>'
+    d, b = text_path("free", 13 * k, 0.04)
+    fx = x + 20 * k
+    fy = y + size / 2 + (b[2] - b[0]) / 2 + b[0]
+    out += f'<path transform="translate({fx:.2f} {fy:.2f}) rotate(-90)" d="{d}" fill="{CREAM}"/>'
     return out
 
 
