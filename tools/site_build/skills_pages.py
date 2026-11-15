@@ -200,10 +200,7 @@ for i, (title, note) in enumerate(steps, 1):
                             </div>
                         </div>''')
 html = re.sub(r'(<div class="delay-wrap">).*?(\n                    </div>\n                </div>\n            </div>\n            <!-- /section-delay -->)',
-              lambda m: m.group(1) + "\n" + "\n".join(rows) + '''
-                    </div>
-                    <div class="d-flex justify-content-center mt-5">
-                        <a href="blog-single.html" class="tf-btn-2 effectFade fadeUp">המדריך המלא: איך מתקינים סקיל</a>''' + m.group(2),
+              lambda m: m.group(1) + "\n" + "\n".join(rows) + m.group(2),
               html, count=1, flags=re.S)
 html = rep(html, [
     ('<div class="heading-sub fw-semibold effectFade fadeUp">Why Delay Hurts</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">איך מתקינים</div>'),
@@ -252,7 +249,7 @@ html = rep(html, [
 # ---------- FAQ ----------
 faqs = [
     ("מה זה סקיל?", "סקיל הוא חבילת הוראות ש-Claude טוען כשצריך אותה. הוא מלמד את Claude לעשות משימה מסוימת כמו מומחה – למשל לבדוק אבטחה של אתר – בלי שתצטרכו לכתוב פרומפט ארוך כל פעם."),
-    ("איך מתקינים סקיל?", "מורידים קובץ ZIP, מעלים אותו ל-Claude בהגדרות ומפעילים. <a href=\"blog-single.html\" class=\"link-underline\">במדריך המלא</a> יש הסבר צעד אחרי צעד."),
+    ("איך מתקינים סקיל?", "מורידים קובץ ZIP, מעלים אותו ל-Claude בהגדרות ומפעילים."),
     ("זה בטוח להוריד?", "כל סקיל מגיע עם קישור לקוד המקור ב-GitHub, כך שאפשר לראות בדיוק מה יש בו לפני שמתקינים."),
     ("למה צריך להירשם כדי להוריד?", "ההרשמה חינם ולוקחת פחות מדקה. היא פותחת את כל ההורדות ואת קורס Claude."),
 ]
@@ -391,7 +388,6 @@ detail = f'''<!-- section-work-single -->
                         <h2 class="heading fw-semibold mb-20 effectFade fadeUp">הורדה והתקנה</h2>
                         <p class="text-secondary effectFade fadeUp">
                             הסקיל חינמי. נרשמים, מורידים קובץ ZIP ומעלים אותו ל-Claude – כל התהליך לוקח פחות מדקה.
-                            לא בטוחים איך? <a href="blog-single.html" class="link-underline">המדריך "איך מתקינים סקיל"</a> מסביר צעד אחרי צעד.
                             רוצים לראות מה יש בפנים לפני שמתקינים? כל הקוד פתוח ב-GitHub.
                         </p>
                         <div class="d-flex gap-16 flex-wrap mt-4 effectFade fadeUp">
@@ -400,9 +396,6 @@ detail = f'''<!-- section-work-single -->
                             </a>
                             <a href="{s['src']}" class="tf-btn-2" target="_blank" rel="noopener">
                                 קוד המקור ב-GitHub
-                            </a>
-                            <a href="blog-single.html" class="tf-btn-2">
-                                איך מתקינים סקיל
                             </a>
                         </div>
                     </div>

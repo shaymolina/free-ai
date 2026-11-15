@@ -5,9 +5,6 @@ NAV = [
     ("index.html", "דף הבית"),
     ("service.html", "הקורס"),
     ("work.html", "סקילים"),
-    ("blog-standard.html", "בלוג"),
-    ("about.html", "עליי"),
-    ("contact.html", "צור קשר"),
 ]
 
 
@@ -29,8 +26,8 @@ def header(active):
 {items}
                     </ul>
                 </div>
-                <a href="contact.html#signup" class="tf-btn d-lg-flex d-none">
-                    הרשמה חינם
+                <a href="service.html" class="tf-btn d-lg-flex d-none">
+                    התחל ללמוד
                 </a>
                 <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
                     <i class="icon icon-grip-lines-solid"></i>
@@ -72,7 +69,7 @@ def mobile_menu():
                     </div>
                     <div class="canvas_foot">
                         <div class="left">
-                            <a href="contact.html#signup" class="text-caption text-neutral-200">הרשמה חינם</a>
+                            <a href="service.html" class="text-caption text-neutral-200">התחל ללמוד</a>
                             <p class="text-caption text-neutral-200">
                                 ישראל <span class="clock"></span>
                             </p>
@@ -81,10 +78,6 @@ def mobile_menu():
                             <a href="work.html" class="tf-link-icon text-caption text-neutral-200">
                                 <i class="icon icon-arrow-top-right"></i>
                                 סקילים
-                            </a>
-                            <a href="blog-standard.html" class="tf-link-icon text-caption text-neutral-200">
-                                <i class="icon icon-arrow-top-right"></i>
-                                מדריכים
                             </a>
                         </div>
                     </div>
@@ -120,28 +113,10 @@ FOOTER = '''<!-- footer -->
                                 <i class="icon icon-arrow-top-right"></i>
                             </div>
                         </a>
-                        <a href="blog-standard.html" class="text-body-1 fw-semibold">
-                            מדריכים
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
-                        <a href="contact.html" class="text-body-1 fw-semibold">
-                            צור קשר
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
                     </div>
                 </div>
                 <div class="footer-bottom">
                     <ul class="footer-links d-flex gap-24 align-items-center">
-                        <li>
-                            <a href="about.html" class="fw-semibold link-underline link1">עליי</a>
-                        </li>
-                        <li>
-                            <a href="contact.html" class="fw-semibold link-underline link1">צור קשר</a>
-                        </li>
                         <li>
                             <a href="privacy.html" class="fw-semibold link-underline link1">פרטיות</a>
                         </li>

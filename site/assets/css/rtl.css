@@ -31,3 +31,4 @@ input, textarea, select, button { font-family: "Urbanist", "Heebo", sans-serif; 
 .section-process .process-card .content .title { font-size: 22px; line-height: 28px; }
 :root { --bs-font-sans-serif: 'Kobi', sans-serif; --bs-body-font-family: 'Kobi', sans-serif; --font_instrument: 'Kobi', sans-serif; }
 body, input, textarea, select, button { font-family: 'Kobi', sans-serif; }
+.tf-header .header-inner { padding: 8px; }
