@@ -1,6 +1,8 @@
-"""Free AI brand marks: app-icon tile with the word "חינם".
+"""Free AI brand mark: orange circle with "AI" and "חינם" under it.
 
-Colour: #D97757 tile, cream text. Font: Kobi Black (Fontly).
+Colour: #D97757 circle, cream text. Font: Kobi Black (Fontly).
+Both lines are centred; "חינם" gets a small optical nudge to the right
+(its weight sits on the left), "AI" a smaller nudge to the left.
 """
 import os
 from fontTools.ttLib import TTFont
@@ -14,13 +16,11 @@ FONT = TTFont(os.path.join(HERE, "fonts", "Kobi-Black.ttf"))
 GS, CMAP = FONT.getGlyphSet(), FONT.getBestCmap()
 
 BRAND, CREAM = "#D97757", "#FAF3EE"
-WORD = "חינם"
 
 
-def word_path():
-    """Hebrew is drawn right-to-left: lay glyphs out in reverse order."""
+def text_path(text, rtl=False):
     x, parts, bp = 0.0, [], BoundsPen(GS)
-    for ch in reversed(WORD):
+    for ch in (reversed(text) if rtl else text):
         g = CMAP[ord(ch)]
         t = (1, 0, 0, -1, x, 0)
         pen = SVGPathPen(GS)
@@ -31,25 +31,32 @@ def word_path():
     return " ".join(parts), bp.bounds
 
 
-def tile(size):
-    k = size / 100
-    d, b = word_path()
-    s = 64 * k / (b[2] - b[0])
-    tx = size / 2 - (b[2] - b[0]) * s / 2 - b[0] * s
-    ty = size / 2 - (b[1] + b[3]) * s / 2
-    return (f'<rect width="{size}" height="{size}" rx="{22*k:.2f}" fill="{BRAND}"/>'
-            f'<path transform="translate({tx:.2f} {ty:.2f}) scale({s:.5f})" d="{d}" fill="{CREAM}"/>')
+def place(d, b, cx, cy, h, fill):
+    s = h / (b[3] - b[1])
+    tx = cx - (b[0] + b[2]) * s / 2
+    ty = cy - (b[1] + b[3]) * s / 2
+    return f'<path transform="translate({tx:.2f} {ty:.2f}) scale({s:.5f})" d="{d}" fill="{fill}"/>'
 
 
-def square(name, size):
-    svg = (f'<svg width="{size}" height="{size}" viewBox="0 0 {size} {size}" fill="none" '
-           f'xmlns="http://www.w3.org/2000/svg">{tile(size)}</svg>')
+def mark(name, D):
+    r = D / 2
+    a, ab = text_path("AI")
+    w, wb = text_path("חינם", rtl=True)
+    ah = D * 0.34
+    wh = D * 0.5 * (wb[3] - wb[1]) / (wb[2] - wb[0])
+    gap = D * 0.06
+    top = r - (ah + gap + wh) / 2
+    svg = (f'<svg width="{D}" height="{D}" viewBox="0 0 {D} {D}" fill="none" xmlns="http://www.w3.org/2000/svg">'
+           f'<circle cx="{r}" cy="{r}" r="{r}" fill="{BRAND}"/>'
+           + place(a, ab, r - D * 0.004, top + ah / 2, ah, CREAM)
+           + place(w, wb, r + D * 0.009, top + ah + gap + wh / 2, wh, CREAM)
+           + '</svg>')
     open(os.path.join(OUT, name), "w").write(svg)
 
 
 if __name__ == "__main__":
-    square("logo.svg", 44)
-    square("logo-1.svg", 44)
-    square("logo-2.svg", 86)
-    square("favicon.svg", 64)
+    mark("logo.svg", 56)
+    mark("logo-1.svg", 86)
+    mark("logo-2.svg", 96)
+    mark("favicon.svg", 64)
     print("ok")
