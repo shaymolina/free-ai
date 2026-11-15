@@ -58,7 +58,7 @@ def mobile_menu():
                 <div class="offcanvas-content_wrapin">
                     <div class="canvas_head">
                         <a href="index.html" class="logo-site">
-                            <img src="assets/images/logo/logo-2.svg" alt="Free AI" style="height:48px">
+                            <img src="assets/images/logo/logo.svg" alt="Free AI" style="height:30px">
                         </a>
                         <div class="btn-mobile-menu close-mb-menu text-caption link">
                             <i class="icon icon-close"></i>
@@ -105,7 +105,7 @@ FOOTER = '''<!-- footer -->
                     <a href="index.html" class="footer-logo">
                         <img src="assets/images/logo/logo-2.svg" alt="Free AI">
                     </a>
-                    <div class="title h6 fw-semibold">כל הידע של AI. <br> פתוח לכולם, בחינם.</div>
+                    <div class="title h6 fw-semibold">קורס Claude Code בחינם. <br> בעברית, מאפס.</div>
                     <div class="text">שיעור חדש עולה כל שבוע.</div>
                     <div class="tf-social-1 justify-content-center">
                         <a href="service.html" class="text-body-1 fw-semibold">
