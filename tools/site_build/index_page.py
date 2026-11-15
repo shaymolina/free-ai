@@ -9,23 +9,23 @@ html = (ROOT / "aigocy-about/index.html").read_text()
 html = apply_common(
     html,
     "index.html",
-    "Free AI – לומדים Claude מאפס, בעברית",
+    "Free AI – קורס Claude Code בחינם, בעברית",
     "קורס Claude בעברית: שיעורים קצרים, קבצים מוכנים וסקילים – מהשאלה הראשונה ועד Claude Code.",
 )
 
 # ---------- Hero ----------
-html = html.replace("AI-Driven Agency\n", "קורס Claude בעברית\n")
+html = html.replace("AI-Driven Agency\n", "קורס בחינם, בעברית\n")
 html = html.replace(
     '<span class="title1 fw-semibold text-gradient-1">Your AI Sprint Team</span>',
-    '<span class="title1 fw-semibold text-gradient-1">לומדים Claude</span>',
+    '<span class="title1 fw-semibold text-gradient-1">קורס Claude Code</span>',
 )
 html = html.replace(
     '<span class="fw-semibold text-gradient-1">on Demand</span>',
-    '<span class="fw-semibold text-gradient-1">מאפס.</span>',
+    '<span class="fw-semibold text-gradient-1">בחינם.</span>',
 )
 html = html.replace(
     "From discovery to deployment, we plug into your stack to prototype, <br> validate, and launch AI experiences your users actually love.",
-    "שיעורים קצרים בעברית – מהשאלה הראשונה ועד סקילים ו-Claude Code. <br> בלי ידע קודם.",
+    "בואו תבינו על מה כל הטירוף. תבנו היום את האפליקציה שאתם רוצים, <br> תלמדו לעבוד עם Claude ותכניסו AI לעסק שלכם.",
 )
 html = html.replace(
     '''<a href="service.html" class="tf-btn">
@@ -35,7 +35,7 @@ html = html.replace(
                             View Pricing Plans
                         </a>''',
     '''<a href="service-single.html" class="tf-btn">
-                            לקורס Claude
+                            מתחילים בחינם
                         </a>
                         <a href="work.html" class="tf-btn-2">
                             סקילים ל-Claude
