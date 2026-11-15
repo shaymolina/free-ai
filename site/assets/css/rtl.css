@@ -26,3 +26,6 @@ input, textarea, select, button { font-family: "Urbanist", "Heebo", sans-serif; 
   .flat-spacing { padding-top: 48px; padding-bottom: 48px; }
   .section-featured-works .featured-works-item .image { height: 240px; }
 }
+.section-process .group-btn-slider { display: none; }
+.section-process .process-card .bot .number { font-size: 32px; line-height: 32px; }
+.section-process .process-card .content .title { font-size: 22px; line-height: 28px; }
