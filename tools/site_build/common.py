@@ -171,6 +171,10 @@ def apply_common(html, active, title, description):
     html = re.sub(r"<!-- Header -->.*?<!-- /Header -->", lambda m: header(active), html, flags=re.S)
     html = re.sub(r"<!-- footer -->.*?<!-- /footer -->", lambda m: FOOTER, html, flags=re.S)
     html = re.sub(r"<!-- Mobile Menu -->.*?<!-- /Mobile Menu -->", lambda m: mobile_menu(), html, flags=re.S)
+    # אייקונים מוטים בכותרת: אייקוני Claude במקום לוגואים מומצאים של התבנית
+    for a, b in [("item-10", "hero-1"), ("item-11", "hero-2"), ("item-12", "hero-3"),
+                 ("item-13", "hero-1"), ("item-14", "hero-2"), ("item-15", "hero-3")]:
+        html = html.replace(f"assets/images/item/{a}.svg", f"assets/images/item/{b}.svg")
     # מסירים את כפתור ההגדרות של התבנית
     html = re.sub(r"\s*<!-- Left Bar -->.*?<!-- /Setting Color -->", "", html, flags=re.S)
     return html

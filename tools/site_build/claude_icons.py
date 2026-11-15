@@ -31,3 +31,13 @@ for f, name in [("item-4.svg", "chat"), ("item-5.svg", "laptop"), ("item-6.svg",
 <rect width="{W:g}" height="{W:g}" fill="white"/>{glyph(name, W/2, W/2, W*0.5)}
 </svg>''')
 print("icons done")
+
+# עמוד "עליי": תרשים הכלים סביב Free AI – כלים של Claude במקום לוגואים מומצאים
+S = D.parent / "section"
+for f, name in [("tool-1.svg", "spark"), ("tool-2.svg", "chat"), ("tool-3.svg", "doc"),
+                ("tool-4.svg", "term"), ("tool-5.svg", "laptop"), ("tool-6.svg", "phone")]:
+    W = float(open(S / f).read().split('width="')[1].split('"')[0])
+    (S / f).write_text(f'''<svg width="{W:g}" height="{W:g}" viewBox="0 0 {W:g} {W:g}" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="{W:g}" height="{W:g}" rx="8" fill="#F5F5F5"/>{glyph(name, W/2, W/2, W*0.5)}
+</svg>''')
+print("tools done")
