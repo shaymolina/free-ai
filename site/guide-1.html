@@ -40,6 +40,10 @@
         .lesson-title { font-size: 20px; margin-bottom: 4px; }
         .lesson-status { flex: 0 0 auto; pointer-events: none; white-space: nowrap; border: 1px solid rgba(127,127,127,.4); padding: 6px 14px; border-radius: 999px; font-size: 14px; line-height: 1.3; }
         .hosting-note { display: flex; gap: 16px; align-items: flex-start; padding: 24px; border-radius: 16px; background: rgba(127,127,127,.08); }
+        .coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--white, #fff); border: 1px dashed rgba(127,127,127,.5); }
+        .coupon-label { font-weight: 600; }
+        .coupon-code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
+        .coupon-copy { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
         .hosting-note > .icon { font-size: 24px; margin-top: 2px; }
         @media (max-width: 575px) {
             .lesson-row { flex-wrap: wrap; gap: 8px 14px; padding: 16px; }
@@ -59,6 +63,10 @@
         .cost-price { flex: 0 0 auto; font-size: 20px; font-weight: 700; white-space: nowrap; }
         .cost-total { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px; border-radius: 16px; background: #1F1E1D; color: #fff; margin-bottom: 16px; }
         .cost-total .cost-price { font-size: 26px; }
+        .coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--white, #fff); border: 1px dashed rgba(127,127,127,.5); }
+        .coupon-label { font-weight: 600; }
+        .coupon-code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
+        .coupon-copy { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
         .guide-next { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
         .section-process.guide-prep { padding-bottom: 0; overflow-x: clip; }
         @media (max-width: 767px) {
@@ -297,7 +305,12 @@
                     <i class="icon icon-bolt-solid"></i>
                     <div>
                         <div class="fw-semibold mb-4">ואיפה האתר יגור?</div>
-                        <p class="text-secondary mb-0">במדריך נעבוד עם 4CODE, אחסון ישראלי עם תמיכה בעברית. נפתח שם משתמש ביחד בפרק 6, אז כרגע לא צריך לעשות כלום.</p>
+                        <p class="text-secondary mb-0">במדריך נעבוד עם 4CODE, אחסון ישראלי עם תמיכה בעברית. יש שם חבילה בחינם, והיא מתאימה לדפי נחיתה ולאתרים פשוטים. כדי ללמוד כמו שצריך יש לכם קוד קופון לחודש ראשון בחינם. נפתח שם משתמש ביחד בפרק 6, אז כרגע רק שמרו את הקוד.</p>
+                        <div class="coupon">
+                            <span class="coupon-label">קוד קופון לחודש ראשון בחינם:</span>
+                            <span class="coupon-code">RVJ34jcn4j1</span>
+                            <button type="button" class="coupon-copy" onclick="navigator.clipboard.writeText('RVJ34jcn4j1');this.textContent='הועתק ✓'">העתקה</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -340,7 +353,7 @@
                                 <span class="lesson-num text-body-1 fw-semibold">04</span>
                                 <div class="lesson-body">
                                     <div class="lesson-title fw-semibold">4CODE</div>
-                                    <div class="lesson-desc text-secondary">האחסון של האתר, כולל כתובת חינמית. משדרגים רק אם הפרויקט גדל.</div>
+                                    <div class="lesson-desc text-secondary">האחסון של האתר. חבילה בחינם לאתרים פשוטים, וחודש ראשון בחינם עם הקופון.</div>
                                 </div>
                                 <span class="cost-price">חינם להתחלה</span>
                             </li>

@@ -38,6 +38,10 @@ CSS = '''
         .cost-price { flex: 0 0 auto; font-size: 20px; font-weight: 700; white-space: nowrap; }
         .cost-total { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px; border-radius: 16px; background: #1F1E1D; color: #fff; margin-bottom: 16px; }
         .cost-total .cost-price { font-size: 26px; }
+        .coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--white, #fff); border: 1px dashed rgba(127,127,127,.5); }
+        .coupon-label { font-weight: 600; }
+        .coupon-code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
+        .coupon-copy { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
         .guide-next { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
         .section-process.guide-prep { padding-bottom: 0; overflow-x: clip; }
         @media (max-width: 767px) {
@@ -198,7 +202,7 @@ def build_chapter_1():
         ("Claude", "המנוי שכולל את Claude Code. זה מה שבונה בשבילכם.", "כ-20 דולר לחודש"),
         ("GitHub", "הכספת שבה נשמר הפרויקט.", "חינם"),
         ("Supabase", "הזיכרון של המוצר. רק אם צריך, ולא כל אתר צריך.", "חינם להתחלה"),
-        ("4CODE", "האחסון של האתר, כולל כתובת חינמית. משדרגים רק אם הפרויקט גדל.", "חינם להתחלה"),
+        ("4CODE", "האחסון של האתר. חבילה בחינם לאתרים פשוטים, וחודש ראשון בחינם עם הקופון.", "חינם להתחלה"),
     ])
 
     main = f'''<!-- section-services-single -->
@@ -276,7 +280,12 @@ def build_chapter_1():
                     <i class="icon icon-bolt-solid"></i>
                     <div>
                         <div class="fw-semibold mb-4">ואיפה האתר יגור?</div>
-                        <p class="text-secondary mb-0">במדריך נעבוד עם 4CODE, אחסון ישראלי עם תמיכה בעברית. נפתח שם משתמש ביחד בפרק 6, אז כרגע לא צריך לעשות כלום.</p>
+                        <p class="text-secondary mb-0">במדריך נעבוד עם 4CODE, אחסון ישראלי עם תמיכה בעברית. יש שם חבילה בחינם, והיא מתאימה לדפי נחיתה ולאתרים פשוטים. כדי ללמוד כמו שצריך יש לכם קוד קופון לחודש ראשון בחינם. נפתח שם משתמש ביחד בפרק 6, אז כרגע רק שמרו את הקוד.</p>
+                        <div class="coupon">
+                            <span class="coupon-label">קוד קופון לחודש ראשון בחינם:</span>
+                            <span class="coupon-code">RVJ34jcn4j1</span>
+                            <button type="button" class="coupon-copy" onclick="navigator.clipboard.writeText('RVJ34jcn4j1');this.textContent='הועתק ✓'">העתקה</button>
+                        </div>
                     </div>
                 </div>
             </div>
