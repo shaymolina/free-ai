@@ -32,16 +32,3 @@ input, textarea, select, button { font-family: "Urbanist", "Heebo", sans-serif; 
 :root { --bs-font-sans-serif: 'Kobi', sans-serif; --bs-body-font-family: 'Kobi', sans-serif; --font_instrument: 'Kobi', sans-serif; }
 body, input, textarea, select, button { font-family: 'Kobi', sans-serif; }
 .tf-header .header-inner { padding: 8px; }
-
-/* עיצוב מצומצם: כל האתר קטן יותר, ופחות רווחים בין החלקים */
-@media (min-width: 992px) {
-  body { zoom: 0.75; }
-  .section-hero { min-height: 0; }
-}
-@media (max-width: 991px) {
-  body { zoom: 0.88; }
-}
-.flat-spacing { padding-top: 56px; padding-bottom: 56px; }
-@media (max-width: 767px) {
-  .flat-spacing { padding-top: 36px; padding-bottom: 36px; }
-}
