@@ -108,6 +108,12 @@ FOOTER = '''<!-- footer -->
                                 <i class="icon icon-arrow-top-right"></i>
                             </div>
                         </a>
+                        <a href="guide-1.html" class="text-body-1 fw-semibold">
+                            המדריך
+                            <div class="social-item">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </div>
+                        </a>
                         <a href="work.html" class="text-body-1 fw-semibold">
                             סקילים
                             <div class="social-item">
