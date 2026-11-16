@@ -1,0 +1,128 @@
+/* Free AI – עיצוב מצומצם. אותה שפה עיצובית (כרטיסים רכים, כתום, כפתורי גלולה), בגדלים קטנים. */
+:root { --ink: #09090B; --muted: #71717A; --soft: #A1A1AA; --brand: #D97757; --card: #F4F4F5; --body: #EDECEC; --line: rgba(0,0,0,.08);
+  --card-shadow: 0 5px 12px rgba(0,0,0,.06), 0 2px 2px rgba(0,0,0,.08), 0 -5px 0 rgba(0,0,0,.05) inset, 0 3px 0 rgba(255,255,255,.6) inset; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Kobi', sans-serif; font-size: 15px; line-height: 1.5; color: var(--ink); background: var(--body); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+button, input { font-family: inherit; }
+.wrap { max-width: 1072px; margin: 0 auto; padding: 0 16px; }
+.stack { display: grid; gap: 16px; padding-bottom: 28px; }
+.muted { color: var(--muted); }
+
+/* תפריט עליון */
+.c-top { padding-top: 14px; }
+.c-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 52px; padding: 0 16px 0 6px; border-radius: 999px; background: rgba(255,255,255,.55); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
+.c-logo img { height: 38px; width: auto; }
+.c-nav { display: flex; gap: 24px; font-size: 14px; font-weight: 600; }
+.c-nav a { padding: 4px 0; border-bottom: 1.5px solid transparent; }
+.c-nav a.active { color: var(--brand); border-color: var(--brand); }
+.c-header .c-menu-btn { display: none; }
+
+/* כפתורים */
+.btn, .btn-2 { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; cursor: pointer; border-radius: 99px; font-weight: 600; font-size: 14px; line-height: 20px; padding: 10px 18px; white-space: nowrap; }
+.btn { color: #fff; background: radial-gradient(62.56% 62.56% at 28.14% -10.42%, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 100%), #272727; box-shadow: 0 -2px 0 #080808 inset, 0 1px 0 rgba(255,255,255,.3) inset, 0 3px 4px rgba(0,0,0,.13), 0 10px 14px rgba(0,0,0,.14), 0 24px 28px rgba(0,0,0,.12); }
+.btn-2 { color: var(--ink); background: #F5F5F5; box-shadow: 0 -2px 0 #E9E9E9 inset, 0 1px 0 rgba(255,255,255,.7) inset, 0 2px 2px rgba(0,0,0,.12), 0 3px 3px rgba(0,0,0,.1); }
+.btn.sm, .btn-2.sm { padding: 7px 14px; font-size: 13px; }
+.btn.is-done { opacity: .55; pointer-events: none; }
+
+/* תגית */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--brand); background: #F5F5F5; border-radius: 8px; padding: 4px 10px; box-shadow: 0 -2px 0 #E9E9E9 inset, 0 1px 0 rgba(255,255,255,.7) inset, 0 2px 2px rgba(0,0,0,.1); }
+.chip::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--brand); }
+
+/* כרטיס */
+.card { background: var(--card); border-radius: 22px; box-shadow: var(--card-shadow); }
+.tile { flex: 0 0 auto; width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px; font-weight: 700; background: linear-gradient(180deg, #C2603F 0%, #D97757 100%); box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 10px 18px rgba(217,119,87,.28), 0 1px 2px rgba(217,119,87,.4), 0 -2px 0 rgba(0,0,0,.06) inset, 0 1px 0 rgba(255,255,255,.6) inset; }
+h1 { font-size: 38px; line-height: 1.12; font-weight: 600; letter-spacing: -.01em; }
+h2 { font-size: 19px; line-height: 1.3; font-weight: 600; }
+h3 { font-size: 16px; line-height: 1.3; font-weight: 600; }
+.grad { background: linear-gradient(132.09deg, #43484D 11.15%, #292C2E 79.01%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding-bottom: 4px; }
+
+/* ראש דף הבית */
+.c-hero { border-radius: 28px; background: url(../images/section/hero-warm.jpg) center/cover no-repeat; padding: 14px 14px 36px; margin-top: 12px; }
+.c-hero .c-top { padding-top: 0; }
+.hero-in { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 32px; align-items: center; padding: 40px 26px 0; }
+.hero-text { display: grid; gap: 12px; justify-items: start; }
+.hero-text p { font-size: 16px; max-width: 440px; color: #3F3F46; }
+.hero-title { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.hero-pill { position: relative; width: 96px; height: 34px; border-radius: 99px; background: linear-gradient(180deg, #C2603F 0%, #D97757 100%); box-shadow: 0 8px 16px rgba(217,119,87,.35), 0 -2px 0 rgba(0,0,0,.08) inset; }
+.hero-pill img { position: absolute; width: 30px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.15)); }
+.hero-pill img:nth-child(1) { top: -9px; right: 14px; transform: rotate(18deg); }
+.hero-pill img:nth-child(2) { top: 4px; right: 44px; transform: rotate(-12deg); }
+.hero-pill img:nth-child(3) { top: 20px; right: 20px; width: 24px; transform: rotate(10deg); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.preview { padding: 12px; display: grid; gap: 6px; background: rgba(244,244,245,.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.preview a, .preview span.r { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 12px; padding: 9px 12px; font-weight: 600; font-size: 14px; }
+.preview small { margin-inline-start: auto; color: var(--soft); font-weight: 500; font-size: 12px; }
+.dot { flex: 0 0 auto; width: 18px; height: 18px; border-radius: 50%; border: 2px solid #CFCBC5; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; color: transparent; }
+.dot.on { border-color: var(--brand); }
+.is-done > .dot { border-color: var(--brand); background: var(--brand); color: #fff; }
+
+/* שלושה כרטיסים */
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.pick { padding: 20px; display: grid; gap: 8px; align-content: start; transition: transform .2s; }
+.pick:hover { transform: translateY(-2px); }
+.pick .go { font-weight: 700; font-size: 13px; color: var(--brand); margin-top: 2px; }
+
+/* איך זה עובד */
+.how { padding: 16px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+.how .st { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; line-height: 1.3; }
+.how .st small { display: block; color: var(--soft); font-weight: 500; font-size: 12px; }
+.how .btn { margin-inline-start: auto; }
+
+/* שאלות */
+.faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; align-items: start; }
+.faq details { padding: 12px 16px; border-radius: 16px; }
+.faq summary { cursor: pointer; list-style: none; font-weight: 600; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--brand); font-weight: 700; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin-top: 6px; color: var(--muted); font-size: 14px; }
+.sec-title { display: flex; align-items: center; gap: 10px; padding: 8px 4px 0; }
+
+/* המדריך */
+.course { display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 16px; align-items: start; }
+.side { padding: 16px 12px 18px; position: sticky; top: 14px; }
+.side h3 { padding: 0 8px 8px; }
+.bar { height: 6px; border-radius: 99px; background: #DAD7D2; overflow: hidden; margin: 0 8px 4px; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--brand); transition: width .4s; }
+.count { font-size: 12px; color: var(--soft); margin: 0 8px 8px; font-weight: 600; }
+.chs { display: grid; gap: 2px; }
+.ch { display: flex; align-items: center; gap: 9px; padding: 8px; border-radius: 11px; font-size: 13.5px; line-height: 1.3; font-weight: 600; color: #8d8985; }
+a.ch:hover { color: var(--ink); }
+.ch.is-on { background: #fff; color: var(--ink); box-shadow: 0 3px 8px rgba(0,0,0,.06); }
+.ch.is-on .dot { border-color: var(--brand); }
+.ch.is-done { color: var(--ink); }
+.ch .dot { width: 16px; height: 16px; font-size: 9px; }
+.lesson { padding: 28px 30px; display: flex; flex-direction: column; gap: 12px; min-height: 470px; }
+.lesson .lead { font-size: 16px; color: var(--muted); }
+.rows { display: grid; gap: 8px; margin-top: 6px; }
+.row { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 14px; padding: 9px 14px 9px 16px; font-weight: 600; font-size: 15px; }
+.row small { margin-inline-start: auto; color: var(--muted); font-weight: 500; font-size: 13px; text-align: end; }
+.coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; border: 1px dashed rgba(0,0,0,.25); border-radius: 14px; padding: 10px 14px; font-size: 13.5px; font-weight: 600; }
+.coupon code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; font-weight: 700; background: #fff; border-radius: 7px; padding: 3px 10px; user-select: all; }
+.lesson-end { margin-top: auto; padding-top: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.lesson-end span { font-size: 13px; color: var(--muted); }
+
+/* פוטר */
+.c-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 20px; font-size: 12.5px; color: var(--muted); padding: 6px 6px 0; }
+.c-foot nav { display: flex; gap: 16px; font-weight: 600; }
+
+@media (max-width: 860px) {
+  h1 { font-size: 30px; }
+  .c-nav { display: none; position: absolute; top: 60px; inset-inline: 0; flex-direction: column; gap: 0; background: #fff; border-radius: 18px; padding: 8px; box-shadow: 0 12px 30px rgba(0,0,0,.15); z-index: 5; }
+  .c-nav a { padding: 10px 12px; border: 0; font-size: 15px; }
+  .c-header { position: relative; z-index: 20; }
+  .c-header.open .c-nav { display: flex; }
+  .c-header > a.btn { display: none; }
+  .c-header .c-menu-btn { display: inline-flex; width: 38px; height: 38px; padding: 0; font-size: 18px; }
+  .hero-in { grid-template-columns: minmax(0, 1fr); padding: 28px 8px 0; gap: 20px; }
+  .three, .faq, .course { grid-template-columns: minmax(0, 1fr); }
+  .side { position: static; order: 2; }
+  .lesson { padding: 22px 18px; min-height: 0; }
+  .row { flex-wrap: wrap; gap: 4px 12px; }
+  .row small { flex-basis: 100%; margin-inline-start: 50px; margin-top: -10px; text-align: start; }
+  .how .btn, .lesson-end .btn { margin: 0; width: 100%; }
+}

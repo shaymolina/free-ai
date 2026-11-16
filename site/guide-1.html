@@ -1,338 +1,49 @@
 <!DOCTYPE html>
-
-<!--[if IE 8]><html lang="he" dir="rtl"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="he" dir="rtl">
-<!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
     <title>לפני שמתחילים – המדריך ל-Claude Code | Free AI</title>
     <meta name="author" content="Free AI">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="פרק 1 במדריך ל-Claude Code למי שלא מתכנת: שלושה דברים להכין, ואפשר לצאת לדרך.">
-
-    <!-- font -->
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
-    <!-- css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/slick.theme.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css?v=2">
-    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css">
-
-    <!-- Favicon and Touch Icons  -->
+    <link rel="stylesheet" href="assets/css/compact.css?v=1">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
-    <style>
-        .accordion-faq_item.style-1 .accordion-title { gap: 16px; }
-        .track-status { display: inline-block; font-size: 14px; font-weight: 600; padding: 6px 14px; line-height: 1.3; letter-spacing: 0; border-radius: 999px; margin-inline-start: 12px; vertical-align: middle; white-space: nowrap; }
-        .track-status.open { background: var(--brand, #7a5cff); color: #fff; }
-        .track-status.soon { background: rgba(255,255,255,.12); color: inherit; border: 1px solid currentColor; opacity: .7; }
-        .lesson-list { list-style: none; padding: 0; margin: 0 0 32px; display: grid; gap: 12px; }
-        .lesson-row { display: flex; align-items: center; gap: 20px; padding: 20px 24px; border-radius: 16px; border: 1px solid rgba(127,127,127,.25); }
-        .lesson-num { flex: 0 0 auto; min-width: 36px; opacity: .55; }
-        .lesson-body { flex: 1 1 auto; min-width: 0; }
-        .lesson-title { font-size: 20px; margin-bottom: 4px; }
-        .lesson-status { flex: 0 0 auto; pointer-events: none; white-space: nowrap; border: 1px solid rgba(127,127,127,.4); padding: 6px 14px; border-radius: 999px; font-size: 14px; line-height: 1.3; }
-        .hosting-note { display: flex; gap: 16px; align-items: flex-start; padding: 24px; border-radius: 16px; background: rgba(127,127,127,.08); }
-        .coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--white, #fff); border: 1px dashed rgba(127,127,127,.5); }
-        .coupon-label { font-weight: 600; }
-        .coupon-code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
-        .coupon-copy { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
-        .hosting-note > .icon { font-size: 24px; margin-top: 2px; }
-        @media (max-width: 575px) {
-            .lesson-row { flex-wrap: wrap; gap: 8px 14px; padding: 16px; }
-            .lesson-body { flex-basis: calc(100% - 50px); }
-            .lesson-status { margin-inline-start: 50px; }
-            .lesson-title { font-size: 17px; }
-        }
-
-        .guide-course { padding: 150px 0 72px; }
-        .guide-wrap { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
-        .guide-card { background: var(--neutral-100, #F4F4F5); border-radius: 32px; box-shadow: 0px 7.77px 16px 0px rgba(0,0,0,.06), 0px 3px 3px 0px rgba(0,0,0,.1), 0px -8px 0px 0px rgba(0,0,0,.05) inset, 0px 4px 0px 0px rgba(255,255,255,.6) inset; }
-        .guide-side { padding: 24px 20px 28px; position: sticky; top: 24px; }
-        .guide-side h2 { font-size: 19px; line-height: 1.3; font-weight: 700; margin: 0 6px 12px; letter-spacing: 0; }
-        .guide-bar { height: 8px; border-radius: 99px; background: #DAD7D2; overflow: hidden; margin: 0 6px 6px; }
-        .guide-bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--brand, #D97757); transition: width .4s; }
-        .guide-count { font-size: 13px; color: #8d8985; margin: 0 6px 12px; font-weight: 600; }
-        .guide-chapters { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-        .guide-ch { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 14px; font-size: 16px; font-weight: 600; color: #8d8985; text-decoration: none; }
-        a.guide-ch:hover { color: #1F1E1D; }
-        .guide-ch.is-on { background: #fff; color: #1F1E1D; box-shadow: 0 4px 12px rgba(0,0,0,.07); }
-        .guide-ch.is-done { color: #1F1E1D; }
-        .guide-dot { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 2px solid #CFCBC5; display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; color: transparent; }
-        .guide-ch.is-on .guide-dot { border-color: var(--brand, #D97757); }
-        .guide-ch.is-done .guide-dot { border-color: var(--brand, #D97757); background: var(--brand, #D97757); color: #fff; }
-        .guide-soon { margin-inline-start: auto; font-size: 12px; font-weight: 600; opacity: .7; white-space: nowrap; }
-        .guide-main { padding: 48px 52px; display: flex; flex-direction: column; gap: 22px; min-height: 640px; }
-        .guide-tag { align-self: flex-start; font-size: 14px; font-weight: 700; color: var(--brand, #D97757); background: #fff; border-radius: 10px; padding: 6px 14px; box-shadow: 0 2px 0 rgba(0,0,0,.08); }
-        .guide-main h1 { font-size: 56px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; margin: 0; }
-        .guide-sub { font-size: 21px; line-height: 1.5; color: #6b6763; margin: 0; }
-        .guide-rows { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 12px; }
-        .guide-row { display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 18px; padding: 14px 18px; font-size: 19px; font-weight: 600; }
-        .guide-row small { margin-inline-start: auto; font-size: 16px; font-weight: 500; color: #8d8985; text-align: end; }
-        .guide-num { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 15px; background: var(--brand, #D97757); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; box-shadow: 0 -3px 0 rgba(0,0,0,.18) inset, 0 10px 18px rgba(217,119,87,.35); }
-        .guide-coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 1px dashed rgba(127,127,127,.5); border-radius: 18px; padding: 14px 18px; font-size: 16px; font-weight: 600; }
-        .guide-coupon code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: #1F1E1D; background: #fff; border-radius: 8px; padding: 5px 12px; user-select: all; }
-        .guide-coupon button { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 7px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
-        .guide-foot { margin-top: auto; padding-top: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
-        .guide-foot .guide-note { font-size: 16px; color: #6b6763; }
-        .guide-foot .tf-btn { cursor: pointer; border: 0; font-family: inherit; }
-        .guide-foot .tf-btn.is-done { opacity: .55; pointer-events: none; }
-        @media (max-width: 991px) {
-            .guide-course { padding: 128px 0 48px; }
-            .guide-wrap { grid-template-columns: minmax(0, 1fr); }
-            .guide-side { position: static; order: 2; }
-            .guide-main { padding: 28px 22px; min-height: 0; border-radius: 24px; }
-            .guide-main h1 { font-size: 38px; }
-            .guide-sub { font-size: 18px; }
-            .guide-row { flex-wrap: wrap; font-size: 18px; gap: 6px 14px; }
-            .guide-row small { flex-basis: 100%; margin-inline-start: 62px; text-align: start; font-size: 15px; margin-top: -14px; }
-            .guide-num { width: 46px; height: 46px; font-size: 20px; }
-            .guide-foot .tf-btn { width: 100%; justify-content: center; }
-        }
-    </style>
 </head>
-
-<body class="">
-    <canvas class="cursor-trail" id="trail" style="display: none;"></canvas>
-
-    <!-- Scroll Top -->
-    <button id="goTop">
-        <span class="border-progress"></span>
-        <span class="ic-wrap">
-            <span class="icon icon-long-arrow-alt-up-solid"></span>
-        </span>
-    </button>
-    <!-- /Scroll Top -->
-
-    <!-- #wrapper -->
-    <main id="wrapper">
-
-        <!-- Header -->
-        <header class="tf-header header2">
-            <div class="header-inner">
-                <a href="index.html" class="logo-site">
-                    <img src="assets/images/logo/logo.svg" alt="Free AI">
-                </a>
-                <div class="box-navigation">
-                    <ul class="nav-menu-main">
-                        <li class="menu-item">
-                            <a href="index.html" class="item-link link1">דף הבית</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="service.html" class="item-link link1">הקורס</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="guide-1.html" class="item-link link1 active">המדריך</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="work.html" class="item-link link1">סקילים</a>
-                        </li>
-                    </ul>
-                </div>
-                <a href="service.html" class="tf-btn d-lg-flex d-none">
-                    התחל ללמוד
-                </a>
-                <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
-                    <i class="icon icon-grip-lines-solid"></i>
-                </a>
-            </div>
+<body>
+    <div class="wrap c-top">
+        <header class="c-header">
+            <a href="index.html" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
+            <nav class="c-nav"><a href="index.html">דף הבית</a><a href="service.html">הקורס</a><a href="guide-1.html" class="active">המדריך</a><a href="work.html">סקילים</a></nav>
+            <a href="service.html" class="btn sm">התחל ללמוד</a>
+            <button type="button" class="btn c-menu-btn" aria-label="תפריט" onclick="this.parentNode.classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
         </header>
-        <!-- /Header -->
-        <!-- guide -->
-        <div class="guide-course">
-            <div class="container">
-                <div class="guide-wrap">
-                <aside class="guide-card guide-side">
-                    <h2>המדריך ל-Claude Code</h2>
-                    <div class="guide-bar"><i id="guide-fill"></i></div>
-                    <div class="guide-count" id="guide-count"></div>
-                    <ol class="guide-chapters">
-                        <li><a href="guide-1.html" class="guide-ch is-on" data-ch="1"><span class="guide-dot">✓</span>1. לפני שמתחילים</a></li>
-                        <li><span class="guide-ch" data-ch="2"><span class="guide-dot">✓</span>2. Claude מול Claude Code<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="3"><span class="guide-dot">✓</span>3. פותחים חשבון Claude<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="4"><span class="guide-dot">✓</span>4. מתקינים את האפליקציה<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="5"><span class="guide-dot">✓</span>5. פותחים GitHub<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="6"><span class="guide-dot">✓</span>6. פותחים 4CODE<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="7"><span class="guide-dot">✓</span>7. Supabase, כן או לא<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="8"><span class="guide-dot">✓</span>8. הפרויקט הראשון<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="9"><span class="guide-dot">✓</span>9. מעלים לאוויר<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="10"><span class="guide-dot">✓</span>10. איך מדברים עם Claude Code<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="11"><span class="guide-dot">✓</span>11. סדר ובטיחות<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="12"><span class="guide-dot">✓</span>12. כשמשהו נתקע<span class="guide-soon">בקרוב</span></span></li>
-                        <li><span class="guide-ch" data-ch="13"><span class="guide-dot">✓</span>13. השלב הבא<span class="guide-soon">בקרוב</span></span></li>
-                    </ol>
-                </aside>
-                <article class="guide-card guide-main">
-                    <span class="guide-tag">פרק 1 · 2 דקות</span>
-                    <h1>לפני שמתחילים</h1>
-                    <p class="guide-sub">שלושה דברים להכין, ואפשר לצאת לדרך.</p>
-                    <ol class="guide-rows">
-                        <li class="guide-row"><span class="guide-num">1</span>מחשב<small>Mac או Windows</small></li>
-                        <li class="guide-row"><span class="guide-num">2</span>מייל<small>אחד לכל השירותים</small></li>
-                        <li class="guide-row"><span class="guide-num">3</span>כרטיס אשראי<small>כ-20 דולר לחודש ל-Claude</small></li>
-                    </ol>
-                    <div class="guide-coupon">
-                        <span>קופון לחודש ראשון בחינם ב-4CODE, האחסון של האתר:</span>
-                        <code>RVJ34jcn4j1</code>
-                        <button type="button" id="guide-copy" data-code="RVJ34jcn4j1">העתקה</button>
-                    </div>
-                    <div class="guide-foot">
-                        <span class="guide-note">כל השאר בחינם להתחלה</span>
-                        <button type="button" class="tf-btn" id="guide-done">סיימתי, לפרק הבא ←</button>
-                    </div>
-                </article>
-                </div>
-            </div>
-        </div>
-        <!-- /guide -->
-        <!-- footer -->
-        <footer>
-            <div class="footer-image">
-                <img class="effectFade fadeUp" src="assets/images/logo/logo-footer.png" alt="">
-            </div>
-            <div class="container">
-                <div class="footer-content">
-                    <a href="index.html" class="footer-logo">
-                        <img src="assets/images/logo/logo-2.svg" alt="Free AI">
-                    </a>
-                    <div class="title h6 fw-semibold">קורס Claude המלא. <br> פתוח לכולם, בחינם.</div>
-                    <div class="text">בעברית, צעד אחרי צעד.</div>
-                    <div class="tf-social-1 justify-content-center">
-                        <a href="service.html" class="text-body-1 fw-semibold">
-                            הקורס
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
-                        <a href="guide-1.html" class="text-body-1 fw-semibold">
-                            המדריך
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
-                        <a href="work.html" class="text-body-1 fw-semibold">
-                            סקילים
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <ul class="footer-links d-flex gap-24 align-items-center">
-                        <li>
-                            <a href="privacy.html" class="fw-semibold link-underline link1">פרטיות</a>
-                        </li>
-                        <li>
-                            <a href="terms.html" class="fw-semibold link-underline link1">תנאי שימוש</a>
-                        </li>
-                    </ul>
-                    <p class="text-secondary coppy-rights text-center">© 2026 Free AI. כל הזכויות שמורות.</p>
-                    <a href="#" class="action-go-top d-flex gap-8 align-items-center justify-content-end link1">
-                        <span class="fw-semibold">חזרה למעלה</span>
-                        <i class="icon icon-long-arrow-alt-up-solid fs-20"></i>
-                    </a>
-                </div>
-            </div>
-        </footer>
-        <!-- /footer -->
-    </main>
-    <!-- /wrapper -->
-
-    <!-- Mobile Menu -->
-    <div class="offcanvas-menu">
-        <div class="offcanvas-content">
-            <div class="container h-100">
-                <div class="offcanvas-content_wrapin">
-                    <div class="canvas_head">
-                        <a href="index.html" class="logo-site">
-                            <img src="assets/images/logo/logo.svg" alt="Free AI" style="height:56px">
-                        </a>
-                        <div class="btn-mobile-menu close-mb-menu text-caption link">
-                            <i class="icon icon-close"></i>
-                            סגירה
-                        </div>
-                    </div>
-                    <div class="canvas_center">
-                        <ul class="nav-ul-mb" id="mobile-menu">
-                            <li>
-                                <div class="item">
-                                    <a href="index.html" class="mb-menu-link text-display-1">
-                                        <span class="text">דף הבית</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a href="service.html" class="mb-menu-link text-display-1">
-                                        <span class="text">הקורס</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a href="guide-1.html" class="mb-menu-link text-display-1">
-                                        <span class="text">המדריך</span>
-                                    </a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a href="work.html" class="mb-menu-link text-display-1">
-                                        <span class="text">סקילים</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="canvas_foot">
-                        <div class="left">
-                            <a href="service.html" class="text-caption text-neutral-200">התחל ללמוד</a>
-                            <p class="text-caption text-neutral-200">
-                                ישראל <span class="clock"></span>
-                            </p>
-                        </div>
-                        <div class="right">
-                            <a href="work.html" class="tf-link-icon text-caption text-neutral-200">
-                                <i class="icon icon-arrow-top-right"></i>
-                                סקילים
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <!-- /Mobile Menu -->
-
-    <!-- Javascript -->
-    <script src="assets/js/jquery.min.js"></script>
-
-    <script src="assets/js/bootstrap.min.js"></script>
-
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/slick.min.js"></script>
-    
-    <script src="assets/js/carousel.js"></script>
-    <script src="assets/js/infinityslide.js"></script>
-    <script src="assets/js/ScrollSmooth.js"></script>
-    <script src="assets/js/gsap.min.js"></script>
-    
-    <script src="assets/js/ScrollTrigger.min.js"></script>
-    <script src="assets/js/ScrollToPlugin.min.js"></script>
-    <script src="assets/js/gsapAnimation.js"></script>
-
-    <script src="assets/js/main.js"></script>
-
-    <script>
+    <main class="wrap stack" style="margin-top:16px">
+        <div class="course">
+            <aside class="card side">
+                <h3>המדריך ל-Claude Code</h3>
+                <div class="bar"><i id="guide-fill"></i></div>
+                <div class="count" id="guide-count"></div>
+                <ol class="chs"><li><a href="guide-1.html" class="ch is-on" data-ch="1"><span class="dot">✓</span>1. לפני שמתחילים</a></li><li><span class="ch" data-ch="2"><span class="dot">✓</span>2. Claude מול Claude Code</span></li><li><span class="ch" data-ch="3"><span class="dot">✓</span>3. פותחים חשבון Claude</span></li><li><span class="ch" data-ch="4"><span class="dot">✓</span>4. מתקינים את האפליקציה</span></li><li><span class="ch" data-ch="5"><span class="dot">✓</span>5. פותחים GitHub</span></li><li><span class="ch" data-ch="6"><span class="dot">✓</span>6. פותחים 4CODE</span></li><li><span class="ch" data-ch="7"><span class="dot">✓</span>7. Supabase, כן או לא</span></li><li><span class="ch" data-ch="8"><span class="dot">✓</span>8. הפרויקט הראשון</span></li><li><span class="ch" data-ch="9"><span class="dot">✓</span>9. מעלים לאוויר</span></li><li><span class="ch" data-ch="10"><span class="dot">✓</span>10. איך מדברים עם Claude Code</span></li><li><span class="ch" data-ch="11"><span class="dot">✓</span>11. סדר ובטיחות</span></li><li><span class="ch" data-ch="12"><span class="dot">✓</span>12. כשמשהו נתקע</span></li><li><span class="ch" data-ch="13"><span class="dot">✓</span>13. השלב הבא</span></li></ol>
+            </aside>
+            <article class="card lesson">
+                <span class="chip" style="align-self:flex-start">פרק 1 · 2 דקות</span>
+                <h1>לפני שמתחילים</h1>
+                <p class="lead">שלושה דברים להכין, ואפשר לצאת לדרך.</p>
+                <ol class="rows"><li class="row"><span class="tile">1</span>מחשב<small>Mac או Windows</small></li><li class="row"><span class="tile">2</span>מייל<small>אחד לכל השירותים</small></li><li class="row"><span class="tile">3</span>כרטיס אשראי<small>כ-20 דולר לחודש ל-Claude</small></li></ol>
+                <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>RVJ34jcn4j1</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="RVJ34jcn4j1">העתקה</button></div>
+                <div class="lesson-end"><span>כל השאר בחינם להתחלה</span><button type="button" class="btn" id="guide-done">סיימתי, לפרק הבא ←</button></div>
+            </article>
+        </div>
+        <footer class="c-foot">
+            <span>© 2026 Free AI. כל הזכויות שמורות.</span>
+            <nav><a href="privacy.html">פרטיות</a><a href="terms.html">תנאי שימוש</a></nav>
+        </footer>
+    </main>
+<script>
 (function () {
     var KEY = 'freeai-guide-done', TOTAL = 13, CURRENT = 1;
     function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
@@ -340,9 +51,7 @@
     var btn = document.getElementById('guide-done');
     function paint() {
         var done = load();
-        document.querySelectorAll('.guide-ch').forEach(function (el) {
-            el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1);
-        });
+        document.querySelectorAll('.ch').forEach(function (el) { el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1); });
         document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%';
         document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
         if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
@@ -353,13 +62,9 @@
         if (btn.dataset.next) location.href = btn.dataset.next; else paint();
     });
     var copy = document.getElementById('guide-copy');
-    if (copy) copy.addEventListener('click', function () {
-        navigator.clipboard.writeText(copy.dataset.code);
-        copy.textContent = 'הועתק ✓';
-    });
+    if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
 })();
 </script>
 </body>
-
 </html>
