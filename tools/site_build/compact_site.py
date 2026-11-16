@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "7"
+CSS_VERSION = "9"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -37,7 +37,7 @@ FOOTER = '''<footer class="c-foot">
         </footer>'''
 
 
-def page(title, desc, body, script=""):
+def page(title, desc, body, script="", cls=""):
     return f'''<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -52,7 +52,7 @@ def page(title, desc, body, script=""):
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
 </head>
-<body>
+<body{(f' class="{cls}"' if cls else "")}>
 {body}
 {script}
 </body>
@@ -151,10 +151,10 @@ def build_chapter(n, lead, rows, note, extra=""):
     name, mins = CHAPTERS[n - 1]
     row_html = "".join(f'<li class="row"><span class="tile">{i}</span>{a}<small>{b}</small></li>' for i, (a, b) in enumerate(rows, 1))
     nxt = f' data-next="guide-{n + 1}.html"' if (n + 1) in READY else ""
-    body = f'''    <div class="wrap c-top">
+    body = f'''    <div class="wrap full c-top">
         {header("guide-1.html")}
     </div>
-    <main class="wrap stack" style="margin-top:16px">
+    <main class="wrap full stack guide-main" style="margin-top:16px">
         <div class="course">
             {sidebar(n)}
             <article class="card lesson">
@@ -170,7 +170,7 @@ def build_chapter(n, lead, rows, note, extra=""):
     (SITE / f"guide-{n}.html").write_text(page(
         f"{name} – המדריך ל-Claude Code | Free AI",
         f"פרק {n} במדריך ל-Claude Code למי שלא מתכנת: {lead}", body,
-        GUIDE_JS % {"total": len(CHAPTERS), "current": n}))
+        GUIDE_JS % {"total": len(CHAPTERS), "current": n}, cls="guide-page"))
     print(f"guide-{n}.html done")
 
 

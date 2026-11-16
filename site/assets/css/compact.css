@@ -145,3 +145,24 @@ html, body { overflow-x: clip; }
 .hero-line { display: flex; align-items: center; gap: 14px; }
 .hero-title { flex-direction: column; align-items: flex-start; }
 @media (max-width: 860px) { .hero-line { flex-wrap: wrap; } }
+
+/* המדריך: רוחב מלא ומסך שלם, בלי גלילה של העמוד */
+@media (min-width: 861px) {
+  body.guide-page { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+  body.guide-page .c-top { flex: 0 0 auto; width: 100%; }
+  body.guide-page .guide-main { flex: 1 1 auto; min-height: 0; width: 100%; padding-bottom: 14px; display: flex; flex-direction: column; gap: 8px; }
+  body.guide-page .course { flex: 1 1 auto; min-height: 0; align-items: stretch; grid-template-columns: 300px minmax(0, 1fr); }
+  body.guide-page .side { position: static; overflow-y: auto; min-height: 0; }
+  body.guide-page .lesson { min-height: 0; overflow-y: auto; padding: clamp(24px, 3vw, 48px) clamp(24px, 4vw, 64px); }
+  body.guide-page .c-foot { flex: 0 0 auto; padding: 0 6px; }
+}
+@media (min-width: 1100px) { body.guide-page { height: calc(100vh / 1.25); } }
+@media (min-width: 861px) and (max-height: 800px) {
+  body.guide-page .lesson { padding-top: 20px; padding-bottom: 20px; gap: 8px; }
+  body.guide-page .lesson h1 { font-size: 30px; }
+  body.guide-page .row { padding-top: 5px; padding-bottom: 5px; }
+  body.guide-page .rows { gap: 6px; }
+  body.guide-page .lesson-end { padding-top: 4px; }
+  body.guide-page .side { padding-top: 12px; }
+  body.guide-page .ch { padding-top: 6px; padding-bottom: 6px; }
+}
