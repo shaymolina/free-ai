@@ -8,26 +8,22 @@
     <meta name="description" content="פרק 1 במדריך ל-Claude Code למי שלא מתכנת: שלושה דברים להכין, ואפשר לצאת לדרך.">
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
-    <link rel="stylesheet" href="assets/css/compact.css?v=9">
+    <link rel="stylesheet" href="assets/css/compact.css?v=10">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
 </head>
 <body class="guide-page">
-    <div class="wrap full c-top">
-        <header class="c-header">
-            <a href="index.html" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
-            <nav class="c-nav"><a href="index.html">דף הבית</a><a href="service.html">הקורס</a><a href="guide-1.html" class="active">המדריך</a><a href="work.html">סקילים</a></nav>
-            <a href="service.html" class="btn sm">התחל ללמוד</a>
-            <button type="button" class="btn c-menu-btn" aria-label="תפריט" onclick="this.parentNode.classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
-        </header>
-    </div>
-    <main class="wrap full stack guide-main" style="margin-top:16px">
+    <main class="wrap full stack guide-main" style="padding-top:14px">
         <div class="course">
+            <div class="gmenu" id="gmenu">
+                <button type="button" class="btn" aria-label="תפריט" onclick="document.getElementById('gmenu').classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
+                <nav><a href="index.html">דף הבית</a><a href="service.html">הקורס</a><a href="guide-1.html" class="active">המדריך</a><a href="work.html">סקילים</a></nav>
+            </div>
             <aside class="card side">
                 <h3>המדריך ל-Claude Code</h3>
                 <div class="bar"><i id="guide-fill"></i></div>
                 <div class="count" id="guide-count"></div>
-                <ol class="chs"><li><a href="guide-1.html" class="ch is-on" data-ch="1"><span class="dot">✓</span>1. לפני שמתחילים</a></li><li><span class="ch" data-ch="2"><span class="dot">✓</span>2. Claude מול Claude Code</span></li><li><span class="ch" data-ch="3"><span class="dot">✓</span>3. פותחים חשבון Claude</span></li><li><span class="ch" data-ch="4"><span class="dot">✓</span>4. מתקינים את האפליקציה</span></li><li><span class="ch" data-ch="5"><span class="dot">✓</span>5. פותחים GitHub</span></li><li><span class="ch" data-ch="6"><span class="dot">✓</span>6. פותחים 4CODE</span></li><li><span class="ch" data-ch="7"><span class="dot">✓</span>7. Supabase, כן או לא</span></li><li><span class="ch" data-ch="8"><span class="dot">✓</span>8. הפרויקט הראשון</span></li><li><span class="ch" data-ch="9"><span class="dot">✓</span>9. מעלים לאוויר</span></li><li><span class="ch" data-ch="10"><span class="dot">✓</span>10. איך מדברים עם Claude Code</span></li><li><span class="ch" data-ch="11"><span class="dot">✓</span>11. סדר ובטיחות</span></li><li><span class="ch" data-ch="12"><span class="dot">✓</span>12. כשמשהו נתקע</span></li><li><span class="ch" data-ch="13"><span class="dot">✓</span>13. השלב הבא</span></li></ol>
+                <ol class="chs"><li><a href="guide-1.html" class="ch is-on" data-ch="1"><span class="dot">✓</span>1. לפני שמתחילים</a></li><li><a href="guide-2.html" class="ch" data-ch="2"><span class="dot">✓</span>2. Claude מול Claude Code</a></li><li><span class="ch" data-ch="3"><span class="dot">✓</span>3. פותחים חשבון Claude</span></li><li><span class="ch" data-ch="4"><span class="dot">✓</span>4. מתקינים את האפליקציה</span></li><li><span class="ch" data-ch="5"><span class="dot">✓</span>5. פותחים GitHub</span></li><li><span class="ch" data-ch="6"><span class="dot">✓</span>6. פותחים 4CODE</span></li><li><span class="ch" data-ch="7"><span class="dot">✓</span>7. Supabase, כן או לא</span></li><li><span class="ch" data-ch="8"><span class="dot">✓</span>8. הפרויקט הראשון</span></li><li><span class="ch" data-ch="9"><span class="dot">✓</span>9. מעלים לאוויר</span></li><li><span class="ch" data-ch="10"><span class="dot">✓</span>10. איך מדברים עם Claude Code</span></li><li><span class="ch" data-ch="11"><span class="dot">✓</span>11. סדר ובטיחות</span></li><li><span class="ch" data-ch="12"><span class="dot">✓</span>12. כשמשהו נתקע</span></li><li><span class="ch" data-ch="13"><span class="dot">✓</span>13. השלב הבא</span></li></ol>
             </aside>
             <article class="card lesson">
                 <span class="chip" style="align-self:flex-start">פרק 1 · 2 דקות</span>
@@ -35,7 +31,7 @@
                 <p class="lead">שלושה דברים להכין, ואפשר לצאת לדרך.</p>
                 <ol class="rows"><li class="row"><span class="tile">1</span>מחשב<small>Mac או Windows</small></li><li class="row"><span class="tile">2</span>מייל<small>אחד לכל השירותים</small></li><li class="row"><span class="tile">3</span>כרטיס אשראי<small>כ-20 דולר לחודש ל-Claude</small></li></ol>
                 <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>RVJ34jcn4j1</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="RVJ34jcn4j1">העתקה</button></div>
-                <div class="lesson-end"><span>כל השאר בחינם להתחלה</span><button type="button" class="btn" id="guide-done">סיימתי, לפרק הבא ←</button></div>
+                <div class="lesson-end"><span>כל השאר בחינם להתחלה</span><button type="button" class="btn btn-brand" id="guide-done" data-next="guide-2.html">סיימתי, לפרק הבא ←</button></div>
             </article>
         </div>
         <footer class="c-foot">

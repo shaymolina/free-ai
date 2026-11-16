@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "9"
+CSS_VERSION = "10"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -18,7 +18,7 @@ CHAPTERS = [
     ("Supabase, כן או לא", 3), ("הפרויקט הראשון", 8), ("מעלים לאוויר", 5),
     ("איך מדברים עם Claude Code", 4), ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
-READY = {1}  # פרקים שכבר כתובים
+READY = {1, 2}  # פרקים שכבר כתובים
 
 
 def header(active):
@@ -29,6 +29,14 @@ def header(active):
             <a href="service.html" class="btn sm">התחל ללמוד</a>
             <button type="button" class="btn c-menu-btn" aria-label="תפריט" onclick="this.parentNode.classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
         </header>'''
+
+
+def burger(active):
+    links = "".join(f'<a href="{h}"{" class=\"active\"" if h == active else ""}>{t}</a>' for h, t in NAV)
+    return f'''<div class="gmenu" id="gmenu">
+                <button type="button" class="btn" aria-label="תפריט" onclick="document.getElementById('gmenu').classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
+                <nav>{links}</nav>
+            </div>'''
 
 
 FOOTER = '''<footer class="c-foot">
@@ -65,7 +73,7 @@ def page(title, desc, body, script="", cls=""):
 # =====================================================================
 def build_home():
     rows = "".join(
-        f'<a href="guide-1.html"><span class="dot{" on" if i == 1 else ""}"></span>{i}. {name}<small>{mins} דק\'</small></a>'
+        f'<a href="guide-{i if i in READY else 1}.html"><span class="dot{" on" if i == 1 else ""}"></span>{i}. {name}<small>{mins} דק\'</small></a>'
         for i, (name, mins) in enumerate(CHAPTERS[:4], 1))
     faq = "".join(f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in [
         ("צריך מנוי בתשלום ל-Claude?", "כן. Claude Pro ומעלה."),
@@ -151,18 +159,16 @@ def build_chapter(n, lead, rows, note, extra=""):
     name, mins = CHAPTERS[n - 1]
     row_html = "".join(f'<li class="row"><span class="tile">{i}</span>{a}<small>{b}</small></li>' for i, (a, b) in enumerate(rows, 1))
     nxt = f' data-next="guide-{n + 1}.html"' if (n + 1) in READY else ""
-    body = f'''    <div class="wrap full c-top">
-        {header("guide-1.html")}
-    </div>
-    <main class="wrap full stack guide-main" style="margin-top:16px">
+    body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
         <div class="course">
+            {burger("guide-1.html")}
             {sidebar(n)}
             <article class="card lesson">
                 <span class="chip" style="align-self:flex-start">פרק {n} · {mins} דקות</span>
                 <h1>{name}</h1>
                 <p class="lead">{lead}</p>
                 <ol class="rows">{row_html}</ol>{extra}
-                <div class="lesson-end"><span>{note}</span><button type="button" class="btn" id="guide-done"{nxt}>סיימתי, לפרק הבא ←</button></div>
+                <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-brand" id="guide-done"{nxt}>סיימתי, לפרק הבא ←</button></div>
             </article>
         </div>
         {FOOTER}
@@ -181,4 +187,22 @@ build_chapter(
     "כל השאר בחינם להתחלה",
     extra=f'''
                 <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>{COUPON}</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="{COUPON}">העתקה</button></div>''',
+)
+
+
+def when(left, right):
+    def col(title, items):
+        li = "".join(f"<li>{x}</li>" for x in items)
+        return f'<div class="when-col"><h3>{title}</h3><ul>{li}</ul></div>'
+    return f'\n                <div class="when">{col(*right)}{col(*left)}</div>'
+
+
+build_chapter(
+    2, "אחד עונה. השני בונה.",
+    [("Claude הרגיל", "צ'אט: שואלים, כותבים, מקבלים עצות"),
+     ("Claude Code", "עובד על הקבצים שלכם ובונה אתרים"),
+     ("איך בוחרים", "צריכים תשובה? Claude. צריכים שיבנה? Claude Code")],
+    "שניהם כלולים באותו מנוי",
+    extra=when(("משתמשים ב-Claude כש…", ["כותבים מייל או פוסט", "מנתחים מסמך", "מחפשים רעיון או עצה"]),
+               ("משתמשים ב-Claude Code כש…", ["בונים אתר", "משנים ומתקנים אתר קיים", "מעלים אותו לאוויר"])),
 )
