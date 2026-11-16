@@ -9,8 +9,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SITE = ROOT / "site"
 
-DISCLOSURE = "גילוי נאות: Free AI מקבל עמלה מ-4CODE על הרשמה דרך הקישור שלנו. המחיר לא משתנה."
-
 # (כותרת, תיאור קצר, קובץ או None אם עוד לא עלה)
 CHAPTERS = [
     ("לפני שמתחילים", "למי זה מתאים, מה מכינים וכמה זה עולה.", "guide-1.html"),
@@ -193,14 +191,14 @@ def build_chapter_1():
     prep = process_cards([
         ("desktop-solid", "מחשב", "Mac או Windows. לא חייב חדש ולא חייב חזק.", "יש לכם כבר"),
         ("envelope-solid", "מייל", "איתו נרשמים לכל השירותים במדריך. עדיף מייל אחד לכולם.", "יש לכם כבר"),
-        ("credit-card-solid", "כרטיס אשראי", "למנוי של Claude ולאחסון האתר. את הסכומים תראו מיד למטה.", "2 דקות"),
+        ("credit-card-solid", "כרטיס אשראי", "למנוי של Claude. זה התשלום היחיד בשביל להתחיל.", "2 דקות"),
     ])
 
     costs = cost_rows([
         ("Claude", "המנוי שכולל את Claude Code. זה מה שבונה בשבילכם.", "כ-20 דולר לחודש"),
         ("GitHub", "הכספת שבה נשמר הפרויקט.", "חינם"),
         ("Supabase", "הזיכרון של המוצר. רק אם צריך, ולא כל אתר צריך.", "חינם להתחלה"),
-        ("4CODE", "האחסון של האתר, כולל כתובת חינמית.", "לפי המחירון באתר 4CODE"),
+        ("4CODE", "האחסון של האתר, כולל כתובת חינמית. משדרגים רק אם הפרויקט גדל.", "חינם להתחלה"),
     ])
 
     main = f'''<!-- section-services-single -->
@@ -279,7 +277,6 @@ def build_chapter_1():
                     <div>
                         <div class="fw-semibold mb-4">ואיפה האתר יגור?</div>
                         <p class="text-secondary mb-0">במדריך נעבוד עם 4CODE, אחסון ישראלי עם תמיכה בעברית. נפתח שם משתמש ביחד בפרק 6, אז כרגע לא צריך לעשות כלום.</p>
-                        <p class="text-body-3 text-neutral-400 mt-2 mb-0">{DISCLOSURE}</p>
                     </div>
                 </div>
             </div>
@@ -292,14 +289,14 @@ def build_chapter_1():
                     <div class="col-12">
                         <span class="guide-kicker effectFade fadeUp">כמה זה עולה בחודש</span>
                         <div class="heading fw-semibold mb-20 effectFade fadeUp">פחות מארוחה במסעדה</div>
-                        <p class="text-secondary mb-30 effectFade fadeUp">אלה כל השירותים שנשתמש בהם במדריך. רק שניים מהם עולים כסף.</p>
+                        <p class="text-secondary mb-30 effectFade fadeUp">אלה כל השירותים שנשתמש בהם במדריך. רק אחד מהם עולה כסף כבר מההתחלה.</p>
                         <ol class="lesson-list">
 {costs}
                         </ol>
                         <div class="cost-total effectFade fadeUp">
                             <div>
                                 <div class="fw-semibold">בשביל להתחיל לבנות</div>
-                                <div class="text-body-3" style="opacity:.7">את האחסון מוסיפים רק כשמעלים את האתר לאוויר.</div>
+                                <div class="text-body-3" style="opacity:.7">כל השאר בחינם, עד שהפרויקט גדל.</div>
                             </div>
                             <span class="cost-price">כ-20 דולר לחודש</span>
                         </div>
