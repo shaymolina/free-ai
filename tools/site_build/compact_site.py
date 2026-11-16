@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "3"
+CSS_VERSION = "7"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -78,8 +78,8 @@ def build_home():
         {header("index.html")}
             <div class="hero-in">
                 <div class="hero-text">
-                    <h1 class="hero-title"><span class="grad">לומדים Claude Code.</span><span class="grad">בלי לדעת לתכנת.</span>
-                        <span class="hero-pill"><img src="assets/images/item/hero-1.svg" alt=""><img src="assets/images/item/hero-2.svg" alt=""><img src="assets/images/item/hero-3.svg" alt=""></span></h1>
+                    <h1 class="hero-title"><span class="grad">לומדים Claude Code.</span><span class="hero-line"><span class="grad">בלי לדעת לתכנת.</span>
+                        <span class="hero-pill"><img src="assets/images/item/hero-1.svg" alt=""><img src="assets/images/item/hero-2.svg" alt=""><img src="assets/images/item/hero-3.svg" alt=""></span></span></h1>
                     <p>קורס, מדריך כתוב וסקילים מוכנים. מהצעד הראשון ועד אתר שעובד באוויר.</p>
                 </div>
                 <div class="card preview">{rows}<a href="guide-1.html" class="muted"><span class="dot"></span>ועוד {len(CHAPTERS) - 4} פרקים</a></div>
