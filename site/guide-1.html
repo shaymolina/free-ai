@@ -7,10 +7,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>לפני שמתחילים – המדריך המלא ל-Claude Code | Free AI</title>
+    <title>לפני שמתחילים – המדריך ל-Claude Code | Free AI</title>
     <meta name="author" content="Free AI">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="פרק 1 במדריך המלא ל-Claude Code למי שלא מתכנת: למי זה מתאים, מה אפשר לבנות, מה צריך להכין וכמה זה עולה בחודש.">
+    <meta name="description" content="פרק 1 במדריך ל-Claude Code למי שלא מתכנת: שלושה דברים להכין, ואפשר לצאת לדרך.">
 
     <!-- font -->
     <link rel="stylesheet" href="assets/fonts/fonts.css">
@@ -52,34 +52,49 @@
             .lesson-title { font-size: 17px; }
         }
 
-        .guide-kicker { display: inline-block; font-size: 15px; font-weight: 600; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(127,127,127,.4); margin-bottom: 16px; }
-        .guide-lead { font-size: 20px; line-height: 1.6; }
-        .guide-block { margin-bottom: 80px; }
-        .guide-block .features-item .title { font-size: 24px; line-height: 1.3; }
-        .guide-block .features-item .icon i { font-size: 30px; }
-        .lesson-row.is-current { background: var(--white, #fff); border-color: transparent; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-        .lesson-row.is-current .lesson-status { background: var(--primary, #D97757); border-color: transparent; color: #fff; }
-        a.lesson-row { color: inherit; text-decoration: none; }
-        .cost-price { flex: 0 0 auto; font-size: 20px; font-weight: 700; white-space: nowrap; }
-        .cost-total { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px; border-radius: 16px; background: #1F1E1D; color: #fff; margin-bottom: 16px; }
-        .cost-total .cost-price { font-size: 26px; }
-        .coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--white, #fff); border: 1px dashed rgba(127,127,127,.5); }
-        .coupon-label { font-weight: 600; }
-        .coupon-code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
-        .coupon-copy { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
-        .guide-next { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-        .section-process.guide-prep { padding-bottom: 0; overflow-x: clip; }
-        @media (max-width: 767px) {
-            .guide-block { margin-bottom: 48px; }
-            .guide-lead { font-size: 18px; }
-            .cost-price { font-size: 17px; }
-            .cost-total { flex-direction: column; align-items: flex-start; }
-            .guide-prep .swiper { overflow: visible; }
-            .guide-prep .swiper-wrapper { flex-direction: column; gap: 16px; transform: none !important; }
-            .guide-prep .swiper-slide { width: 100% !important; margin: 0 !important; height: auto; }
-        }
-        @media (max-width: 575px) {
-            .cost-row .cost-price { margin-inline-start: 50px; }
+        .guide-course { padding: 150px 0 72px; }
+        .guide-wrap { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
+        .guide-card { background: var(--neutral-100, #F4F4F5); border-radius: 32px; box-shadow: 0px 7.77px 16px 0px rgba(0,0,0,.06), 0px 3px 3px 0px rgba(0,0,0,.1), 0px -8px 0px 0px rgba(0,0,0,.05) inset, 0px 4px 0px 0px rgba(255,255,255,.6) inset; }
+        .guide-side { padding: 24px 20px 28px; position: sticky; top: 24px; }
+        .guide-side h2 { font-size: 19px; line-height: 1.3; font-weight: 700; margin: 0 6px 12px; letter-spacing: 0; }
+        .guide-bar { height: 8px; border-radius: 99px; background: #DAD7D2; overflow: hidden; margin: 0 6px 6px; }
+        .guide-bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--brand, #D97757); transition: width .4s; }
+        .guide-count { font-size: 13px; color: #8d8985; margin: 0 6px 12px; font-weight: 600; }
+        .guide-chapters { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+        .guide-ch { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 14px; font-size: 16px; font-weight: 600; color: #8d8985; text-decoration: none; }
+        a.guide-ch:hover { color: #1F1E1D; }
+        .guide-ch.is-on { background: #fff; color: #1F1E1D; box-shadow: 0 4px 12px rgba(0,0,0,.07); }
+        .guide-ch.is-done { color: #1F1E1D; }
+        .guide-dot { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 2px solid #CFCBC5; display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; color: transparent; }
+        .guide-ch.is-on .guide-dot { border-color: var(--brand, #D97757); }
+        .guide-ch.is-done .guide-dot { border-color: var(--brand, #D97757); background: var(--brand, #D97757); color: #fff; }
+        .guide-soon { margin-inline-start: auto; font-size: 12px; font-weight: 600; opacity: .7; white-space: nowrap; }
+        .guide-main { padding: 48px 52px; display: flex; flex-direction: column; gap: 22px; min-height: 640px; }
+        .guide-tag { align-self: flex-start; font-size: 14px; font-weight: 700; color: var(--brand, #D97757); background: #fff; border-radius: 10px; padding: 6px 14px; box-shadow: 0 2px 0 rgba(0,0,0,.08); }
+        .guide-main h1 { font-size: 56px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; margin: 0; }
+        .guide-sub { font-size: 21px; line-height: 1.5; color: #6b6763; margin: 0; }
+        .guide-rows { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 12px; }
+        .guide-row { display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 18px; padding: 14px 18px; font-size: 19px; font-weight: 600; }
+        .guide-row small { margin-inline-start: auto; font-size: 16px; font-weight: 500; color: #8d8985; text-align: end; }
+        .guide-num { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 15px; background: var(--brand, #D97757); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; box-shadow: 0 -3px 0 rgba(0,0,0,.18) inset, 0 10px 18px rgba(217,119,87,.35); }
+        .guide-coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 1px dashed rgba(127,127,127,.5); border-radius: 18px; padding: 14px 18px; font-size: 16px; font-weight: 600; }
+        .guide-coupon code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: #1F1E1D; background: #fff; border-radius: 8px; padding: 5px 12px; user-select: all; }
+        .guide-coupon button { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 7px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
+        .guide-foot { margin-top: auto; padding-top: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
+        .guide-foot .guide-note { font-size: 16px; color: #6b6763; }
+        .guide-foot .tf-btn { cursor: pointer; border: 0; font-family: inherit; }
+        .guide-foot .tf-btn.is-done { opacity: .55; pointer-events: none; }
+        @media (max-width: 991px) {
+            .guide-course { padding: 128px 0 48px; }
+            .guide-wrap { grid-template-columns: minmax(0, 1fr); }
+            .guide-side { position: static; order: 2; }
+            .guide-main { padding: 28px 22px; min-height: 0; border-radius: 24px; }
+            .guide-main h1 { font-size: 38px; }
+            .guide-sub { font-size: 18px; }
+            .guide-row { flex-wrap: wrap; font-size: 18px; gap: 6px 14px; }
+            .guide-row small { flex-basis: 100%; margin-inline-start: 62px; text-align: start; font-size: 15px; margin-top: -14px; }
+            .guide-num { width: 46px; height: 46px; font-size: 20px; }
+            .guide-foot .tf-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -130,469 +145,53 @@
             </div>
         </header>
         <!-- /Header -->
-        <!-- Hero Banner -->
-        <div class="section-hero v2">
-            <div class="hero-image">
-            </div>
+        <!-- guide -->
+        <div class="guide-course">
             <div class="container">
-                <div class="content-wrap text-center">
-                    <div class="title text-display-2 effectFade fadeRotateX">
-                        <span class="title1 fw-semibold text-gradient-1">לפני</span>
-                        <br>
-                        <div class="title2 d-flex gap-20 justify-content-center flex-wrap">
-                            <span class="fw-semibold text-gradient-1">שמתחילים</span>
-                            <div class="title-icon">
-                                <div class="box"></div>
-                                <div class="title-icon-wrap">
-                                    <img src="assets/images/item/hero-1.svg" alt="" class="img-1 img-transform-3">
-                                    <img src="assets/images/item/hero-2.svg" alt="" class="img-2 img-transform-3">
-                                    <img src="assets/images/item/hero-3.svg" alt="" class="img-3 img-transform-3">
-                                </div>
-                            </div>
-                        </div>
+                <div class="guide-wrap">
+                <aside class="guide-card guide-side">
+                    <h2>המדריך ל-Claude Code</h2>
+                    <div class="guide-bar"><i id="guide-fill"></i></div>
+                    <div class="guide-count" id="guide-count"></div>
+                    <ol class="guide-chapters">
+                        <li><a href="guide-1.html" class="guide-ch is-on" data-ch="1"><span class="guide-dot">✓</span>1. לפני שמתחילים</a></li>
+                        <li><span class="guide-ch" data-ch="2"><span class="guide-dot">✓</span>2. Claude מול Claude Code<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="3"><span class="guide-dot">✓</span>3. פותחים חשבון Claude<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="4"><span class="guide-dot">✓</span>4. מתקינים את האפליקציה<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="5"><span class="guide-dot">✓</span>5. פותחים GitHub<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="6"><span class="guide-dot">✓</span>6. פותחים 4CODE<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="7"><span class="guide-dot">✓</span>7. Supabase, כן או לא<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="8"><span class="guide-dot">✓</span>8. הפרויקט הראשון<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="9"><span class="guide-dot">✓</span>9. מעלים לאוויר<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="10"><span class="guide-dot">✓</span>10. איך מדברים עם Claude Code<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="11"><span class="guide-dot">✓</span>11. סדר ובטיחות<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="12"><span class="guide-dot">✓</span>12. כשמשהו נתקע<span class="guide-soon">בקרוב</span></span></li>
+                        <li><span class="guide-ch" data-ch="13"><span class="guide-dot">✓</span>13. השלב הבא<span class="guide-soon">בקרוב</span></span></li>
+                    </ol>
+                </aside>
+                <article class="guide-card guide-main">
+                    <span class="guide-tag">פרק 1 · 2 דקות</span>
+                    <h1>לפני שמתחילים</h1>
+                    <p class="guide-sub">שלושה דברים להכין, ואפשר לצאת לדרך.</p>
+                    <ol class="guide-rows">
+                        <li class="guide-row"><span class="guide-num">1</span>מחשב<small>Mac או Windows</small></li>
+                        <li class="guide-row"><span class="guide-num">2</span>מייל<small>אחד לכל השירותים</small></li>
+                        <li class="guide-row"><span class="guide-num">3</span>כרטיס אשראי<small>כ-20 דולר לחודש ל-Claude</small></li>
+                    </ol>
+                    <div class="guide-coupon">
+                        <span>קופון לחודש ראשון בחינם ב-4CODE, האחסון של האתר:</span>
+                        <code>RVJ34jcn4j1</code>
+                        <button type="button" id="guide-copy" data-code="RVJ34jcn4j1">העתקה</button>
                     </div>
-                    <p class="text text-body-3 effectFade fadeUp">המדריך המלא ל-Claude Code · פרק 1 מתוך 13 · 5 דקות קריאה</p>
+                    <div class="guide-foot">
+                        <span class="guide-note">כל השאר בחינם להתחלה</span>
+                        <button type="button" class="tf-btn" id="guide-done">סיימתי, לפרק הבא ←</button>
+                    </div>
+                </article>
                 </div>
             </div>
         </div>
-        <!-- /Hero Banner -->
-        <!-- section-services-single -->
-        <div id="services" class="section-services-single flat-spacing pt-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="top-image mb-40 effectFade fadeZoom">
-                            <img src="assets/images/claude/build-site.jpg" alt="אתר של מאפייה שנבנה עם Claude Code">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guide-block" id="who">
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="guide-kicker effectFade fadeUp">למי זה מתאים</span>
-                            <div class="heading fw-semibold mb-20 effectFade fadeUp">לא צריך לדעת לתכנת</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-7 md-mb-24">
-                            <p class="text-secondary guide-lead effectFade fadeUp">המדריך הזה נכתב לבעלי עסקים, לפרילנסרים ולכל מי שיש לו רעיון ואין לו מתכנת. אתם מסבירים ל-Claude Code במילים שלכם מה אתם רוצים, והוא בונה. אנחנו נלך איתכם צעד אחרי צעד, מהורדת האפליקציה ועד אתר שעובד באוויר.</p>
-                        </div>
-                        <div class="col-md-5">
-                            <p class="text-secondary mb-30 effectFade fadeUp">אם אתם יודעים לשלוח מייל ולהתקין אפליקציה בטלפון, אתם יודעים מספיק.</p>
-                            <div class="list-tags effectFade fadeUp">
-                                <a href="#chapters" class="tags-item fw-semibold">13 פרקים</a>
-                                <a href="#who" class="tags-item fw-semibold">בלי ידע קודם</a>
-                                <a href="#costs" class="tags-item fw-semibold">בעברית פשוטה</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guide-block mb-0" id="build">
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="guide-kicker effectFade fadeUp">מה יוצא לכם מזה</span>
-                            <div class="heading fw-semibold mb-20 effectFade fadeUp">מה תדעו לבנות בסוף</div>
-                            <p class="text-secondary mb-30 effectFade fadeUp">בסוף המדריך יהיה לכם אתר משלכם באוויר, ותדעו לבנות את הבא לבד.</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-6 mb-24">
-                        <div class="features-item style-2 h-100 effectFade fadeRotateX">
-                            <div class="icon"><i class="icon-desktop-solid"></i></div>
-                            <h4 class="title fw-semibold">אתר לעסק</h4>
-                            <p class="text-secondary">דף בית, שירותים, תמונות וכפתור וואטסאפ. בדיוק כמו שאתם רוצים אותו.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-24">
-                        <div class="features-item style-2 h-100 effectFade fadeRotateX" data-delay="0.1">
-                            <div class="icon"><i class="icon-bolt-solid"></i></div>
-                            <h4 class="title fw-semibold">דף נחיתה</h4>
-                            <p class="text-secondary">עמוד אחד עם מטרה אחת: שישאירו פרטים או יקנו.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-24">
-                        <div class="features-item style-2 h-100 effectFade fadeRotateX">
-                            <div class="icon"><i class="icon-clipboard-check-solid"></i></div>
-                            <h4 class="title fw-semibold">מערכת הזמנות</h4>
-                            <p class="text-secondary">לקוחות קובעים תור או מזמינים לבד, ואתם רואים הכל במקום אחד.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-24">
-                        <div class="features-item style-2 h-100 effectFade fadeRotateX" data-delay="0.1">
-                            <div class="icon"><i class="icon-user-friends-solid"></i></div>
-                            <h4 class="title fw-semibold">אזור אישי ללקוחות</h4>
-                            <p class="text-secondary">הרשמה, כניסה ותוכן שרק הלקוחות שלכם רואים.</p>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-services-single -->
-        <!-- section-process -->
-        <div class="section-process guide-prep flat-spacing pt-0" id="prep">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="process-heading h-100">
-                            <div class="heading-section mb-80">
-                                <div class="heading-sub fw-semibold effectFade fadeUp">מה צריך להכין</div>
-                                <div class="heading-title text-gradient-3 effectFade fadeRotateX">שלושה דברים <br> וזהו</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="process-slide">
-                            <div dir="rtl" class="swiper tf-swiper swiper-box-shadow" data-preview="3" data-tablet="3" data-mobile-sm="1" data-mobile="1"
-                                data-loop="false" data-center="false" data-space-lg="24" data-space-md="24" data-space="30" >
-                                <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <div class="process-card">
-                                                <i class="icon icon-desktop-solid"></i>
-                                                <div class="content">
-                                                    <h4 class="title fw-semibold">מחשב</h4>
-                                                    <p class="text text-secondary">Mac או Windows. לא חייב חדש ולא חייב חזק.</p>
-                                                </div>
-                                                <div class="bot">
-                                                    <div class="time fw-semibold">יש לכם כבר</div>
-                                                    <div class="number">
-                                                        <span class="text-neutral-400">01</span>
-                                                        <span class="text-neutral-200">/03</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <div class="process-card">
-                                                <i class="icon icon-envelope-solid"></i>
-                                                <div class="content">
-                                                    <h4 class="title fw-semibold">מייל</h4>
-                                                    <p class="text text-secondary">איתו נרשמים לכל השירותים במדריך. עדיף מייל אחד לכולם.</p>
-                                                </div>
-                                                <div class="bot">
-                                                    <div class="time fw-semibold">יש לכם כבר</div>
-                                                    <div class="number">
-                                                        <span class="text-neutral-400">02</span>
-                                                        <span class="text-neutral-200">/03</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <div class="process-card">
-                                                <i class="icon icon-credit-card-solid"></i>
-                                                <div class="content">
-                                                    <h4 class="title fw-semibold">כרטיס אשראי</h4>
-                                                    <p class="text text-secondary">למנוי של Claude. זה התשלום היחיד בשביל להתחיל.</p>
-                                                </div>
-                                                <div class="bot">
-                                                    <div class="time fw-semibold">2 דקות</div>
-                                                    <div class="number">
-                                                        <span class="text-neutral-400">03</span>
-                                                        <span class="text-neutral-200">/03</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hosting-note effectFade fadeUp mt-4">
-                    <i class="icon icon-bolt-solid"></i>
-                    <div>
-                        <div class="fw-semibold mb-4">ואיפה האתר יגור?</div>
-                        <p class="text-secondary mb-0">במדריך נעבוד עם 4CODE, אחסון ישראלי עם תמיכה בעברית. יש שם חבילה בחינם, והיא מתאימה לדפי נחיתה ולאתרים פשוטים. כדי ללמוד כמו שצריך יש לכם קוד קופון לחודש ראשון בחינם. נפתח שם משתמש ביחד בפרק 6, אז כרגע רק שמרו את הקוד.</p>
-                        <div class="coupon">
-                            <span class="coupon-label">קוד קופון לחודש ראשון בחינם:</span>
-                            <span class="coupon-code">RVJ34jcn4j1</span>
-                            <button type="button" class="coupon-copy" onclick="navigator.clipboard.writeText('RVJ34jcn4j1');this.textContent='הועתק ✓'">העתקה</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-process -->
-        <!-- section-costs -->
-        <div class="section-services-single flat-spacing" id="costs" style="margin-top:0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <span class="guide-kicker effectFade fadeUp">כמה זה עולה בחודש</span>
-                        <div class="heading fw-semibold mb-20 effectFade fadeUp">פחות מארוחה במסעדה</div>
-                        <p class="text-secondary mb-30 effectFade fadeUp">אלה כל השירותים שנשתמש בהם במדריך. רק אחד מהם עולה כסף כבר מההתחלה.</p>
-                        <ol class="lesson-list">
-                            <li class="lesson-row cost-row effectFade fadeUp">
-                                <span class="lesson-num text-body-1 fw-semibold">01</span>
-                                <div class="lesson-body">
-                                    <div class="lesson-title fw-semibold">Claude</div>
-                                    <div class="lesson-desc text-secondary">המנוי שכולל את Claude Code. זה מה שבונה בשבילכם.</div>
-                                </div>
-                                <span class="cost-price">כ-20 דולר לחודש</span>
-                            </li>
-                            <li class="lesson-row cost-row effectFade fadeUp">
-                                <span class="lesson-num text-body-1 fw-semibold">02</span>
-                                <div class="lesson-body">
-                                    <div class="lesson-title fw-semibold">GitHub</div>
-                                    <div class="lesson-desc text-secondary">הכספת שבה נשמר הפרויקט.</div>
-                                </div>
-                                <span class="cost-price">חינם</span>
-                            </li>
-                            <li class="lesson-row cost-row effectFade fadeUp">
-                                <span class="lesson-num text-body-1 fw-semibold">03</span>
-                                <div class="lesson-body">
-                                    <div class="lesson-title fw-semibold">Supabase</div>
-                                    <div class="lesson-desc text-secondary">הזיכרון של המוצר. רק אם צריך, ולא כל אתר צריך.</div>
-                                </div>
-                                <span class="cost-price">חינם להתחלה</span>
-                            </li>
-                            <li class="lesson-row cost-row effectFade fadeUp">
-                                <span class="lesson-num text-body-1 fw-semibold">04</span>
-                                <div class="lesson-body">
-                                    <div class="lesson-title fw-semibold">4CODE</div>
-                                    <div class="lesson-desc text-secondary">האחסון של האתר. חבילה בחינם לאתרים פשוטים, וחודש ראשון בחינם עם הקופון.</div>
-                                </div>
-                                <span class="cost-price">חינם להתחלה</span>
-                            </li>
-                        </ol>
-                        <div class="cost-total effectFade fadeUp">
-                            <div>
-                                <div class="fw-semibold">בשביל להתחיל לבנות</div>
-                                <div class="text-body-3" style="opacity:.7">כל השאר בחינם, עד שהפרויקט גדל.</div>
-                            </div>
-                            <span class="cost-price">כ-20 דולר לחודש</span>
-                        </div>
-                        <p class="text-body-3 text-neutral-400 mb-0 effectFade fadeUp">המחירים נכונים ליום כתיבת המדריך ויכולים להשתנות. בכל פרק נראה איפה בודקים את המחיר העדכני.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-costs -->
-        <div class="box-white">
-        </div>
-        <!-- section-faqs -->
-        <div class="section-faqs flat-spacing">
-            <div class="container">
-                <div class="heading-section center mb-64">
-                    <div class="heading-sub fw-semibold effectFade fadeUp">מילון קצר</div>
-                    <div class="heading-title text-gradient-3 effectFade fadeRotateX">חמש מילים <br>שכדאי להכיר</div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="accordion-asked" id="accordion-asked">
-                            <div class="accordion-asked-item effectFade fadeRotateX">
-                                <div class="accordion-asked-title" id="asked1">
-                                    <button class="accordion-button text-body-1 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                        אתר
-                                        <span class="right-icon"></span>
-                                    </button>
-                                </div>
-                                <div id="collapse1" role="region" class="accordion-collapse collapse show" aria-labelledby="asked1" data-bs-parent="#accordion-asked">
-                                    <div class="accordion-body">דפים שכל אחד יכול לפתוח בדפדפן, כמו חלון ראווה של העסק שלכם.</div>
-                                </div>
-                            </div>
-                            <div class="accordion-asked-item effectFade fadeRotateX" data-delay="0.1">
-                                <div class="accordion-asked-title" id="asked2">
-                                    <button class="accordion-button text-body-1 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                        אפליקציה
-                                        <span class="right-icon"></span>
-                                    </button>
-                                </div>
-                                <div id="collapse2" role="region" class="accordion-collapse collapse" aria-labelledby="asked2" data-bs-parent="#accordion-asked">
-                                    <div class="accordion-body">אתר שגם עושה דברים: נרשמים אליו, מזמינים דרכו, והוא זוכר כל משתמש.</div>
-                                </div>
-                            </div>
-                            <div class="accordion-asked-item effectFade fadeRotateX" data-delay="0.2">
-                                <div class="accordion-asked-title" id="asked3">
-                                    <button class="accordion-button text-body-1 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                        קוד
-                                        <span class="right-icon"></span>
-                                    </button>
-                                </div>
-                                <div id="collapse3" role="region" class="accordion-collapse collapse" aria-labelledby="asked3" data-bs-parent="#accordion-asked">
-                                    <div class="accordion-body">ההוראות שמהן בנוי האתר. Claude Code כותב אותן, ואתם לא צריכים לקרוא אותן.</div>
-                                </div>
-                            </div>
-                            <div class="accordion-asked-item effectFade fadeRotateX" data-delay="0.3">
-                                <div class="accordion-asked-title" id="asked4">
-                                    <button class="accordion-button text-body-1 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                        שרת
-                                        <span class="right-icon"></span>
-                                    </button>
-                                </div>
-                                <div id="collapse4" role="region" class="accordion-collapse collapse" aria-labelledby="asked4" data-bs-parent="#accordion-asked">
-                                    <div class="accordion-body">מחשב שדולק כל הזמן ומציג את האתר שלכם לכל מי שנכנס. זה מה שנקרא אחסון.</div>
-                                </div>
-                            </div>
-                            <div class="accordion-asked-item effectFade fadeRotateX" data-delay="0.4">
-                                <div class="accordion-asked-title" id="asked5">
-                                    <button class="accordion-button text-body-1 fw-semibold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                                        מסד נתונים
-                                        <span class="right-icon"></span>
-                                    </button>
-                                </div>
-                                <div id="collapse5" role="region" class="accordion-collapse collapse" aria-labelledby="asked5" data-bs-parent="#accordion-asked">
-                                    <div class="accordion-body">הזיכרון של האתר. שם נשמרים הלקוחות, ההזמנות וכל מה שהאתר צריך לזכור.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-faqs -->
-        <!-- section-contact -->
-        <div id="chapters" class="section-services-single flat-spacing pt-0" style="margin-top:0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <span class="guide-kicker effectFade fadeUp">המדריך המלא</span>
-                        <div class="heading fw-semibold mb-20 effectFade fadeUp">כל הפרקים</div>
-                        <p class="text-secondary mb-30 effectFade fadeUp">13 פרקים, לפי הסדר. פרק חדש עולה בכל פעם.</p>
-                        <ol class="lesson-list">
-                            <li>
-                                <div class="lesson-row is-current effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">01</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">לפני שמתחילים</div>
-                                        <div class="lesson-desc text-secondary">למי זה מתאים, מה מכינים וכמה זה עולה.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">אתם כאן</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">02</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">Claude הרגיל מול Claude Code</div>
-                                        <div class="lesson-desc text-secondary">מה ההבדל, ומתי משתמשים בכל אחד.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">03</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">פותחים חשבון Claude</div>
-                                        <div class="lesson-desc text-secondary">הרשמה ובחירת מסלול.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">04</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">מתקינים את האפליקציה במחשב</div>
-                                        <div class="lesson-desc text-secondary">הורדה, התקנה וכניסה ראשונה.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">05</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">פותחים חשבון GitHub</div>
-                                        <div class="lesson-desc text-secondary">הכספת שבה נשמר הפרויקט.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">06</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">פותחים משתמש ב-4CODE</div>
-                                        <div class="lesson-desc text-secondary">המגרש שעליו האתר יושב.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">07</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">Supabase – מתי כן ומתי לא</div>
-                                        <div class="lesson-desc text-secondary">הזיכרון של המוצר, ומתי בכלל צריך אותו.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">08</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">הפרויקט הראשון מא' עד ת'</div>
-                                        <div class="lesson-desc text-secondary">בונים אתר פשוט ביחד.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">09</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">מעלים את האתר לאוויר</div>
-                                        <div class="lesson-desc text-secondary">כתובת חינמית מ-4CODE או דומיין משלכם.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">10</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">איך מדברים עם Claude Code</div>
-                                        <div class="lesson-desc text-secondary">בקשות טובות ותבניות מוכנות.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">11</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">סדר ובטיחות</div>
-                                        <div class="lesson-desc text-secondary">פרויקטים, סיסמאות וגיבויים.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">12</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">כשמשהו נתקע</div>
-                                        <div class="lesson-desc text-secondary">התקלות הנפוצות ומה כותבים ל-Claude.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="lesson-row effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">13</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">השלב הבא</div>
-                                        <div class="lesson-desc text-secondary">תשלומים, מיילים ועבודה מהטלפון.</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">בקרוב</span>
-                                </div>
-                            </li>
-                        </ol>
-                        <div class="guide-next effectFade fadeUp">
-                            <span class="tf-btn" style="opacity:.5;pointer-events:none">הפרק הבא: Claude הרגיל מול Claude Code – בקרוב</span>
-                            <a href="service.html" class="tf-btn-2">מעדיפים וידאו? לקורס</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-contact -->
+        <!-- /guide -->
         <!-- footer -->
         <footer>
             <div class="footer-image">
@@ -733,6 +332,34 @@
 
     <script src="assets/js/main.js"></script>
 
+    <script>
+(function () {
+    var KEY = 'freeai-guide-done', TOTAL = 13, CURRENT = 1;
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+    function save(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    var btn = document.getElementById('guide-done');
+    function paint() {
+        var done = load();
+        document.querySelectorAll('.guide-ch').forEach(function (el) {
+            el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1);
+        });
+        document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%';
+        document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
+        if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
+    }
+    if (btn) btn.addEventListener('click', function () {
+        var done = load();
+        if (done.indexOf(CURRENT) < 0) { done.push(CURRENT); save(done); }
+        if (btn.dataset.next) location.href = btn.dataset.next; else paint();
+    });
+    var copy = document.getElementById('guide-copy');
+    if (copy) copy.addEventListener('click', function () {
+        navigator.clipboard.writeText(copy.dataset.code);
+        copy.textContent = 'הועתק ✓';
+    });
+    paint();
+})();
+</script>
 </body>
 
 </html>

@@ -1,61 +1,109 @@
-"""המדריך המלא ל-Claude Code: עמוד לכל פרק (guide-N.html).
+"""המדריך המלא ל-Claude Code – בסגנון קורס: רשימת פרקים בצד, פרק קצר באמצע.
 
-נבנה מתוך site/service-single.html (העמוד המוגמר), כדי לרשת את העיצוב, התפריט והפוטר.
+עמוד לכל פרק (guide-N.html). נבנה מתוך site/service-single.html כדי לרשת תפריט, פוטר ועיצוב.
+ההתקדמות נשמרת כרגע בדפדפן של הגולש (localStorage) עד שיחובר אזור משתמשים.
 הרצה: cd tools/site_build && python3 guide_pages.py
 """
+import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SITE = ROOT / "site"
+COUPON = "RVJ34jcn4j1"
 
-# (כותרת, תיאור קצר, קובץ או None אם עוד לא עלה)
+# שם קצר לתפריט הצד, ושם קובץ לפרקים שכבר עלו
 CHAPTERS = [
-    ("לפני שמתחילים", "למי זה מתאים, מה מכינים וכמה זה עולה.", "guide-1.html"),
-    ("Claude הרגיל מול Claude Code", "מה ההבדל, ומתי משתמשים בכל אחד.", None),
-    ("פותחים חשבון Claude", "הרשמה ובחירת מסלול.", None),
-    ("מתקינים את האפליקציה במחשב", "הורדה, התקנה וכניסה ראשונה.", None),
-    ("פותחים חשבון GitHub", "הכספת שבה נשמר הפרויקט.", None),
-    ("פותחים משתמש ב-4CODE", "המגרש שעליו האתר יושב.", None),
-    ("Supabase – מתי כן ומתי לא", "הזיכרון של המוצר, ומתי בכלל צריך אותו.", None),
-    ("הפרויקט הראשון מא' עד ת'", "בונים אתר פשוט ביחד.", None),
-    ("מעלים את האתר לאוויר", "כתובת חינמית מ-4CODE או דומיין משלכם.", None),
-    ("איך מדברים עם Claude Code", "בקשות טובות ותבניות מוכנות.", None),
-    ("סדר ובטיחות", "פרויקטים, סיסמאות וגיבויים.", None),
-    ("כשמשהו נתקע", "התקלות הנפוצות ומה כותבים ל-Claude.", None),
-    ("השלב הבא", "תשלומים, מיילים ועבודה מהטלפון.", None),
+    "לפני שמתחילים",
+    "Claude מול Claude Code",
+    "פותחים חשבון Claude",
+    "מתקינים את האפליקציה",
+    "פותחים GitHub",
+    "פותחים 4CODE",
+    "Supabase, כן או לא",
+    "הפרויקט הראשון",
+    "מעלים לאוויר",
+    "איך מדברים עם Claude Code",
+    "סדר ובטיחות",
+    "כשמשהו נתקע",
+    "השלב הבא",
 ]
+READY = {1}  # פרקים שכבר כתובים
 
 CSS = '''
-        .guide-kicker { display: inline-block; font-size: 15px; font-weight: 600; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(127,127,127,.4); margin-bottom: 16px; }
-        .guide-lead { font-size: 20px; line-height: 1.6; }
-        .guide-block { margin-bottom: 80px; }
-        .guide-block .features-item .title { font-size: 24px; line-height: 1.3; }
-        .guide-block .features-item .icon i { font-size: 30px; }
-        .lesson-row.is-current { background: var(--white, #fff); border-color: transparent; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-        .lesson-row.is-current .lesson-status { background: var(--primary, #D97757); border-color: transparent; color: #fff; }
-        a.lesson-row { color: inherit; text-decoration: none; }
-        .cost-price { flex: 0 0 auto; font-size: 20px; font-weight: 700; white-space: nowrap; }
-        .cost-total { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px; border-radius: 16px; background: #1F1E1D; color: #fff; margin-bottom: 16px; }
-        .cost-total .cost-price { font-size: 26px; }
-        .coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--white, #fff); border: 1px dashed rgba(127,127,127,.5); }
-        .coupon-label { font-weight: 600; }
-        .coupon-code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
-        .coupon-copy { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
-        .guide-next { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-        .section-process.guide-prep { padding-bottom: 0; overflow-x: clip; }
-        @media (max-width: 767px) {
-            .guide-block { margin-bottom: 48px; }
-            .guide-lead { font-size: 18px; }
-            .cost-price { font-size: 17px; }
-            .cost-total { flex-direction: column; align-items: flex-start; }
-            .guide-prep .swiper { overflow: visible; }
-            .guide-prep .swiper-wrapper { flex-direction: column; gap: 16px; transform: none !important; }
-            .guide-prep .swiper-slide { width: 100% !important; margin: 0 !important; height: auto; }
-        }
-        @media (max-width: 575px) {
-            .cost-row .cost-price { margin-inline-start: 50px; }
+        .guide-course { padding: 150px 0 72px; }
+        .guide-wrap { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
+        .guide-card { background: var(--neutral-100, #F4F4F5); border-radius: 32px; box-shadow: 0px 7.77px 16px 0px rgba(0,0,0,.06), 0px 3px 3px 0px rgba(0,0,0,.1), 0px -8px 0px 0px rgba(0,0,0,.05) inset, 0px 4px 0px 0px rgba(255,255,255,.6) inset; }
+        .guide-side { padding: 24px 20px 28px; position: sticky; top: 24px; }
+        .guide-side h2 { font-size: 19px; line-height: 1.3; font-weight: 700; margin: 0 6px 12px; letter-spacing: 0; }
+        .guide-bar { height: 8px; border-radius: 99px; background: #DAD7D2; overflow: hidden; margin: 0 6px 6px; }
+        .guide-bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--brand, #D97757); transition: width .4s; }
+        .guide-count { font-size: 13px; color: #8d8985; margin: 0 6px 12px; font-weight: 600; }
+        .guide-chapters { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+        .guide-ch { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 14px; font-size: 16px; font-weight: 600; color: #8d8985; text-decoration: none; }
+        a.guide-ch:hover { color: #1F1E1D; }
+        .guide-ch.is-on { background: #fff; color: #1F1E1D; box-shadow: 0 4px 12px rgba(0,0,0,.07); }
+        .guide-ch.is-done { color: #1F1E1D; }
+        .guide-dot { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 2px solid #CFCBC5; display: flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; color: transparent; }
+        .guide-ch.is-on .guide-dot { border-color: var(--brand, #D97757); }
+        .guide-ch.is-done .guide-dot { border-color: var(--brand, #D97757); background: var(--brand, #D97757); color: #fff; }
+        .guide-soon { margin-inline-start: auto; font-size: 12px; font-weight: 600; opacity: .7; white-space: nowrap; }
+        .guide-main { padding: 48px 52px; display: flex; flex-direction: column; gap: 22px; min-height: 640px; }
+        .guide-tag { align-self: flex-start; font-size: 14px; font-weight: 700; color: var(--brand, #D97757); background: #fff; border-radius: 10px; padding: 6px 14px; box-shadow: 0 2px 0 rgba(0,0,0,.08); }
+        .guide-main h1 { font-size: 56px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; margin: 0; }
+        .guide-sub { font-size: 21px; line-height: 1.5; color: #6b6763; margin: 0; }
+        .guide-rows { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 12px; }
+        .guide-row { display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 18px; padding: 14px 18px; font-size: 19px; font-weight: 600; }
+        .guide-row small { margin-inline-start: auto; font-size: 16px; font-weight: 500; color: #8d8985; text-align: end; }
+        .guide-num { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 15px; background: var(--brand, #D97757); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; box-shadow: 0 -3px 0 rgba(0,0,0,.18) inset, 0 10px 18px rgba(217,119,87,.35); }
+        .guide-coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 1px dashed rgba(127,127,127,.5); border-radius: 18px; padding: 14px 18px; font-size: 16px; font-weight: 600; }
+        .guide-coupon code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: #1F1E1D; background: #fff; border-radius: 8px; padding: 5px 12px; user-select: all; }
+        .guide-coupon button { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 7px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
+        .guide-foot { margin-top: auto; padding-top: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
+        .guide-foot .guide-note { font-size: 16px; color: #6b6763; }
+        .guide-foot .tf-btn { cursor: pointer; border: 0; font-family: inherit; }
+        .guide-foot .tf-btn.is-done { opacity: .55; pointer-events: none; }
+        @media (max-width: 991px) {
+            .guide-course { padding: 128px 0 48px; }
+            .guide-wrap { grid-template-columns: minmax(0, 1fr); }
+            .guide-side { position: static; order: 2; }
+            .guide-main { padding: 28px 22px; min-height: 0; border-radius: 24px; }
+            .guide-main h1 { font-size: 38px; }
+            .guide-sub { font-size: 18px; }
+            .guide-row { flex-wrap: wrap; font-size: 18px; gap: 6px 14px; }
+            .guide-row small { flex-basis: 100%; margin-inline-start: 62px; text-align: start; font-size: 15px; margin-top: -14px; }
+            .guide-num { width: 46px; height: 46px; font-size: 20px; }
+            .guide-foot .tf-btn { width: 100%; justify-content: center; }
         }'''
+
+JS = '''<script>
+(function () {
+    var KEY = 'freeai-guide-done', TOTAL = %(total)d, CURRENT = %(current)d;
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+    function save(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    var btn = document.getElementById('guide-done');
+    function paint() {
+        var done = load();
+        document.querySelectorAll('.guide-ch').forEach(function (el) {
+            el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1);
+        });
+        document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%%';
+        document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
+        if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
+    }
+    if (btn) btn.addEventListener('click', function () {
+        var done = load();
+        if (done.indexOf(CURRENT) < 0) { done.push(CURRENT); save(done); }
+        if (btn.dataset.next) location.href = btn.dataset.next; else paint();
+    });
+    var copy = document.getElementById('guide-copy');
+    if (copy) copy.addEventListener('click', function () {
+        navigator.clipboard.writeText(copy.dataset.code);
+        copy.textContent = 'הועתק ✓';
+    });
+    paint();
+})();
+</script>'''
 
 
 def sub1(html, pattern, repl):
@@ -64,298 +112,84 @@ def sub1(html, pattern, repl):
     return new
 
 
-def section(html, name, new):
-    return sub1(html, rf"<!-- {re.escape(name)} -->.*?<!-- /{re.escape(name)} -->", lambda m: new.strip())
+def sidebar(current):
+    rows = []
+    for i, name in enumerate(CHAPTERS, 1):
+        cls = "guide-ch" + (" is-on" if i == current else "")
+        inner = f'<span class="guide-dot">✓</span>{i}. {name}'
+        if i in READY:
+            rows.append(f'                        <li><a href="guide-{i}.html" class="{cls}" data-ch="{i}">{inner}</a></li>')
+        else:
+            rows.append(f'                        <li><span class="{cls}" data-ch="{i}">{inner}<span class="guide-soon">בקרוב</span></span></li>')
+    return f'''<aside class="guide-card guide-side">
+                    <h2>המדריך ל-Claude Code</h2>
+                    <div class="guide-bar"><i id="guide-fill"></i></div>
+                    <div class="guide-count" id="guide-count"></div>
+                    <ol class="guide-chapters">
+{chr(10).join(rows)}
+                    </ol>
+                </aside>'''
 
 
-def head(html, title, description):
-    html = sub1(html, r"<title>.*?</title>", lambda m: f"<title>{title}</title>")
-    html = sub1(html, r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{description}">')
+def build(n, minutes, sub, rows, note, extra=""):
+    title = CHAPTERS[n - 1]
+    html = (SITE / "service-single.html").read_text()
+    html = sub1(html, r"<title>.*?</title>", lambda m: f"<title>{title} – המדריך ל-Claude Code | Free AI</title>")
+    html = sub1(html, r'<meta name="description" content="[^"]*">',
+                lambda m: f'<meta name="description" content="פרק {n} במדריך ל-Claude Code למי שלא מתכנת: {sub}">')
     html = html.replace("    </style>\n</head>", CSS + "\n    </style>\n</head>", 1)
-    # התפריט: המדריך פעיל במקום הקורס
     html = html.replace('class="item-link link1 active"', 'class="item-link link1"')
     html = html.replace('<a href="guide-1.html" class="item-link link1">', '<a href="guide-1.html" class="item-link link1 active">', 1)
-    return html
 
-
-def hero(html, line1, line2, text):
-    html = sub1(html, r'(<span class="title1 fw-semibold text-gradient-1">).*?(</span>)', lambda m: m.group(1) + line1 + m.group(2))
-    html = sub1(html, r'(<div class="title2 d-flex gap-20 justify-content-center flex-wrap">\s*<span class="fw-semibold text-gradient-1">).*?(</span>)',
-                lambda m: m.group(1) + line2 + m.group(2))
-    return sub1(html, r'(<p class="text text-body-3 effectFade fadeUp">).*?(</p>)', lambda m: m.group(1) + text + m.group(2))
-
-
-def feature_cards(cards):
-    out = []
-    for i, (icon, title, text) in enumerate(cards):
-        delay = f' data-delay="0.{i % 2}"' if i % 2 else ""
-        out.append(f'''                    <div class="col-md-6 mb-24">
-                        <div class="features-item style-2 h-100 effectFade fadeRotateX"{delay}>
-                            <div class="icon"><i class="icon-{icon}"></i></div>
-                            <h4 class="title fw-semibold">{title}</h4>
-                            <p class="text-secondary">{text}</p>
-                        </div>
-                    </div>''')
-    return "\n".join(out)
-
-
-def process_cards(steps):
-    out = []
-    for i, (icon, title, text, tag) in enumerate(steps, 1):
-        out.append(f'''                                        <div class="swiper-slide">
-                                            <div class="process-card">
-                                                <i class="icon icon-{icon}"></i>
-                                                <div class="content">
-                                                    <h4 class="title fw-semibold">{title}</h4>
-                                                    <p class="text text-secondary">{text}</p>
-                                                </div>
-                                                <div class="bot">
-                                                    <div class="time fw-semibold">{tag}</div>
-                                                    <div class="number">
-                                                        <span class="text-neutral-400">{i:02d}</span>
-                                                        <span class="text-neutral-200">/{len(steps):02d}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>''')
-    return "\n".join(out)
-
-
-def cost_rows(rows):
-    out = []
-    for i, (name, what, price) in enumerate(rows, 1):
-        out.append(f'''                            <li class="lesson-row cost-row effectFade fadeUp">
-                                <span class="lesson-num text-body-1 fw-semibold">{i:02d}</span>
-                                <div class="lesson-body">
-                                    <div class="lesson-title fw-semibold">{name}</div>
-                                    <div class="lesson-desc text-secondary">{what}</div>
-                                </div>
-                                <span class="cost-price">{price}</span>
-                            </li>''')
-    return "\n".join(out)
-
-
-def glossary(items):
-    rows = []
-    for i, (q, a) in enumerate(items, 1):
-        first = i == 1
-        delay = f' data-delay="0.{i - 1}"' if i > 1 else ""
-        rows.append(f'''                            <div class="accordion-asked-item effectFade fadeRotateX"{delay}>
-                                <div class="accordion-asked-title" id="asked{i}">
-                                    <button class="accordion-button text-body-1 fw-semibold{'' if first else ' collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{i}" aria-expanded="{'true' if first else 'false'}" aria-controls="collapse{i}">
-                                        {q}
-                                        <span class="right-icon"></span>
-                                    </button>
-                                </div>
-                                <div id="collapse{i}" role="region" class="accordion-collapse collapse{' show' if first else ''}" aria-labelledby="asked{i}" data-bs-parent="#accordion-asked">
-                                    <div class="accordion-body">{a}</div>
-                                </div>
-                            </div>''')
-    return "\n".join(rows)
-
-
-def chapter_list(current):
-    rows = []
-    for i, (title, desc, href) in enumerate(CHAPTERS, 1):
-        if i == current:
-            status, cls, tag, link = "אתם כאן", " is-current", "div", ""
-        elif href:
-            status, cls, tag, link = "לקריאה", "", "a", f' href="{href}"'
-        else:
-            status, cls, tag, link = "בקרוב", "", "div", ""
-        rows.append(f'''                            <li>
-                                <{tag}{link} class="lesson-row{cls} effectFade fadeUp">
-                                    <span class="lesson-num text-body-1 fw-semibold">{i:02d}</span>
-                                    <div class="lesson-body">
-                                        <div class="lesson-title fw-semibold">{title}</div>
-                                        <div class="lesson-desc text-secondary">{desc}</div>
-                                    </div>
-                                    <span class="tags-item fw-semibold lesson-status">{status}</span>
-                                </{tag}>
-                            </li>''')
-    return "\n".join(rows)
+    row_html = "\n".join(
+        f'                        <li class="guide-row"><span class="guide-num">{i}</span>{name}<small>{detail}</small></li>'
+        for i, (name, detail) in enumerate(rows, 1))
+    nxt = f"guide-{n + 1}.html" if (n + 1) in READY else ""
+    btn_attr = f' data-next="{nxt}"' if nxt else ""
+    main = f'''<!-- guide -->
+        <div class="guide-course">
+            <div class="container">
+                <div class="guide-wrap">
+                {sidebar(n)}
+                <article class="guide-card guide-main">
+                    <span class="guide-tag">פרק {n} · {minutes}</span>
+                    <h1>{title}</h1>
+                    <p class="guide-sub">{sub}</p>
+                    <ol class="guide-rows">
+{row_html}
+                    </ol>{extra}
+                    <div class="guide-foot">
+                        <span class="guide-note">{note}</span>
+                        <button type="button" class="tf-btn" id="guide-done"{btn_attr}>סיימתי, לפרק הבא ←</button>
+                    </div>
+                </article>
+                </div>
+            </div>
+        </div>
+        <!-- /guide -->'''
+    # כל התוכן בין התפריט לפוטר מוחלף בפריסת הקורס
+    html = sub1(html, r"<!-- Hero Banner -->.*?<!-- /section-contact -->", lambda m: main)
+    html = html.replace("\n</body>", "\n    " + JS % {"total": len(CHAPTERS), "current": n} + "\n</body>", 1)
+    (SITE / f"guide-{n}.html").write_text(html)
+    print(f"guide-{n}.html done")
 
 
 # =====================================================================
 # פרק 1 – לפני שמתחילים
 # =====================================================================
-def build_chapter_1():
-    html = (SITE / "service-single.html").read_text()
-    html = head(html, "לפני שמתחילים – המדריך המלא ל-Claude Code | Free AI",
-                "פרק 1 במדריך המלא ל-Claude Code למי שלא מתכנת: למי זה מתאים, מה אפשר לבנות, מה צריך להכין וכמה זה עולה בחודש.")
-    html = hero(html, "לפני", "שמתחילים", f"המדריך המלא ל-Claude Code · פרק 1 מתוך {len(CHAPTERS)} · 5 דקות קריאה")
-
-    builds = feature_cards([
-        ("desktop-solid", "אתר לעסק", "דף בית, שירותים, תמונות וכפתור וואטסאפ. בדיוק כמו שאתם רוצים אותו."),
-        ("bolt-solid", "דף נחיתה", "עמוד אחד עם מטרה אחת: שישאירו פרטים או יקנו."),
-        ("clipboard-check-solid", "מערכת הזמנות", "לקוחות קובעים תור או מזמינים לבד, ואתם רואים הכל במקום אחד."),
-        ("user-friends-solid", "אזור אישי ללקוחות", "הרשמה, כניסה ותוכן שרק הלקוחות שלכם רואים."),
-    ])
-
-    prep = process_cards([
-        ("desktop-solid", "מחשב", "Mac או Windows. לא חייב חדש ולא חייב חזק.", "יש לכם כבר"),
-        ("envelope-solid", "מייל", "איתו נרשמים לכל השירותים במדריך. עדיף מייל אחד לכולם.", "יש לכם כבר"),
-        ("credit-card-solid", "כרטיס אשראי", "למנוי של Claude. זה התשלום היחיד בשביל להתחיל.", "2 דקות"),
-    ])
-
-    costs = cost_rows([
-        ("Claude", "המנוי שכולל את Claude Code. זה מה שבונה בשבילכם.", "כ-20 דולר לחודש"),
-        ("GitHub", "הכספת שבה נשמר הפרויקט.", "חינם"),
-        ("Supabase", "הזיכרון של המוצר. רק אם צריך, ולא כל אתר צריך.", "חינם להתחלה"),
-        ("4CODE", "האחסון של האתר. חבילה בחינם לאתרים פשוטים, וחודש ראשון בחינם עם הקופון.", "חינם להתחלה"),
-    ])
-
-    main = f'''<!-- section-services-single -->
-        <div id="services" class="section-services-single flat-spacing pt-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="top-image mb-40 effectFade fadeZoom">
-                            <img src="assets/images/claude/build-site.jpg" alt="אתר של מאפייה שנבנה עם Claude Code">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guide-block" id="who">
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="guide-kicker effectFade fadeUp">למי זה מתאים</span>
-                            <div class="heading fw-semibold mb-20 effectFade fadeUp">לא צריך לדעת לתכנת</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-7 md-mb-24">
-                            <p class="text-secondary guide-lead effectFade fadeUp">המדריך הזה נכתב לבעלי עסקים, לפרילנסרים ולכל מי שיש לו רעיון ואין לו מתכנת. אתם מסבירים ל-Claude Code במילים שלכם מה אתם רוצים, והוא בונה. אנחנו נלך איתכם צעד אחרי צעד, מהורדת האפליקציה ועד אתר שעובד באוויר.</p>
-                        </div>
-                        <div class="col-md-5">
-                            <p class="text-secondary mb-30 effectFade fadeUp">אם אתם יודעים לשלוח מייל ולהתקין אפליקציה בטלפון, אתם יודעים מספיק.</p>
-                            <div class="list-tags effectFade fadeUp">
-                                <a href="#chapters" class="tags-item fw-semibold">{len(CHAPTERS)} פרקים</a>
-                                <a href="#who" class="tags-item fw-semibold">בלי ידע קודם</a>
-                                <a href="#costs" class="tags-item fw-semibold">בעברית פשוטה</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guide-block mb-0" id="build">
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="guide-kicker effectFade fadeUp">מה יוצא לכם מזה</span>
-                            <div class="heading fw-semibold mb-20 effectFade fadeUp">מה תדעו לבנות בסוף</div>
-                            <p class="text-secondary mb-30 effectFade fadeUp">בסוף המדריך יהיה לכם אתר משלכם באוויר, ותדעו לבנות את הבא לבד.</p>
-                        </div>
-                    </div>
-                    <div class="row">
-{builds}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-services-single -->
-        <!-- section-process -->
-        <div class="section-process guide-prep flat-spacing pt-0" id="prep">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="process-heading h-100">
-                            <div class="heading-section mb-80">
-                                <div class="heading-sub fw-semibold effectFade fadeUp">מה צריך להכין</div>
-                                <div class="heading-title text-gradient-3 effectFade fadeRotateX">שלושה דברים <br> וזהו</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="process-slide">
-                            <div dir="rtl" class="swiper tf-swiper swiper-box-shadow" data-preview="3" data-tablet="3" data-mobile-sm="1" data-mobile="1"
-                                data-loop="false" data-center="false" data-space-lg="24" data-space-md="24" data-space="30" >
-                                <div class="swiper-wrapper">
-{prep}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hosting-note effectFade fadeUp mt-4">
-                    <i class="icon icon-bolt-solid"></i>
-                    <div>
-                        <div class="fw-semibold mb-4">ואיפה האתר יגור?</div>
-                        <p class="text-secondary mb-0">במדריך נעבוד עם 4CODE, אחסון ישראלי עם תמיכה בעברית. יש שם חבילה בחינם, והיא מתאימה לדפי נחיתה ולאתרים פשוטים. כדי ללמוד כמו שצריך יש לכם קוד קופון לחודש ראשון בחינם. נפתח שם משתמש ביחד בפרק 6, אז כרגע רק שמרו את הקוד.</p>
-                        <div class="coupon">
-                            <span class="coupon-label">קוד קופון לחודש ראשון בחינם:</span>
-                            <span class="coupon-code">RVJ34jcn4j1</span>
-                            <button type="button" class="coupon-copy" onclick="navigator.clipboard.writeText('RVJ34jcn4j1');this.textContent='הועתק ✓'">העתקה</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-process -->
-        <!-- section-costs -->
-        <div class="section-services-single flat-spacing" id="costs" style="margin-top:0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <span class="guide-kicker effectFade fadeUp">כמה זה עולה בחודש</span>
-                        <div class="heading fw-semibold mb-20 effectFade fadeUp">פחות מארוחה במסעדה</div>
-                        <p class="text-secondary mb-30 effectFade fadeUp">אלה כל השירותים שנשתמש בהם במדריך. רק אחד מהם עולה כסף כבר מההתחלה.</p>
-                        <ol class="lesson-list">
-{costs}
-                        </ol>
-                        <div class="cost-total effectFade fadeUp">
-                            <div>
-                                <div class="fw-semibold">בשביל להתחיל לבנות</div>
-                                <div class="text-body-3" style="opacity:.7">כל השאר בחינם, עד שהפרויקט גדל.</div>
-                            </div>
-                            <span class="cost-price">כ-20 דולר לחודש</span>
-                        </div>
-                        <p class="text-body-3 text-neutral-400 mb-0 effectFade fadeUp">המחירים נכונים ליום כתיבת המדריך ויכולים להשתנות. בכל פרק נראה איפה בודקים את המחיר העדכני.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-costs -->'''
-    html = section(html, "section-services-single", main)
-
-    # ---------- מילון קצר (בעיצוב השאלות הנפוצות) ----------
-    html = html.replace('<div class="heading-sub fw-semibold effectFade fadeUp">שאלות נפוצות</div>',
-                        '<div class="heading-sub fw-semibold effectFade fadeUp">מילון קצר</div>', 1)
-    html = sub1(html, r'(<div class="heading-title text-gradient-3 effectFade fadeRotateX">)\s*שאלות <br>ותשובות\s*(</div>)',
-                lambda m: m.group(1) + "חמש מילים <br>שכדאי להכיר" + m.group(2))
-    html = sub1(html, r'(<div class="accordion-asked" id="accordion-asked">).*?(\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- /section-faqs -->)',
-                lambda m: m.group(1) + "\n" + glossary([
-                    ("אתר", "דפים שכל אחד יכול לפתוח בדפדפן, כמו חלון ראווה של העסק שלכם."),
-                    ("אפליקציה", "אתר שגם עושה דברים: נרשמים אליו, מזמינים דרכו, והוא זוכר כל משתמש."),
-                    ("קוד", "ההוראות שמהן בנוי האתר. Claude Code כותב אותן, ואתם לא צריכים לקרוא אותן."),
-                    ("שרת", "מחשב שדולק כל הזמן ומציג את האתר שלכם לכל מי שנכנס. זה מה שנקרא אחסון."),
-                    ("מסד נתונים", "הזיכרון של האתר. שם נשמרים הלקוחות, ההזמנות וכל מה שהאתר צריך לזכור."),
-                ]) + m.group(2))
-
-    # ---------- כל הפרקים (במקום טופס ההרשמה) ----------
-    chapters = f'''<!-- section-contact -->
-        <div id="chapters" class="section-services-single flat-spacing pt-0" style="margin-top:0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <span class="guide-kicker effectFade fadeUp">המדריך המלא</span>
-                        <div class="heading fw-semibold mb-20 effectFade fadeUp">כל הפרקים</div>
-                        <p class="text-secondary mb-30 effectFade fadeUp">{len(CHAPTERS)} פרקים, לפי הסדר. פרק חדש עולה בכל פעם.</p>
-                        <ol class="lesson-list">
-{chapter_list(1)}
-                        </ol>
-                        <div class="guide-next effectFade fadeUp">
-                            <span class="tf-btn" style="opacity:.5;pointer-events:none">הפרק הבא: Claude הרגיל מול Claude Code – בקרוב</span>
-                            <a href="service.html" class="tf-btn-2">מעדיפים וידאו? לקורס</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /section-contact -->'''
-    html = section(html, "section-contact", chapters)
-
-    (SITE / "guide-1.html").write_text(html)
-    print("guide-1.html done")
-
-
-build_chapter_1()
+build(
+    1, "2 דקות",
+    "שלושה דברים להכין, ואפשר לצאת לדרך.",
+    [
+        ("מחשב", "Mac או Windows"),
+        ("מייל", "אחד לכל השירותים"),
+        ("כרטיס אשראי", "כ-20 דולר לחודש ל-Claude"),
+    ],
+    "כל השאר בחינם להתחלה",
+    extra=f'''
+                    <div class="guide-coupon">
+                        <span>קופון לחודש ראשון בחינם ב-4CODE, האחסון של האתר:</span>
+                        <code>{COUPON}</code>
+                        <button type="button" id="guide-copy" data-code="{COUPON}">העתקה</button>
+                    </div>''',
+)
