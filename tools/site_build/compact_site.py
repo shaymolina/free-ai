@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "1"
+CSS_VERSION = "3"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -73,33 +73,24 @@ def build_home():
         ("כמה זמן לוקח הקורס?", "8 שיעורים קצרים, בקצב שלכם."),
         ("למה צריך להירשם?", "כדי לצפות, להוריד קבצים ולקבל תעודה."),
     ])
-    body = f'''    <div class="wrap">
+    body = f'''    <div class="wrap full">
         <section class="c-hero">
         {header("index.html")}
             <div class="hero-in">
                 <div class="hero-text">
-                    <span class="chip">בחינם, בעברית</span>
                     <h1 class="hero-title"><span class="grad">לומדים Claude Code.</span><span class="grad">בלי לדעת לתכנת.</span>
                         <span class="hero-pill"><img src="assets/images/item/hero-1.svg" alt=""><img src="assets/images/item/hero-2.svg" alt=""><img src="assets/images/item/hero-3.svg" alt=""></span></h1>
                     <p>קורס, מדריך כתוב וסקילים מוכנים. מהצעד הראשון ועד אתר שעובד באוויר.</p>
-                    <div class="btns"><a href="service-single.html" class="btn">מתחילים בחינם</a><a href="guide-1.html" class="btn-2">למדריך הכתוב</a></div>
                 </div>
                 <div class="card preview">{rows}<a href="guide-1.html" class="muted"><span class="dot"></span>ועוד {len(CHAPTERS) - 4} פרקים</a></div>
             </div>
         </section>
     </div>
-    <main class="wrap stack" style="margin-top:16px">
+    <main class="wrap full stack" style="margin-top:16px">
         <div class="three">
-            <a href="service.html" class="card pick"><span class="tile"><i class="icon icon-play-solid"></i></span><h2>הקורס</h2><p class="muted">8 שיעורי וידאו קצרים, לפי הסדר.</p><span class="go">לקורס ←</span></a>
-            <a href="guide-1.html" class="card pick"><span class="tile"><i class="icon icon-book-open-solid"></i></span><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
-            <a href="work.html" class="card pick"><span class="tile"><i class="icon icon-bolt-solid"></i></span><h2>סקילים</h2><p class="muted">יכולות מוכנות ל-Claude, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
-        </div>
-        <div class="card how">
-            <h3>איך זה עובד</h3>
-            <div class="st"><span class="tile">1</span><div>נרשמים<small>דקה אחת</small></div></div>
-            <div class="st"><span class="tile">2</span><div>לומדים<small>בקצב שלכם</small></div></div>
-            <div class="st"><span class="tile">3</span><div>בונים אתר<small>ומעלים לאוויר</small></div></div>
-            <a href="service.html#signup" class="btn sm">הרשמה חינם</a>
+            <a href="service.html" class="card pick"><h2>הקורס</h2><p class="muted">8 שיעורי וידאו קצרים, לפי הסדר.</p><span class="go">לקורס ←</span></a>
+            <a href="guide-1.html" class="card pick"><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
+            <a href="work.html" class="card pick"><h2>סקילים</h2><p class="muted">יכולות מוכנות ל-Claude, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
         </div>
         <div class="sec-title"><span class="chip">שאלות נפוצות</span></div>
         <div class="faq">{faq}</div>

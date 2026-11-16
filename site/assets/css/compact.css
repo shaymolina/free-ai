@@ -126,3 +126,13 @@ a.ch:hover { color: var(--ink); }
   .row small { flex-basis: 100%; margin-inline-start: 50px; margin-top: -10px; text-align: start; }
   .how .btn, .lesson-end .btn { margin: 0; width: 100%; }
 }
+
+/* דף הבית: מסך מלא */
+.wrap.full { max-width: none; padding: 0 16px; }
+.c-hero { min-height: calc(100vh - 28px); display: flex; flex-direction: column; margin-top: 14px; }
+.c-hero .hero-in { flex: 1; align-items: center; padding: 0 clamp(16px, 6vw, 96px); grid-template-columns: minmax(0, 1fr) minmax(340px, 440px); }
+.c-hero h1 { font-size: clamp(38px, 4.4vw, 60px); }
+.c-hero .hero-text p { font-size: clamp(16px, 1.3vw, 19px); max-width: 520px; }
+.c-hero .hero-pill { width: clamp(96px, 8vw, 128px); height: clamp(34px, 3vw, 44px); }
+@media (max-width: 860px) { .c-hero { min-height: 0; } .c-hero .hero-in { padding: 28px 8px 8px; } .c-hero h1 { font-size: 32px; } }
+html, body { overflow-x: clip; }
