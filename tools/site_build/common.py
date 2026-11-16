@@ -4,6 +4,7 @@ import re
 NAV = [
     ("index.html", "דף הבית"),
     ("service.html", "הקורס"),
+    ("guide-1.html", "המדריך"),
     ("work.html", "סקילים"),
 ]
 
