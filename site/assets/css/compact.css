@@ -218,3 +218,6 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .fvid { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
 .fvid video { height: auto; border-radius: 10px; border: 1px solid #E4E4E7; }
 .fvid span { font-size: 13px; color: var(--muted); text-align: center; }
+
+.fshot.map { aspect-ratio: auto; margin-bottom: 14px; flex-shrink: 0; display: block; }
+.fshot.map img { height: auto; }
