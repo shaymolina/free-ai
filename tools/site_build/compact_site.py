@@ -6,10 +6,10 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "25"
+CSS_VERSION = "26"
 COUPON = "RVJ34jcn4j1"
 
-NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
+NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
 
 # שם הפרק, דקות קריאה
 CHAPTERS = [
@@ -528,3 +528,154 @@ build_chapter(
         ("יוצרים פרויקט", "בפרויקטים לוחצים \"יצירת פרויקט\", נותנים שם ונכנסים אליו.", "4code-3.mp4"),
     ]),
 )
+
+
+# =====================================================================
+# מאמרים
+# =====================================================================
+import html as _html
+
+ARTICLES = []  # (קובץ, כותרת, תקציר, דקות קריאה)
+
+ARTICLE_JS = '''<script>
+document.querySelectorAll('[data-copy-from]').forEach(function (b) {
+    b.addEventListener('click', function () {
+        navigator.clipboard.writeText(document.getElementById(b.dataset.copyFrom).textContent);
+        b.textContent = 'הועתק ✓';
+        setTimeout(function () { b.textContent = 'העתקה'; }, 2000);
+    });
+});
+</script>'''
+
+
+def steps(items):
+    """שלבים ממוספרים בלי צילומי מסך. כל שלב: כותרת + פסקאות."""
+    out = []
+    for i, (title, paras) in enumerate(items, 1):
+        body = "".join(f"<p>{x}</p>" for x in paras)
+        out.append(f'<li class="fstep"><div class="ftext"><span class="tile">{i}</span><div><h3>{title}</h3>{body}</div></div></li>')
+    return f'<ol class="flow">{"".join(out)}</ol>'
+
+
+def build_article(name, title, desc, mins, body):
+    ARTICLES.append((name, title, desc, mins))
+    page_body = f'''    <main class="wrap stack c-top">
+        {header("articles.html")}
+        <article class="card article">
+            <div class="meta"><a href="articles.html" class="chip">מאמרים</a><span class="chip">{mins} דקות קריאה</span></div>
+            <h1>{title}</h1>
+{body}
+            <div class="art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
+        </article>
+        {FOOTER}
+    </main>'''
+    (SITE / name).write_text(page(f"{title} | Free AI", desc, page_body, ARTICLE_JS))
+    print(f"{name} done")
+
+
+def build_articles_index():
+    cards = "".join(
+        f'<a href="{n}" class="card art-card"><span class="chip">{m} דקות קריאה</span><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
+        for n, t, d, m in ARTICLES)
+    body = f'''    <main class="wrap stack c-top">
+        {header("articles.html")}
+        <div class="art-head"><span class="chip">מאמרים</span><h1>מאמרים</h1><p>מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.</p></div>
+        <div class="art-list">{cards}</div>
+        {FOOTER}
+    </main>'''
+    (SITE / "articles.html").write_text(page(
+        "מאמרים – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body))
+    print("articles.html done")
+
+
+_GS = (SITE / "files/github-drive-backup.gs").read_text()
+
+build_article(
+    "article-github-backup.html",
+    "גיבוי אוטומטי של כל הפרויקטים מ-GitHub ל-Google Drive",
+    "איך מגדירים פעם אחת גיבוי יומי של כל הפרויקטים ב-GitHub לתיקייה בגוגל דרייב, בחינם ובלי לדעת לתכנת.",
+    6,
+    f'''            <p class="lead">מגדירים פעם אחת, ומאז כל לילה כל הפרויקטים שלכם נשמרים לבד בתיקייה בגוגל דרייב.</p>
+
+            <h2>למה צריך גיבוי</h2>
+            <p>GitHub הוא כמו מחסן שבו שמור הקוד של כל האתרים והכלים שבניתם.</p>
+            <p>אם החשבון ננעל, נמחק או שמשהו נשבר, בלי גיבוי כל העבודה נעלמת.</p>
+            <p>גיבוי הוא עותק נוסף במקום אחר, כמו מפתח רזרבי לבית שמחכה אצל השכנים.</p>
+
+            <h2>מה הגיבוי עושה</h2>
+            {rows_html([
+                ("מה נשמר", "עותק מלא של כל פרויקט, כקובץ zip (קופסה אחת שכל הקבצים בתוכה)"),
+                ("מתי", "כל לילה ב-3:00, לבד, גם כשהמחשב כבוי"),
+                ("איפה", "בתיקייה GitHub Backups בדרייב, עם תיקייה לכל חשבון GitHub"),
+                ("כמה עותקים", "תמיד אחד לכל פרויקט: הגרסה הכי עדכנית"),
+                ("פרויקט שלא השתנה", "לא נוגעים בו, והגיבוי של אתמול נשאר"),
+                ("הגיבוי הקודם", "עובר לפח של הדרייב ונמחק לגמרי אחרי 30 יום"),
+                (None, "מה לא נשמר"),
+                ("ההיסטוריה", "רואים רק את המצב האחרון, לא כל שינוי שנעשה בדרך"),
+                ("ענפים (Branches)", "גרסאות צדדיות של הפרויקט. נשמרת רק הגרסה הראשית"),
+                ("קבצי סיסמאות", "הם אף פעם לא נמצאים ב-GitHub, אז שומרים אותם בנפרד"),
+                ("פרויקט ענק", "פרויקט מעל 50MB לא נשמר"),
+            ])}
+
+            <h2>מה צריך</h2>
+            {rows_html([
+                ("חשבון GitHub", "אחד או יותר, עם הפרויקטים שלכם"),
+                ("חשבון Google", "זה שבדרייב שלו יישמרו הגיבויים"),
+                ("10 דקות", "פעם אחת, וזהו"),
+            ])}
+
+            <h2>איך מגדירים, צעד אחרי צעד</h2>
+            {steps([
+                ("יוצרים מפתח ב-GitHub", [
+                    "המפתח (Token) הוא כמו מפתח לבית שנותנים לשליח: הוא מאפשר לגיבוי להיכנס ולהעתיק את הפרויקטים.",
+                    'נכנסים ל-<a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a>, כותבים בשם "גיבוי לדרייב", ובתוקף (Expiration) בוחרים No expiration.',
+                    "מסמנים V ליד repo, יורדים למטה ולוחצים Generate token.",
+                    'מעתיקים את המפתח שמופיע (מתחיל ב-<code class="inl">ghp_</code>) ושומרים אותו רגע בצד. הוא מוצג רק פעם אחת.',
+                    "יש לכם כמה חשבונות GitHub? עושים את זה בכל אחד מהם.",
+                ]),
+                ("פותחים את Google Apps Script", [
+                    "Apps Script הוא כמו עוזר קטן שגר בתוך חשבון הגוגל שלכם ויודע לעשות פעולות לבד, בשעה קבועה.",
+                    'נכנסים ל-<a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a> עם אותו חשבון גוגל של הדרייב, ולוחצים "פרויקט חדש" (New project).',
+                ]),
+                ("מדביקים את הקוד", [
+                    "מוחקים את כל מה שכתוב בחלון, ומדביקים במקומו את הקוד שבהמשך העמוד (כפתור העתקה).",
+                    'במקום <code class="inl">PASTE_TOKEN_ACCOUNT_1</code> מדביקים את המפתח, ומשאירים את המירכאות סביבו.',
+                    'יש חשבון נוסף? בשורה שמתחתיה מוחקים את <code class="inl">//</code> בתחילתה, ומדביקים שם את המפתח השני.',
+                ]),
+                ("שומרים ומפעילים פעם אחת", [
+                    'לוחצים על סמל השמירה. בתפריט שליד הכפתור "הפעלה" (Run) בוחרים <code class="inl">setup</code>, ולוחצים "הפעלה".',
+                    'גוגל תבקש אישור. לוחצים "בדיקת הרשאות", בוחרים את החשבון, לוחצים "מתקדם" (Advanced), ואז "מעבר אל..." ו"אישור" (Allow).',
+                    "האזהרה מופיעה כי את הקוד הוספתם אתם ולא גוגל. זה תקין: הוא רץ רק בחשבון שלכם.",
+                ]),
+                ("בודקים שזה עובד", [
+                    "פותחים את הדרייב ומחפשים את התיקייה GitHub Backups. בתוכה תיקייה לכל חשבון וקובץ zip לכל פרויקט.",
+                    "הרבה פרויקטים? הגיבוי הראשון ממשיך לבד ברקע עד שהוא מסתיים.",
+                ]),
+            ])}
+            <div class="note-box">טעות נפוצה: בתפריט נשאר <code class="inl">myFunction</code> במקום <code class="inl">setup</code>. ההפעלה "מצליחה", אבל לא קורה כלום.</div>
+
+            <h2>הקוד</h2>
+            <div class="code-box"><div class="code-bar"><span>הקוד של הגיבוי</span><div><a class="btn-2 sm" href="files/github-drive-backup.gs" download>הורדה</a><button type="button" class="btn-2 sm" data-copy-from="gs-code">העתקה</button></div></div><pre id="gs-code">{_html.escape(_GS)}</pre></div>
+
+            <h2>איך יודעים שהגיבוי עדכני</h2>
+            <p>בשם התיקייה שבתוך קובץ ה-zip יש קוד קצר, למשל <code class="inl">7499555</code>: זה מספר הגרסה של הפרויקט.</p>
+            <p>בדף הפרויקט ב-GitHub, ליד המילה commits, מופיע אותו קוד. אם הם זהים, הגיבוי מעודכן.</p>
+
+            <h2>שמירה על המפתח</h2>
+            {rows_html([
+                ("לא משתפים", "מי שיש לו את המפתח יכול לראות את כל הפרויקטים שלכם"),
+                ("הקוד פרטי", "הוא נמצא רק בחשבון הגוגל שלכם, ואף אחד אחר לא רואה אותו"),
+                ("המפתח דלף?", "מוחקים אותו בדף המפתחות ב-GitHub, יוצרים חדש ומחליפים בקוד"),
+            ])}
+
+            <h2>שאלות נפוצות</h2>
+            <div class="faq">{"".join(f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in [
+                ("זה עולה כסף?", "לא. גם GitHub וגם Apps Script חינמיים לשימוש הזה."),
+                ("המחשב צריך להיות דלוק?", "לא. הגיבוי רץ אצל גוגל, לא אצלכם."),
+                ("איך משנים את שעת הגיבוי?", "בשורה RUN_HOUR משנים את 3 לשעה אחרת, שומרים ומפעילים שוב את setup."),
+                ("איך עוצרים את הגיבוי?", "ב-Apps Script לוחצים על סמל השעון בצד (טריגרים) ומוחקים את מה שמופיע שם."),
+                ("הוספתי פרויקט חדש ב-GitHub. צריך לעשות משהו?", "לא. הוא ייכנס לבד לגיבוי של הלילה."),
+            ])}</div>''',
+)
+
+build_articles_index()

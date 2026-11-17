@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>גיבוי אוטומטי של כל הפרויקטים מ-GitHub ל-Google Drive | Free AI</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="איך מגדירים פעם אחת גיבוי יומי של כל הפרויקטים ב-GitHub לתיקייה בגוגל דרייב, בחינם ובלי לדעת לתכנת.">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/icon/icomoon/style.css">
+    <link rel="stylesheet" href="assets/css/compact.css?v=26">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+</head>
+<body>
+    <main class="wrap stack c-top">
+        <header class="c-header">
+            <a href="index.html" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
+            <nav class="c-nav"><a href="index.html">דף הבית</a><a href="service.html">הקורס</a><a href="guide-1.html">המדריך</a><a href="work.html">סקילים</a><a href="articles.html" class="active">מאמרים</a></nav>
+            <a href="service.html" class="btn sm">התחל ללמוד</a>
+            <button type="button" class="btn c-menu-btn" aria-label="תפריט" onclick="this.parentNode.classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
+        </header>
+        <article class="card article">
+            <div class="meta"><a href="articles.html" class="chip">מאמרים</a><span class="chip">6 דקות קריאה</span></div>
+            <h1>גיבוי אוטומטי של כל הפרויקטים מ-GitHub ל-Google Drive</h1>
+            <p class="lead">מגדירים פעם אחת, ומאז כל לילה כל הפרויקטים שלכם נשמרים לבד בתיקייה בגוגל דרייב.</p>
+
+            <h2>למה צריך גיבוי</h2>
+            <p>GitHub הוא כמו מחסן שבו שמור הקוד של כל האתרים והכלים שבניתם.</p>
+            <p>אם החשבון ננעל, נמחק או שמשהו נשבר, בלי גיבוי כל העבודה נעלמת.</p>
+            <p>גיבוי הוא עותק נוסף במקום אחר, כמו מפתח רזרבי לבית שמחכה אצל השכנים.</p>
+
+            <h2>מה הגיבוי עושה</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>מה נשמר<small>עותק מלא של כל פרויקט, כקובץ zip (קופסה אחת שכל הקבצים בתוכה)</small></li><li class="row"><span class="tile">2</span>מתי<small>כל לילה ב-3:00, לבד, גם כשהמחשב כבוי</small></li><li class="row"><span class="tile">3</span>איפה<small>בתיקייה GitHub Backups בדרייב, עם תיקייה לכל חשבון GitHub</small></li><li class="row"><span class="tile">4</span>כמה עותקים<small>תמיד אחד לכל פרויקט: הגרסה הכי עדכנית</small></li><li class="row"><span class="tile">5</span>פרויקט שלא השתנה<small>לא נוגעים בו, והגיבוי של אתמול נשאר</small></li><li class="row"><span class="tile">6</span>הגיבוי הקודם<small>עובר לפח של הדרייב ונמחק לגמרי אחרי 30 יום</small></li><li class="rows-sep">מה לא נשמר</li><li class="row"><span class="tile">1</span>ההיסטוריה<small>רואים רק את המצב האחרון, לא כל שינוי שנעשה בדרך</small></li><li class="row"><span class="tile">2</span>ענפים (Branches)<small>גרסאות צדדיות של הפרויקט. נשמרת רק הגרסה הראשית</small></li><li class="row"><span class="tile">3</span>קבצי סיסמאות<small>הם אף פעם לא נמצאים ב-GitHub, אז שומרים אותם בנפרד</small></li><li class="row"><span class="tile">4</span>פרויקט ענק<small>פרויקט מעל 50MB לא נשמר</small></li></ol>
+
+            <h2>מה צריך</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>חשבון GitHub<small>אחד או יותר, עם הפרויקטים שלכם</small></li><li class="row"><span class="tile">2</span>חשבון Google<small>זה שבדרייב שלו יישמרו הגיבויים</small></li><li class="row"><span class="tile">3</span>10 דקות<small>פעם אחת, וזהו</small></li></ol>
+
+            <h2>איך מגדירים, צעד אחרי צעד</h2>
+            <ol class="flow"><li class="fstep"><div class="ftext"><span class="tile">1</span><div><h3>יוצרים מפתח ב-GitHub</h3><p>המפתח (Token) הוא כמו מפתח לבית שנותנים לשליח: הוא מאפשר לגיבוי להיכנס ולהעתיק את הפרויקטים.</p><p>נכנסים ל-<a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a>, כותבים בשם "גיבוי לדרייב", ובתוקף (Expiration) בוחרים No expiration.</p><p>מסמנים V ליד repo, יורדים למטה ולוחצים Generate token.</p><p>מעתיקים את המפתח שמופיע (מתחיל ב-<code class="inl">ghp_</code>) ושומרים אותו רגע בצד. הוא מוצג רק פעם אחת.</p><p>יש לכם כמה חשבונות GitHub? עושים את זה בכל אחד מהם.</p></div></div></li><li class="fstep"><div class="ftext"><span class="tile">2</span><div><h3>פותחים את Google Apps Script</h3><p>Apps Script הוא כמו עוזר קטן שגר בתוך חשבון הגוגל שלכם ויודע לעשות פעולות לבד, בשעה קבועה.</p><p>נכנסים ל-<a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a> עם אותו חשבון גוגל של הדרייב, ולוחצים "פרויקט חדש" (New project).</p></div></div></li><li class="fstep"><div class="ftext"><span class="tile">3</span><div><h3>מדביקים את הקוד</h3><p>מוחקים את כל מה שכתוב בחלון, ומדביקים במקומו את הקוד שבהמשך העמוד (כפתור העתקה).</p><p>במקום <code class="inl">PASTE_TOKEN_ACCOUNT_1</code> מדביקים את המפתח, ומשאירים את המירכאות סביבו.</p><p>יש חשבון נוסף? בשורה שמתחתיה מוחקים את <code class="inl">//</code> בתחילתה, ומדביקים שם את המפתח השני.</p></div></div></li><li class="fstep"><div class="ftext"><span class="tile">4</span><div><h3>שומרים ומפעילים פעם אחת</h3><p>לוחצים על סמל השמירה. בתפריט שליד הכפתור "הפעלה" (Run) בוחרים <code class="inl">setup</code>, ולוחצים "הפעלה".</p><p>גוגל תבקש אישור. לוחצים "בדיקת הרשאות", בוחרים את החשבון, לוחצים "מתקדם" (Advanced), ואז "מעבר אל..." ו"אישור" (Allow).</p><p>האזהרה מופיעה כי את הקוד הוספתם אתם ולא גוגל. זה תקין: הוא רץ רק בחשבון שלכם.</p></div></div></li><li class="fstep"><div class="ftext"><span class="tile">5</span><div><h3>בודקים שזה עובד</h3><p>פותחים את הדרייב ומחפשים את התיקייה GitHub Backups. בתוכה תיקייה לכל חשבון וקובץ zip לכל פרויקט.</p><p>הרבה פרויקטים? הגיבוי הראשון ממשיך לבד ברקע עד שהוא מסתיים.</p></div></div></li></ol>
+            <div class="note-box">טעות נפוצה: בתפריט נשאר <code class="inl">myFunction</code> במקום <code class="inl">setup</code>. ההפעלה "מצליחה", אבל לא קורה כלום.</div>
+
+            <h2>הקוד</h2>
+            <div class="code-box"><div class="code-bar"><span>הקוד של הגיבוי</span><div><a class="btn-2 sm" href="files/github-drive-backup.gs" download>הורדה</a><button type="button" class="btn-2 sm" data-copy-from="gs-code">העתקה</button></div></div><pre id="gs-code">// גיבוי יומי של כל הפרויקטים מכל חשבונות ה-GitHub ל-Google Drive.
+// שמים כאן מפתח אחד לכל חשבון GitHub (בין המירכאות, מופרדים בפסיק).
+const TOKENS = [
+  &#x27;PASTE_TOKEN_ACCOUNT_1&#x27;,
+  // &#x27;PASTE_TOKEN_ACCOUNT_2&#x27;,
+];
+
+const ROOT_FOLDER = &#x27;GitHub Backups&#x27;;
+const RUN_HOUR = 3; // שעת הריצה היומית
+const MAX_RUN_MS = 4.5 * 60 * 1000;
+
+// להריץ פעם אחת בלבד: יוצר את התזמון היומי ומריץ גיבוי ראשון.
+function setup() {
+  ScriptApp.getProjectTriggers().forEach(t =&gt; ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger(&#x27;backupAll&#x27;).timeBased().everyDays(1).atHour(RUN_HOUR).create();
+  backupAll();
+}
+
+function backupAll() {
+  const start = Date.now();
+  const props = PropertiesService.getScriptProperties();
+  const root = getFolder_(DriveApp.getRootFolder(), ROOT_FOLDER);
+
+  let queue = readQueue_(root);
+  if (!queue) queue = buildQueue_();
+
+  while (queue.length) {
+    if (Date.now() - start &gt; MAX_RUN_MS) {
+      writeQueue_(root, queue);
+      ScriptApp.newTrigger(&#x27;continueBackup&#x27;).timeBased().after(60 * 1000).create();
+      return;
+    }
+    const item = queue.shift();
+    try {
+      backupRepo_(root, item, props);
+    } catch (e) {
+      console.log(&#x27;נכשל: &#x27; + item.name + &#x27; — &#x27; + e);
+    }
+  }
+  writeQueue_(root, null);
+  props.setProperty(&#x27;lastRun&#x27;, new Date().toISOString());
+}
+
+function continueBackup() {
+  ScriptApp.getProjectTriggers()
+    .filter(t =&gt; t.getHandlerFunction() === &#x27;continueBackup&#x27;)
+    .forEach(t =&gt; ScriptApp.deleteTrigger(t));
+  backupAll();
+}
+
+function buildQueue_() {
+  const queue = [];
+  TOKENS.forEach((token, t) =&gt; {
+    if (!token || token.indexOf(&#x27;PASTE_&#x27;) === 0) return;
+    let page = 1;
+    while (true) {
+      const res = gh_(token, &#x27;https://api.github.com/user/repos?affiliation=owner&amp;per_page=100&amp;page=&#x27; + page);
+      if (res.getResponseCode() !== 200) {
+        console.log(&#x27;נכשל: מפתח מספר &#x27; + (t + 1) + &#x27; — &#x27; + res.getContentText());
+        break;
+      }
+      const repos = JSON.parse(res.getContentText());
+      repos.forEach(r =&gt; queue.push({ t: t, name: r.full_name, pushed: r.pushed_at }));
+      if (repos.length &lt; 100) break;
+      page++;
+    }
+  });
+  return queue;
+}
+
+function backupRepo_(root, item, props) {
+  const key = &#x27;p:&#x27; + item.name;
+  const [owner, repo] = item.name.split(&#x27;/&#x27;);
+  const folder = getFolder_(root, owner);
+  const fileName = repo + &#x27;.zip&#x27;;
+  const exists = folder.getFilesByName(fileName).hasNext();
+  if (exists &amp;&amp; props.getProperty(key) === item.pushed) return; // לא השתנה מאז הגיבוי הקודם
+
+  const res = gh_(TOKENS[item.t], &#x27;https://api.github.com/repos/&#x27; + item.name + &#x27;/zipball&#x27;);
+  if (res.getResponseCode() !== 200) {
+    console.log(&#x27;דילוג: &#x27; + item.name + &#x27; (&#x27; + res.getResponseCode() + &#x27;)&#x27;);
+    return;
+  }
+  const blob = res.getBlob().setName(fileName);
+  const old = folder.getFilesByName(fileName);
+  while (old.hasNext()) old.next().setTrashed(true);
+  folder.createFile(blob);
+  props.setProperty(key, item.pushed);
+}
+
+function gh_(token, url) {
+  return UrlFetchApp.fetch(url, {
+    headers: { Authorization: &#x27;Bearer &#x27; + token, Accept: &#x27;application/vnd.github+json&#x27; },
+    muteHttpExceptions: true,
+  });
+}
+
+function getFolder_(parent, name) {
+  const it = parent.getFoldersByName(name);
+  return it.hasNext() ? it.next() : parent.createFolder(name);
+}
+
+function readQueue_(root) {
+  const it = root.getFilesByName(&#x27;_queue.json&#x27;);
+  return it.hasNext() ? JSON.parse(it.next().getBlob().getDataAsString()) : null;
+}
+
+function writeQueue_(root, queue) {
+  const it = root.getFilesByName(&#x27;_queue.json&#x27;);
+  while (it.hasNext()) it.next().setTrashed(true);
+  if (queue) root.createFile(&#x27;_queue.json&#x27;, JSON.stringify(queue), &#x27;application/json&#x27;);
+}
+</pre></div>
+
+            <h2>איך יודעים שהגיבוי עדכני</h2>
+            <p>בשם התיקייה שבתוך קובץ ה-zip יש קוד קצר, למשל <code class="inl">7499555</code>: זה מספר הגרסה של הפרויקט.</p>
+            <p>בדף הפרויקט ב-GitHub, ליד המילה commits, מופיע אותו קוד. אם הם זהים, הגיבוי מעודכן.</p>
+
+            <h2>שמירה על המפתח</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>לא משתפים<small>מי שיש לו את המפתח יכול לראות את כל הפרויקטים שלכם</small></li><li class="row"><span class="tile">2</span>הקוד פרטי<small>הוא נמצא רק בחשבון הגוגל שלכם, ואף אחד אחר לא רואה אותו</small></li><li class="row"><span class="tile">3</span>המפתח דלף?<small>מוחקים אותו בדף המפתחות ב-GitHub, יוצרים חדש ומחליפים בקוד</small></li></ol>
+
+            <h2>שאלות נפוצות</h2>
+            <div class="faq"><details class="card"><summary>זה עולה כסף?</summary><p>לא. גם GitHub וגם Apps Script חינמיים לשימוש הזה.</p></details><details class="card"><summary>המחשב צריך להיות דלוק?</summary><p>לא. הגיבוי רץ אצל גוגל, לא אצלכם.</p></details><details class="card"><summary>איך משנים את שעת הגיבוי?</summary><p>בשורה RUN_HOUR משנים את 3 לשעה אחרת, שומרים ומפעילים שוב את setup.</p></details><details class="card"><summary>איך עוצרים את הגיבוי?</summary><p>ב-Apps Script לוחצים על סמל השעון בצד (טריגרים) ומוחקים את מה שמופיע שם.</p></details><details class="card"><summary>הוספתי פרויקט חדש ב-GitHub. צריך לעשות משהו?</summary><p>לא. הוא ייכנס לבד לגיבוי של הלילה.</p></details></div>
+            <div class="art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
+        </article>
+        <footer class="c-foot">
+            <span>© 2026 Free AI. כל הזכויות שמורות.</span>
+            <nav><a href="privacy.html">פרטיות</a><a href="terms.html">תנאי שימוש</a></nav>
+        </footer>
+    </main>
+<script>
+document.querySelectorAll('[data-copy-from]').forEach(function (b) {
+    b.addEventListener('click', function () {
+        navigator.clipboard.writeText(document.getElementById(b.dataset.copyFrom).textContent);
+        b.textContent = 'הועתק ✓';
+        setTimeout(function () { b.textContent = 'העתקה'; }, 2000);
+    });
+});
+</script>
+</body>
+</html>
