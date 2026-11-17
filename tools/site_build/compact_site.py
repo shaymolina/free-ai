@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "11"
+CSS_VERSION = "12"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -73,7 +73,7 @@ def page(title, desc, body, script="", cls=""):
 # =====================================================================
 def build_home():
     rows = "".join(
-        f'<a href="guide-{i if i in READY else 1}.html"><span class="dot{" on" if i == 1 else ""}"></span>{i}. {name}<small>{mins} דק\'</small></a>'
+        f'<a href="guide-{i if i in READY else 1}.html"><span class="dot{" on" if i == 1 else ""}"></span>{i}. {name}</a>'
         for i, (name, mins) in enumerate(CHAPTERS[:4], 1))
     faq = "".join(f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in [
         ("צריך מנוי בתשלום ל-Claude?", "כן. Claude Pro ומעלה."),
@@ -172,7 +172,6 @@ def build_chapter(n, lead, rows, note, extra="", flow=""):
             {burger("guide-1.html")}
             {sidebar(n)}
             <article class="card lesson">
-                <span class="chip" style="align-self:flex-start">פרק {n} · {mins} דקות</span>
                 <h1>{name}</h1>
                 <p class="lead">{lead}</p>
                 {rows_block}{flow}{extra}

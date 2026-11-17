@@ -201,3 +201,6 @@ html, body { overflow-x: clip; }
 
 .ftext a { color: var(--brand, #D97757); text-decoration: underline; font-weight: 600; }
 .fnote { display: block; margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+
+body.guide-page .lesson, body.guide-page .side { scrollbar-width: none; }
+body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrollbar { display: none; }
