@@ -33,6 +33,13 @@ const S = {
  5: win('claude.ai/upgrade', `<h2>בוחרים מסלול</h2><div class="plans"><div class="plan"><b>Free</b><span>להתחיל בחינם</span></div><div class="plan on hl"><b>Pro</b><span>נדרש ל-Claude Code</span></div></div>`),
  6: win('claude.ai/new', `<h2><span class="sp">✻</span> ערב טוב. במה נתחיל?</h2><div class="in hl"><span>תשאלו כל דבר…</span><span class="s">↑</span></div>`),
 };
+Object.assign(S, {
+ 'i1': win('claude.com/download', `<h2><span class="sp">✻</span> הורדת Claude</h2><div class="btn pri hl">להורדה</div>`),
+ 'i2': win('claude.com/download', `<h2>בוחרים מחשב</h2><div style="display:flex;gap:14px"><div class="btn hl" style="width:200px">Mac</div><div class="btn" style="width:200px">Windows</div></div>`),
+ 'i3': win('הורדות', `<h2>ההתקנה</h2><div class="btn hl">Claude-Setup ⬇ פתיחה</div><div class="btn pri">התקנה</div>`),
+ 'i4': win('Claude', `<h2><span class="sp">✻</span> התחברות</h2><div class="inp hl">name@email.com</div><div class="btn pri">המשך</div>`),
+ 'i5': win('Claude', `<div style="display:flex;gap:10px;direction:ltr"><div class="btn" style="width:110px">Chat</div><div class="btn hl pri" style="width:110px">Code</div></div><h2>במה נבנה היום?</h2><div class="in"><span>תארו מה לבנות…</span><span class="s">↑</span></div>`),
+});
 (async () => {
   const b = await chromium.launch();
   for (const [k, v] of Object.entries(S)) {
@@ -40,7 +47,7 @@ const S = {
     const t = path.join(OUT, '_t.html');
     fs.writeFileSync(t, `<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="${FONTS}"><style>${CSS}</style></head><body>${v}</body></html>`);
     await p.goto('file://' + t); await p.evaluate(() => document.fonts.ready);
-    await p.screenshot({ path: path.join(OUT, `claude-signup-${k}.png`) });
+    await p.screenshot({ path: path.join(OUT, (/^\d+$/.test(k)?`claude-signup-${k}.png`:`claude-install-${k.slice(1)}.png`)) });
     await p.close();
   }
   fs.unlinkSync(path.join(OUT, '_t.html')); await b.close();
