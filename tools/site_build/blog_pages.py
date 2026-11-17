@@ -1,4 +1,5 @@
 """מדיניות פרטיות ותנאי שימוש – נבנים מתוך blog-single.html של התבנית."""
+from clean_urls import clean
 import re
 from pathlib import Path
 from common import apply_common
@@ -144,7 +145,7 @@ def replace_sidebar(html):
 
 def finish(html, name):
     html = html.replace("</head>", STYLE, 1)
-    (OUT / name).write_text(html)
+    (OUT / name).write_text(clean(html))
     vis = re.sub(r"<(script|style)[^>]*>.*?</\1>", "", html, flags=re.S)
     vis = re.sub(r"<svg.*?</svg>", "", vis, flags=re.S)
     left = re.findall(r">\s*([A-Za-z][A-Za-z ,’'&\-]{4,})\s*<", vis)

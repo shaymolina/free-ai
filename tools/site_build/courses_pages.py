@@ -1,4 +1,5 @@
 """עמודי הקורס של Free AI: service.html (פרקי קורס Claude) ו-service-single.html (רשימת השיעורים)."""
+from clean_urls import clean
 import re
 from pathlib import Path
 from common import apply_common
@@ -191,9 +192,6 @@ def build_service():
                                 </div>
                                 <div class="content">
                                     <div class="text-body-3 text-neutral-300 text">{text}</div>
-                                    <div class="list-tags">
-{tag_html}
-                                    </div>
                                     <div class="text-body-1 num">0{i}</div>
                                 </div>
                             </div>
@@ -227,7 +225,7 @@ def build_service():
     html = signup(html, "מתחילים מהשיעור <br> הראשון")
 
     html = add_style(html, COMMON_CSS)
-    (ROOT / "site/service.html").write_text(html)
+    (ROOT / "site/service.html").write_text(clean(html))
     check_english("service.html", html)
 
 
@@ -251,12 +249,7 @@ def build_single():
                 lambda m: m.group(1) + "\n                            Claude הוא אחד מכלי ה-AI החזקים שיש היום, אבל רוב האנשים משתמשים רק בחלק קטן ממה שהוא יודע לעשות. בקורס הזה עוברים צעד אחרי צעד: פותחים חשבון, לומדים לבקש נכון, עובדים עם קבצים ופרויקטים, בונים מסמכים ודפים בתוך הצ'אט, מתקינים סקילים ומחברים את Claude לכלים שאתם כבר משתמשים בהם. בסוף הקורס בונים אתר שלם עם Claude Code – בלי לכתוב שורת קוד – ומעלים אותו לאוויר.\n                        " + m.group(2))
     html = sub1(html, r'(<div class="col-md-5">\s*<p class="text-secondary mb-30 effectFade fadeUp">).*?(</p>)',
                 lambda m: m.group(1) + "\n                            מתאים לבעלי עסקים, לפרילנסרים ולכל מי שסקרן. לא צריך ידע קודם – רק מחשב וחשבון Claude. כל שיעור קצר וממוקד, ונגמר במשהו שאפשר להשתמש בו מיד.\n                        " + m.group(2))
-    html = sub1(html, r'(<div class="list-tags effectFade fadeUp">).*?(</div>)',
-                lambda m: m.group(1) + '''
-                            <a href="#lessons" class="tags-item fw-semibold">8 שיעורים</a>
-                            <a href="#lessons" class="tags-item fw-semibold">מתחילים</a>
-                            <a href="contact.html#signup" class="tags-item fw-semibold">בחינם</a>
-                        ''' + m.group(2))
+    html = re.sub(r'\s*<div class="list-tags effectFade fadeUp">.*?</div>', '', html, count=1, flags=re.S)
 
     # ---------- What We Do → רשימת השיעורים ----------
     rows = []
@@ -267,7 +260,6 @@ def build_single():
                                     <div class="lesson-title fw-semibold">{title}</div>
                                     <div class="lesson-desc text-secondary">{desc}</div>
                                 </div>
-                                <span class="tags-item fw-semibold lesson-status">בצילום</span>
                             </li>''')
     lessons_html = '''<div class="row mb-80" id="lessons">
                     <div class="col-12">
@@ -352,7 +344,7 @@ def build_single():
             .lesson-status { margin-inline-start: 50px; }
             .lesson-title { font-size: 17px; }
         }''')
-    (ROOT / "site/service-single.html").write_text(html)
+    (ROOT / "site/service-single.html").write_text(clean(html))
     check_english("service-single.html", html)
 
 
