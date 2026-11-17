@@ -47,6 +47,12 @@ Object.assign(S, {
  'g4': win('github.com/signup', `<h2>מאשרים שאתם בן אדם</h2><div class="btn hl">פתרון החידה</div><div class="codes"><b>3</b><b>1</b><b>6</b><b>0</b><b>5</b><b>8</b></div>`),
  'g5': win('github.com', `<h2><span class="sp">✔</span> ברוכים הבאים ל-GitHub</h2><div class="in hl"><span>הדף הראשי שלכם</span><span class="s">+</span></div>`),
 });
+Object.assign(S, {
+ 'r1': win('github.com', `<h2>הדף הראשי</h2><div class="btn pri hl" style="width:200px">+ New</div>`),
+ 'r2': win('github.com/new', `<h2>ריפו חדש</h2><div class="inp hl">my-first-site</div>`),
+ 'r3': win('github.com/new', `<h2>מי רואה?</h2><div style="display:flex;gap:14px"><div class="btn hl" style="width:200px">🔒 Private</div><div class="btn" style="width:200px">Public</div></div><div class="chk"><u></u>Add a README</div>`),
+ 'r4': win('github.com/new', `<h2>my-first-site</h2><div class="btn pri hl">Create repository</div>`),
+});
 (async () => {
   const b = await chromium.launch();
   for (const [k, v] of Object.entries(S)) {
@@ -54,7 +60,7 @@ Object.assign(S, {
     const t = path.join(OUT, '_t.html');
     fs.writeFileSync(t, `<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="${FONTS}"><style>${CSS}</style></head><body>${v}</body></html>`);
     await p.goto('file://' + t); await p.evaluate(() => document.fonts.ready);
-    await p.screenshot({ path: path.join(OUT, (k[0]==='g'?`github-${k.slice(1)}.png`:/^\d+$/.test(k)?`claude-signup-${k}.png`:`claude-install-${k.slice(1)}.png`)) });
+    await p.screenshot({ path: path.join(OUT, (k[0]==='r'?`github-repo-${k.slice(1)}.png`:k[0]==='g'?`github-${k.slice(1)}.png`:/^\d+$/.test(k)?`claude-signup-${k}.png`:`claude-install-${k.slice(1)}.png`)) });
     await p.close();
   }
   fs.unlinkSync(path.join(OUT, '_t.html')); await b.close();
