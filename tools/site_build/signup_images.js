@@ -40,6 +40,13 @@ Object.assign(S, {
  'i4': win('Claude', `<h2><span class="sp">✻</span> התחברות</h2><div class="inp hl">name@email.com</div><div class="btn pri">המשך</div>`),
  'i5': win('Claude', `<div style="display:flex;gap:10px;direction:ltr"><div class="btn" style="width:110px">Chat</div><div class="btn hl pri" style="width:110px">Code</div></div><h2>במה נבנה היום?</h2><div class="in"><span>תארו מה לבנות…</span><span class="s">↑</span></div>`),
 });
+Object.assign(S, {
+ 'g1': win('github.com/signup', `<h2>יוצרים חשבון GitHub</h2><div class="btn pri hl">הרשמה</div>`),
+ 'g2': win('github.com/signup', `<h2>מייל וסיסמה</h2><div class="inp hl">name@email.com</div><div class="inp hl">••••••••••</div><div class="btn pri">המשך</div>`),
+ 'g3': win('github.com/signup', `<h2>בוחרים שם משתמש</h2><div class="inp hl">my-name</div><div class="btn pri">המשך</div>`),
+ 'g4': win('github.com/signup', `<h2>מאשרים שאתם בן אדם</h2><div class="btn hl">פתרון החידה</div><div class="codes"><b>3</b><b>1</b><b>6</b><b>0</b><b>5</b><b>8</b></div>`),
+ 'g5': win('github.com', `<h2><span class="sp">✔</span> ברוכים הבאים ל-GitHub</h2><div class="in hl"><span>הדף הראשי שלכם</span><span class="s">+</span></div>`),
+});
 (async () => {
   const b = await chromium.launch();
   for (const [k, v] of Object.entries(S)) {
@@ -47,7 +54,7 @@ Object.assign(S, {
     const t = path.join(OUT, '_t.html');
     fs.writeFileSync(t, `<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="${FONTS}"><style>${CSS}</style></head><body>${v}</body></html>`);
     await p.goto('file://' + t); await p.evaluate(() => document.fonts.ready);
-    await p.screenshot({ path: path.join(OUT, (/^\d+$/.test(k)?`claude-signup-${k}.png`:`claude-install-${k.slice(1)}.png`)) });
+    await p.screenshot({ path: path.join(OUT, (k[0]==='g'?`github-${k.slice(1)}.png`:/^\d+$/.test(k)?`claude-signup-${k}.png`:`claude-install-${k.slice(1)}.png`)) });
     await p.close();
   }
   fs.unlinkSync(path.join(OUT, '_t.html')); await b.close();
