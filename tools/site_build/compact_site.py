@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "13"
+CSS_VERSION = "15"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -269,12 +269,11 @@ build_chapter(
      ("למה צריך", "כל הפרויקט שלכם יושב שם, ו-Claude Code עובד עליו"),
      ("כמה עולה", "חשבון חינמי מספיק")],
     "אם משהו נראה אחרת אצלכם, זה בסדר",
-    flow=flow([
-        ("נכנסים להרשמה", 'בדפדפן נכנסים ל-<a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>.', "github-1.png"),
-        ("מתחברים עם Google (מומלץ)", 'אני ממליץ להתחבר עם Google: לוחצים "Continue with Google" וזהו. או שכותבים מייל וסיסמה.', "github-2.png"),
-        ("בוחרים שם משתמש", "שם באנגלית, בלי רווחים. הוא יופיע בכתובת של הפרויקט.", "github-3.png"),
-        ("מאשרים שאתם בן אדם", 'פותרים את החידה הקטנה ומקלידים את הקוד שמגיע למייל.<small class="fnote">אם מציעים מסלול בתשלום, בוחרים Free.</small>', "github-4.png"),
-        ("הגעתם!", "רואים את הדף הראשי של GitHub. החשבון מוכן.", "github-5.png"),
+    flow='<div class="fgif"><img src="assets/images/guide/github-signup.gif" alt="הרשמה ל-GitHub מההתחלה ועד הסוף" loading="lazy"><span>ככה זה נראה, מההתחלה ועד הסוף</span></div>' + flow([
+        ("נכנסים ולוחצים על Sign up", 'בדפדפן נכנסים ל-<a href="https://github.com" target="_blank" rel="noopener">github.com</a> ולוחצים למעלה על Sign up.', "github-1.png"),
+        ("ממשיכים עם Google (מומלץ)", 'לוחצים על Continue with Google. כך לא צריך סיסמה חדשה.', "github-2.png"),
+        ("בוחרים את חשבון Google", 'בוחרים את המייל שלכם מהרשימה.', "github-3.png"),
+        ("הגעתם!", 'רואים את הדף הראשי של GitHub. החשבון מוכן.', "github-4.png"),
     ]),
 )
 

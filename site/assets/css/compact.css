@@ -192,7 +192,7 @@ html, body { overflow-x: clip; }
 .ftext h3 { font-size: 16px; margin-bottom: 2px; }
 .ftext p { font-size: 14px; color: var(--muted); line-height: 1.45; }
 .fshot { border-radius: 10px; overflow: hidden; border: 1px solid #E4E4E7; background: var(--card); aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; }
-.fshot img { width: 100%; height: 100%; object-fit: cover; object-position: top; cursor: zoom-in; }
+.fshot img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
 .fshot.empty { border-style: dashed; border-color: rgba(0,0,0,.2); color: var(--soft); font-size: 13px; font-weight: 600; }
 .farrow { align-self: center; color: var(--brand); font-size: 20px; line-height: 22px; font-weight: 700; }
 .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.75); display: flex; align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
@@ -207,3 +207,7 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 
 .rows-sep { list-style: none; margin: 14px 4px 2px; font-size: 13px; font-weight: 700; color: var(--brand, #D97757); display: flex; align-items: center; gap: 10px; }
 .rows-sep::after { content: ""; flex: 1; height: 1px; background: #E4E4E7; }
+
+.fgif { display: flex; flex-direction: column; gap: 6px; align-items: center; margin-bottom: 14px; }
+.fgif img { width: 100%; border-radius: 10px; border: 1px solid #E4E4E7; display: block; }
+.fgif span { font-size: 13px; color: var(--muted); }
