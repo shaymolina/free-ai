@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>חבילות (Plugins) – המדריך ל-Claude Code | Free AI</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="פרק 15 במדריך ל-Claude Code למי שלא מתכנת: חבילה היא כמו ארגז כלים: בהתקנה אחת מקבלים כמה מיומנויות, חיבורים ופקודות שעובדים יחד.">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/icon/icomoon/style.css">
+    <link rel="stylesheet" href="assets/css/compact.css?v=25">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+</head>
+<body class="guide-page">
+    <main class="wrap full stack guide-main" style="padding-top:14px">
+        <div class="course">
+            <div class="gmenu" id="gmenu">
+                <button type="button" class="btn" aria-label="תפריט" onclick="document.getElementById('gmenu').classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
+                <nav><a href="index.html">דף הבית</a><a href="service.html">הקורס</a><a href="guide-1.html" class="active">המדריך</a><a href="work.html">סקילים</a></nav>
+            </div>
+            <aside class="card side">
+                <h3>המדריך ל-Claude Code</h3>
+                <div class="bar"><i id="guide-fill"></i></div>
+                <div class="count" id="guide-count"></div>
+                <ol class="chs"><li><a href="guide-1.html" class="ch" data-ch="1"><span class="dot">✓</span>1. לפני שמתחילים</a></li><li><a href="guide-2.html" class="ch" data-ch="2"><span class="dot">✓</span>2. Claude מול Claude Code</a></li><li><a href="guide-3.html" class="ch" data-ch="3"><span class="dot">✓</span>3. פותחים חשבון Claude</a></li><li><a href="guide-4.html" class="ch" data-ch="4"><span class="dot">✓</span>4. מתקינים את האפליקציה</a></li><li><a href="guide-5.html" class="ch" data-ch="5"><span class="dot">✓</span>5. פותחים GitHub</a></li><li><a href="guide-6.html" class="ch" data-ch="6"><span class="dot">✓</span>6. מה זה ריפו ופותחים אחד</a></li><li><a href="guide-7.html" class="ch" data-ch="7"><span class="dot">✓</span>7. היכרות ראשונה עם Claude</a></li><li><a href="guide-8.html" class="ch" data-ch="8"><span class="dot">✓</span>8. מיקום הפרויקט: מחשב או ענן</a></li><li><a href="guide-9.html" class="ch" data-ch="9"><span class="dot">✓</span>9. בחירת המודל</a></li><li><a href="guide-10.html" class="ch" data-ch="10"><span class="dot">✓</span>10. הרשאות: כמה Claude עושה לבד</a></li><li><a href="guide-11.html" class="ch" data-ch="11"><span class="dot">✓</span>11. כמה נשאר מהמנוי</a></li><li><a href="guide-12.html" class="ch" data-ch="12"><span class="dot">✓</span>12. תוספות: איפה מוסיפים יכולות</a></li><li><a href="guide-13.html" class="ch" data-ch="13"><span class="dot">✓</span>13. חיבור לשירותים (Connectors)</a></li><li><a href="guide-14.html" class="ch" data-ch="14"><span class="dot">✓</span>14. מיומנויות (Skills)</a></li><li><a href="guide-15.html" class="ch is-on" data-ch="15"><span class="dot">✓</span>15. חבילות (Plugins)</a></li><li><span class="ch" data-ch="16"><span class="dot">✓</span>16. הפרויקט הראשון</span></li><li><span class="ch" data-ch="17"><span class="dot">✓</span>17. מעלים לאוויר</span></li><li><span class="ch" data-ch="18"><span class="dot">✓</span>18. פותחים 4CODE</span></li><li><span class="ch" data-ch="19"><span class="dot">✓</span>19. Supabase, כן או לא</span></li><li><span class="ch" data-ch="20"><span class="dot">✓</span>20. איך מדברים עם Claude Code</span></li><li><span class="ch" data-ch="21"><span class="dot">✓</span>21. סדר ובטיחות</span></li><li><span class="ch" data-ch="22"><span class="dot">✓</span>22. כשמשהו נתקע</span></li><li><span class="ch" data-ch="23"><span class="dot">✓</span>23. השלב הבא</span></li></ol>
+            </aside>
+            <article class="card lesson">
+                <h1>חבילות (Plugins)</h1>
+                <p class="lead">חבילה היא כמו ארגז כלים: בהתקנה אחת מקבלים כמה מיומנויות, חיבורים ופקודות שעובדים יחד.</p>
+                <ol class="rows"><li class="row"><span class="tile">1</span>מה זה נותן<small>תחום שלם מוכן לעבודה, בלי להרכיב לבד חלק אחרי חלק</small></li><li class="row"><span class="tile">2</span>על מה לשים לב<small>מתקינים רק ממקור מוכר. ליד כל חבילה כתוב מי יצר אותה, כמו by Anthropic</small></li><li class="row"><span class="tile">3</span>מה אנחנו בוחרים<small>לא צריך כדי להתחיל. חוזרים לכאן כשרוצים תחום חדש</small></li><li class="rows-sep">דוגמאות</li><li class="row"><span class="tile">1</span>Data<small>שאלות על נתונים, טבלאות וגרפים</small></li><li class="row"><span class="tile">2</span>google-workspace<small>עבודה עם Google Drive, Docs ו-Sheets</small></li></ol>
+                <ol class="flow"><li class="fstep"><div class="ftext"><div><h3>איפה מוסיפים</h3><p>בלשונית Plugins, תחת Discover, לוחצים על + או על Add.</p></div></div><div class="fshot"><img src="assets/images/guide/settings-plugins.png" alt="איפה מוסיפים" loading="lazy"></div></li></ol>
+                <div class="lesson-end"><span>אפשר להסיר חבילה בכל רגע</span><button type="button" class="btn btn-brand" id="guide-done">סיימתי, לפרק הבא ←</button></div>
+            </article>
+        </div>
+        <footer class="c-foot">
+            <span>© 2026 Free AI. כל הזכויות שמורות.</span>
+            <nav><a href="privacy.html">פרטיות</a><a href="terms.html">תנאי שימוש</a></nav>
+        </footer>
+    </main>
+<script>
+(function () {
+    var KEY = 'freeai-guide-done', TOTAL = 23, CURRENT = 15;
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+    function save(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    var btn = document.getElementById('guide-done');
+    function paint() {
+        var done = load();
+        document.querySelectorAll('.ch').forEach(function (el) { el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1); });
+        document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%';
+        document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
+        if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
+    }
+    if (btn) btn.addEventListener('click', function () {
+        var done = load();
+        if (done.indexOf(CURRENT) < 0) { done.push(CURRENT); save(done); }
+        if (btn.dataset.next) location.href = btn.dataset.next; else paint();
+    });
+    var copy = document.getElementById('guide-copy');
+    if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
+    paint();
+    document.addEventListener('click', function (e) {
+        var img = e.target.closest ? e.target.closest('.fshot img') : null;
+        if (!img) return;
+        var o = document.createElement('div'); o.className = 'lightbox';
+        o.innerHTML = '<img src="' + img.src + '" alt="">'; o.onclick = function () { o.remove(); };
+        document.body.appendChild(o);
+    });
+})();
+    document.querySelectorAll('.split').forEach(function (sp) {
+        var bar = sp.querySelector('.split-bar');
+        function set(x) {
+            var r = sp.getBoundingClientRect();
+            var pct = Math.min(75, Math.max(25, (x - r.left) / r.width * 100));
+            sp.style.setProperty('--img', pct + '%');
+        }
+        bar.addEventListener('pointerdown', function (e) {
+            e.preventDefault(); bar.setPointerCapture(e.pointerId); sp.classList.add('dragging');
+            function mv(ev) { set(ev.clientX); }
+            function up() { bar.removeEventListener('pointermove', mv); sp.classList.remove('dragging'); }
+            bar.addEventListener('pointermove', mv); bar.addEventListener('pointerup', up, { once: true });
+        });
+    });
+    document.addEventListener('click', function (e) {
+        var v = e.target.closest && e.target.closest('video');
+        if (!v) return;
+        var box = v.parentNode;
+        if (v.paused) { v.play(); box.classList.remove('paused'); } else { v.pause(); box.classList.add('paused'); }
+    });
+</script>
+</body>
+</html>
