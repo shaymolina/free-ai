@@ -211,3 +211,10 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .fgif { display: flex; flex-direction: column; gap: 6px; align-items: center; margin-bottom: 14px; }
 .fgif img { width: 100%; border-radius: 10px; border: 1px solid #E4E4E7; display: block; }
 .fgif span { font-size: 13px; color: var(--muted); }
+
+.fshot video, .fvid video { width: 100%; height: 100%; object-fit: contain; display: block; cursor: pointer; }
+.fshot, .fvid { position: relative; }
+.fshot.paused::after, .fvid.paused::after { content: "▶"; position: absolute; inset: 0; margin: auto; width: 64px; height: 64px; border-radius: 50%; background: rgba(0,0,0,.55); color: #fff; font-size: 26px; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.fvid { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+.fvid video { height: auto; border-radius: 10px; border: 1px solid #E4E4E7; }
+.fvid span { font-size: 13px; color: var(--muted); text-align: center; }

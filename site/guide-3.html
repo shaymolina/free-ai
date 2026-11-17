@@ -8,7 +8,7 @@
     <meta name="description" content="פרק 3 במדריך ל-Claude Code למי שלא מתכנת: צעד אחרי צעד, עם צילום מסך לכל שלב.">
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
-    <link rel="stylesheet" href="assets/css/compact.css?v=17">
+    <link rel="stylesheet" href="assets/css/compact.css?v=18">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
 </head>
@@ -67,6 +67,12 @@
         document.body.appendChild(o);
     });
 })();
+    document.addEventListener('click', function (e) {
+        var v = e.target.closest && e.target.closest('video');
+        if (!v) return;
+        var box = v.parentNode;
+        if (v.paused) { v.play(); box.classList.remove('paused'); } else { v.pause(); box.classList.add('paused'); }
+    });
 </script>
 </body>
 </html>

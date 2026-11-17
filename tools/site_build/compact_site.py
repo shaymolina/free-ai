@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "17"
+CSS_VERSION = "18"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -142,6 +142,12 @@ GUIDE_JS = '''<script>
         document.body.appendChild(o);
     });
 })();
+    document.addEventListener('click', function (e) {
+        var v = e.target.closest && e.target.closest('video');
+        if (!v) return;
+        var box = v.parentNode;
+        if (v.paused) { v.play(); box.classList.remove('paused'); } else { v.pause(); box.classList.add('paused'); }
+    });
 </script>'''
 
 
@@ -208,7 +214,9 @@ def flow(steps):
     """תרשים זרימה: כל שלב = טקסט + צילום מסך. אם הקובץ עוד לא קיים, מוצג מקום ריק."""
     out = []
     for i, (title, text, img) in enumerate(steps, 1):
-        if (SITE / "assets/images/guide" / img).exists():
+        if img.endswith(".mp4") and (SITE / "assets/images/guide" / img).exists():
+            shot = f'<div class="fshot"><video src="assets/images/guide/{img}" muted loop playsinline autoplay preload="metadata" aria-label="{title}"></video></div>'
+        elif (SITE / "assets/images/guide" / img).exists():
             shot = f'<div class="fshot"><img src="assets/images/guide/{img}" alt="{title}" loading="lazy"></div>'
         else:
             shot = '<div class="fshot empty"><span>צילום מסך יתווסף כאן</span></div>'
@@ -216,6 +224,10 @@ def flow(steps):
         if i < len(steps):
             out.append('<li class="farrow" aria-hidden="true">↓</li>')
     return f'\n                <ol class="flow">{"".join(out)}</ol>'
+
+
+def fullvid(src, alt):
+    return f'\n                <div class="fvid"><span>ככה זה נראה, מההתחלה ועד הסוף. לחיצה עוצרת, לחיצה נוספת ממשיכה.</span><video src="{src}" muted loop playsinline autoplay preload="metadata" aria-label="{alt}"></video></div>'
 
 
 def when(left, right):
@@ -269,12 +281,13 @@ build_chapter(
      ("למה צריך", "כל הפרויקט שלכם יושב שם, ו-Claude Code עובד עליו"),
      ("כמה עולה", "חשבון חינמי מספיק")],
     "אם משהו נראה אחרת אצלכם, זה בסדר",
-    flow='<div class="fgif"><img src="assets/images/guide/github-signup.gif" alt="הרשמה ל-GitHub מההתחלה ועד הסוף" loading="lazy"><span>ככה זה נראה, מההתחלה ועד הסוף</span></div>' + flow([
-        ("נכנסים ולוחצים על Sign up", 'בדפדפן נכנסים ל-<a href="https://github.com" target="_blank" rel="noopener">github.com</a> ולוחצים למעלה על Sign up.', "github-1.gif"),
-        ("ממשיכים עם Google (מומלץ)", 'לוחצים על Continue with Google. כך לא צריך סיסמה חדשה.', "github-2.gif"),
-        ("בוחרים את חשבון Google", 'בוחרים את המייל שלכם מהרשימה.', "github-3.gif"),
-        ("הגעתם!", 'רואים את הדף הראשי של GitHub. החשבון מוכן.', "github-4.gif"),
+    flow=flow([
+        ("נכנסים ולוחצים על Sign up", 'בדפדפן נכנסים ל-<a href="https://github.com" target="_blank" rel="noopener">github.com</a> ולוחצים למעלה על Sign up.', "github-1.mp4"),
+        ("ממשיכים עם Google (מומלץ)", 'לוחצים על Continue with Google. כך לא צריך סיסמה חדשה.', "github-2.mp4"),
+        ("בוחרים את חשבון Google", 'בוחרים את המייל שלכם מהרשימה.', "github-3.mp4"),
+        ("הגעתם!", 'רואים את הדף הראשי של GitHub. החשבון מוכן.', "github-4.mp4"),
     ]),
+    extra=fullvid("assets/images/guide/github-signup.mp4", "הרשמה ל-GitHub מההתחלה ועד הסוף"),
 )
 
 
@@ -288,10 +301,11 @@ build_chapter(
      ("מערכת ניהול לקוחות לסלון לק ג'ל", "ריפו 2, בשם: nail-salon-crm"),
      ("וכן הלאה", "פרויקט חדש, ריפו חדש")],
     "ריפו אחד לכל פרויקט",
-    flow='<div class="fgif"><img src="assets/images/guide/github-repo.gif" alt="פתיחת ריפו מההתחלה ועד הסוף" loading="lazy"><span>ככה זה נראה, מההתחלה ועד הסוף</span></div>' + flow([
-        ("לוחצים על New repository", 'ב-<a href="https://github.com/new" target="_blank" rel="noopener">GitHub</a> לוחצים על הכפתור הירוק New repository.', "github-repo-1.gif"),
-        ("נותנים שם לריפו", "שם באנגלית, בלי רווחים. למשל new-website-carpenter.", "github-repo-2.gif"),
-        ("בוחרים Private", 'Private אומר שרק אתם רואים אותו.<small class="fnote">אפשר תמיד לשנות אחר כך.</small>', "github-repo-3.gif"),
-        ("לוחצים Create repository", "הריפו נוצר. הוא ריק בינתיים, ו-Claude Code ימלא אותו.", "github-repo-4.gif"),
+    flow=flow([
+        ("לוחצים על New repository", 'ב-<a href="https://github.com/new" target="_blank" rel="noopener">GitHub</a> לוחצים על הכפתור הירוק New repository.', "github-repo-1.mp4"),
+        ("נותנים שם לריפו", "שם באנגלית, בלי רווחים. למשל new-website-carpenter.", "github-repo-2.mp4"),
+        ("בוחרים Private", 'Private אומר שרק אתם רואים אותו.<small class="fnote">אפשר תמיד לשנות אחר כך.</small>', "github-repo-3.mp4"),
+        ("לוחצים Create repository", "הריפו נוצר. הוא ריק בינתיים, ו-Claude Code ימלא אותו.", "github-repo-4.mp4"),
     ]),
+    extra=fullvid("assets/images/guide/github-repo.mp4", "פתיחת ריפו מההתחלה ועד הסוף"),
 )
