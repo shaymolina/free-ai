@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>המודלים – המדריך ל-Claude Code | Free AI</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="פרק 8 במדריך ל-Claude Code למי שלא מתכנת: המודל הוא המוח של Claude.">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/icon/icomoon/style.css">
+    <link rel="stylesheet" href="assets/css/compact.css?v=19">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+</head>
+<body class="guide-page">
+    <main class="wrap full stack guide-main" style="padding-top:14px">
+        <div class="course">
+            <div class="gmenu" id="gmenu">
+                <button type="button" class="btn" aria-label="תפריט" onclick="document.getElementById('gmenu').classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
+                <nav><a href="index.html">דף הבית</a><a href="service.html">הקורס</a><a href="guide-1.html" class="active">המדריך</a><a href="work.html">סקילים</a></nav>
+            </div>
+            <aside class="card side">
+                <h3>המדריך ל-Claude Code</h3>
+                <div class="bar"><i id="guide-fill"></i></div>
+                <div class="count" id="guide-count"></div>
+                <ol class="chs"><li><a href="guide-1.html" class="ch" data-ch="1"><span class="dot">✓</span>1. לפני שמתחילים</a></li><li><a href="guide-2.html" class="ch" data-ch="2"><span class="dot">✓</span>2. Claude מול Claude Code</a></li><li><a href="guide-3.html" class="ch" data-ch="3"><span class="dot">✓</span>3. פותחים חשבון Claude</a></li><li><a href="guide-4.html" class="ch" data-ch="4"><span class="dot">✓</span>4. מתקינים את האפליקציה</a></li><li><a href="guide-5.html" class="ch" data-ch="5"><span class="dot">✓</span>5. פותחים GitHub</a></li><li><a href="guide-6.html" class="ch" data-ch="6"><span class="dot">✓</span>6. מה זה ריפו ופותחים אחד</a></li><li><a href="guide-7.html" class="ch" data-ch="7"><span class="dot">✓</span>7. Local או Cloud</a></li><li><a href="guide-8.html" class="ch is-on" data-ch="8"><span class="dot">✓</span>8. המודלים</a></li><li><a href="guide-9.html" class="ch" data-ch="9"><span class="dot">✓</span>9. מצבי הרשאות</a></li><li><a href="guide-10.html" class="ch" data-ch="10"><span class="dot">✓</span>10. הקרדיטים</a></li><li><span class="ch" data-ch="11"><span class="dot">✓</span>11. הפרויקט הראשון</span></li><li><span class="ch" data-ch="12"><span class="dot">✓</span>12. מעלים לאוויר</span></li><li><span class="ch" data-ch="13"><span class="dot">✓</span>13. פותחים 4CODE</span></li><li><span class="ch" data-ch="14"><span class="dot">✓</span>14. Supabase, כן או לא</span></li><li><span class="ch" data-ch="15"><span class="dot">✓</span>15. איך מדברים עם Claude Code</span></li><li><span class="ch" data-ch="16"><span class="dot">✓</span>16. סדר ובטיחות</span></li><li><span class="ch" data-ch="17"><span class="dot">✓</span>17. כשמשהו נתקע</span></li><li><span class="ch" data-ch="18"><span class="dot">✓</span>18. השלב הבא</span></li></ol>
+            </aside>
+            <article class="card lesson">
+                <h1>המודלים</h1>
+                <p class="lead">המודל הוא המוח של Claude.</p>
+                <ol class="rows"><li class="row"><span class="tile">1</span>Opus 5.5<small>הכי חזק. למשימות גדולות ומורכבות</small></li><li class="row"><span class="tile">2</span>Sonnet 5.5<small>מהיר ומאוזן. מספיק לרוב העבודה</small></li><li class="row"><span class="tile">3</span>Haiku 5.5<small>הכי מהיר וקל. למשימות קטנות</small></li><li class="row"><span class="tile">4</span>Effort<small>רמת המאמץ. Medium מספיק להתחלה</small></li><li class="row"><span class="tile">5</span>Fast mode<small>פלט מהיר יותר, כשצריך</small></li></ol>
+                <ol class="flow"><li class="fstep"><div class="ftext"><span class="tile">1</span><div><h3>בוחרים מודל</h3><p>לוחצים על שם המודל למטה בצד ימין ובוחרים מהרשימה.</p></div></div><div class="fshot"><img src="assets/images/guide/claude-models.png" alt="בוחרים מודל" loading="lazy"></div></li></ol>
+                <div class="lesson-end"><span>אפשר להחליף מודל בכל רגע</span><button type="button" class="btn btn-brand" id="guide-done" data-next="guide-9.html">סיימתי, לפרק הבא ←</button></div>
+            </article>
+        </div>
+        <footer class="c-foot">
+            <span>© 2026 Free AI. כל הזכויות שמורות.</span>
+            <nav><a href="privacy.html">פרטיות</a><a href="terms.html">תנאי שימוש</a></nav>
+        </footer>
+    </main>
+<script>
+(function () {
+    var KEY = 'freeai-guide-done', TOTAL = 18, CURRENT = 8;
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+    function save(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    var btn = document.getElementById('guide-done');
+    function paint() {
+        var done = load();
+        document.querySelectorAll('.ch').forEach(function (el) { el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1); });
+        document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%';
+        document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
+        if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
+    }
+    if (btn) btn.addEventListener('click', function () {
+        var done = load();
+        if (done.indexOf(CURRENT) < 0) { done.push(CURRENT); save(done); }
+        if (btn.dataset.next) location.href = btn.dataset.next; else paint();
+    });
+    var copy = document.getElementById('guide-copy');
+    if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
+    paint();
+    document.addEventListener('click', function (e) {
+        var img = e.target.closest ? e.target.closest('.fshot img') : null;
+        if (!img) return;
+        var o = document.createElement('div'); o.className = 'lightbox';
+        o.innerHTML = '<img src="' + img.src + '" alt="">'; o.onclick = function () { o.remove(); };
+        document.body.appendChild(o);
+    });
+})();
+    document.addEventListener('click', function (e) {
+        var v = e.target.closest && e.target.closest('video');
+        if (!v) return;
+        var box = v.parentNode;
+        if (v.paused) { v.play(); box.classList.remove('paused'); } else { v.pause(); box.classList.add('paused'); }
+    });
+</script>
+</body>
+</html>
