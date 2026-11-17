@@ -55,8 +55,12 @@ for k, name, tab in [('17', 'settings-connectors', (573, 126, 715, 167)),
                      ('15', 'settings-plugins', (795, 131, 895, 171))]:
     im = load(k); d = ImageDraw.Draw(im)
     ring(d, tab)
-    if k == '17':
+    if k in ('17', '16'):
         ring(d, (1484, 124, 1604, 170))
     ring(d, (1020, 128, 1140, 172) if k != '17' else (936, 126, 1024, 167))
     im.crop((256, 44, 1660, 972)).save(OUT / f'{name}.png', optimize=True)
+# הפעלת מיומנות עם /
+im = load('18'); pix(im, (880, 340, 1320, 662)); d = ImageDraw.Draw(im)
+ring(d, (612, 852, 1132, 906)); ring(d, (620, 913, 745, 956))
+im.crop((560, 641, 1640, 1016)).save(OUT / 'skill-slash.png', optimize=True)
 print('done')
