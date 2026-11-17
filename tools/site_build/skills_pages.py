@@ -1,4 +1,5 @@
 """עמוד ספריית הסקילים (work.html) ועמוד סקיל (work-single.html) – נבנים מתוך האתר המשוכפל."""
+from clean_urls import clean
 import re
 from pathlib import Path
 from common import apply_common, replace_section
@@ -311,7 +312,7 @@ html = html.replace("</body>", """<script>
 </script>
 </body>""", 1)
 
-(ROOT / "site/work.html").write_text(html)
+(ROOT / "site/work.html").write_text(clean(html))
 check_english("work.html", html)
 
 # =====================================================================
@@ -448,5 +449,5 @@ html = add_style(html, """        .list-tags span.tags-item { display: flex; ali
             .skill-example .example-arrow { align-self: center; transform: rotate(135deg); }
         }""")
 
-(ROOT / "site/work-single.html").write_text(html)
+(ROOT / "site/work-single.html").write_text(clean(html))
 check_english("work-single.html", html)

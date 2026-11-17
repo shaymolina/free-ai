@@ -1,4 +1,5 @@
 """עמודי הקורס של Free AI: service.html (פרקי קורס Claude) ו-service-single.html (רשימת השיעורים)."""
+from clean_urls import clean
 import re
 from pathlib import Path
 from common import apply_common
@@ -227,7 +228,7 @@ def build_service():
     html = signup(html, "מתחילים מהשיעור <br> הראשון")
 
     html = add_style(html, COMMON_CSS)
-    (ROOT / "site/service.html").write_text(html)
+    (ROOT / "site/service.html").write_text(clean(html))
     check_english("service.html", html)
 
 
@@ -352,7 +353,7 @@ def build_single():
             .lesson-status { margin-inline-start: 50px; }
             .lesson-title { font-size: 17px; }
         }''')
-    (ROOT / "site/service-single.html").write_text(html)
+    (ROOT / "site/service-single.html").write_text(clean(html))
     check_english("service-single.html", html)
 
 

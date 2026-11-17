@@ -32,6 +32,12 @@ function send(res, file, status = 200) {
 http.createServer((req, res) => {
   let p;
   try { p = decodeURIComponent(new URL(req.url, 'http://x').pathname); } catch { p = '/'; }
+  if (p.endsWith('.html')) {
+    const u = new URL(req.url, 'http://x');
+    const clean = p === '/index.html' || p.endsWith('/index.html') ? p.slice(0, -10) || '/' : p.slice(0, -5);
+    res.writeHead(301, { Location: clean + u.search });
+    return res.end();
+  }
   let file = path.normalize(path.join(ROOT, p));
   if (!file.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
   if (p.endsWith('/')) file = path.join(file, 'index.html');

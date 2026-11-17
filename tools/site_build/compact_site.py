@@ -4,6 +4,7 @@
 הרצה: cd tools/site_build && python3 compact_site.py
 """
 from pathlib import Path
+from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
 CSS_VERSION = "26"
@@ -46,6 +47,10 @@ FOOTER = '''<footer class="c-foot">
 
 
 def page(title, desc, body, script="", cls=""):
+    return clean(_page(title, desc, body, script, cls))
+
+
+def _page(title, desc, body, script="", cls=""):
     return f'''<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
