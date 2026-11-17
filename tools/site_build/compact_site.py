@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "15"
+CSS_VERSION = "16"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -270,10 +270,10 @@ build_chapter(
      ("כמה עולה", "חשבון חינמי מספיק")],
     "אם משהו נראה אחרת אצלכם, זה בסדר",
     flow='<div class="fgif"><img src="assets/images/guide/github-signup.gif" alt="הרשמה ל-GitHub מההתחלה ועד הסוף" loading="lazy"><span>ככה זה נראה, מההתחלה ועד הסוף</span></div>' + flow([
-        ("נכנסים ולוחצים על Sign up", 'בדפדפן נכנסים ל-<a href="https://github.com" target="_blank" rel="noopener">github.com</a> ולוחצים למעלה על Sign up.', "github-1.png"),
-        ("ממשיכים עם Google (מומלץ)", 'לוחצים על Continue with Google. כך לא צריך סיסמה חדשה.', "github-2.png"),
-        ("בוחרים את חשבון Google", 'בוחרים את המייל שלכם מהרשימה.', "github-3.png"),
-        ("הגעתם!", 'רואים את הדף הראשי של GitHub. החשבון מוכן.', "github-4.png"),
+        ("נכנסים ולוחצים על Sign up", 'בדפדפן נכנסים ל-<a href="https://github.com" target="_blank" rel="noopener">github.com</a> ולוחצים למעלה על Sign up.', "github-1.gif"),
+        ("ממשיכים עם Google (מומלץ)", 'לוחצים על Continue with Google. כך לא צריך סיסמה חדשה.', "github-2.gif"),
+        ("בוחרים את חשבון Google", 'בוחרים את המייל שלכם מהרשימה.', "github-3.gif"),
+        ("הגעתם!", 'רואים את הדף הראשי של GitHub. החשבון מוכן.', "github-4.gif"),
     ]),
 )
 
