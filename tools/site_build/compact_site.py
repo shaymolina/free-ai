@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "16"
+CSS_VERSION = "17"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -288,10 +288,10 @@ build_chapter(
      ("מערכת ניהול לקוחות לסלון לק ג'ל", "ריפו 2, בשם: nail-salon-crm"),
      ("וכן הלאה", "פרויקט חדש, ריפו חדש")],
     "ריפו אחד לכל פרויקט",
-    flow=flow([
-        ("לוחצים על New", 'בדף הראשי של <a href="https://github.com/new" target="_blank" rel="noopener">GitHub</a> לוחצים על הכפתור הירוק New, או על הפלוס למעלה.', "github-repo-1.png"),
-        ("נותנים שם לריפו", "שם באנגלית, בלי רווחים. למשל my-first-site.", "github-repo-2.png"),
-        ("בוחרים Private", 'Private אומר שרק אתם רואים אותו. מסמנים גם Add a README.<small class="fnote">אפשר תמיד לשנות אחר כך.</small>', "github-repo-3.png"),
-        ("לוחצים Create repository", "הריפו נוצר. הוא ריק בינתיים, וClaude Code ימלא אותו.", "github-repo-4.png"),
+    flow='<div class="fgif"><img src="assets/images/guide/github-repo.gif" alt="פתיחת ריפו מההתחלה ועד הסוף" loading="lazy"><span>ככה זה נראה, מההתחלה ועד הסוף</span></div>' + flow([
+        ("לוחצים על New repository", 'ב-<a href="https://github.com/new" target="_blank" rel="noopener">GitHub</a> לוחצים על הכפתור הירוק New repository.', "github-repo-1.gif"),
+        ("נותנים שם לריפו", "שם באנגלית, בלי רווחים. למשל new-website-carpenter.", "github-repo-2.gif"),
+        ("בוחרים Private", 'Private אומר שרק אתם רואים אותו.<small class="fnote">אפשר תמיד לשנות אחר כך.</small>', "github-repo-3.gif"),
+        ("לוחצים Create repository", "הריפו נוצר. הוא ריק בינתיים, ו-Claude Code ימלא אותו.", "github-repo-4.gif"),
     ]),
 )
