@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "12"
+CSS_VERSION = "13"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -164,7 +164,14 @@ def sidebar(current):
 
 def build_chapter(n, lead, rows, note, extra="", flow=""):
     name, mins = CHAPTERS[n - 1]
-    row_html = "".join(f'<li class="row"><span class="tile">{i}</span>{a}<small>{b}</small></li>' for i, (a, b) in enumerate(rows, 1))
+    parts, k = [], 0
+    for a, b in rows:
+        if a is None:  # כותרת מפרידה, והמספור מתחיל מחדש
+            parts.append(f'<li class="rows-sep">{b}</li>'); k = 0
+        else:
+            k += 1
+            parts.append(f'<li class="row"><span class="tile">{k}</span>{a}<small>{b}</small></li>')
+    row_html = "".join(parts)
     rows_block = f'<ol class="rows">{row_html}</ol>' if rows else ""
     nxt = f' data-next="guide-{n + 1}.html"' if (n + 1) in READY else ""
     body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
@@ -275,8 +282,9 @@ build_chapter(
 build_chapter(
     6, "",
     [("ריפו אחד לכל פרויקט", "ריפו הוא תיקייה של פרויקט אחד. לא מערבבים פרויקטים"),
-     ("בניית אתר תדמית לנגר", "ריפו 1, בשם: carpenter-website"),
-     ("בניית מערכת ניהול לקוחות לסלון לק ג'ל", "ריפו 2, בשם: nail-salon-crm"),
+     (None, "דוגמאות"),
+     ("אתר תדמית לנגר", "ריפו 1, בשם: carpenter-website"),
+     ("מערכת ניהול לקוחות לסלון לק ג'ל", "ריפו 2, בשם: nail-salon-crm"),
      ("וכן הלאה", "פרויקט חדש, ריפו חדש")],
     "ריפו אחד לכל פרויקט",
     flow=flow([

@@ -204,3 +204,6 @@ html, body { overflow-x: clip; }
 
 body.guide-page .lesson, body.guide-page .side { scrollbar-width: none; }
 body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrollbar { display: none; }
+
+.rows-sep { list-style: none; margin: 14px 4px 2px; font-size: 13px; font-weight: 700; color: var(--brand, #D97757); display: flex; align-items: center; gap: 10px; }
+.rows-sep::after { content: ""; flex: 1; height: 1px; background: #E4E4E7; }
