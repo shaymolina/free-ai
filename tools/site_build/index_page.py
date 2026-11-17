@@ -1,4 +1,5 @@
 """דף הבית של Free AI – נבנה מתוך index.html של האתר המשוכפל."""
+from clean_urls import clean
 import re
 from pathlib import Path
 from common import apply_common, replace_section
@@ -334,6 +335,6 @@ html = html.replace('href="service.html" class="tf-mouse view-project h6">\n    
 # ---------- בלי בלוק מחירים ----------
 html = re.sub(r"\s*<!-- section-pricing -->.*?<!-- /section-pricing -->", "", html, count=1, flags=re.S)
 
-(ROOT / "site/index.html").write_text(html)
+(ROOT / "site/index.html").write_text(clean(html))
 left = re.findall(r">\s*([A-Za-z][A-Za-z ,’'&\-]{6,})\s*<", html)
 print("index.html done; leftover English:", [x for x in left if x.strip() not in ("Free AI",)][:20])
