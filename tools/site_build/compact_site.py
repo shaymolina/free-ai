@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "26"
+CSS_VERSION = "27"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -86,9 +86,9 @@ def build_home():
         {header("index.html")}
             <div class="hero-in">
                 <div class="hero-text">
-                    <h1 class="hero-title"><span class="grad">לומדים קלוד קוד.</span><span class="hero-line"><span class="grad">בלי לדעת לתכנת.</span>
+                    <h1 class="hero-title"><span class="hero-line"><span class="grad">קורס קלוד קוד בחינם</span>
                         <span class="hero-pill"><img src="assets/images/item/hero-1.svg" alt=""><img src="assets/images/item/hero-2.svg" alt=""><img src="assets/images/item/hero-3.svg" alt=""></span></span></h1>
-                    <p>קורס, מדריך כתוב וסקילים מוכנים. מהצעד הראשון ועד אתר שעובד באוויר.</p>
+                    <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב צעד אחרי צעד וסקילים מוכנים להורדה.</p>
                 </div>
                 <div class="card preview">{rows}<a href="guide-1.html" class="muted"><span class="dot"></span>ועוד {len(CHAPTERS) - 4} פרקים</a></div>
             </div>
@@ -105,8 +105,8 @@ def build_home():
         {FOOTER}
     </main>'''
     (SITE / "index.html").write_text(page(
-        "Free AI – לומדים קלוד קוד בחינם, בעברית",
-        "קורס, מדריך כתוב וסקילים לקלוד קוד (Claude Code) בעברית ובחינם. מהצעד הראשון ועד אתר שעובד באוויר.", body))
+        "קורס קלוד קוד בחינם בעברית | Free AI",
+        "קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.", body))
     print("index.html done")
 
 

@@ -274,3 +274,6 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
   .art-cta .btn { width: 100%; }
 }
 .code-box { min-width: 0; max-width: 100%; }
+.hero-title, .hero-title .grad { font-weight: 900; }
+.hero-title .grad { white-space: normal; }
+@media (max-width: 860px) { .c-hero .hero-in { grid-template-columns: minmax(0, 1fr); } }
