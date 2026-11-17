@@ -14,8 +14,8 @@ NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-
 # שם הפרק, דקות קריאה
 CHAPTERS = [
     ("לפני שמתחילים", 2), ("Claude מול Claude Code", 3), ("פותחים חשבון Claude", 4),
-    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("פותחים 4CODE", 4),
-    ("Supabase, כן או לא", 3), ("הפרויקט הראשון", 8), ("מעלים לאוויר", 5),
+    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("הפרויקט הראשון", 8), ("מעלים לאוויר", 5),
+    ("פותחים 4CODE", 4), ("Supabase, כן או לא", 3),
     ("איך מדברים עם Claude Code", 4), ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
 READY = {1, 2, 3, 4, 5, 6}  # פרקים שכבר כתובים
@@ -173,7 +173,7 @@ def build_chapter(n, lead, rows, note, extra="", flow=""):
             {sidebar(n)}
             <article class="card lesson">
                 <h1>{name}</h1>
-                <p class="lead">{lead}</p>
+                {f'<p class="lead">{lead}</p>' if lead else ''}
                 {rows_block}{flow}{extra}
                 <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-brand" id="guide-done"{nxt}>סיימתי, לפרק הבא ←</button></div>
             </article>
@@ -273,9 +273,11 @@ build_chapter(
 
 
 build_chapter(
-    6, "קודם מבינים מה זה, אחר כך יוצרים.",
-    [("ריפו (Repository)", "תיקייה אחת של פרויקט אחד. בדיוק כמו תיקייה בדרייב"),
-     ("למה צריך", "Claude Code עובד בתוך הריפו, וכל גרסה נשמרת אם צריך לחזור אחורה")],
+    6, "",
+    [("ריפו אחד לכל פרויקט", "ריפו הוא תיקייה של פרויקט אחד. לא מערבבים פרויקטים"),
+     ("בניית אתר תדמית לנגר", "ריפו 1, בשם: carpenter-website"),
+     ("בניית מערכת ניהול לקוחות לסלון לק ג'ל", "ריפו 2, בשם: nail-salon-crm"),
+     ("וכן הלאה", "פרויקט חדש, ריפו חדש")],
     "ריפו אחד לכל פרויקט",
     flow=flow([
         ("לוחצים על New", 'בדף הראשי של <a href="https://github.com/new" target="_blank" rel="noopener">GitHub</a> לוחצים על הכפתור הירוק New, או על הפלוס למעלה.', "github-repo-1.png"),
