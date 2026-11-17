@@ -54,6 +54,9 @@ for k, name, tab in [('17', 'settings-connectors', (573, 126, 715, 167)),
                      ('16', 'settings-skills', (715, 128, 795, 168)),
                      ('15', 'settings-plugins', (795, 131, 895, 171))]:
     im = load(k); d = ImageDraw.Draw(im)
-    ring(d, tab); ring(d, (1020, 128, 1140, 172) if k != '17' else (936, 126, 1024, 167))
+    ring(d, tab)
+    if k == '17':
+        ring(d, (1484, 124, 1604, 170))
+    ring(d, (1020, 128, 1140, 172) if k != '17' else (936, 126, 1024, 167))
     im.crop((256, 44, 1660, 972)).save(OUT / f'{name}.png', optimize=True)
 print('done')
