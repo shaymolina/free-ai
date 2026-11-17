@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "21"
+CSS_VERSION = "25"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -14,7 +14,7 @@ NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-
 # שם הפרק, דקות קריאה
 CHAPTERS = [
     ("לפני שמתחילים", 2), ("Claude מול Claude Code", 3), ("פותחים חשבון Claude", 4),
-    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("מכירים את המסך", 3), ("ענן או מחשב", 3), ("המוח של Claude", 3), ("כמה חופש נותנים לו", 3), ("מד הדלק", 2), ("הפרויקט הראשון", 8), ("מעלים לאוויר", 5),
+    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("היכרות ראשונה עם Claude", 3), ("ענן או מחשב", 3), ("המוח של Claude", 3), ("כמה חופש נותנים לו", 3), ("מד הדלק", 2), ("הפרויקט הראשון", 8), ("מעלים לאוויר", 5),
     ("פותחים 4CODE", 4), ("Supabase, כן או לא", 3),
     ("איך מדברים עם Claude Code", 4), ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
@@ -142,6 +142,20 @@ GUIDE_JS = '''<script>
         document.body.appendChild(o);
     });
 })();
+    document.querySelectorAll('.split').forEach(function (sp) {
+        var bar = sp.querySelector('.split-bar');
+        function set(x) {
+            var r = sp.getBoundingClientRect();
+            var pct = Math.min(75, Math.max(25, (x - r.left) / r.width * 100));
+            sp.style.setProperty('--img', pct + '%%');
+        }
+        bar.addEventListener('pointerdown', function (e) {
+            e.preventDefault(); bar.setPointerCapture(e.pointerId); sp.classList.add('dragging');
+            function mv(ev) { set(ev.clientX); }
+            function up() { bar.removeEventListener('pointermove', mv); sp.classList.remove('dragging'); }
+            bar.addEventListener('pointermove', mv); bar.addEventListener('pointerup', up, { once: true });
+        });
+    });
     document.addEventListener('click', function (e) {
         var v = e.target.closest && e.target.closest('video');
         if (!v) return;
@@ -168,8 +182,7 @@ def sidebar(current):
             </aside>'''
 
 
-def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
-    name, mins = CHAPTERS[n - 1]
+def rows_html(rows):
     parts, k = [], 0
     for a, b in rows:
         if a is None:  # כותרת מפרידה, והמספור מתחיל מחדש
@@ -177,8 +190,17 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
         else:
             k += 1
             parts.append(f'<li class="row"><span class="tile">{k}</span>{a}<small>{b}</small></li>')
-    row_html = "".join(parts)
-    rows_block = f'<ol class="rows">{row_html}</ol>' if rows else ""
+    return f'<ol class="rows">{"".join(parts)}</ol>' if rows else ""
+
+
+def split(img, alt, rows):
+    """תמונה ולידה ההסברים, עם קו באמצע שאפשר לגרור ימינה ושמאלה."""
+    return f'''<div class="split">{rows_html(rows)}<div class="split-bar" role="separator" aria-label="גרירה לשינוי הגודל" tabindex="0"></div><div class="fshot map"><img src="{img}" alt="{alt}"></div></div>'''
+
+
+def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
+    name, mins = CHAPTERS[n - 1]
+    rows_block = rows_html(rows)
     nxt = f' data-next="guide-{n + 1}.html"' if (n + 1) in READY else ""
     body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
         <div class="course">
@@ -312,7 +334,9 @@ build_chapter(
 
 
 build_chapter(
-    7, "לפני שבונים, מכירים את הכפתורים. כל מספר בתמונה מוסבר למטה.", [
+    7, "לפני שבונים, מכירים את הכפתורים. כל מספר בתמונה מוסבר ליד.", [],
+    "בפרקים הבאים מכירים כל כפתור לעומק",
+    top=split("assets/images/guide/claude-map.png", "המסך של Claude Code עם מספרים", [
      ("Code", "הלשונית שבה בונים. תמיד בוחרים בה"),
      ("New", "פותחים שיחה חדשה עם Claude"),
      ("התיבה", "פה כותבים ל-Claude מה רוצים, בעברית רגילה"),
@@ -320,9 +344,7 @@ build_chapter(
      ("Repo", "על איזה פרויקט עובדים, כלומר איזו תיקייה"),
      ("Opus 5.5", "המוח של Claude"),
      ("Auto", "כמה חופש נותנים לו"),
-     ("העיגול", "מד הדלק: כמה נשאר מהמנוי")],
-    "בפרקים הבאים מכירים כל כפתור לעומק",
-    top='<div class="fshot map"><img src="assets/images/guide/claude-map.png" alt="המסך של Claude Code עם מספרים"></div>',
+     ("העיגול", "מד הדלק: כמה נשאר מהמנוי")]),
 )
 
 

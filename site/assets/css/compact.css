@@ -221,3 +221,16 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 
 .fshot.map { aspect-ratio: auto; margin-bottom: 14px; flex-shrink: 0; display: block; }
 .fshot.map img { height: auto; }
+
+.split { display: grid; grid-template-columns: 1fr 14px var(--img, 64%); gap: 10px; align-items: start; flex-shrink: 0; }
+.split .rows { margin: 0; }
+.split .fshot.map { margin: 0; }
+.split-bar { align-self: stretch; cursor: col-resize; border-radius: 99px; background: #E4E4E7; position: relative; touch-action: none; min-height: 120px; }
+.split-bar::after { content: ""; position: absolute; inset: 50% auto auto 50%; width: 4px; height: 40px; transform: translate(-50%, -50%); border-radius: 99px; background: var(--brand, #D97757); }
+.split-bar:hover, .split.dragging .split-bar { background: #F3D3C6; }
+.split.dragging { user-select: none; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .split-bar { display: none; } .split .fshot.map { order: -1; } }
+.split .fshot.map { position: sticky; top: 0; }
+.split .row small { font-size: 13px; }
+.split .row { flex-wrap: wrap; row-gap: 2px; }
+.split .row small { flex-basis: calc(100% - 52px); margin-inline-start: 52px; margin-top: -8px; text-align: start; }
