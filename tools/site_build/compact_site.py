@@ -6,7 +6,7 @@
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "10"
+CSS_VERSION = "11"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
@@ -18,7 +18,7 @@ CHAPTERS = [
     ("Supabase, כן או לא", 3), ("הפרויקט הראשון", 8), ("מעלים לאוויר", 5),
     ("איך מדברים עם Claude Code", 4), ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
-READY = {1, 2}  # פרקים שכבר כתובים
+READY = {1, 2, 3}  # פרקים שכבר כתובים
 
 
 def header(active):
@@ -134,6 +134,13 @@ GUIDE_JS = '''<script>
     var copy = document.getElementById('guide-copy');
     if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
+    document.addEventListener('click', function (e) {
+        var img = e.target.closest ? e.target.closest('.fshot img') : null;
+        if (!img) return;
+        var o = document.createElement('div'); o.className = 'lightbox';
+        o.innerHTML = '<img src="' + img.src + '" alt="">'; o.onclick = function () { o.remove(); };
+        document.body.appendChild(o);
+    });
 })();
 </script>'''
 
@@ -155,9 +162,10 @@ def sidebar(current):
             </aside>'''
 
 
-def build_chapter(n, lead, rows, note, extra=""):
+def build_chapter(n, lead, rows, note, extra="", flow=""):
     name, mins = CHAPTERS[n - 1]
     row_html = "".join(f'<li class="row"><span class="tile">{i}</span>{a}<small>{b}</small></li>' for i, (a, b) in enumerate(rows, 1))
+    rows_block = f'<ol class="rows">{row_html}</ol>' if rows else ""
     nxt = f' data-next="guide-{n + 1}.html"' if (n + 1) in READY else ""
     body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
         <div class="course">
@@ -167,7 +175,7 @@ def build_chapter(n, lead, rows, note, extra=""):
                 <span class="chip" style="align-self:flex-start">פרק {n} · {mins} דקות</span>
                 <h1>{name}</h1>
                 <p class="lead">{lead}</p>
-                <ol class="rows">{row_html}</ol>{extra}
+                {rows_block}{flow}{extra}
                 <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-brand" id="guide-done"{nxt}>סיימתי, לפרק הבא ←</button></div>
             </article>
         </div>
@@ -190,6 +198,20 @@ build_chapter(
 )
 
 
+def flow(steps):
+    """תרשים זרימה: כל שלב = טקסט + צילום מסך. אם הקובץ עוד לא קיים, מוצג מקום ריק."""
+    out = []
+    for i, (title, text, img) in enumerate(steps, 1):
+        if (SITE / "assets/images/guide" / img).exists():
+            shot = f'<div class="fshot"><img src="assets/images/guide/{img}" alt="{title}" loading="lazy"></div>'
+        else:
+            shot = '<div class="fshot empty"><span>צילום מסך יתווסף כאן</span></div>'
+        out.append(f'''<li class="fstep"><div class="ftext"><span class="tile">{i}</span><div><h3>{title}</h3><p>{text}</p></div></div>{shot}</li>''')
+        if i < len(steps):
+            out.append('<li class="farrow" aria-hidden="true">↓</li>')
+    return f'\n                <ol class="flow">{"".join(out)}</ol>'
+
+
 def when(left, right):
     def col(title, items):
         li = "".join(f"<li>{x}</li>" for x in items)
@@ -205,4 +227,18 @@ build_chapter(
     "שניהם כלולים באותו מנוי",
     extra=when(("משתמשים ב-Claude כש…", ["כותבים מייל או פוסט", "מנתחים מסמך", "מחפשים רעיון או עצה"]),
                ("משתמשים ב-Claude Code כש…", ["בונים אתר", "משנים ומתקנים אתר קיים", "מעלים אותו לאוויר"])),
+)
+
+
+build_chapter(
+    3, "צעד אחרי צעד, עם צילום מסך לכל שלב.", [],
+    "אם משהו נראה אחרת אצלכם, זה בסדר",
+    flow=flow([
+        ("נכנסים לאתר", "בדפדפן כותבים claude.ai ולוחצים Enter.", "claude-signup-1.png"),
+        ("בוחרים איך נרשמים", "ממשיכים עם Google, או כותבים מייל. עם Google מדלגים על הצעד הבא.", "claude-signup-2.png"),
+        ("מקלידים את הקוד מהמייל", "Claude שולח קוד למייל. מעתיקים אותו וכותבים בחלון.", "claude-signup-3.png"),
+        ("כותבים שם ומאשרים", "כותבים את השם שלכם ומאשרים את התנאים.", "claude-signup-4.png"),
+        ("בוחרים מסלול", "אפשר להתחיל בחינם. כדי לעבוד עם Claude Code צריך מנוי בתשלום.", "claude-signup-5.png"),
+        ("הגעתם!", "רואים את מסך הצ'אט. החשבון מוכן.", "claude-signup-6.png"),
+    ]),
 )

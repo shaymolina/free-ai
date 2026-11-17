@@ -8,7 +8,7 @@
     <meta name="description" content="פרק 1 במדריך ל-Claude Code למי שלא מתכנת: שלושה דברים להכין, ואפשר לצאת לדרך.">
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
-    <link rel="stylesheet" href="assets/css/compact.css?v=10">
+    <link rel="stylesheet" href="assets/css/compact.css?v=11">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
 </head>
@@ -23,7 +23,7 @@
                 <h3>המדריך ל-Claude Code</h3>
                 <div class="bar"><i id="guide-fill"></i></div>
                 <div class="count" id="guide-count"></div>
-                <ol class="chs"><li><a href="guide-1.html" class="ch is-on" data-ch="1"><span class="dot">✓</span>1. לפני שמתחילים</a></li><li><a href="guide-2.html" class="ch" data-ch="2"><span class="dot">✓</span>2. Claude מול Claude Code</a></li><li><span class="ch" data-ch="3"><span class="dot">✓</span>3. פותחים חשבון Claude</span></li><li><span class="ch" data-ch="4"><span class="dot">✓</span>4. מתקינים את האפליקציה</span></li><li><span class="ch" data-ch="5"><span class="dot">✓</span>5. פותחים GitHub</span></li><li><span class="ch" data-ch="6"><span class="dot">✓</span>6. פותחים 4CODE</span></li><li><span class="ch" data-ch="7"><span class="dot">✓</span>7. Supabase, כן או לא</span></li><li><span class="ch" data-ch="8"><span class="dot">✓</span>8. הפרויקט הראשון</span></li><li><span class="ch" data-ch="9"><span class="dot">✓</span>9. מעלים לאוויר</span></li><li><span class="ch" data-ch="10"><span class="dot">✓</span>10. איך מדברים עם Claude Code</span></li><li><span class="ch" data-ch="11"><span class="dot">✓</span>11. סדר ובטיחות</span></li><li><span class="ch" data-ch="12"><span class="dot">✓</span>12. כשמשהו נתקע</span></li><li><span class="ch" data-ch="13"><span class="dot">✓</span>13. השלב הבא</span></li></ol>
+                <ol class="chs"><li><a href="guide-1.html" class="ch is-on" data-ch="1"><span class="dot">✓</span>1. לפני שמתחילים</a></li><li><a href="guide-2.html" class="ch" data-ch="2"><span class="dot">✓</span>2. Claude מול Claude Code</a></li><li><a href="guide-3.html" class="ch" data-ch="3"><span class="dot">✓</span>3. פותחים חשבון Claude</a></li><li><span class="ch" data-ch="4"><span class="dot">✓</span>4. מתקינים את האפליקציה</span></li><li><span class="ch" data-ch="5"><span class="dot">✓</span>5. פותחים GitHub</span></li><li><span class="ch" data-ch="6"><span class="dot">✓</span>6. פותחים 4CODE</span></li><li><span class="ch" data-ch="7"><span class="dot">✓</span>7. Supabase, כן או לא</span></li><li><span class="ch" data-ch="8"><span class="dot">✓</span>8. הפרויקט הראשון</span></li><li><span class="ch" data-ch="9"><span class="dot">✓</span>9. מעלים לאוויר</span></li><li><span class="ch" data-ch="10"><span class="dot">✓</span>10. איך מדברים עם Claude Code</span></li><li><span class="ch" data-ch="11"><span class="dot">✓</span>11. סדר ובטיחות</span></li><li><span class="ch" data-ch="12"><span class="dot">✓</span>12. כשמשהו נתקע</span></li><li><span class="ch" data-ch="13"><span class="dot">✓</span>13. השלב הבא</span></li></ol>
             </aside>
             <article class="card lesson">
                 <span class="chip" style="align-self:flex-start">פרק 1 · 2 דקות</span>
@@ -60,6 +60,13 @@
     var copy = document.getElementById('guide-copy');
     if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
+    document.addEventListener('click', function (e) {
+        var img = e.target.closest ? e.target.closest('.fshot img') : null;
+        if (!img) return;
+        var o = document.createElement('div'); o.className = 'lightbox';
+        o.innerHTML = '<img src="' + img.src + '" alt="">'; o.onclick = function () { o.remove(); };
+        document.body.appendChild(o);
+    });
 })();
 </script>
 </body>
