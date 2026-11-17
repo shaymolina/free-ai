@@ -346,18 +346,13 @@ detail = f'''<!-- section-work-single -->
                         <div class="text-body-1 fw-semibold text-secondary mb-15 effectFade fadeUp">
                             מתאים ל
                         </div>
-                        <div class="list-tags effectFade fadeUp">
-                            <span class="tags-item fw-semibold">אתרים מ-Claude Code</span>
-                            <span class="tags-item fw-semibold">כל אתר אחר</span>
-                        </div>
+                        <div class="text-body-1 effectFade fadeUp">אתרים מ-Claude Code, כל אתר אחר</div>
                     </div>
                     <div class="col-md-4">
                         <div class="text-body-1 fw-semibold text-secondary mb-15 effectFade fadeUp" data-delay="0.1">
                             קטגוריה
                         </div>
-                        <div class="list-tags effectFade fadeUp" data-delay="0.1">
-                            <a href="work.html" class="tags-item fw-semibold">{s['cat']}</a>
-                        </div>
+                        <div class="text-body-1 effectFade fadeUp" data-delay="0.1">{s['cat']}</div>
                     </div>
                 </div>
                 <div class="row mb-60">

@@ -54,7 +54,7 @@ def page(title, desc, body, script="", cls=""):
     <meta name="author" content="Free AI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{desc}">
-    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261117">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
@@ -100,7 +100,7 @@ def build_home():
             <a href="guide-1.html" class="card pick"><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
             <a href="work.html" class="card pick"><h2>סקילים</h2><p class="muted">יכולות מוכנות לקלוד, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
         </div>
-        <div class="sec-title"><span class="chip">שאלות נפוצות</span></div>
+        <h2 class="sec-title">שאלות נפוצות</h2>
         <div class="faq">{faq}</div>
         {FOOTER}
     </main>'''
@@ -562,7 +562,6 @@ def build_article(name, title, desc, mins, body):
     page_body = f'''    <main class="wrap stack c-top">
         {header("articles.html")}
         <article class="card article">
-            <div class="meta"><a href="articles.html" class="chip">מאמרים</a><span class="chip">{mins} דקות קריאה</span></div>
             <h1>{title}</h1>
 {body}
             <div class="art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
@@ -575,11 +574,11 @@ def build_article(name, title, desc, mins, body):
 
 def build_articles_index():
     cards = "".join(
-        f'<a href="{n}" class="card art-card"><span class="chip">{m} דקות קריאה</span><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
+        f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
         for n, t, d, m in ARTICLES)
     body = f'''    <main class="wrap stack c-top">
         {header("articles.html")}
-        <div class="art-head"><span class="chip">מאמרים</span><h1>מאמרים</h1><p>מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.</p></div>
+        <div class="art-head"><h1>מאמרים</h1><p>מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.</p></div>
         <div class="art-list">{cards}</div>
         {FOOTER}
     </main>'''
