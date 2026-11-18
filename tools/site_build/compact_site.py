@@ -7,7 +7,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "27"
+CSS_VERSION = "28"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -95,7 +95,7 @@ def build_home():
                         <span class="hero-pill"><img src="assets/images/item/hero-1.svg" alt=""><img src="assets/images/item/hero-2.svg" alt=""><img src="assets/images/item/hero-3.svg" alt=""></span></span></h1>
                     <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב צעד אחרי צעד וסקילים מוכנים להורדה.</p>
                 </div>
-                <div class="card preview">{rows}<a href="guide-1.html" class="muted"><span class="dot"></span>ועוד {len(CHAPTERS) - 4} פרקים</a></div>
+                <div class="card hero-vid"><video src="assets/images/guide/first-4.mp4" muted loop playsinline autoplay preload="metadata" aria-label="כותבים לקלוד קוד בקשה בעברית, והוא בונה אתר"></video></div>
             </div>
         </section>
     </div>

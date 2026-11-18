@@ -277,3 +277,5 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .hero-title, .hero-title .grad { font-weight: 900; }
 .hero-title .grad { white-space: normal; }
 @media (max-width: 860px) { .c-hero .hero-in { grid-template-columns: minmax(0, 1fr); } }
+.hero-vid { padding: 8px; background: rgba(244,244,245,.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.hero-vid video { display: block; width: 100%; height: auto; border-radius: 12px; background: #1f1f1f; }
