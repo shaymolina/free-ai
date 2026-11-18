@@ -3,11 +3,12 @@
 כרגע: דף הבית (index.html) והמדריך (guide-N.html).
 הרצה: cd tools/site_build && python3 compact_site.py
 """
+import re
 from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "35"
+CSS_VERSION = "36"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -22,7 +23,7 @@ CHAPTERS = [
 READY = set(range(1, 20))  # פרקים שכבר כתובים
 
 
-HERO_DEMO = '<div class="hero-deco" aria-hidden="true"><img src="assets/images/item/hero-1.svg" alt=""><img src="assets/images/item/hero-2.svg" alt=""><img src="assets/images/item/hero-3.svg" alt=""></div><div class="hero-stage"><div class="demo">\n<div class="chat"><div class="who">אתם כותבים:</div><div class="box"><span class="tx"></span><span class="cur"></span></div>\n<div class="who">קלוד קוד עושה:</div><div class="steps"><div><i>✓</i>בונה יומן תורים</div><div><i>✓</i>מוסיף טופס הזמנה ללקוחות</div><div><i>✓</i>מחבר תזכורות בוואטסאפ</div><div><i>✓</i>בונה מסך ניהול להזמנות</div></div></div>\n<div class="app">\n<div class="top p"><b>התורים שלי</b><span class="btn2">+ תור חדש</span></div>\n<div class="stats"><div class="st p"><small>תורים השבוע</small><strong data-n="38">0</strong></div><div class="st p"><small>הזמנות חדשות</small><strong data-n="7">0</strong></div><div class="st p"><small>הכנסות</small><strong data-n="4260" data-c="₪">0</strong></div></div>\n<div class="cal p"><div></div><div class="h">ראשון</div><div class="h">שני</div><div class="h">שלישי</div><div class="h">רביעי</div><div class="t">09:00</div><div class="ap ">נועה<span>תספורת</span></div><div class="slot"></div><div class="ap g">אבי<span>זקן</span></div><div class="slot"></div><div class="t">10:00</div><div class="slot"></div><div class="ap b">מיכל<span>פן</span></div><div class="slot"></div><div class="ap b">דנה<span>החלקה</span></div><div class="t">11:00</div><div class="ap g">רון<span>צבע</span></div><div class="ap" id="last">יוסי<span>תספורת</span></div><div class="slot"></div><div class="slot"></div><div class="t">12:00</div><div class="slot"></div><div class="slot"></div><div class="ap ">שירה<span>תספורת</span></div><div class="ap g">תמר<span>צבע</span></div><div class="t">13:00</div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div></div>\n<div class="toast"><i>✓</i>תור חדש נקבע: יוסי, שני 11:00</div>\n</div></div>\n<script>(function(){\nvar msg="תבנה לי מערכת לניהול הזמנות ותורים של העסק שלי";\nvar d=document.querySelector(\'.demo\'),chat=d.querySelector(\'.chat\'),tx=d.querySelector(\'.tx\'),st=d.querySelectorAll(\'.steps div\'),app=d.querySelector(\'.app\'),ps=app.querySelectorAll(\'.p\'),aps=app.querySelectorAll(\'.ap\'),nums=app.querySelectorAll(\'[data-n]\'),toast=app.querySelector(\'.toast\');\nvar T=[];function at(ms,f){T.push(setTimeout(f,ms))}\nfunction reset(){T.forEach(clearTimeout);T=[];tx.textContent=\'\';chat.classList.remove(\'out\');app.classList.remove(\'in\');st.forEach(function(s){s.classList.remove(\'on\')});aps.forEach(function(a){a.classList.remove(\'on\')});toast.classList.remove(\'on\');nums.forEach(function(n){n.textContent=\'0\'});ps.forEach(function(p){p.style.transitionDelay=\'\'})}\nfunction count(el){var N=+el.dataset.n,c=el.dataset.c||\'\',t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=c+Math.round(N*k).toLocaleString(\'en-US\');if(k<1)requestAnimationFrame(f)})(t0)}\nfunction run(){reset();var k=0,step=50;\nfor(var i=1;i<=msg.length;i++)(function(i){at(i*step,function(){tx.textContent=msg.slice(0,i)})})(i);\nvar t=msg.length*step+500;\nst.forEach(function(s,n){at(t+n*650,function(){s.classList.add(\'on\')})});\nt+=st.length*650+700;\nat(t,function(){chat.classList.add(\'out\')});\nat(t+300,function(){ps.forEach(function(p,n){p.style.transitionDelay=(n*120)+\'ms\'});app.classList.add(\'in\')});\nat(t+800,function(){nums.forEach(count)});\nvar rest=[].filter.call(aps,function(a){return a.id!=\'last\'});rest.forEach(function(a,n){at(t+1000+n*170,function(){a.classList.add(\'on\')})});\nvar last=app.querySelector(\'#last\');\nat(t+1000+aps.length*170+700,function(){last.classList.add(\'on\');toast.classList.add(\'on\')});\nat(t+1000+aps.length*170+5200,run);}\nrun();})()</script></div>'
+HERO_DEMO = '<div class="hero-stage"><div class="demo">\n<div class="chat"><div class="who">אתם כותבים:</div><div class="box"><span class="tx"></span><span class="cur"></span></div>\n<div class="who">קלוד קוד עושה:</div><div class="steps"><div><i>✓</i>בונה יומן תורים</div><div><i>✓</i>מוסיף טופס הזמנה ללקוחות</div><div><i>✓</i>מחבר תזכורות בוואטסאפ</div><div><i>✓</i>בונה מסך ניהול להזמנות</div></div></div>\n<div class="app">\n<div class="top p"><b>התורים שלי</b><span class="btn2">+ תור חדש</span></div>\n<div class="stats"><div class="st p"><small>תורים השבוע</small><strong data-n="38">0</strong></div><div class="st p"><small>הזמנות חדשות</small><strong data-n="7">0</strong></div><div class="st p"><small>הכנסות</small><strong data-n="4260" data-c="₪">0</strong></div></div>\n<div class="cal p"><div></div><div class="h">ראשון</div><div class="h">שני</div><div class="h">שלישי</div><div class="h">רביעי</div><div class="t">09:00</div><div class="ap ">נועה<span>תספורת</span></div><div class="slot"></div><div class="ap g">אבי<span>זקן</span></div><div class="slot"></div><div class="t">10:00</div><div class="slot"></div><div class="ap b">מיכל<span>פן</span></div><div class="slot"></div><div class="ap b">דנה<span>החלקה</span></div><div class="t">11:00</div><div class="ap g">רון<span>צבע</span></div><div class="ap" id="last">יוסי<span>תספורת</span></div><div class="slot"></div><div class="slot"></div><div class="t">12:00</div><div class="slot"></div><div class="slot"></div><div class="ap ">שירה<span>תספורת</span></div><div class="ap g">תמר<span>צבע</span></div><div class="t">13:00</div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div></div>\n<div class="toast"><i>✓</i>תור חדש נקבע: יוסי, שני 11:00</div>\n</div></div>\n<script>(function(){\nvar msg="תבנה לי מערכת לניהול הזמנות ותורים של העסק שלי";\nvar d=document.querySelector(\'.demo\'),chat=d.querySelector(\'.chat\'),tx=d.querySelector(\'.tx\'),st=d.querySelectorAll(\'.steps div\'),app=d.querySelector(\'.app\'),ps=app.querySelectorAll(\'.p\'),aps=app.querySelectorAll(\'.ap\'),nums=app.querySelectorAll(\'[data-n]\'),toast=app.querySelector(\'.toast\');\nvar T=[];function at(ms,f){T.push(setTimeout(f,ms))}\nfunction reset(){T.forEach(clearTimeout);T=[];tx.textContent=\'\';chat.classList.remove(\'out\');app.classList.remove(\'in\');st.forEach(function(s){s.classList.remove(\'on\')});aps.forEach(function(a){a.classList.remove(\'on\')});toast.classList.remove(\'on\');nums.forEach(function(n){n.textContent=\'0\'});ps.forEach(function(p){p.style.transitionDelay=\'\'})}\nfunction count(el){var N=+el.dataset.n,c=el.dataset.c||\'\',t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=c+Math.round(N*k).toLocaleString(\'en-US\');if(k<1)requestAnimationFrame(f)})(t0)}\nfunction run(){reset();var k=0,step=50;\nfor(var i=1;i<=msg.length;i++)(function(i){at(i*step,function(){tx.textContent=msg.slice(0,i)})})(i);\nvar t=msg.length*step+500;\nst.forEach(function(s,n){at(t+n*650,function(){s.classList.add(\'on\')})});\nt+=st.length*650+700;\nat(t,function(){chat.classList.add(\'out\')});\nat(t+300,function(){ps.forEach(function(p,n){p.style.transitionDelay=(n*120)+\'ms\'});app.classList.add(\'in\')});\nat(t+800,function(){nums.forEach(count)});\nvar rest=[].filter.call(aps,function(a){return a.id!=\'last\'});rest.forEach(function(a,n){at(t+1000+n*170,function(){a.classList.add(\'on\')})});\nvar last=app.querySelector(\'#last\');\nat(t+1000+aps.length*170+700,function(){last.classList.add(\'on\');toast.classList.add(\'on\')});\nat(t+1000+aps.length*170+5200,run);}\nrun();})()</script></div>'
 
 def header(active):
     links = "".join(f'<a href="{h}"{" class=\"active\"" if h == active else ""}>{t}</a>' for h, t in NAV)
@@ -61,7 +62,10 @@ def _page(title, desc, body, script="", cls=""):
     <meta name="author" content="Free AI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{desc}">
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261117">
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261118">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
@@ -603,28 +607,86 @@ def faq_html(items):
         f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in items) + '</div>'
 
 
-def build_article(name, title, desc, mins, body, seo_title=None):
+def duo(items):
+    """כרטיסי השוואה זה לצד זה. כל פריט: (תגית, כותרת, משפט)."""
+    return '<div class="duo">' + "".join(
+        f'<div class="duo-c{" hl" if i else ""}"><span class="duo-tag">{t}</span><h3>{h}</h3><p>{x}</p></div>'
+        for i, (t, h, x) in enumerate(items)) + '</div>'
+
+
+def plans(items):
+    """כרטיסי מחיר. כל פריט: (שם, מחיר, הערה, האם כלול)."""
+    return '<div class="plans">' + "".join(
+        f'<div class="plan{" yes" if ok else ""}"><b>{n}</b><strong>{pr}</strong><small>{note}</small><span class="plan-ok">{"קלוד קוד כלול ✓" if ok else "בלי קלוד קוד"}</span></div>'
+        for n, pr, note, ok in items) + '</div>'
+
+
+ILL_BUILD = """<div class="ill" aria-hidden="true">
+    <div class="ill-msg"><small>אתם כותבים:</small><span>תבנה לי אתר לנגרייה שלי, עם תמונות של עבודות וטופס יצירת קשר</span></div>
+    <div class="ill-go"><i></i>קלוד קוד בונה<i></i></div>
+    <div class="ill-site">
+        <div class="ill-bar"><span></span><span></span><span></span><em>nagariya.co.il</em></div>
+        <div class="ill-top"><b>נגרות יוסי</b><span>רהיטים בהזמנה אישית</span><em>צרו קשר</em></div>
+        <div class="ill-gal"><i></i><i></i><i></i></div>
+        <div class="ill-form"><i></i><i></i><em>שליחה</em></div>
+    </div>
+</div>"""
+
+ILL_BACKUP = """<div class="ill ill-bk" aria-hidden="true">
+    <div class="bk-box gh"><b>GitHub</b><span>אתר הנגרייה</span><span>יומן תורים</span><span>חנות</span></div>
+    <div class="bk-go"><i></i><em>כל לילה ב-3:00</em><i></i></div>
+    <div class="bk-box dr"><b>Google Drive</b><span>אתר-הנגרייה.zip</span><span>יומן-תורים.zip</span><span>חנות.zip</span></div>
+</div>"""
+
+
+def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual="", date=""):
+    """מאמר: חלק פתיחה גרפי (כמו בדף הבית), ואחריו כל <h2> הופך למקטע מעוצב משלו."""
     ARTICLES.append((name, title, desc, mins))
-    page_body = f'''    <main class="wrap stack c-top">
+    chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
+    secs = "".join(f'<section class="card art-sec">{c}</section>' for c in chunks)
+    dt = f'<span class="a-date">עודכן: {date}</span>' if date else ""
+    page_body = f'''    <div class="wrap full">
+        <section class="c-hero a-hero">
         {header("articles.html")}
-        <article class="card article">
-            <h1>{title}</h1>
-{body}
-            <div class="art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
-        </article>
+            <div class="hero-in">
+                <div class="hero-text">
+                    <span class="chip">מאמר · {mins} דקות קריאה</span>
+                    <h1 class="hero-title"><span class="grad">{title}</span></h1>
+                    <p>{lead}</p>
+                    {dt}
+                </div>
+                <div class="a-visual">{visual}</div>
+            </div>
+        </section>
+    </div>
+    <main class="wrap stack art-main article">
+{secs}
+        <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
         {FOOTER}
     </main>'''
     (SITE / name).write_text(page(f"{seo_title or title} | Free AI", desc, page_body, ARTICLE_JS))
     print(f"{name} done")
 
 
+
 def build_articles_index():
     cards = "".join(
         f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
         for n, t, d, m in ARTICLES)
-    body = f'''    <main class="wrap stack c-top">
+    body = f'''    <div class="wrap full">
+        <section class="c-hero a-hero">
         {header("articles.html")}
-        <div class="art-head"><h1>מאמרים</h1><p>מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.</p></div>
+            <div class="hero-in">
+                <div class="hero-text">
+                    <span class="chip">{len(ARTICLES)} מאמרים</span>
+                    <h1 class="hero-title"><span class="grad">מאמרים</span></h1>
+                    <p>מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.</p>
+                </div>
+                <div class="a-visual">{ILL_BUILD}</div>
+            </div>
+        </section>
+    </div>
+    <main class="wrap stack" style="margin-top:16px">
         <div class="art-list">{cards}</div>
         {FOOTER}
     </main>'''
@@ -638,75 +700,70 @@ build_article(
     "מה זה קלוד קוד? הסבר פשוט למי שלא מתכנת",
     "קלוד קוד (Claude Code) הוא כלי של Anthropic שבונה אתרים ומערכות לפי מה שכותבים לו בעברית. מה זה, כמה עולה ואיך מתחילים, בלי לדעת לתכנת.",
     6,
-    f'''            <p class="lead">קלוד קוד (Claude Code) הוא כלי של חברת Anthropic שבונה בשבילכם אתרים, מערכות וכלים לפי מה שאתם כותבים לו במילים רגילות. אתם מסבירים מה אתם רוצים, והוא כותב את הקוד, יוצר את הקבצים ובודק שהכול עובד.</p>
-            <p class="art-date">עודכן: 18 בנובמבר 2026</p>
-
+    f'''
             <h2>קלוד קוד בדימוי אחד</h2>
-            <p>תחשבו על שני אנשים שאפשר להזמין הביתה: יועץ ובעל מקצוע.</p>
-            <p>היועץ יושב איתכם, עונה על שאלות ונותן רעיונות, אבל לא נוגע בכלום.</p>
-            <p>בעל המקצוע לוקח את הכלים, בונה, מתקן, ובסוף מראה לכם מה עשה.</p>
-            <p>קלוד הרגיל הוא היועץ. קלוד קוד הוא בעל המקצוע.</p>
-            <p>הקוד הוא השפה שבה כתובים אתרים ותוכנות, כמו מתכון שהמחשב יודע לקרוא. קלוד קוד כותב את המתכון הזה בשבילכם, אז אתם לא צריכים לדעת אותו.</p>
+            {duo([
+                ("קלוד (הצ'אט)", "יועץ", "יושב איתכם, עונה ונותן רעיונות, אבל לא נוגע בכלום."),
+                ("קלוד קוד", "בעל מקצוע", "לוקח את הכלים, בונה, מתקן, ומראה לכם מה עשה."),
+            ])}
+            <p>קוד הוא המתכון שהמחשב קורא כדי להציג אתר, וקלוד קוד כותב אותו בשבילכם.</p>
 
             <h2>איך קלוד קוד עובד</h2>
             {rows_html([
                 ("אתם כותבים מה רוצים", "בעברית רגילה, כמו הודעה לחבר"),
-                ("הוא מתכנן", "מחליט אילו עמודים, חלקים וקבצים צריך"),
-                ("הוא בונה", "כותב את הקוד ויוצר את הקבצים בעצמו"),
-                ("הוא בודק", "מריץ את מה שבנה ומתקן טעויות שמצא"),
-                ("אתם מסתכלים ומבקשים שינוי", 'למשל "תגדיל את הכותרת" או "תוסיף טופס"'),
+                ("הוא מתכנן", "מחליט אילו עמודים וקבצים צריך"),
+                ("הוא בונה", "כותב את הקוד ויוצר את הקבצים לבד"),
+                ("הוא בודק", "מריץ את מה שבנה ומתקן טעויות"),
+                ("אתם מבקשים שינוי", '"תגדיל את הכותרת", "תוסיף טופס"'),
                 (None, "דוגמאות"),
-                ("אתר תדמית לנגר", "עם תמונות עבודות, שירותים וטופס יצירת קשר"),
-                ("יומן תורים לספרית", "לקוחות קובעים תור לבד, ואתם רואים הכול במסך אחד"),
-                ("גיבוי אוטומטי לקבצים", 'כמו ב<a href="article-github-backup.html">גיבוי הפרויקטים ל-Google Drive</a>'),
+                ("אתר תדמית לנגר", "תמונות עבודות, שירותים וטופס"),
+                ("יומן תורים לספרית", "לקוחות קובעים תור לבד"),
+                ("גיבוי אוטומטי לקבצים", '<a href="article-github-backup.html">גיבוי הפרויקטים ל-Google Drive</a>'),
             ])}
 
             <h2>מה ההבדל בין קלוד לקלוד קוד</h2>
-            <p>שניהם מאותה חברה ומאותו מנוי, אבל כל אחד עושה עבודה אחרת.</p>
             {table(["", "קלוד (הצ'אט)", "קלוד קוד"], [
-                ["מה הוא עושה", "עונה, מסביר וכותב טקסט", "בונה ומשנה אתרים ומערכות"],
-                ["נוגע בקבצים?", "לא", "כן, יוצר ומשנה קבצים לבד"],
-                ["מה מקבלים בסוף", "תשובה על המסך", "אתר או כלי שעובד"],
-                ["מתי משתמשים", "מייל, פוסט, רעיון, ניתוח מסמך", "אתר, דף נחיתה, מערכת לעסק"],
+                ["מה עושה", "עונה, מסביר וכותב טקסט", "בונה ומשנה אתרים ומערכות"],
+                ["נוגע בקבצים?", "לא", "כן, יוצר ומשנה לבד"],
+                ["מה מקבלים", "תשובה על המסך", "אתר או כלי שעובד"],
+                ["מתי משתמשים", "מייל, פוסט, רעיון", "אתר, דף נחיתה, מערכת לעסק"],
                 ["איפה לוחצים", "הלשונית Chat", "הלשונית Code"],
             ])}
             <div class="fshot"><img src="assets/images/guide/claude-install-5.png" alt="איך נראה קלוד קוד: באפליקציה של קלוד בוחרים בלשונית Code" loading="lazy"></div>
-            <p>רוצים לדעת מתי לבחור בכל אחד? יש על זה פרק שלם במדריך: <a href="guide-2.html">ההבדל בין קלוד לקלוד קוד</a>.</p>
+            <p class="more-link">לעומק: <a href="guide-2.html">מתי בוחרים בכל אחד</a>.</p>
 
             <h2>איפה עובדים עם קלוד קוד</h2>
             {rows_html([
-                ("אפליקציה במחשב", "מורידים את האפליקציה של קלוד ל-Mac או ל-Windows, והיא כבר כוללת את קלוד קוד"),
-                ("בדפדפן", "נכנסים ל-claude.ai/code, בלי להתקין כלום"),
-                ("בטלפון", "באפליקציה של קלוד ל-iPhone ול-Android"),
-                ("בחלון פקודות (טרמינל)", "חלון שחור שבו מקלידים פקודות. מתאים למתכנתים"),
-                ("מה אנחנו בוחרים", "האפליקציה במחשב, כי הכול שם בלחיצות ובלי פקודות"),
+                ("אפליקציה במחשב", "Mac או Windows, הכי פשוט"),
+                ("בדפדפן", "claude.ai/code, בלי התקנה"),
+                ("בטלפון", "האפליקציה של קלוד ל-iPhone ול-Android"),
+                ("בטרמינל", "חלון פקודות שחור, למתכנתים"),
             ])}
-            <p>איך מורידים ומתקינים, צעד אחרי צעד: <a href="guide-4.html">התקנת קלוד קוד למחשב</a>.</p>
+            <div class="note-box"><b>מה אנחנו בוחרים:</b> האפליקציה במחשב, כי הכול בלחיצות. <a href="guide-4.html">איך מתקינים</a>.</div>
 
             <h2>כמה עולה קלוד קוד</h2>
-            <p>קלוד קוד כלול במנוי של קלוד, כמו ערוץ שמגיע בחבילת טלוויזיה. בחבילה החינמית הוא לא כלול.</p>
-            {table(["מסלול", "מחיר לחודש", "קלוד קוד כלול?"], [
-                ["Free", "0$", "לא"],
-                ["Pro", "20$ בתשלום חודשי (17$ בתשלום שנתי)", "כן"],
-                ["Max", "100$", "כן, עם הרבה יותר שימוש"],
-                ["Ultra", "200$", "כן, הכי הרבה שימוש"],
+            {plans([
+                ("Free", "0$", "לחודש", False),
+                ("Pro", "20$", "לחודש (17$ בתשלום שנתי)", True),
+                ("Max", "100$", "לחודש, הרבה יותר שימוש", True),
+                ("Ultra", "200$", "לחודש, הכי הרבה שימוש", True),
             ])}
-            <p>המחירים נכונים ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>.</p>
-            <p>למתחילים מספיק Pro. כמה עבודה נכנסת במנוי, ומה עושים כשהיא נגמרת: <a href="guide-11.html">כמה נשאר מהמנוי</a>.</p>
+            <p class="art-src">נכון ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>. למתחילים מספיק Pro (<a href="guide-11.html">כמה נשאר מהמנוי</a>).</p>
 
             <h2>האם צריך לדעת לתכנת?</h2>
-            <p>לא. מדברים עם קלוד קוד כמו עם בעל מקצוע: מה בונים, בשביל מי, ואיך זה צריך להיראות.</p>
-            <p>אנחנו כותבים לו רק בעברית, ואפשר גם ללחוץ על המיקרופון ולדבר.</p>
-            <p>איך מנסחים בקשה שמביאה תוצאה טובה: <a href="guide-16.html">איך מדברים עם קלוד קוד</a>.</p>
+            {duo([
+                ("לא צריך", "לדעת קוד", "מסבירים במילים מה בונים ובשביל מי."),
+                ("מספיק", "עברית רגילה", 'אפשר גם לדבר במיקרופון. <a href="guide-16.html">איך מנסחים בקשה</a>'),
+            ])}
 
             <h2>איך מתחילים לעבוד עם קלוד קוד</h2>
             {rows_html([
                 ("פותחים חשבון קלוד", '<a href="guide-3.html">פתיחת חשבון</a> ומנוי Pro'),
-                ("מתקינים את האפליקציה", '<a href="guide-4.html">הורדה והתקנה</a> ל-Mac או ל-Windows'),
-                ("פותחים חשבון GitHub", '<a href="guide-5.html">המקום שבו נשמרים הפרויקטים</a>, בחינם'),
-                ("בונים את הפרויקט הראשון", '<a href="guide-17.html">כותבים בקשה</a> ורואים אותו בונה'),
+                ("מתקינים את האפליקציה", '<a href="guide-4.html">הורדה והתקנה</a>'),
+                ("פותחים חשבון GitHub", '<a href="guide-5.html">כאן נשמרים הפרויקטים</a>'),
+                ("בונים פרויקט ראשון", '<a href="guide-17.html">כותבים בקשה ורואים אותו בונה</a>'),
             ])}
-            <p>מעדיפים ללמוד בווידאו? <a href="service.html">קורס קלוד קוד בעברית, בחינם</a>, מאפס ועד אתר שעובד באוויר.</p>
+            <p class="more-link">מעדיפים וידאו? <a href="service.html">קורס קלוד קוד בעברית, בחינם</a>.</p>
 
             <h2>שאלות נפוצות</h2>
             {faq_html([
@@ -717,8 +774,12 @@ build_article(
                 ("אפשר לעבוד עם קלוד קוד מהטלפון?", "כן. קלוד קוד זמין גם באפליקציה של קלוד ל-iPhone ול-Android."),
                 ("יש קורס קלוד קוד בעברית?", "כן. אצלנו יש קורס קלוד קוד חינמי בעברית, עם שיעורי וידאו ומדריך כתוב."),
             ])}
-            <p class="art-src">מקורות: <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">התיעוד הרשמי של קלוד קוד</a>, <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>.</p>''',
+            <p class="art-src">מקורות: <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">התיעוד הרשמי של קלוד קוד</a>, <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>.</p>'''
+,
     seo_title="מה זה קלוד קוד (Claude Code)? הסבר פשוט בעברית",
+    lead="קלוד קוד (Claude Code) הוא כלי של חברת Anthropic שבונה בשבילכם אתרים ומערכות לפי מה שאתם כותבים לו במילים רגילות. אתם מסבירים מה רוצים, והוא כותב את הקוד ובודק שהכול עובד.",
+    visual=ILL_BUILD,
+    date="18 בנובמבר 2026",
 )
 
 _GS = (SITE / "files/github-drive-backup.gs").read_text()
@@ -728,8 +789,7 @@ build_article(
     "גיבוי אוטומטי של כל הפרויקטים מ-GitHub ל-Google Drive",
     "איך מגדירים פעם אחת גיבוי יומי של כל הפרויקטים ב-GitHub לתיקייה בגוגל דרייב, בחינם ובלי לדעת לתכנת.",
     6,
-    f'''            <p class="lead">מגדירים פעם אחת, ומאז כל לילה כל הפרויקטים שלכם נשמרים לבד בתיקייה בגוגל דרייב.</p>
-
+    f'''
             <h2>למה צריך גיבוי</h2>
             <p>GitHub הוא כמו מחסן שבו שמור הקוד של כל האתרים והכלים שבניתם.</p>
             <p>אם החשבון ננעל, נמחק או שמשהו נשבר, בלי גיבוי כל העבודה נעלמת.</p>
@@ -809,6 +869,8 @@ build_article(
                 ("איך עוצרים את הגיבוי?", "ב-Apps Script לוחצים על סמל השעון בצד (טריגרים) ומוחקים את מה שמופיע שם."),
                 ("הוספתי פרויקט חדש ב-GitHub. צריך לעשות משהו?", "לא. הוא ייכנס לבד לגיבוי של הלילה."),
             ])}</div>''',
+    lead="מגדירים פעם אחת, ומאז כל לילה כל הפרויקטים שלכם נשמרים לבד בתיקייה בגוגל דרייב.",
+    visual=ILL_BACKUP,
 )
 
 build_articles_index()
