@@ -256,6 +256,10 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .article .fstep { grid-template-columns: minmax(0, 1fr); }
 .article .ftext p + p { margin-top: 6px; }
 .article > p + p { margin-top: -8px; }
+.lesson > p + p { margin-top: -6px; }
+.article .flow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.article .fstep { align-content: start; height: 100%; }
+@media (max-width: 700px) { .article .flow { grid-template-columns: minmax(0, 1fr); } }
 .article .tile { flex: 0 0 auto; }
 .article code.inl { direction: ltr; unicode-bidi: isolate; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; background: #F4F4F5; border-radius: 6px; padding: 1px 6px; }
 .code-box { background: #18181B; border-radius: 16px; overflow: hidden; }
