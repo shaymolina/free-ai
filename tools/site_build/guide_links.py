@@ -3,6 +3,7 @@
 בטוח להריץ שוב ושוב (לא מוסיף פעמיים). להריץ אחרי שבונים מחדש עמודים אחרים:
 cd tools/site_build && python3 guide_links.py
 """
+from clean_urls import clean
 import re
 from pathlib import Path
 
@@ -91,5 +92,5 @@ for f in sorted(SITE.glob("*.html")):
     old = f.read_text()
     new = patch(old, f.name)
     if new != old:
-        f.write_text(new)
+        f.write_text(clean(new))
         print("updated", f.name)

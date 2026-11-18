@@ -1,4 +1,5 @@
 """עמוד ספריית הסקילים (work.html) ועמוד סקיל (work-single.html) – נבנים מתוך האתר המשוכפל."""
+from clean_urls import clean
 import re
 from pathlib import Path
 from common import apply_common, replace_section
@@ -145,7 +146,7 @@ def check_english(name, html):
 # work.html – ספריית הסקילים
 # =====================================================================
 html = (ROOT / "aigocy-about/work.html").read_text()
-html = apply_common(html, "work.html", "ספריית סקילים ל-Claude בעברית – Free AI",
+html = apply_common(html, "work.html", "סקילים לקלוד (Claude Skills) בעברית – להורדה בחינם | Free AI",
                     "סקילים מוכנים ל-Claude בעברית, להורדה בחינם: בדיקת אבטחה לאתר, בדיקת מהירות ועוד. כל סקיל עם דוגמה, קוד מקור ומדריך התקנה.")
 
 html = hero(html, "ספריית סקילים", "ל-Claude",
@@ -311,7 +312,7 @@ html = html.replace("</body>", """<script>
 </script>
 </body>""", 1)
 
-(ROOT / "site/work.html").write_text(html)
+(ROOT / "site/work.html").write_text(clean(html))
 check_english("work.html", html)
 
 # =====================================================================
@@ -346,18 +347,13 @@ detail = f'''<!-- section-work-single -->
                         <div class="text-body-1 fw-semibold text-secondary mb-15 effectFade fadeUp">
                             מתאים ל
                         </div>
-                        <div class="list-tags effectFade fadeUp">
-                            <span class="tags-item fw-semibold">אתרים מ-Claude Code</span>
-                            <span class="tags-item fw-semibold">כל אתר אחר</span>
-                        </div>
+                        <div class="text-body-1 effectFade fadeUp">אתרים מ-Claude Code, כל אתר אחר</div>
                     </div>
                     <div class="col-md-4">
                         <div class="text-body-1 fw-semibold text-secondary mb-15 effectFade fadeUp" data-delay="0.1">
                             קטגוריה
                         </div>
-                        <div class="list-tags effectFade fadeUp" data-delay="0.1">
-                            <a href="work.html" class="tags-item fw-semibold">{s['cat']}</a>
-                        </div>
+                        <div class="text-body-1 effectFade fadeUp" data-delay="0.1">{s['cat']}</div>
                     </div>
                 </div>
                 <div class="row mb-60">
@@ -448,5 +444,5 @@ html = add_style(html, """        .list-tags span.tags-item { display: flex; ali
             .skill-example .example-arrow { align-self: center; transform: rotate(135deg); }
         }""")
 
-(ROOT / "site/work-single.html").write_text(html)
+(ROOT / "site/work-single.html").write_text(clean(html))
 check_english("work-single.html", html)

@@ -7,7 +7,7 @@ const ROOT = path.join(__dirname, 'site');
 const PORT = process.env.PORT || 3000;
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8', '.json': 'application/json',
+  '.js': 'text/javascript; charset=utf-8', '.json': 'application/json', '.xml': 'application/xml; charset=utf-8', '.txt': 'text/plain; charset=utf-8',
   '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp',
   '.ico': 'image/x-icon', '.mp4': 'video/mp4', '.woff2': 'font/woff2',
@@ -32,6 +32,12 @@ function send(res, file, status = 200) {
 http.createServer((req, res) => {
   let p;
   try { p = decodeURIComponent(new URL(req.url, 'http://x').pathname); } catch { p = '/'; }
+  if (p.endsWith('.html')) {
+    const u = new URL(req.url, 'http://x');
+    const clean = p === '/index.html' || p.endsWith('/index.html') ? p.slice(0, -10) || '/' : p.slice(0, -5);
+    res.writeHead(301, { Location: clean + u.search });
+    return res.end();
+  }
   let file = path.normalize(path.join(ROOT, p));
   if (!file.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
   if (p.endsWith('/')) file = path.join(file, 'index.html');

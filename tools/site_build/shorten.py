@@ -1,6 +1,7 @@
 """מקצר את הטקסטים בכל האתר: משפט קצר אחד במקום פסקה.
 רץ אחרון, אחרי כל שאר הבונים (index_page, courses_pages, skills_pages, blog_pages, about_contact_pages).
 """
+from clean_urls import clean
 import re
 from pathlib import Path
 
@@ -185,7 +186,7 @@ def run():
         html = re.sub(r'href="contact\.html(#signup)?"', f'href="{target}"', html)
         # <br> שנשאר לפני טקסט שנמחק
         html = re.sub(r"<br>\s*(?=</)", "", html)
-        f.write_text(html)
+        f.write_text(clean(html))
     missing = [k for k in T if k not in used]
     print("shortened; not found:", missing)
 

@@ -4,6 +4,7 @@
 ההתקדמות נשמרת כרגע בדפדפן של הגולש (localStorage) עד שיחובר אזור משתמשים.
 הרצה: cd tools/site_build && python3 guide_pages.py
 """
+from clean_urls import clean
 import json
 import re
 from pathlib import Path
@@ -170,7 +171,7 @@ def build(n, minutes, sub, rows, note, extra=""):
     # כל התוכן בין התפריט לפוטר מוחלף בפריסת הקורס
     html = sub1(html, r"<!-- Hero Banner -->.*?<!-- /section-contact -->", lambda m: main)
     html = html.replace("\n</body>", "\n    " + JS % {"total": len(CHAPTERS), "current": n} + "\n</body>", 1)
-    (SITE / f"guide-{n}.html").write_text(html)
+    (SITE / f"guide-{n}.html").write_text(clean(html))
     print(f"guide-{n}.html done")
 
 

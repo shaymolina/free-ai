@@ -3,13 +3,15 @@
 כרגע: דף הבית (index.html) והמדריך (guide-N.html).
 הרצה: cd tools/site_build && python3 compact_site.py
 """
+import re
 from pathlib import Path
+from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "26"
+CSS_VERSION = "37"
 COUPON = "RVJ34jcn4j1"
 
-NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים")]
+NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
 
 # שם הפרק, דקות קריאה
 CHAPTERS = [
@@ -20,6 +22,8 @@ CHAPTERS = [
 ]
 READY = set(range(1, 20))  # פרקים שכבר כתובים
 
+
+HERO_DEMO = '<div class="hero-stage"><div class="demo">\n<div class="chat"><div class="who">אתם כותבים:</div><div class="box"><span class="tx"></span><span class="cur"></span></div>\n<div class="who">קלוד קוד עושה:</div><div class="steps"><div><i>✓</i>בונה יומן תורים</div><div><i>✓</i>מוסיף טופס הזמנה ללקוחות</div><div><i>✓</i>מחבר תזכורות בוואטסאפ</div><div><i>✓</i>בונה מסך ניהול להזמנות</div></div></div>\n<div class="app">\n<div class="top p"><b>התורים שלי</b><span class="btn2">+ תור חדש</span></div>\n<div class="stats"><div class="st p"><small>תורים השבוע</small><strong data-n="38">0</strong></div><div class="st p"><small>הזמנות חדשות</small><strong data-n="7">0</strong></div><div class="st p"><small>הכנסות</small><strong data-n="4260" data-c="₪">0</strong></div></div>\n<div class="cal p"><div></div><div class="h">ראשון</div><div class="h">שני</div><div class="h">שלישי</div><div class="h">רביעי</div><div class="t">09:00</div><div class="ap ">נועה<span>תספורת</span></div><div class="slot"></div><div class="ap g">אבי<span>זקן</span></div><div class="slot"></div><div class="t">10:00</div><div class="slot"></div><div class="ap b">מיכל<span>פן</span></div><div class="slot"></div><div class="ap b">דנה<span>החלקה</span></div><div class="t">11:00</div><div class="ap g">רון<span>צבע</span></div><div class="ap" id="last">יוסי<span>תספורת</span></div><div class="slot"></div><div class="slot"></div><div class="t">12:00</div><div class="slot"></div><div class="slot"></div><div class="ap ">שירה<span>תספורת</span></div><div class="ap g">תמר<span>צבע</span></div><div class="t">13:00</div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div></div>\n<div class="toast"><i>✓</i>תור חדש נקבע: יוסי, שני 11:00</div>\n</div></div>\n<script>(function(){\nvar msg="תבנה לי מערכת לניהול הזמנות ותורים של העסק שלי";\nvar d=document.querySelector(\'.demo\'),chat=d.querySelector(\'.chat\'),tx=d.querySelector(\'.tx\'),st=d.querySelectorAll(\'.steps div\'),app=d.querySelector(\'.app\'),ps=app.querySelectorAll(\'.p\'),aps=app.querySelectorAll(\'.ap\'),nums=app.querySelectorAll(\'[data-n]\'),toast=app.querySelector(\'.toast\');\nvar T=[];function at(ms,f){T.push(setTimeout(f,ms))}\nfunction reset(){T.forEach(clearTimeout);T=[];tx.textContent=\'\';chat.classList.remove(\'out\');app.classList.remove(\'in\');st.forEach(function(s){s.classList.remove(\'on\')});aps.forEach(function(a){a.classList.remove(\'on\')});toast.classList.remove(\'on\');nums.forEach(function(n){n.textContent=\'0\'});ps.forEach(function(p){p.style.transitionDelay=\'\'})}\nfunction count(el){var N=+el.dataset.n,c=el.dataset.c||\'\',t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=c+Math.round(N*k).toLocaleString(\'en-US\');if(k<1)requestAnimationFrame(f)})(t0)}\nfunction run(){reset();var k=0,step=50;\nfor(var i=1;i<=msg.length;i++)(function(i){at(i*step,function(){tx.textContent=msg.slice(0,i)})})(i);\nvar t=msg.length*step+500;\nst.forEach(function(s,n){at(t+n*650,function(){s.classList.add(\'on\')})});\nt+=st.length*650+700;\nat(t,function(){chat.classList.add(\'out\')});\nat(t+300,function(){ps.forEach(function(p,n){p.style.transitionDelay=(n*120)+\'ms\'});app.classList.add(\'in\')});\nat(t+800,function(){nums.forEach(count)});\nvar rest=[].filter.call(aps,function(a){return a.id!=\'last\'});rest.forEach(function(a,n){at(t+1000+n*170,function(){a.classList.add(\'on\')})});\nvar last=app.querySelector(\'#last\');\nat(t+1000+aps.length*170+700,function(){last.classList.add(\'on\');toast.classList.add(\'on\')});\nat(t+1000+aps.length*170+5200,run);}\nrun();})()</script></div>'
 
 def header(active):
     links = "".join(f'<a href="{h}"{" class=\"active\"" if h == active else ""}>{t}</a>' for h, t in NAV)
@@ -46,6 +50,10 @@ FOOTER = '''<footer class="c-foot">
 
 
 def page(title, desc, body, script="", cls=""):
+    return clean(_page(title, desc, body, script, cls))
+
+
+def _page(title, desc, body, script="", cls=""):
     return f'''<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -54,7 +62,10 @@ def page(title, desc, body, script="", cls=""):
     <meta name="author" content="Free AI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{desc}">
-    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261118">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
@@ -63,6 +74,7 @@ def page(title, desc, body, script="", cls=""):
 <body{(f' class="{cls}"' if cls else "")}>
 {body}
 {script}
+<script src="assets/js/header.js?v=1" defer></script>
 </body>
 </html>
 '''
@@ -80,17 +92,18 @@ def build_home():
         ("צריך ידע קודם?", "לא. מתחילים מאפס."),
         ("כמה זמן לוקח הקורס?", "8 שיעורים קצרים, בקצב שלכם."),
         ("למה צריך להירשם?", "כדי לצפות, להוריד קבצים ולקבל תעודה."),
+        ("מה זה קלוד קוד?", 'כלי של Anthropic שבונה אתרים ומערכות לפי מה שכותבים לו. <a href="article-what-is-claude-code.html">הסבר פשוט על קלוד קוד</a>.'),
+        ("קלוד קוד עובד בעברית?", "כן. כותבים לו בעברית רגילה, והוא בונה גם אתרים בעברית."),
     ])
     body = f'''    <div class="wrap full">
         <section class="c-hero">
         {header("index.html")}
             <div class="hero-in">
                 <div class="hero-text">
-                    <h1 class="hero-title"><span class="grad">לומדים קלוד קוד.</span><span class="hero-line"><span class="grad">בלי לדעת לתכנת.</span>
-                        <span class="hero-pill"><img src="assets/images/item/hero-1.svg" alt=""><img src="assets/images/item/hero-2.svg" alt=""><img src="assets/images/item/hero-3.svg" alt=""></span></span></h1>
-                    <p>קורס, מדריך כתוב וסקילים מוכנים. מהצעד הראשון ועד אתר שעובד באוויר.</p>
+                    <h1 class="hero-title"><span class="hero-line"><span class="grad">קורס קלוד קוד בחינם</span></span></h1>
+                    <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב צעד אחרי צעד וסקילים מוכנים להורדה.</p>
                 </div>
-                <div class="card preview">{rows}<a href="guide-1.html" class="muted"><span class="dot"></span>ועוד {len(CHAPTERS) - 4} פרקים</a></div>
+                {HERO_DEMO}
             </div>
         </section>
     </div>
@@ -100,13 +113,13 @@ def build_home():
             <a href="guide-1.html" class="card pick"><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
             <a href="work.html" class="card pick"><h2>סקילים</h2><p class="muted">יכולות מוכנות לקלוד, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
         </div>
-        <div class="sec-title"><span class="chip">שאלות נפוצות</span></div>
+        <h2 class="sec-title">שאלות נפוצות</h2>
         <div class="faq">{faq}</div>
         {FOOTER}
     </main>'''
     (SITE / "index.html").write_text(page(
-        "Free AI – לומדים קלוד קוד בחינם, בעברית",
-        "קורס, מדריך כתוב וסקילים לקלוד קוד (Claude Code) בעברית ובחינם. מהצעד הראשון ועד אתר שעובד באוויר.", body))
+        "קורס קלוד קוד בחינם בעברית | Free AI",
+        "קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.", body))
     print("index.html done")
 
 
@@ -202,10 +215,24 @@ def split(img, alt, rows):
     return f'''<div class="split">{rows_html(rows)}<div class="split-bar" role="separator" aria-label="גרירה לשינוי הגודל" tabindex="0"></div><div class="fshot map"><img src="{img}" alt="{alt}"></div></div>'''
 
 
+GUIDE_TITLE = {  # כותרת לגוגל לפי מה שאנשים מחפשים (השם בעמוד נשאר כמו שהוא)
+    2: "מה ההבדל בין קלוד לקלוד קוד? מתי משתמשים בכל אחד",  # "מה זה קלוד קוד" שייך למאמר
+    4: "התקנת קלוד קוד והורדה למחשב (Windows ו-Mac)",
+    5: "מה זה GitHub ואיך פותחים חשבון – מדריך למתחילים",
+    14: "סקילים בקלוד (Claude Skills): מה זה ואיך משתמשים",
+    16: "איך כותבים פרומפט לקלוד קוד – בלי מילים טכניות",
+}
+
+GUIDE_DESC = {
+    5: "פותחים חשבון GitHub בחינם, צעד אחרי צעד. זה המקום שבו נשמרים כל הפרויקטים שקלוד קוד בונה.",
+    6: "מה זה ריפו (Repo) ב-GitHub, למה כל פרויקט צריך אחד, ואיך פותחים ריפו ראשון בכמה לחיצות.",
+}
+
+
 def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     name, mins = CHAPTERS[n - 1]
     rows_block = rows_html(rows)
-    nxt = f' data-next="guide-{n + 1}.html"' if (n + 1) in READY else ""
+    nxt = f' data-next="guide-{n + 1}"' if (n + 1) in READY else ""
     body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
         <div class="course">
             {burger("guide-1.html")}
@@ -220,8 +247,8 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
         {FOOTER}
     </main>'''
     (SITE / f"guide-{n}.html").write_text(page(
-        f"{name} – המדריך לקלוד קוד | Free AI",
-        f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead}", body,
+        f"{GUIDE_TITLE.get(n, name + ' – המדריך לקלוד קוד')} | Free AI",
+        f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead or GUIDE_DESC.get(n, name)}", body,
         GUIDE_JS % {"total": len(CHAPTERS), "current": n}, cls="guide-page"))
     print(f"guide-{n}.html done")
 
@@ -232,6 +259,7 @@ build_chapter(
     [("מחשב", "Mac או Windows"), ("מייל", "אחד לכל השירותים"), ("כרטיס אשראי", "כ-20 דולר לחודש לקלוד")],
     "כל השאר בחינם להתחלה",
     extra=f'''
+                <p class="more-link">לא בטוחים מה זה בכלל? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a></p>
                 <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>{COUPON}</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="{COUPON}">העתקה</button></div>''',
 )
 
@@ -271,7 +299,8 @@ build_chapter(
      ("מה אנחנו בוחרים", "קלוד קוד, כי במדריך הזה בונים")],
     "שניהם כלולים באותו מנוי",
     extra=when(("משתמשים בקלוד כש…", ["כותבים מייל או פוסט", "מנתחים מסמך", "מחפשים רעיון או עצה"]),
-               ("משתמשים בקלוד קוד כש…", ["בונים אתר", "משנים ומתקנים אתר קיים", "מעלים אותו לאוויר"])),
+               ("משתמשים בקלוד קוד כש…", ["בונים אתר", "משנים ומתקנים אתר קיים", "מעלים אותו לאוויר"]))
+          + '\n                <p class="more-link">רוצים את התמונה המלאה? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a></p>',
 )
 
 
@@ -532,3 +561,324 @@ build_chapter(
         ("יוצרים פרויקט", "בפרויקטים לוחצים \"יצירת פרויקט\", נותנים שם ונכנסים אליו.", "4code-3.mp4"),
     ]),
 )
+
+
+# =====================================================================
+# מאמרים
+# =====================================================================
+import html as _html
+
+ARTICLES = []  # (קובץ, כותרת, תקציר, דקות קריאה)
+
+ARTICLE_JS = '''<script>
+document.querySelectorAll('[data-copy-from]').forEach(function (b) {
+    b.addEventListener('click', function () {
+        navigator.clipboard.writeText(document.getElementById(b.dataset.copyFrom).textContent);
+        b.textContent = 'הועתק ✓';
+        setTimeout(function () { b.textContent = 'העתקה'; }, 2000);
+    });
+});
+document.addEventListener('click', function (e) {
+    var img = e.target.closest ? e.target.closest('.fshot img') : null;
+    if (!img) return;
+    var o = document.createElement('div'); o.className = 'lightbox';
+    o.innerHTML = '<img src="' + img.src + '" alt="">'; o.onclick = function () { o.remove(); };
+    document.body.appendChild(o);
+});
+</script>'''
+
+
+def steps(items):
+    """שלבים ממוספרים בלי צילומי מסך. כל שלב: כותרת + פסקאות."""
+    out = []
+    for i, (title, paras, *img) in enumerate(items, 1):
+        body = "".join(f"<p>{x}</p>" for x in paras)
+        shot = f'<div class="fshot"><img src="assets/images/guide/{img[0]}" alt="{title}" loading="lazy"></div>' if img else ""
+        out.append(f'<li class="fstep"><div class="ftext"><span class="tile">{i}</span><div><h3>{title}</h3>{body}</div></div>{shot}</li>')
+    return f'<ol class="flow">{"".join(out)}</ol>'
+
+
+def table(head, rows):
+    """טבלת השוואה. עטופה בקופסה שגוללת לצדדים אם היא רחבה מהמסך."""
+    th = "".join(f"<th>{h}</th>" for h in head)
+    tr = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows)
+    return f'<div class="tbl-wrap"><table class="tbl"><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
+
+
+def faq_html(items):
+    """שאלות נפוצות. seo_build.py הופך אותן אוטומטית לנתונים מובנים (FAQPage)."""
+    return '<div class="faq">' + "".join(
+        f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in items) + '</div>'
+
+
+def duo(items):
+    """כרטיסי השוואה זה לצד זה. כל פריט: (תגית, כותרת, משפט)."""
+    return '<div class="duo">' + "".join(
+        f'<div class="duo-c{" hl" if i else ""}"><span class="duo-tag">{t}</span><h3>{h}</h3><p>{x}</p></div>'
+        for i, (t, h, x) in enumerate(items)) + '</div>'
+
+
+def plans(items):
+    """כרטיסי מחיר. כל פריט: (שם, מחיר, הערה, האם כלול)."""
+    return '<div class="plans">' + "".join(
+        f'<div class="plan{" yes" if ok else ""}"><b>{n}</b><strong>{pr}</strong><small>{note}</small><span class="plan-ok">{"קלוד קוד כלול ✓" if ok else "בלי קלוד קוד"}</span></div>'
+        for n, pr, note, ok in items) + '</div>'
+
+
+ILL_BUILD = """<div class="ill" aria-hidden="true">
+    <div class="ill-msg"><small>אתם כותבים:</small><span>תבנה לי אתר לנגרייה שלי, עם תמונות של עבודות וטופס יצירת קשר</span></div>
+    <div class="ill-go"><i></i>קלוד קוד בונה<i></i></div>
+    <div class="ill-site">
+        <div class="ill-bar"><span></span><span></span><span></span><em>nagariya.co.il</em></div>
+        <div class="ill-top"><b>נגרות יוסי</b><span>רהיטים בהזמנה אישית</span><em>צרו קשר</em></div>
+        <div class="ill-gal"><i></i><i></i><i></i></div>
+        <div class="ill-form"><i></i><i></i><em>שליחה</em></div>
+    </div>
+</div>"""
+
+ILL_BACKUP = """<div class="ill ill-bk" aria-hidden="true">
+    <div class="bk-box gh"><b>GitHub</b><span>אתר הנגרייה</span><span>יומן תורים</span><span>חנות</span></div>
+    <div class="bk-go"><i></i><em>כל לילה ב-3:00</em><i></i></div>
+    <div class="bk-box dr"><b>Google Drive</b><span>אתר-הנגרייה.zip</span><span>יומן-תורים.zip</span><span>חנות.zip</span></div>
+</div>"""
+
+
+def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual="", date=""):
+    """מאמר: חלק פתיחה גרפי (כמו בדף הבית), ואחריו כל <h2> הופך למקטע מעוצב משלו."""
+    ARTICLES.append((name, title, desc, mins))
+    chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
+    secs = "".join(f'<section class="card art-sec">{c}</section>' for c in chunks)
+    dt = f'<span class="a-date">עודכן: {date}</span>' if date else ""
+    page_body = f'''    <div class="wrap full">
+        <section class="c-hero a-hero">
+        {header("articles.html")}
+            <div class="hero-in">
+                <div class="hero-text">
+                    <span class="chip">מאמר · {mins} דקות קריאה</span>
+                    <h1 class="hero-title"><span class="grad">{title}</span></h1>
+                    <p>{lead}</p>
+                    {dt}
+                </div>
+                <div class="a-visual">{visual}</div>
+            </div>
+        </section>
+    </div>
+    <main class="wrap stack art-main article">
+{secs}
+        <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
+        {FOOTER}
+    </main>'''
+    (SITE / name).write_text(page(f"{seo_title or title} | Free AI", desc, page_body, ARTICLE_JS))
+    print(f"{name} done")
+
+
+
+def build_articles_index():
+    cards = "".join(
+        f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
+        for n, t, d, m in ARTICLES)
+    body = f'''    <div class="wrap full">
+        <section class="c-hero a-hero">
+        {header("articles.html")}
+            <div class="hero-in">
+                <div class="hero-text">
+                    <span class="chip">{len(ARTICLES)} מאמרים</span>
+                    <h1 class="hero-title"><span class="grad">מאמרים</span></h1>
+                    <p>מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.</p>
+                </div>
+                <div class="a-visual">{ILL_BUILD}</div>
+            </div>
+        </section>
+    </div>
+    <main class="wrap stack" style="margin-top:16px">
+        <div class="art-list">{cards}</div>
+        {FOOTER}
+    </main>'''
+    (SITE / "articles.html").write_text(page(
+        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body))
+    print("articles.html done")
+
+
+build_article(
+    "article-what-is-claude-code.html",
+    "מה זה קלוד קוד? הסבר פשוט למי שלא מתכנת",
+    "קלוד קוד (Claude Code) הוא כלי של Anthropic שבונה אתרים ומערכות לפי מה שכותבים לו בעברית. מה זה, כמה עולה ואיך מתחילים, בלי לדעת לתכנת.",
+    6,
+    f'''
+            <h2>קלוד קוד בדימוי אחד</h2>
+            {duo([
+                ("קלוד (הצ'אט)", "יועץ", "יושב איתכם, עונה ונותן רעיונות, אבל לא נוגע בכלום."),
+                ("קלוד קוד", "בעל מקצוע", "לוקח את הכלים, בונה, מתקן, ומראה לכם מה עשה."),
+            ])}
+            <p>קוד הוא המתכון שהמחשב קורא כדי להציג אתר, וקלוד קוד כותב אותו בשבילכם.</p>
+
+            <h2>איך קלוד קוד עובד</h2>
+            {rows_html([
+                ("אתם כותבים מה רוצים", "בעברית רגילה, כמו הודעה לחבר"),
+                ("הוא מתכנן", "מחליט אילו עמודים וקבצים צריך"),
+                ("הוא בונה", "כותב את הקוד ויוצר את הקבצים לבד"),
+                ("הוא בודק", "מריץ את מה שבנה ומתקן טעויות"),
+                ("אתם מבקשים שינוי", '"תגדיל את הכותרת", "תוסיף טופס"'),
+                (None, "דוגמאות"),
+                ("אתר תדמית לנגר", "תמונות עבודות, שירותים וטופס"),
+                ("יומן תורים לספרית", "לקוחות קובעים תור לבד"),
+                ("גיבוי אוטומטי לקבצים", '<a href="article-github-backup.html">גיבוי הפרויקטים ל-Google Drive</a>'),
+            ])}
+
+            <h2>מה ההבדל בין קלוד לקלוד קוד</h2>
+            {table(["", "קלוד (הצ'אט)", "קלוד קוד"], [
+                ["מה עושה", "עונה, מסביר וכותב טקסט", "בונה ומשנה אתרים ומערכות"],
+                ["נוגע בקבצים?", "לא", "כן, יוצר ומשנה לבד"],
+                ["מה מקבלים", "תשובה על המסך", "אתר או כלי שעובד"],
+                ["מתי משתמשים", "מייל, פוסט, רעיון", "אתר, דף נחיתה, מערכת לעסק"],
+                ["איפה לוחצים", "הלשונית Chat", "הלשונית Code"],
+            ])}
+            <div class="fshot"><img src="assets/images/guide/claude-install-5.png" alt="איך נראה קלוד קוד: באפליקציה של קלוד בוחרים בלשונית Code" loading="lazy"></div>
+            <p class="more-link">לעומק: <a href="guide-2.html">מתי בוחרים בכל אחד</a>.</p>
+
+            <h2>איפה עובדים עם קלוד קוד</h2>
+            {rows_html([
+                ("אפליקציה במחשב", "Mac או Windows, הכי פשוט"),
+                ("בדפדפן", "claude.ai/code, בלי התקנה"),
+                ("בטלפון", "האפליקציה של קלוד ל-iPhone ול-Android"),
+                ("בטרמינל", "חלון פקודות שחור, למתכנתים"),
+            ])}
+            <div class="note-box"><b>מה אנחנו בוחרים:</b> האפליקציה במחשב, כי הכול בלחיצות. <a href="guide-4.html">איך מתקינים</a>.</div>
+
+            <h2>כמה עולה קלוד קוד</h2>
+            {plans([
+                ("Free", "0$", "לחודש", False),
+                ("Pro", "20$", "לחודש (17$ בתשלום שנתי)", True),
+                ("Max", "100$", "לחודש, הרבה יותר שימוש", True),
+                ("Ultra", "200$", "לחודש, הכי הרבה שימוש", True),
+            ])}
+            <p class="art-src">נכון ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>. למתחילים מספיק Pro (<a href="guide-11.html">כמה נשאר מהמנוי</a>).</p>
+
+            <h2>האם צריך לדעת לתכנת?</h2>
+            {duo([
+                ("לא צריך", "לדעת קוד", "מסבירים במילים מה בונים ובשביל מי."),
+                ("מספיק", "עברית רגילה", 'אפשר גם לדבר במיקרופון. <a href="guide-16.html">איך מנסחים בקשה</a>'),
+            ])}
+
+            <h2>איך מתחילים לעבוד עם קלוד קוד</h2>
+            {rows_html([
+                ("פותחים חשבון קלוד", '<a href="guide-3.html">פתיחת חשבון</a> ומנוי Pro'),
+                ("מתקינים את האפליקציה", '<a href="guide-4.html">הורדה והתקנה</a>'),
+                ("פותחים חשבון GitHub", '<a href="guide-5.html">כאן נשמרים הפרויקטים</a>'),
+                ("בונים פרויקט ראשון", '<a href="guide-17.html">כותבים בקשה ורואים אותו בונה</a>'),
+            ])}
+            <p class="more-link">מעדיפים וידאו? <a href="service.html">קורס קלוד קוד בעברית, בחינם</a>.</p>
+
+            <h2>שאלות נפוצות</h2>
+            {faq_html([
+                ("האם קלוד קוד בחינם?", "לא. צריך מנוי בתשלום של קלוד, לפחות Pro ב-20$ לחודש (נכון ל-18 בנובמבר 2026). הקורס והמדריך שלנו חינמיים."),
+                ("האם קלוד קוד עובד בעברית?", "כן. כותבים לו בעברית רגילה, והוא עונה ובונה אתרים בעברית. ככה עשינו בכל המדריך."),
+                ("צריך לדעת לתכנת כדי להשתמש בקלוד קוד?", "לא. מסבירים לו במילים מה רוצים, והוא כותב את הקוד בעצמו."),
+                ("איך מורידים את קלוד קוד למחשב?", "מורידים את האפליקציה של קלוד מ-claude.com/download, מתחברים, ולוחצים על הלשונית Code. יש מדריך מלא בפרק 4."),
+                ("אפשר לעבוד עם קלוד קוד מהטלפון?", "כן. קלוד קוד זמין גם באפליקציה של קלוד ל-iPhone ול-Android."),
+                ("יש קורס קלוד קוד בעברית?", "כן. אצלנו יש קורס קלוד קוד חינמי בעברית, עם שיעורי וידאו ומדריך כתוב."),
+            ])}
+            <p class="art-src">מקורות: <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">התיעוד הרשמי של קלוד קוד</a>, <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>.</p>'''
+,
+    seo_title="מה זה קלוד קוד (Claude Code)? הסבר פשוט בעברית",
+    lead="קלוד קוד (Claude Code) הוא כלי של חברת Anthropic שבונה בשבילכם אתרים ומערכות לפי מה שאתם כותבים לו במילים רגילות. אתם מסבירים מה רוצים, והוא כותב את הקוד ובודק שהכול עובד.",
+    visual=ILL_BUILD,
+    date="18 בנובמבר 2026",
+)
+
+_GS = (SITE / "files/github-drive-backup.gs").read_text()
+
+build_article(
+    "article-github-backup.html",
+    "גיבוי אוטומטי של כל הפרויקטים מ-GitHub ל-Google Drive",
+    "איך מגדירים פעם אחת גיבוי יומי של כל הפרויקטים ב-GitHub לתיקייה בגוגל דרייב, בחינם ובלי לדעת לתכנת.",
+    6,
+    f'''
+            <h2>למה צריך גיבוי</h2>
+            <p>GitHub הוא כמו מחסן שבו שמור הקוד של כל האתרים והכלים שבניתם.</p>
+            <p>אם החשבון ננעל, נמחק או שמשהו נשבר, בלי גיבוי כל העבודה נעלמת.</p>
+            <p>גיבוי הוא עותק נוסף במקום אחר, כמו מפתח רזרבי לבית שמחכה אצל השכנים.</p>
+
+            <h2>מה הגיבוי עושה</h2>
+            {rows_html([
+                ("מה נשמר", "עותק מלא של כל פרויקט, כקובץ zip (קופסה אחת שכל הקבצים בתוכה)"),
+                ("מתי", "כל לילה ב-3:00, לבד, גם כשהמחשב כבוי"),
+                ("איפה", "בתיקייה GitHub Backups בדרייב, עם תיקייה לכל חשבון GitHub"),
+                ("כמה עותקים", "תמיד אחד לכל פרויקט: הגרסה הכי עדכנית"),
+                ("פרויקט שלא השתנה", "לא נוגעים בו, והגיבוי של אתמול נשאר"),
+                ("הגיבוי הקודם", "עובר לפח של הדרייב ונמחק לגמרי אחרי 30 יום"),
+                (None, "מה לא נשמר"),
+                ("ההיסטוריה", "רואים רק את המצב האחרון, לא כל שינוי שנעשה בדרך"),
+                ("ענפים (Branches)", "גרסאות צדדיות של הפרויקט. נשמרת רק הגרסה הראשית"),
+                ("קבצי סיסמאות", "הם אף פעם לא נמצאים ב-GitHub, אז שומרים אותם בנפרד"),
+                ("פרויקט ענק", "פרויקט מעל 50MB לא נשמר"),
+            ])}
+
+            <h2>מה צריך</h2>
+            {rows_html([
+                ("חשבון GitHub", "אחד או יותר, עם הפרויקטים שלכם"),
+                ("חשבון Google", "זה שבדרייב שלו יישמרו הגיבויים"),
+                ("10 דקות", "פעם אחת, וזהו"),
+            ])}
+
+            <h2>איך מגדירים, צעד אחרי צעד</h2>
+            {steps([
+                ("יוצרים מפתח ב-GitHub", [
+                    "המפתח (Token) הוא כמו מפתח לבית שנותנים לשליח: הוא מאפשר לגיבוי להיכנס ולהעתיק את הפרויקטים.",
+                    'נכנסים ל-<a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a>, כותבים בשם "גיבוי לדרייב", ובתוקף (Expiration) בוחרים No expiration.',
+                    "מסמנים V ליד repo, יורדים למטה ולוחצים Generate token.",
+                    'מעתיקים את המפתח שמופיע (מתחיל ב-<code class="inl">ghp_</code>) ושומרים אותו רגע בצד. הוא מוצג רק פעם אחת.',
+                    "יש לכם כמה חשבונות GitHub? עושים את זה בכל אחד מהם.",
+                ], "backup-1.png"),
+                ("פותחים את Google Apps Script", [
+                    "Apps Script הוא כמו עוזר קטן שגר בתוך חשבון הגוגל שלכם ויודע לעשות פעולות לבד, בשעה קבועה.",
+                    'נכנסים ל-<a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a> עם אותו חשבון גוגל של הדרייב, ולוחצים "פרויקט חדש" (New project).',
+                ], "backup-2.png"),
+                ("מדביקים את הקוד", [
+                    "מוחקים את כל מה שכתוב בחלון, ומדביקים במקומו את הקוד שבהמשך העמוד (כפתור העתקה).",
+                    'במקום <code class="inl">PASTE_TOKEN_ACCOUNT_1</code> מדביקים את המפתח, ומשאירים את המירכאות סביבו.',
+                    'יש חשבון נוסף? בשורה שמתחתיה מוחקים את <code class="inl">//</code> בתחילתה, ומדביקים שם את המפתח השני.',
+                ], "backup-3.png"),
+                ("שומרים ומפעילים פעם אחת", [
+                    'לוחצים על סמל השמירה. בתפריט שליד הכפתור "הפעלה" (Run) בוחרים <code class="inl">setup</code>, ולוחצים "הפעלה".',
+                    'גוגל תבקש אישור. לוחצים "בדיקת הרשאות", בוחרים את החשבון, לוחצים "מתקדם" (Advanced), ואז "מעבר אל..." ו"אישור" (Allow).',
+                    "האזהרה מופיעה כי את הקוד הוספתם אתם ולא גוגל. זה תקין: הוא רץ רק בחשבון שלכם.",
+                ], "backup-4.png"),
+                ("בודקים שזה עובד", [
+                    "פותחים את הדרייב ומחפשים את התיקייה GitHub Backups. בתוכה תיקייה לכל חשבון וקובץ zip לכל פרויקט.",
+                    "הרבה פרויקטים? הגיבוי הראשון ממשיך לבד ברקע עד שהוא מסתיים.",
+                ], "backup-5.png"),
+            ])}
+            <div class="note-box">טעות נפוצה: בתפריט נשאר <code class="inl">myFunction</code> במקום <code class="inl">setup</code>. ההפעלה "מצליחה", אבל לא קורה כלום.</div>
+
+            <h2>הקוד</h2>
+            <div class="code-box"><div class="code-bar"><span>הקוד של הגיבוי</span><div><a class="btn-2 sm" href="files/github-drive-backup.gs" download>הורדה</a><button type="button" class="btn-2 sm" data-copy-from="gs-code">העתקה</button></div></div><pre id="gs-code">{_html.escape(_GS)}</pre></div>
+
+            <h2>איך יודעים שהגיבוי עדכני</h2>
+            <p>בשם התיקייה שבתוך קובץ ה-zip יש קוד קצר, למשל <code class="inl">7499555</code>: זה מספר הגרסה של הפרויקט.</p>
+            <p>בדף הפרויקט ב-GitHub, ליד המילה commits, מופיע אותו קוד. אם הם זהים, הגיבוי מעודכן.</p>
+
+            <h2>שמירה על המפתח</h2>
+            {rows_html([
+                ("לא משתפים", "מי שיש לו את המפתח יכול לראות את כל הפרויקטים שלכם"),
+                ("הקוד פרטי", "הוא נמצא רק בחשבון הגוגל שלכם, ואף אחד אחר לא רואה אותו"),
+                ("המפתח דלף?", "מוחקים אותו בדף המפתחות ב-GitHub, יוצרים חדש ומחליפים בקוד"),
+            ])}
+
+            <h2>שאלות נפוצות</h2>
+            <div class="faq">{"".join(f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in [
+                ("זה עולה כסף?", "לא. גם GitHub וגם Apps Script חינמיים לשימוש הזה."),
+                ("המחשב צריך להיות דלוק?", "לא. הגיבוי רץ אצל גוגל, לא אצלכם."),
+                ("איך משנים את שעת הגיבוי?", "בשורה RUN_HOUR משנים את 3 לשעה אחרת, שומרים ומפעילים שוב את setup."),
+                ("איך עוצרים את הגיבוי?", "ב-Apps Script לוחצים על סמל השעון בצד (טריגרים) ומוחקים את מה שמופיע שם."),
+                ("הוספתי פרויקט חדש ב-GitHub. צריך לעשות משהו?", "לא. הוא ייכנס לבד לגיבוי של הלילה."),
+            ])}</div>''',
+    lead="מגדירים פעם אחת, ומאז כל לילה כל הפרויקטים שלכם נשמרים לבד בתיקייה בגוגל דרייב.",
+    visual=ILL_BACKUP,
+)
+
+build_articles_index()
+
+# שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
+import runpy as _runpy
+_runpy.run_path(str(Path(__file__).resolve().parents[1] / "seo" / "seo_build.py"), run_name="__main__")
