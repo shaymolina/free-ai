@@ -30,33 +30,38 @@
     <!-- /seo -->
 </head>
 <body>
-    <main class="wrap stack c-top">
+    <div class="wrap full">
+        <section class="c-hero a-hero">
         <header class="c-header">
             <a href="/" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
             <nav class="c-nav"><a href="/">דף הבית</a><a href="service">הקורס</a><a href="guide-1">המדריך</a><a href="work">סקילים</a><a href="articles" class="active">מאמרים</a></nav>
             <a href="service" class="btn sm">התחל ללמוד</a>
             <button type="button" class="btn c-menu-btn" aria-label="תפריט" onclick="this.parentNode.classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
         </header>
-        <article class="card article">
-            <h1>גיבוי אוטומטי של כל הפרויקטים מ-GitHub ל-Google Drive</h1>
-            <p class="lead">מגדירים פעם אחת, ומאז כל לילה כל הפרויקטים שלכם נשמרים לבד בתיקייה בגוגל דרייב.</p>
-
-            <h2>למה צריך גיבוי</h2>
+            <div class="hero-in">
+                <div class="hero-text">
+                    <span class="chip">מאמר · 6 דקות קריאה</span>
+                    <h1 class="hero-title"><span class="grad">גיבוי אוטומטי של כל הפרויקטים מ-GitHub ל-Google Drive</span></h1>
+                    <p>מגדירים פעם אחת, ומאז כל לילה כל הפרויקטים שלכם נשמרים לבד בתיקייה בגוגל דרייב.</p>
+                    
+                </div>
+                <div class="a-visual"><div class="ill ill-bk" aria-hidden="true">
+    <div class="bk-box gh"><b>GitHub</b><span>אתר הנגרייה</span><span>יומן תורים</span><span>חנות</span></div>
+    <div class="bk-go"><i></i><em>כל לילה ב-3:00</em><i></i></div>
+    <div class="bk-box dr"><b>Google Drive</b><span>אתר-הנגרייה.zip</span><span>יומן-תורים.zip</span><span>חנות.zip</span></div>
+</div></div>
+            </div>
+        </section>
+    </div>
+    <main class="wrap stack art-main article">
+<section class="card art-sec"><h2>למה צריך גיבוי</h2>
             <p>GitHub הוא כמו מחסן שבו שמור הקוד של כל האתרים והכלים שבניתם.</p>
             <p>אם החשבון ננעל, נמחק או שמשהו נשבר, בלי גיבוי כל העבודה נעלמת.</p>
-            <p>גיבוי הוא עותק נוסף במקום אחר, כמו מפתח רזרבי לבית שמחכה אצל השכנים.</p>
-
-            <h2>מה הגיבוי עושה</h2>
-            <ol class="rows"><li class="row"><span class="tile">1</span>מה נשמר<small>עותק מלא של כל פרויקט, כקובץ zip (קופסה אחת שכל הקבצים בתוכה)</small></li><li class="row"><span class="tile">2</span>מתי<small>כל לילה ב-3:00, לבד, גם כשהמחשב כבוי</small></li><li class="row"><span class="tile">3</span>איפה<small>בתיקייה GitHub Backups בדרייב, עם תיקייה לכל חשבון GitHub</small></li><li class="row"><span class="tile">4</span>כמה עותקים<small>תמיד אחד לכל פרויקט: הגרסה הכי עדכנית</small></li><li class="row"><span class="tile">5</span>פרויקט שלא השתנה<small>לא נוגעים בו, והגיבוי של אתמול נשאר</small></li><li class="row"><span class="tile">6</span>הגיבוי הקודם<small>עובר לפח של הדרייב ונמחק לגמרי אחרי 30 יום</small></li><li class="rows-sep">מה לא נשמר</li><li class="row"><span class="tile">1</span>ההיסטוריה<small>רואים רק את המצב האחרון, לא כל שינוי שנעשה בדרך</small></li><li class="row"><span class="tile">2</span>ענפים (Branches)<small>גרסאות צדדיות של הפרויקט. נשמרת רק הגרסה הראשית</small></li><li class="row"><span class="tile">3</span>קבצי סיסמאות<small>הם אף פעם לא נמצאים ב-GitHub, אז שומרים אותם בנפרד</small></li><li class="row"><span class="tile">4</span>פרויקט ענק<small>פרויקט מעל 50MB לא נשמר</small></li></ol>
-
-            <h2>מה צריך</h2>
-            <ol class="rows"><li class="row"><span class="tile">1</span>חשבון GitHub<small>אחד או יותר, עם הפרויקטים שלכם</small></li><li class="row"><span class="tile">2</span>חשבון Google<small>זה שבדרייב שלו יישמרו הגיבויים</small></li><li class="row"><span class="tile">3</span>10 דקות<small>פעם אחת, וזהו</small></li></ol>
-
-            <h2>איך מגדירים, צעד אחרי צעד</h2>
+            <p>גיבוי הוא עותק נוסף במקום אחר, כמו מפתח רזרבי לבית שמחכה אצל השכנים.</p></section><section class="card art-sec"><h2>מה הגיבוי עושה</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>מה נשמר<small>עותק מלא של כל פרויקט, כקובץ zip (קופסה אחת שכל הקבצים בתוכה)</small></li><li class="row"><span class="tile">2</span>מתי<small>כל לילה ב-3:00, לבד, גם כשהמחשב כבוי</small></li><li class="row"><span class="tile">3</span>איפה<small>בתיקייה GitHub Backups בדרייב, עם תיקייה לכל חשבון GitHub</small></li><li class="row"><span class="tile">4</span>כמה עותקים<small>תמיד אחד לכל פרויקט: הגרסה הכי עדכנית</small></li><li class="row"><span class="tile">5</span>פרויקט שלא השתנה<small>לא נוגעים בו, והגיבוי של אתמול נשאר</small></li><li class="row"><span class="tile">6</span>הגיבוי הקודם<small>עובר לפח של הדרייב ונמחק לגמרי אחרי 30 יום</small></li><li class="rows-sep">מה לא נשמר</li><li class="row"><span class="tile">1</span>ההיסטוריה<small>רואים רק את המצב האחרון, לא כל שינוי שנעשה בדרך</small></li><li class="row"><span class="tile">2</span>ענפים (Branches)<small>גרסאות צדדיות של הפרויקט. נשמרת רק הגרסה הראשית</small></li><li class="row"><span class="tile">3</span>קבצי סיסמאות<small>הם אף פעם לא נמצאים ב-GitHub, אז שומרים אותם בנפרד</small></li><li class="row"><span class="tile">4</span>פרויקט ענק<small>פרויקט מעל 50MB לא נשמר</small></li></ol></section><section class="card art-sec"><h2>מה צריך</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>חשבון GitHub<small>אחד או יותר, עם הפרויקטים שלכם</small></li><li class="row"><span class="tile">2</span>חשבון Google<small>זה שבדרייב שלו יישמרו הגיבויים</small></li><li class="row"><span class="tile">3</span>10 דקות<small>פעם אחת, וזהו</small></li></ol></section><section class="card art-sec"><h2>איך מגדירים, צעד אחרי צעד</h2>
             <ol class="flow"><li class="fstep"><div class="ftext"><span class="tile">1</span><div><h3>יוצרים מפתח ב-GitHub</h3><p>המפתח (Token) הוא כמו מפתח לבית שנותנים לשליח: הוא מאפשר לגיבוי להיכנס ולהעתיק את הפרויקטים.</p><p>נכנסים ל-<a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a>, כותבים בשם "גיבוי לדרייב", ובתוקף (Expiration) בוחרים No expiration.</p><p>מסמנים V ליד repo, יורדים למטה ולוחצים Generate token.</p><p>מעתיקים את המפתח שמופיע (מתחיל ב-<code class="inl">ghp_</code>) ושומרים אותו רגע בצד. הוא מוצג רק פעם אחת.</p><p>יש לכם כמה חשבונות GitHub? עושים את זה בכל אחד מהם.</p></div></div><div class="fshot"><img src="assets/images/guide/backup-1.png" alt="יוצרים מפתח ב-GitHub" loading="lazy"></div></li><li class="fstep"><div class="ftext"><span class="tile">2</span><div><h3>פותחים את Google Apps Script</h3><p>Apps Script הוא כמו עוזר קטן שגר בתוך חשבון הגוגל שלכם ויודע לעשות פעולות לבד, בשעה קבועה.</p><p>נכנסים ל-<a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a> עם אותו חשבון גוגל של הדרייב, ולוחצים "פרויקט חדש" (New project).</p></div></div><div class="fshot"><img src="assets/images/guide/backup-2.png" alt="פותחים את Google Apps Script" loading="lazy"></div></li><li class="fstep"><div class="ftext"><span class="tile">3</span><div><h3>מדביקים את הקוד</h3><p>מוחקים את כל מה שכתוב בחלון, ומדביקים במקומו את הקוד שבהמשך העמוד (כפתור העתקה).</p><p>במקום <code class="inl">PASTE_TOKEN_ACCOUNT_1</code> מדביקים את המפתח, ומשאירים את המירכאות סביבו.</p><p>יש חשבון נוסף? בשורה שמתחתיה מוחקים את <code class="inl">//</code> בתחילתה, ומדביקים שם את המפתח השני.</p></div></div><div class="fshot"><img src="assets/images/guide/backup-3.png" alt="מדביקים את הקוד" loading="lazy"></div></li><li class="fstep"><div class="ftext"><span class="tile">4</span><div><h3>שומרים ומפעילים פעם אחת</h3><p>לוחצים על סמל השמירה. בתפריט שליד הכפתור "הפעלה" (Run) בוחרים <code class="inl">setup</code>, ולוחצים "הפעלה".</p><p>גוגל תבקש אישור. לוחצים "בדיקת הרשאות", בוחרים את החשבון, לוחצים "מתקדם" (Advanced), ואז "מעבר אל..." ו"אישור" (Allow).</p><p>האזהרה מופיעה כי את הקוד הוספתם אתם ולא גוגל. זה תקין: הוא רץ רק בחשבון שלכם.</p></div></div><div class="fshot"><img src="assets/images/guide/backup-4.png" alt="שומרים ומפעילים פעם אחת" loading="lazy"></div></li><li class="fstep"><div class="ftext"><span class="tile">5</span><div><h3>בודקים שזה עובד</h3><p>פותחים את הדרייב ומחפשים את התיקייה GitHub Backups. בתוכה תיקייה לכל חשבון וקובץ zip לכל פרויקט.</p><p>הרבה פרויקטים? הגיבוי הראשון ממשיך לבד ברקע עד שהוא מסתיים.</p></div></div><div class="fshot"><img src="assets/images/guide/backup-5.png" alt="בודקים שזה עובד" loading="lazy"></div></li></ol>
-            <div class="note-box">טעות נפוצה: בתפריט נשאר <code class="inl">myFunction</code> במקום <code class="inl">setup</code>. ההפעלה "מצליחה", אבל לא קורה כלום.</div>
-
-            <h2>הקוד</h2>
+            <div class="note-box">טעות נפוצה: בתפריט נשאר <code class="inl">myFunction</code> במקום <code class="inl">setup</code>. ההפעלה "מצליחה", אבל לא קורה כלום.</div></section><section class="card art-sec"><h2>הקוד</h2>
             <div class="code-box"><div class="code-bar"><span>הקוד של הגיבוי</span><div><a class="btn-2 sm" href="files/github-drive-backup.gs" download>הורדה</a><button type="button" class="btn-2 sm" data-copy-from="gs-code">העתקה</button></div></div><pre id="gs-code">// גיבוי יומי של כל הפרויקטים מכל חשבונות ה-GitHub ל-Google Drive.
 // שמים כאן מפתח אחד לכל חשבון GitHub (בין המירכאות, מופרדים בפסיק).
 const TOKENS = [
@@ -169,19 +174,12 @@ function writeQueue_(root, queue) {
   while (it.hasNext()) it.next().setTrashed(true);
   if (queue) root.createFile(&#x27;_queue.json&#x27;, JSON.stringify(queue), &#x27;application/json&#x27;);
 }
-</pre></div>
-
-            <h2>איך יודעים שהגיבוי עדכני</h2>
+</pre></div></section><section class="card art-sec"><h2>איך יודעים שהגיבוי עדכני</h2>
             <p>בשם התיקייה שבתוך קובץ ה-zip יש קוד קצר, למשל <code class="inl">7499555</code>: זה מספר הגרסה של הפרויקט.</p>
-            <p>בדף הפרויקט ב-GitHub, ליד המילה commits, מופיע אותו קוד. אם הם זהים, הגיבוי מעודכן.</p>
-
-            <h2>שמירה על המפתח</h2>
-            <ol class="rows"><li class="row"><span class="tile">1</span>לא משתפים<small>מי שיש לו את המפתח יכול לראות את כל הפרויקטים שלכם</small></li><li class="row"><span class="tile">2</span>הקוד פרטי<small>הוא נמצא רק בחשבון הגוגל שלכם, ואף אחד אחר לא רואה אותו</small></li><li class="row"><span class="tile">3</span>המפתח דלף?<small>מוחקים אותו בדף המפתחות ב-GitHub, יוצרים חדש ומחליפים בקוד</small></li></ol>
-
-            <h2>שאלות נפוצות</h2>
-            <div class="faq"><details class="card"><summary>זה עולה כסף?</summary><p>לא. גם GitHub וגם Apps Script חינמיים לשימוש הזה.</p></details><details class="card"><summary>המחשב צריך להיות דלוק?</summary><p>לא. הגיבוי רץ אצל גוגל, לא אצלכם.</p></details><details class="card"><summary>איך משנים את שעת הגיבוי?</summary><p>בשורה RUN_HOUR משנים את 3 לשעה אחרת, שומרים ומפעילים שוב את setup.</p></details><details class="card"><summary>איך עוצרים את הגיבוי?</summary><p>ב-Apps Script לוחצים על סמל השעון בצד (טריגרים) ומוחקים את מה שמופיע שם.</p></details><details class="card"><summary>הוספתי פרויקט חדש ב-GitHub. צריך לעשות משהו?</summary><p>לא. הוא ייכנס לבד לגיבוי של הלילה.</p></details></div>
-            <div class="art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service" class="btn">התחל ללמוד</a></div>
-        </article>
+            <p>בדף הפרויקט ב-GitHub, ליד המילה commits, מופיע אותו קוד. אם הם זהים, הגיבוי מעודכן.</p></section><section class="card art-sec"><h2>שמירה על המפתח</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>לא משתפים<small>מי שיש לו את המפתח יכול לראות את כל הפרויקטים שלכם</small></li><li class="row"><span class="tile">2</span>הקוד פרטי<small>הוא נמצא רק בחשבון הגוגל שלכם, ואף אחד אחר לא רואה אותו</small></li><li class="row"><span class="tile">3</span>המפתח דלף?<small>מוחקים אותו בדף המפתחות ב-GitHub, יוצרים חדש ומחליפים בקוד</small></li></ol></section><section class="card art-sec"><h2>שאלות נפוצות</h2>
+            <div class="faq"><details class="card"><summary>זה עולה כסף?</summary><p>לא. גם GitHub וגם Apps Script חינמיים לשימוש הזה.</p></details><details class="card"><summary>המחשב צריך להיות דלוק?</summary><p>לא. הגיבוי רץ אצל גוגל, לא אצלכם.</p></details><details class="card"><summary>איך משנים את שעת הגיבוי?</summary><p>בשורה RUN_HOUR משנים את 3 לשעה אחרת, שומרים ומפעילים שוב את setup.</p></details><details class="card"><summary>איך עוצרים את הגיבוי?</summary><p>ב-Apps Script לוחצים על סמל השעון בצד (טריגרים) ומוחקים את מה שמופיע שם.</p></details><details class="card"><summary>הוספתי פרויקט חדש ב-GitHub. צריך לעשות משהו?</summary><p>לא. הוא ייכנס לבד לגיבוי של הלילה.</p></details></div></section>
+        <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service" class="btn">התחל ללמוד</a></div>
         <footer class="c-foot">
             <span>© 2026 Free AI. כל הזכויות שמורות.</span>
             <nav><a href="privacy">פרטיות</a><a href="terms">תנאי שימוש</a></nav>
