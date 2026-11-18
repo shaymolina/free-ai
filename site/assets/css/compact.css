@@ -253,13 +253,12 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .article p a, .article .ftext a { color: var(--brand); text-decoration: underline; font-weight: 600; }
 .article .meta { display: flex; flex-wrap: wrap; gap: 8px; }
 .article .flow { gap: 8px; }
-.article .fstep { grid-template-columns: minmax(0, 1fr); }
+.article .fstep { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+@media (max-width: 860px) { .article .fstep { grid-template-columns: minmax(0, 1fr); } }
 .article .ftext p + p { margin-top: 6px; }
 .article > p + p { margin-top: -8px; }
 .lesson > p + p { margin-top: -6px; }
-.article .flow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
-.article .fstep { align-content: start; height: 100%; }
-@media (max-width: 700px) { .article .flow { grid-template-columns: minmax(0, 1fr); } }
+
 .article .tile { flex: 0 0 auto; }
 .article code.inl { direction: ltr; unicode-bidi: isolate; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; background: #F4F4F5; border-radius: 6px; padding: 1px 6px; }
 .code-box { background: #18181B; border-radius: 16px; overflow: hidden; }
@@ -318,13 +317,15 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .demo .toast.on{transform:translate(-50%,0);opacity:1}
 .demo .toast i{font-style:normal;color:#22c55e;margin-inline-end:6px}
 .demo{z-index:1}
-.hero-stage{position:relative;padding-bottom:66px}
-.hero-deco{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:230px;height:92px;z-index:0}
-.hero-deco::before{content:"";position:absolute;inset:22px 0 0;border-radius:99px;background:linear-gradient(180deg,#C2603F,#D97757);box-shadow:0 10px 22px rgba(217,119,87,.35)}
-.hero-deco img{position:absolute;width:84px;bottom:-4px}
-.hero-deco img:nth-child(1){right:6px}
-.hero-deco img:nth-child(2){right:73px;bottom:2px}
-.hero-deco img:nth-child(3){right:140px;bottom:-2px}
+.hero-stage{position:relative}
+.c-hero .hero-in{grid-template-columns:minmax(0,1fr) auto minmax(340px,440px)}
+.hero-deco{position:relative;width:76px;height:250px;margin-inline-end:-30px;z-index:0;align-self:center}
+.hero-deco::before{content:"";position:absolute;inset:0 12px;border-radius:99px;background:linear-gradient(180deg,#C2603F,#D97757);box-shadow:0 10px 22px rgba(217,119,87,.35)}
+.hero-deco img{position:absolute;width:84px;left:50%;margin-left:-42px}
+.hero-deco img:nth-child(1){top:-6px}
+.hero-deco img:nth-child(2){top:76px}
+.hero-deco img:nth-child(3){top:158px}
+@media (max-width:860px){.c-hero .hero-in{grid-template-columns:minmax(0,1fr)}.hero-deco{display:none}}
 @media (max-width:860px){.demo{height:420px}}
 
 /* מאמרים: טבלת השוואה, תאריך, מקורות, קישור להמשך קריאה */
