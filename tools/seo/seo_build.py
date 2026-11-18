@@ -47,7 +47,14 @@ def lastmod(f: Path) -> str:
         return date.today().isoformat()
 
 
-def schema(s, title, desc, url, mod):
+def faqs_of(html):
+    """השאלות הנפוצות שמופיעות בעמוד (details/summary), בשביל FAQPage. רק מה שהגולש רואה."""
+    clean = lambda x: re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", "", x))).strip()
+    return [(clean(q), clean(a)) for q, a in re.findall(
+        r'<details class="card"><summary>(.*?)</summary><p>(.*?)</p></details>', html, re.S)]
+
+
+def schema(s, title, desc, url, mod, faqs=()):
     org = {"@type": "Organization", "@id": BASE + "/#org", "name": SITE_NAME, "url": BASE + "/",
            "logo": BASE + "/assets/images/logo/logo-footer.png"}
     graph = []
@@ -71,6 +78,9 @@ def schema(s, title, desc, url, mod):
                       "offers": {"@type": "Offer", "price": 0, "priceCurrency": "ILS", "category": "Free"},
                       "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online",
                                             "courseWorkload": "PT2H"}})
+    if faqs:
+        graph.append({"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]})
     if s != "index":
         crumbs.append({"@type": "ListItem", "position": len(crumbs) + 1, "name": title.split(" – ")[0].split(" | ")[0]})
         graph.append({"@type": "BreadcrumbList", "itemListElement": crumbs})
@@ -111,7 +121,7 @@ def block(s, html, mod):
              '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
              '<meta name="twitter:card" content="summary_large_image">',
              '<script type="application/ld+json">' +
-             json.dumps(schema(s, title, desc, url, mod), ensure_ascii=False) + "</script>",
+             json.dumps(schema(s, title, desc, url, mod, faqs_of(html)), ensure_ascii=False) + "</script>",
              END]
     return "\n    ".join(lines)
 
