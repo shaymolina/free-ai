@@ -8,7 +8,7 @@
     <meta name="description" content="קלוד קוד (Claude Code) הוא כלי של Anthropic שבונה אתרים ומערכות לפי מה שכותבים לו בעברית. מה זה, כמה עולה ואיך מתחילים, בלי לדעת לתכנת.">
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261117">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
-    <link rel="stylesheet" href="assets/css/compact.css?v=34">
+    <link rel="stylesheet" href="assets/css/compact.css?v=35">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
     <!-- seo -->
@@ -27,58 +27,52 @@
     <!-- /seo -->
 </head>
 <body>
-    <main class="wrap stack c-top">
+    <div class="wrap full">
+        <section class="c-hero a-hero">
         <header class="c-header">
             <a href="/" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
             <nav class="c-nav"><a href="/">דף הבית</a><a href="service">הקורס</a><a href="guide-1">המדריך</a><a href="work">סקילים</a><a href="articles" class="active">מאמרים</a></nav>
             <a href="service" class="btn sm">התחל ללמוד</a>
             <button type="button" class="btn c-menu-btn" aria-label="תפריט" onclick="this.parentNode.classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
         </header>
-        <article class="card article">
-            <h1>מה זה קלוד קוד? הסבר פשוט למי שלא מתכנת</h1>
-            <p class="lead">קלוד קוד (Claude Code) הוא כלי של חברת Anthropic שבונה בשבילכם אתרים, מערכות וכלים לפי מה שאתם כותבים לו במילים רגילות. אתם מסבירים מה אתם רוצים, והוא כותב את הקוד, יוצר את הקבצים ובודק שהכול עובד.</p>
-            <p class="art-date">עודכן: 18 בנובמבר 2026</p>
-
-            <h2>קלוד קוד בדימוי אחד</h2>
-            <p>תחשבו על שני אנשים שאפשר להזמין הביתה: יועץ ובעל מקצוע.</p>
-            <p>היועץ יושב איתכם, עונה על שאלות ונותן רעיונות, אבל לא נוגע בכלום.</p>
-            <p>בעל המקצוע לוקח את הכלים, בונה, מתקן, ובסוף מראה לכם מה עשה.</p>
-            <p>קלוד הרגיל הוא היועץ. קלוד קוד הוא בעל המקצוע.</p>
-            <p>הקוד הוא השפה שבה כתובים אתרים ותוכנות, כמו מתכון שהמחשב יודע לקרוא. קלוד קוד כותב את המתכון הזה בשבילכם, אז אתם לא צריכים לדעת אותו.</p>
-
-            <h2>איך קלוד קוד עובד</h2>
-            <ol class="rows"><li class="row"><span class="tile">1</span>אתם כותבים מה רוצים<small>בעברית רגילה, כמו הודעה לחבר</small></li><li class="row"><span class="tile">2</span>הוא מתכנן<small>מחליט אילו עמודים, חלקים וקבצים צריך</small></li><li class="row"><span class="tile">3</span>הוא בונה<small>כותב את הקוד ויוצר את הקבצים בעצמו</small></li><li class="row"><span class="tile">4</span>הוא בודק<small>מריץ את מה שבנה ומתקן טעויות שמצא</small></li><li class="row"><span class="tile">5</span>אתם מסתכלים ומבקשים שינוי<small>למשל "תגדיל את הכותרת" או "תוסיף טופס"</small></li><li class="rows-sep">דוגמאות</li><li class="row"><span class="tile">1</span>אתר תדמית לנגר<small>עם תמונות עבודות, שירותים וטופס יצירת קשר</small></li><li class="row"><span class="tile">2</span>יומן תורים לספרית<small>לקוחות קובעים תור לבד, ואתם רואים הכול במסך אחד</small></li><li class="row"><span class="tile">3</span>גיבוי אוטומטי לקבצים<small>כמו ב<a href="article-github-backup">גיבוי הפרויקטים ל-Google Drive</a></small></li></ol>
-
-            <h2>מה ההבדל בין קלוד לקלוד קוד</h2>
-            <p>שניהם מאותה חברה ומאותו מנוי, אבל כל אחד עושה עבודה אחרת.</p>
-            <div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th>קלוד (הצ'אט)</th><th>קלוד קוד</th></tr></thead><tbody><tr><td>מה הוא עושה</td><td>עונה, מסביר וכותב טקסט</td><td>בונה ומשנה אתרים ומערכות</td></tr><tr><td>נוגע בקבצים?</td><td>לא</td><td>כן, יוצר ומשנה קבצים לבד</td></tr><tr><td>מה מקבלים בסוף</td><td>תשובה על המסך</td><td>אתר או כלי שעובד</td></tr><tr><td>מתי משתמשים</td><td>מייל, פוסט, רעיון, ניתוח מסמך</td><td>אתר, דף נחיתה, מערכת לעסק</td></tr><tr><td>איפה לוחצים</td><td>הלשונית Chat</td><td>הלשונית Code</td></tr></tbody></table></div>
+            <div class="hero-in">
+                <div class="hero-text">
+                    <span class="chip">מאמר · 6 דקות קריאה</span>
+                    <h1 class="hero-title"><span class="grad">מה זה קלוד קוד? הסבר פשוט למי שלא מתכנת</span></h1>
+                    <p>קלוד קוד (Claude Code) הוא כלי של חברת Anthropic שבונה בשבילכם אתרים ומערכות לפי מה שאתם כותבים לו במילים רגילות. אתם מסבירים מה רוצים, והוא כותב את הקוד ובודק שהכול עובד.</p>
+                    <span class="a-date">עודכן: 18 בנובמבר 2026</span>
+                </div>
+                <div class="a-visual"><div class="ill" aria-hidden="true">
+    <div class="ill-msg"><small>אתם כותבים:</small><span>תבנה לי אתר לנגרייה שלי, עם תמונות של עבודות וטופס יצירת קשר</span></div>
+    <div class="ill-go"><i></i>קלוד קוד בונה<i></i></div>
+    <div class="ill-site">
+        <div class="ill-bar"><span></span><span></span><span></span><em>nagariya.co.il</em></div>
+        <div class="ill-top"><b>נגרות יוסי</b><span>רהיטים בהזמנה אישית</span><em>צרו קשר</em></div>
+        <div class="ill-gal"><i></i><i></i><i></i></div>
+        <div class="ill-form"><i></i><i></i><em>שליחה</em></div>
+    </div>
+</div></div>
+            </div>
+        </section>
+    </div>
+    <main class="wrap stack art-main article">
+<section class="card art-sec"><h2>קלוד קוד בדימוי אחד</h2>
+            <div class="duo"><div class="duo-c"><span class="duo-tag">קלוד (הצ'אט)</span><h3>יועץ</h3><p>יושב איתכם, עונה ונותן רעיונות, אבל לא נוגע בכלום.</p></div><div class="duo-c hl"><span class="duo-tag">קלוד קוד</span><h3>בעל מקצוע</h3><p>לוקח את הכלים, בונה, מתקן, ומראה לכם מה עשה.</p></div></div>
+            <p>קוד הוא המתכון שהמחשב קורא כדי להציג אתר, וקלוד קוד כותב אותו בשבילכם.</p></section><section class="card art-sec"><h2>איך קלוד קוד עובד</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>אתם כותבים מה רוצים<small>בעברית רגילה, כמו הודעה לחבר</small></li><li class="row"><span class="tile">2</span>הוא מתכנן<small>מחליט אילו עמודים וקבצים צריך</small></li><li class="row"><span class="tile">3</span>הוא בונה<small>כותב את הקוד ויוצר את הקבצים לבד</small></li><li class="row"><span class="tile">4</span>הוא בודק<small>מריץ את מה שבנה ומתקן טעויות</small></li><li class="row"><span class="tile">5</span>אתם מבקשים שינוי<small>"תגדיל את הכותרת", "תוסיף טופס"</small></li><li class="rows-sep">דוגמאות</li><li class="row"><span class="tile">1</span>אתר תדמית לנגר<small>תמונות עבודות, שירותים וטופס</small></li><li class="row"><span class="tile">2</span>יומן תורים לספרית<small>לקוחות קובעים תור לבד</small></li><li class="row"><span class="tile">3</span>גיבוי אוטומטי לקבצים<small><a href="article-github-backup">גיבוי הפרויקטים ל-Google Drive</a></small></li></ol></section><section class="card art-sec"><h2>מה ההבדל בין קלוד לקלוד קוד</h2>
+            <div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th>קלוד (הצ'אט)</th><th>קלוד קוד</th></tr></thead><tbody><tr><td>מה עושה</td><td>עונה, מסביר וכותב טקסט</td><td>בונה ומשנה אתרים ומערכות</td></tr><tr><td>נוגע בקבצים?</td><td>לא</td><td>כן, יוצר ומשנה לבד</td></tr><tr><td>מה מקבלים</td><td>תשובה על המסך</td><td>אתר או כלי שעובד</td></tr><tr><td>מתי משתמשים</td><td>מייל, פוסט, רעיון</td><td>אתר, דף נחיתה, מערכת לעסק</td></tr><tr><td>איפה לוחצים</td><td>הלשונית Chat</td><td>הלשונית Code</td></tr></tbody></table></div>
             <div class="fshot"><img src="assets/images/guide/claude-install-5.png" alt="איך נראה קלוד קוד: באפליקציה של קלוד בוחרים בלשונית Code" loading="lazy"></div>
-            <p>רוצים לדעת מתי לבחור בכל אחד? יש על זה פרק שלם במדריך: <a href="guide-2">ההבדל בין קלוד לקלוד קוד</a>.</p>
-
-            <h2>איפה עובדים עם קלוד קוד</h2>
-            <ol class="rows"><li class="row"><span class="tile">1</span>אפליקציה במחשב<small>מורידים את האפליקציה של קלוד ל-Mac או ל-Windows, והיא כבר כוללת את קלוד קוד</small></li><li class="row"><span class="tile">2</span>בדפדפן<small>נכנסים ל-claude.ai/code, בלי להתקין כלום</small></li><li class="row"><span class="tile">3</span>בטלפון<small>באפליקציה של קלוד ל-iPhone ול-Android</small></li><li class="row"><span class="tile">4</span>בחלון פקודות (טרמינל)<small>חלון שחור שבו מקלידים פקודות. מתאים למתכנתים</small></li><li class="row"><span class="tile">5</span>מה אנחנו בוחרים<small>האפליקציה במחשב, כי הכול שם בלחיצות ובלי פקודות</small></li></ol>
-            <p>איך מורידים ומתקינים, צעד אחרי צעד: <a href="guide-4">התקנת קלוד קוד למחשב</a>.</p>
-
-            <h2>כמה עולה קלוד קוד</h2>
-            <p>קלוד קוד כלול במנוי של קלוד, כמו ערוץ שמגיע בחבילת טלוויזיה. בחבילה החינמית הוא לא כלול.</p>
-            <div class="tbl-wrap"><table class="tbl"><thead><tr><th>מסלול</th><th>מחיר לחודש</th><th>קלוד קוד כלול?</th></tr></thead><tbody><tr><td>Free</td><td>0$</td><td>לא</td></tr><tr><td>Pro</td><td>20$ בתשלום חודשי (17$ בתשלום שנתי)</td><td>כן</td></tr><tr><td>Max</td><td>100$</td><td>כן, עם הרבה יותר שימוש</td></tr><tr><td>Ultra</td><td>200$</td><td>כן, הכי הרבה שימוש</td></tr></tbody></table></div>
-            <p>המחירים נכונים ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>.</p>
-            <p>למתחילים מספיק Pro. כמה עבודה נכנסת במנוי, ומה עושים כשהיא נגמרת: <a href="guide-11">כמה נשאר מהמנוי</a>.</p>
-
-            <h2>האם צריך לדעת לתכנת?</h2>
-            <p>לא. מדברים עם קלוד קוד כמו עם בעל מקצוע: מה בונים, בשביל מי, ואיך זה צריך להיראות.</p>
-            <p>אנחנו כותבים לו רק בעברית, ואפשר גם ללחוץ על המיקרופון ולדבר.</p>
-            <p>איך מנסחים בקשה שמביאה תוצאה טובה: <a href="guide-16">איך מדברים עם קלוד קוד</a>.</p>
-
-            <h2>איך מתחילים לעבוד עם קלוד קוד</h2>
-            <ol class="rows"><li class="row"><span class="tile">1</span>פותחים חשבון קלוד<small><a href="guide-3">פתיחת חשבון</a> ומנוי Pro</small></li><li class="row"><span class="tile">2</span>מתקינים את האפליקציה<small><a href="guide-4">הורדה והתקנה</a> ל-Mac או ל-Windows</small></li><li class="row"><span class="tile">3</span>פותחים חשבון GitHub<small><a href="guide-5">המקום שבו נשמרים הפרויקטים</a>, בחינם</small></li><li class="row"><span class="tile">4</span>בונים את הפרויקט הראשון<small><a href="guide-17">כותבים בקשה</a> ורואים אותו בונה</small></li></ol>
-            <p>מעדיפים ללמוד בווידאו? <a href="service">קורס קלוד קוד בעברית, בחינם</a>, מאפס ועד אתר שעובד באוויר.</p>
-
-            <h2>שאלות נפוצות</h2>
+            <p class="more-link">לעומק: <a href="guide-2">מתי בוחרים בכל אחד</a>.</p></section><section class="card art-sec"><h2>איפה עובדים עם קלוד קוד</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>אפליקציה במחשב<small>Mac או Windows, הכי פשוט</small></li><li class="row"><span class="tile">2</span>בדפדפן<small>claude.ai/code, בלי התקנה</small></li><li class="row"><span class="tile">3</span>בטלפון<small>האפליקציה של קלוד ל-iPhone ול-Android</small></li><li class="row"><span class="tile">4</span>בטרמינל<small>חלון פקודות שחור, למתכנתים</small></li></ol>
+            <div class="note-box"><b>מה אנחנו בוחרים:</b> האפליקציה במחשב, כי הכול בלחיצות. <a href="guide-4">איך מתקינים</a>.</div></section><section class="card art-sec"><h2>כמה עולה קלוד קוד</h2>
+            <div class="plans"><div class="plan"><b>Free</b><strong>0$</strong><small>לחודש</small><span class="plan-ok">בלי קלוד קוד</span></div><div class="plan yes"><b>Pro</b><strong>20$</strong><small>לחודש (17$ בתשלום שנתי)</small><span class="plan-ok">קלוד קוד כלול ✓</span></div><div class="plan yes"><b>Max</b><strong>100$</strong><small>לחודש, הרבה יותר שימוש</small><span class="plan-ok">קלוד קוד כלול ✓</span></div><div class="plan yes"><b>Ultra</b><strong>200$</strong><small>לחודש, הכי הרבה שימוש</small><span class="plan-ok">קלוד קוד כלול ✓</span></div></div>
+            <p class="art-src">נכון ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>. למתחילים מספיק Pro (<a href="guide-11">כמה נשאר מהמנוי</a>).</p></section><section class="card art-sec"><h2>האם צריך לדעת לתכנת?</h2>
+            <div class="duo"><div class="duo-c"><span class="duo-tag">לא צריך</span><h3>לדעת קוד</h3><p>מסבירים במילים מה בונים ובשביל מי.</p></div><div class="duo-c hl"><span class="duo-tag">מספיק</span><h3>עברית רגילה</h3><p>אפשר גם לדבר במיקרופון. <a href="guide-16">איך מנסחים בקשה</a></p></div></div></section><section class="card art-sec"><h2>איך מתחילים לעבוד עם קלוד קוד</h2>
+            <ol class="rows"><li class="row"><span class="tile">1</span>פותחים חשבון קלוד<small><a href="guide-3">פתיחת חשבון</a> ומנוי Pro</small></li><li class="row"><span class="tile">2</span>מתקינים את האפליקציה<small><a href="guide-4">הורדה והתקנה</a></small></li><li class="row"><span class="tile">3</span>פותחים חשבון GitHub<small><a href="guide-5">כאן נשמרים הפרויקטים</a></small></li><li class="row"><span class="tile">4</span>בונים פרויקט ראשון<small><a href="guide-17">כותבים בקשה ורואים אותו בונה</a></small></li></ol>
+            <p class="more-link">מעדיפים וידאו? <a href="service">קורס קלוד קוד בעברית, בחינם</a>.</p></section><section class="card art-sec"><h2>שאלות נפוצות</h2>
             <div class="faq"><details class="card"><summary>האם קלוד קוד בחינם?</summary><p>לא. צריך מנוי בתשלום של קלוד, לפחות Pro ב-20$ לחודש (נכון ל-18 בנובמבר 2026). הקורס והמדריך שלנו חינמיים.</p></details><details class="card"><summary>האם קלוד קוד עובד בעברית?</summary><p>כן. כותבים לו בעברית רגילה, והוא עונה ובונה אתרים בעברית. ככה עשינו בכל המדריך.</p></details><details class="card"><summary>צריך לדעת לתכנת כדי להשתמש בקלוד קוד?</summary><p>לא. מסבירים לו במילים מה רוצים, והוא כותב את הקוד בעצמו.</p></details><details class="card"><summary>איך מורידים את קלוד קוד למחשב?</summary><p>מורידים את האפליקציה של קלוד מ-claude.com/download, מתחברים, ולוחצים על הלשונית Code. יש מדריך מלא בפרק 4.</p></details><details class="card"><summary>אפשר לעבוד עם קלוד קוד מהטלפון?</summary><p>כן. קלוד קוד זמין גם באפליקציה של קלוד ל-iPhone ול-Android.</p></details><details class="card"><summary>יש קורס קלוד קוד בעברית?</summary><p>כן. אצלנו יש קורס קלוד קוד חינמי בעברית, עם שיעורי וידאו ומדריך כתוב.</p></details></div>
-            <p class="art-src">מקורות: <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">התיעוד הרשמי של קלוד קוד</a>, <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>.</p>
-            <div class="art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service" class="btn">התחל ללמוד</a></div>
-        </article>
+            <p class="art-src">מקורות: <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">התיעוד הרשמי של קלוד קוד</a>, <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>.</p></section>
+        <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service" class="btn">התחל ללמוד</a></div>
         <footer class="c-foot">
             <span>© 2026 Free AI. כל הזכויות שמורות.</span>
             <nav><a href="privacy">פרטיות</a><a href="terms">תנאי שימוש</a></nav>
