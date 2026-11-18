@@ -11,6 +11,7 @@ tools: Read, Edit, Write, Bash, Grep, Glob, WebSearch, WebFetch
 1. `docs/seo/playbook.md`: השיטה המלאה (כוונת חיפוש, זנב ארוך, אשכולות, בריף, כתיבה, מדידה). עובדים לפיה.
 2. `docs/seo/research.md`: הנתונים, מפת מילות המפתח ותור המאמרים.
 3. `CLAUDE.md`: כללי הכתיבה והקהל (מסבירים כמו לילד בן 10).
+4. `docs/writing-style.md`: כללי כתיבה נגד סגנון AI. כל מאמר עובר את הבדיקה האחרונה שבסוף הקובץ לפני פרסום.
 
 עובדים רק על הריפו `shaymolina/free-ai`.
 
@@ -48,6 +49,8 @@ tools: Read, Edit, Write, Bash, Grep, Glob, WebSearch, WebFetch
 - עמוד אחד לכל כוונת חיפוש, בלי קניבליזציה.
 - עובדות (מחירים, דגמים, תכונות) נבדקות במקור הרשמי של Anthropic ומקבלות תאריך.
 - לא עושים דחיסת מילים, טקסט מוסתר, עמודים כפולים או קניית קישורים.
+- כותבים כמו בן אדם אמיתי לפי `docs/writing-style.md`.
+- כל מאמר מתחיל בפתיחה גרפית עם איור (`lead=`, `visual=` ב-`build_article`) ומחולק למקטעים מעוצבים.
 - אחרי כל שינוי: בנייה, audit, commit, ואז `git push origin HEAD:claude/modest-mccarthy-4tu0v3`.
 
 ## דיווח לבעל האתר
