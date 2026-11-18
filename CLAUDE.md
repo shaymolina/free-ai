@@ -26,4 +26,4 @@
 
 ## SEO
 - אחרי כל בנייה של עמודים רץ `tools/seo/seo_build.py` (אוטומטית בסוף `compact_site.py`; עם בונה אחר מריצים ידנית).
-- בדיקה: `python3 tools/seo/seo_audit.py`. סוכן ה-SEO נמצא ב-`.claude/agents/seo.md`, ואת המחקר ותור המאמרים שומרים ב-`docs/seo/research.md`.
+- בדיקה: `python3 tools/seo/seo_audit.py`. סוכן ה-SEO נמצא ב-`.claude/agents/seo.md` (השיטה: `docs/seo/playbook.md`, זנב ארוך: `tools/seo/longtail.py`), ואת המחקר ותור המאמרים שומרים ב-`docs/seo/research.md`.
