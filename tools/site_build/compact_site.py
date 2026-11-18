@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "35"
+CSS_VERSION = "37"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -16,7 +16,7 @@ NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-
 # שם הפרק, דקות קריאה
 CHAPTERS = [
     ("לפני שמתחילים", 2), ("קלוד מול קלוד קוד", 3), ("פותחים חשבון קלוד", 4),
-    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("היכרות ראשונה עם קלוד", 3), ("מיקום הפרויקט: מחשב או ענן", 3), ("בחירת המודל", 3), ("הרשאות: כמה קלוד עושה לבד", 3), ("כמה נשאר מהמנוי", 2), ("תוספות: איפה מוסיפים יכולות", 3), ("חיבור לשירותים (Connectors)", 3), ("מיומנויות (Skills)", 3), ("חבילות (Plugins)", 3), ("איך מדברים עם קלוד קוד", 4), ("הפרויקט הראשון", 8), ("מעלים לאוויר", 5),
+    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("היכרות ראשונה עם קלוד", 3), ("מיקום הפרויקט: מחשב או ענן", 3), ("בחירת המודל", 3), ("הרשאות: כמה קלוד עושה לבד", 3), ("כמה נשאר מהמנוי", 2), ("תוספות: איפה מוסיפים יכולות", 3), ("חיבור לשירותים (Connectors)", 3), ("מיומנויות (Skills)", 3), ("חבילות (Plugins)", 3), ("איך מדברים עם קלוד קוד", 4), ("חיבור GitHub לקלוד ובנייה ראשונה", 8), ("מעלים לאוויר", 5),
     ("פותחים 4CODE", 4), ("Supabase, כן או לא", 3),
     ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
@@ -62,7 +62,10 @@ def _page(title, desc, body, script="", cls=""):
     <meta name="author" content="Free AI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{desc}">
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261117">
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261118">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
@@ -71,6 +74,7 @@ def _page(title, desc, body, script="", cls=""):
 <body{(f' class="{cls}"' if cls else "")}>
 {body}
 {script}
+<script src="assets/js/header.js?v=1" defer></script>
 </body>
 </html>
 '''
@@ -200,6 +204,10 @@ def rows_html(rows):
             k += 1
             parts.append(f'<li class="row"><span class="tile">{k}</span>{a}<small>{b}</small></li>')
     return f'<ol class="rows">{"".join(parts)}</ol>' if rows else ""
+
+
+def tip(text):
+    return f'<div class="tipcard"><b>טיפ</b><span>{text}</span></div>'
 
 
 def split(img, alt, rows):
@@ -499,16 +507,16 @@ build_chapter(
 
 build_chapter(
     16, "קלוד קוד עובד לפי מה שכותבים לו. כמו בעל מקצוע: ככל שההסבר ברור יותר, התוצאה קרובה יותר למה שרציתם.",
-    [("מה בונים", "סוג הדבר: דף נחיתה, אתר תדמית, מערכת לניהול לקוחות"),
-     ("בשביל מי", "העסק, מה הוא עושה ומי הלקוחות שלו"),
-     ("מה צריך להופיע", "החלקים שחייבים להיות: שירותים, תמונות, טלפון, טופס יצירת קשר"),
-     ("איך זה נראה", "צבעים, סגנון ותחושה, למשל חם, נקי, יוקרתי"),
-     ("אפשר לדבר במקום להקליד", "לוחצים על המיקרופון בתיבת הכתיבה ומדברים בעברית"),
-     ("אחרי הבנייה הראשונה", "מבקשים שינוי אחד בכל פעם, ובודקים שיצא כמו שרציתם"),
-     (None, "דוגמאות"),
+    [(None, "דוגמאות"),
      ("בקשה חלשה", "\"תבנה לי אתר\""),
      ("בקשה טובה", "\"תבנה דף נחיתה לנגר. בראש תמונות עבודות וכותרת, אחריהן השירותים: פרגולות, גדרות ושולחנות. בסוף טופס יצירת קשר. צבעים חמים של עץ.\"")],
     "לא צריך מילים טכניות. מסבירים כמו לבן אדם",
+    top=rows_html([("מה בונים", "סוג הדבר: דף נחיתה, אתר תדמית, מערכת לניהול לקוחות"),
+     ("בשביל מי", "העסק, מה הוא עושה ומי הלקוחות שלו"),
+     ("מה צריך להופיע", "החלקים שחייבים להיות: שירותים, תמונות, טלפון, טופס יצירת קשר"),
+     ("איך זה נראה", "צבעים, סגנון ותחושה, למשל חם, נקי, יוקרתי")])
+     + tip("אפשר לדבר במקום להקליד: לוחצים על המיקרופון בתיבת הכתיבה ומדברים בעברית.")
+     + tip("אחרי הבנייה הראשונה מבקשים כמה שינויים יחד בהודעה אחת, וכך חוסכים במנוי. רק שיהיו קשורים זה לזה, למשל כמה תיקונים באותו עמוד."),
 )
 
 
