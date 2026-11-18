@@ -255,6 +255,7 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .article .flow { gap: 8px; }
 .article .fstep { grid-template-columns: minmax(0, 1fr); }
 .article .ftext p + p { margin-top: 6px; }
+.article > p + p { margin-top: -8px; }
 .article .tile { flex: 0 0 auto; }
 .article code.inl { direction: ltr; unicode-bidi: isolate; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; background: #F4F4F5; border-radius: 6px; padding: 1px 6px; }
 .code-box { background: #18181B; border-radius: 16px; overflow: hidden; }
