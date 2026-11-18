@@ -234,3 +234,5 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .split .row small { font-size: 13px; }
 .split .row { flex-wrap: wrap; row-gap: 2px; }
 .split .row small { flex-basis: calc(100% - 52px); margin-inline-start: 52px; margin-top: -8px; text-align: start; }
+.tipcard { display: flex; gap: 12px; align-items: flex-start; background: #FFF3EC; border: 1px solid rgba(217,119,87,.45); border-radius: 16px; padding: 12px 16px; margin: 0; font-size: 14.5px; line-height: 1.6; }
+.tipcard b { flex-shrink: 0; background: #D97757; color: #fff; border-radius: 999px; padding: 2px 12px; font-size: 13px; }
