@@ -282,5 +282,48 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 .hero-title, .hero-title .grad { font-weight: 900; }
 .hero-title .grad { white-space: normal; }
 @media (max-width: 860px) { .c-hero .hero-in { grid-template-columns: minmax(0, 1fr); } }
-.hero-vid { padding: 8px; background: rgba(244,244,245,.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-.hero-vid video { display: block; width: 100%; height: auto; border-radius: 12px; background: #1f1f1f; }
+/* hero demo */
+.demo{position:relative;background:#1f1f1f;color:#eee;border-radius:24px;height:380px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.18)}
+.demo .chat{position:absolute;inset:0;padding:22px;display:grid;gap:12px;align-content:start;transition:opacity .5s,transform .5s}
+.demo .chat.out{opacity:0;transform:scale(.96)}
+.demo .who{font-size:12px;color:#999}
+.demo .box{background:#2b2b2b;border:1px solid #3a3a3a;border-radius:16px;padding:14px 16px;font-size:17px;min-height:56px;line-height:1.5}
+.demo .cur{display:inline-block;width:2px;height:1.1em;background:#D97757;vertical-align:middle;animation:demo-bl 1s steps(1) infinite}
+@keyframes demo-bl{50%{opacity:0}}
+.demo .steps{display:grid;gap:10px;font-size:15px}
+.demo .steps div{opacity:0;transform:translateY(6px);transition:.4s;display:flex;gap:10px;align-items:center}
+.demo .steps div.on{opacity:1;transform:none}
+.demo .steps i{font-style:normal;color:#22c55e;font-weight:700}
+.demo .app{position:absolute;inset:0;background:#FAFAF9;color:#18181B;padding:16px;display:grid;grid-template-rows:auto auto 1fr;gap:12px;opacity:0;pointer-events:none}
+.demo .app.in{opacity:1}
+.demo .app .p{opacity:0;transform:translateY(14px) scale(.97);transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.demo .app.in .p{opacity:1;transform:none}
+.demo .top{display:flex;align-items:center;justify-content:space-between}
+.demo .top b{font-size:17px;font-weight:800}
+.demo .top .btn2{background:#D97757;color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:99px}
+.demo .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.demo .st{background:#fff;border:1px solid #E4E4E7;border-radius:12px;padding:8px 10px}
+.demo .st small{display:block;font-size:11px;color:#71717A}
+.demo .st strong{font-size:20px;font-weight:800}
+.demo .cal{background:#fff;border:1px solid #E4E4E7;border-radius:14px;padding:8px;display:grid;grid-template-columns:34px repeat(4,1fr);grid-template-rows:20px repeat(5,1fr);gap:4px;font-size:11px}
+.demo .cal .h{color:#71717A;text-align:center;font-weight:700}
+.demo .cal .t{color:#A1A1AA;font-size:10px;align-self:start}
+.demo .slot{border-radius:7px;background:#F4F4F5}
+.demo .ap{border-radius:7px;padding:3px 6px;font-weight:700;font-size:10.5px;line-height:1.25;color:#7C2D12;background:#FBE3D9;border-inline-start:3px solid #D97757;transform:scale(.6);opacity:0;transition:.35s cubic-bezier(.3,1.5,.5,1)}
+.demo .ap.g{background:#DCFCE7;color:#14532D;border-color:#22c55e}
+.demo .ap.b{background:#E0E7FF;color:#1E3A8A;border-color:#6366F1}
+.demo .ap.on{transform:none;opacity:1}
+.demo .ap span{display:block;font-weight:500;opacity:.8}
+.demo .toast{position:absolute;bottom:22px;left:50%;transform:translate(-50%,30px);opacity:0;background:#18181B;color:#fff;padding:9px 16px;border-radius:99px;font-size:13px;font-weight:700;white-space:nowrap;transition:.45s cubic-bezier(.3,1.4,.5,1);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.demo .toast.on{transform:translate(-50%,0);opacity:1}
+.demo .toast i{font-style:normal;color:#22c55e;margin-inline-end:6px}
+.demo{z-index:1}
+.hero-stage{position:relative;padding-bottom:66px}
+.hero-deco{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:230px;height:92px;z-index:0}
+.hero-deco::before{content:"";position:absolute;inset:22px 0 0;border-radius:99px;background:linear-gradient(180deg,#C2603F,#D97757);box-shadow:0 10px 22px rgba(217,119,87,.35)}
+.hero-deco img{position:absolute;width:84px;bottom:-4px}
+.hero-deco img:nth-child(1){right:6px}
+.hero-deco img:nth-child(2){right:73px;bottom:2px}
+.hero-deco img:nth-child(3){right:140px;bottom:-2px}
+@media (max-width:860px){.demo{height:420px}}
+
