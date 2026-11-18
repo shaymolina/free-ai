@@ -203,10 +203,16 @@ def split(img, alt, rows):
     return f'''<div class="split">{rows_html(rows)}<div class="split-bar" role="separator" aria-label="גרירה לשינוי הגודל" tabindex="0"></div><div class="fshot map"><img src="{img}" alt="{alt}"></div></div>'''
 
 
+GUIDE_DESC = {
+    5: "פותחים חשבון GitHub בחינם, צעד אחרי צעד. זה המקום שבו נשמרים כל הפרויקטים שקלוד קוד בונה.",
+    6: "מה זה ריפו (Repo) ב-GitHub, למה כל פרויקט צריך אחד, ואיך פותחים ריפו ראשון בכמה לחיצות.",
+}
+
+
 def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     name, mins = CHAPTERS[n - 1]
     rows_block = rows_html(rows)
-    nxt = f' data-next="guide-{n + 1}.html"' if (n + 1) in READY else ""
+    nxt = f' data-next="guide-{n + 1}"' if (n + 1) in READY else ""
     body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
         <div class="course">
             {burger("guide-1.html")}
@@ -222,7 +228,7 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     </main>'''
     (SITE / f"guide-{n}.html").write_text(page(
         f"{name} – המדריך לקלוד קוד | Free AI",
-        f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead}", body,
+        f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead or GUIDE_DESC.get(n, name)}", body,
         GUIDE_JS % {"total": len(CHAPTERS), "current": n}, cls="guide-page"))
     print(f"guide-{n}.html done")
 
@@ -596,7 +602,7 @@ def build_articles_index():
         {FOOTER}
     </main>'''
     (SITE / "articles.html").write_text(page(
-        "מאמרים – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body))
+        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body))
     print("articles.html done")
 
 
@@ -691,3 +697,7 @@ build_article(
 )
 
 build_articles_index()
+
+# שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
+import runpy as _runpy
+_runpy.run_path(str(Path(__file__).resolve().parents[1] / "seo" / "seo_build.py"), run_name="__main__")
