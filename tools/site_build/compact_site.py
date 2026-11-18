@@ -550,15 +550,23 @@ document.querySelectorAll('[data-copy-from]').forEach(function (b) {
         setTimeout(function () { b.textContent = 'העתקה'; }, 2000);
     });
 });
+document.addEventListener('click', function (e) {
+    var img = e.target.closest ? e.target.closest('.fshot img') : null;
+    if (!img) return;
+    var o = document.createElement('div'); o.className = 'lightbox';
+    o.innerHTML = '<img src="' + img.src + '" alt="">'; o.onclick = function () { o.remove(); };
+    document.body.appendChild(o);
+});
 </script>'''
 
 
 def steps(items):
     """שלבים ממוספרים בלי צילומי מסך. כל שלב: כותרת + פסקאות."""
     out = []
-    for i, (title, paras) in enumerate(items, 1):
+    for i, (title, paras, *img) in enumerate(items, 1):
         body = "".join(f"<p>{x}</p>" for x in paras)
-        out.append(f'<li class="fstep"><div class="ftext"><span class="tile">{i}</span><div><h3>{title}</h3>{body}</div></div></li>')
+        shot = f'<div class="fshot"><img src="assets/images/guide/{img[0]}" alt="{title}" loading="lazy"></div>' if img else ""
+        out.append(f'<li class="fstep"><div class="ftext"><span class="tile">{i}</span><div><h3>{title}</h3>{body}</div></div>{shot}</li>')
     return f'<ol class="flow">{"".join(out)}</ol>'
 
 
@@ -636,25 +644,25 @@ build_article(
                     "מסמנים V ליד repo, יורדים למטה ולוחצים Generate token.",
                     'מעתיקים את המפתח שמופיע (מתחיל ב-<code class="inl">ghp_</code>) ושומרים אותו רגע בצד. הוא מוצג רק פעם אחת.',
                     "יש לכם כמה חשבונות GitHub? עושים את זה בכל אחד מהם.",
-                ]),
+                ], "backup-1.png"),
                 ("פותחים את Google Apps Script", [
                     "Apps Script הוא כמו עוזר קטן שגר בתוך חשבון הגוגל שלכם ויודע לעשות פעולות לבד, בשעה קבועה.",
                     'נכנסים ל-<a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a> עם אותו חשבון גוגל של הדרייב, ולוחצים "פרויקט חדש" (New project).',
-                ]),
+                ], "backup-2.png"),
                 ("מדביקים את הקוד", [
                     "מוחקים את כל מה שכתוב בחלון, ומדביקים במקומו את הקוד שבהמשך העמוד (כפתור העתקה).",
                     'במקום <code class="inl">PASTE_TOKEN_ACCOUNT_1</code> מדביקים את המפתח, ומשאירים את המירכאות סביבו.',
                     'יש חשבון נוסף? בשורה שמתחתיה מוחקים את <code class="inl">//</code> בתחילתה, ומדביקים שם את המפתח השני.',
-                ]),
+                ], "backup-3.png"),
                 ("שומרים ומפעילים פעם אחת", [
                     'לוחצים על סמל השמירה. בתפריט שליד הכפתור "הפעלה" (Run) בוחרים <code class="inl">setup</code>, ולוחצים "הפעלה".',
                     'גוגל תבקש אישור. לוחצים "בדיקת הרשאות", בוחרים את החשבון, לוחצים "מתקדם" (Advanced), ואז "מעבר אל..." ו"אישור" (Allow).',
                     "האזהרה מופיעה כי את הקוד הוספתם אתם ולא גוגל. זה תקין: הוא רץ רק בחשבון שלכם.",
-                ]),
+                ], "backup-4.png"),
                 ("בודקים שזה עובד", [
                     "פותחים את הדרייב ומחפשים את התיקייה GitHub Backups. בתוכה תיקייה לכל חשבון וקובץ zip לכל פרויקט.",
                     "הרבה פרויקטים? הגיבוי הראשון ממשיך לבד ברקע עד שהוא מסתיים.",
-                ]),
+                ], "backup-5.png"),
             ])}
             <div class="note-box">טעות נפוצה: בתפריט נשאר <code class="inl">myFunction</code> במקום <code class="inl">setup</code>. ההפעלה "מצליחה", אבל לא קורה כלום.</div>
 
