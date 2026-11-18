@@ -146,7 +146,7 @@ def check_english(name, html):
 # work.html – ספריית הסקילים
 # =====================================================================
 html = (ROOT / "aigocy-about/work.html").read_text()
-html = apply_common(html, "work.html", "ספריית סקילים ל-Claude בעברית – Free AI",
+html = apply_common(html, "work.html", "סקילים לקלוד (Claude Skills) בעברית – להורדה בחינם | Free AI",
                     "סקילים מוכנים ל-Claude בעברית, להורדה בחינם: בדיקת אבטחה לאתר, בדיקת מהירות ועוד. כל סקיל עם דוגמה, קוד מקור ומדריך התקנה.")
 
 html = hero(html, "ספריית סקילים", "ל-Claude",

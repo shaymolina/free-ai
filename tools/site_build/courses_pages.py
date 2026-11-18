@@ -142,8 +142,8 @@ COMMON_CSS = '''        .accordion-faq_item.style-1 .accordion-title { gap: 16px
 # =====================================================================
 def build_service():
     html = (ROOT / "aigocy-about/service.html").read_text()
-    html = apply_common(html, "service.html", "הקורס – Claude מאפס, בחינם | Free AI",
-                        "קורס Claude המלא בעברית ובחינם: 5 פרקים ו-8 שיעורים קצרים, מהשאלה הראשונה ועד אתר שבניתם עם Claude Code.")
+    html = apply_common(html, "service.html", "קורס קלוד קוד (Claude Code) מאפס – בחינם ובעברית | Free AI",
+                        "קורס קלוד קוד (Claude Code) בעברית ובחינם, למי שלא יודע לתכנת: 8 שיעורי וידאו קצרים, מהשאלה הראשונה ועד אתר שבניתם בעצמכם.")
 
     html = hero(html, "קורס Claude", "המלא, בחינם",
                 "קורס אחד, מאפס ועד הסוף – מהשאלה הראשונה ל-Claude ועד אתר <br> שבניתם בעצמכם עם Claude Code. בלי לשלם שקל.")

@@ -203,6 +203,14 @@ def split(img, alt, rows):
     return f'''<div class="split">{rows_html(rows)}<div class="split-bar" role="separator" aria-label="גרירה לשינוי הגודל" tabindex="0"></div><div class="fshot map"><img src="{img}" alt="{alt}"></div></div>'''
 
 
+GUIDE_TITLE = {  # כותרת לגוגל לפי מה שאנשים מחפשים (השם בעמוד נשאר כמו שהוא)
+    2: "מה זה קלוד קוד? ההבדל בין קלוד לקלוד קוד",
+    4: "התקנת קלוד קוד (Claude Code) צעד אחרי צעד",
+    5: "מה זה GitHub ואיך פותחים חשבון – מדריך למתחילים",
+    14: "סקילים בקלוד (Claude Skills): מה זה ואיך משתמשים",
+    16: "איך כותבים פרומפט לקלוד קוד – בלי מילים טכניות",
+}
+
 GUIDE_DESC = {
     5: "פותחים חשבון GitHub בחינם, צעד אחרי צעד. זה המקום שבו נשמרים כל הפרויקטים שקלוד קוד בונה.",
     6: "מה זה ריפו (Repo) ב-GitHub, למה כל פרויקט צריך אחד, ואיך פותחים ריפו ראשון בכמה לחיצות.",
@@ -227,7 +235,7 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
         {FOOTER}
     </main>'''
     (SITE / f"guide-{n}.html").write_text(page(
-        f"{name} – המדריך לקלוד קוד | Free AI",
+        f"{GUIDE_TITLE.get(n, name + ' – המדריך לקלוד קוד')} | Free AI",
         f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead or GUIDE_DESC.get(n, name)}", body,
         GUIDE_JS % {"total": len(CHAPTERS), "current": n}, cls="guide-page"))
     print(f"guide-{n}.html done")
