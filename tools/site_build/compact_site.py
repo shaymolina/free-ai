@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "37"
+CSS_VERSION = "38"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -24,6 +24,28 @@ READY = set(range(1, 20))  # פרקים שכבר כתובים
 
 
 HERO_DEMO = '<div class="hero-stage"><div class="demo">\n<div class="chat"><div class="who">אתם כותבים:</div><div class="box"><span class="tx"></span><span class="cur"></span></div>\n<div class="who">קלוד קוד עושה:</div><div class="steps"><div><i>✓</i>בונה יומן תורים</div><div><i>✓</i>מוסיף טופס הזמנה ללקוחות</div><div><i>✓</i>מחבר תזכורות בוואטסאפ</div><div><i>✓</i>בונה מסך ניהול להזמנות</div></div></div>\n<div class="app">\n<div class="top p"><b>התורים שלי</b><span class="btn2">+ תור חדש</span></div>\n<div class="stats"><div class="st p"><small>תורים השבוע</small><strong data-n="38">0</strong></div><div class="st p"><small>הזמנות חדשות</small><strong data-n="7">0</strong></div><div class="st p"><small>הכנסות</small><strong data-n="4260" data-c="₪">0</strong></div></div>\n<div class="cal p"><div></div><div class="h">ראשון</div><div class="h">שני</div><div class="h">שלישי</div><div class="h">רביעי</div><div class="t">09:00</div><div class="ap ">נועה<span>תספורת</span></div><div class="slot"></div><div class="ap g">אבי<span>זקן</span></div><div class="slot"></div><div class="t">10:00</div><div class="slot"></div><div class="ap b">מיכל<span>פן</span></div><div class="slot"></div><div class="ap b">דנה<span>החלקה</span></div><div class="t">11:00</div><div class="ap g">רון<span>צבע</span></div><div class="ap" id="last">יוסי<span>תספורת</span></div><div class="slot"></div><div class="slot"></div><div class="t">12:00</div><div class="slot"></div><div class="slot"></div><div class="ap ">שירה<span>תספורת</span></div><div class="ap g">תמר<span>צבע</span></div><div class="t">13:00</div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div></div>\n<div class="toast"><i>✓</i>תור חדש נקבע: יוסי, שני 11:00</div>\n</div></div>\n<script>(function(){\nvar msg="תבנה לי מערכת לניהול הזמנות ותורים של העסק שלי";\nvar d=document.querySelector(\'.demo\'),chat=d.querySelector(\'.chat\'),tx=d.querySelector(\'.tx\'),st=d.querySelectorAll(\'.steps div\'),app=d.querySelector(\'.app\'),ps=app.querySelectorAll(\'.p\'),aps=app.querySelectorAll(\'.ap\'),nums=app.querySelectorAll(\'[data-n]\'),toast=app.querySelector(\'.toast\');\nvar T=[];function at(ms,f){T.push(setTimeout(f,ms))}\nfunction reset(){T.forEach(clearTimeout);T=[];tx.textContent=\'\';chat.classList.remove(\'out\');app.classList.remove(\'in\');st.forEach(function(s){s.classList.remove(\'on\')});aps.forEach(function(a){a.classList.remove(\'on\')});toast.classList.remove(\'on\');nums.forEach(function(n){n.textContent=\'0\'});ps.forEach(function(p){p.style.transitionDelay=\'\'})}\nfunction count(el){var N=+el.dataset.n,c=el.dataset.c||\'\',t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=c+Math.round(N*k).toLocaleString(\'en-US\');if(k<1)requestAnimationFrame(f)})(t0)}\nfunction run(){reset();var k=0,step=50;\nfor(var i=1;i<=msg.length;i++)(function(i){at(i*step,function(){tx.textContent=msg.slice(0,i)})})(i);\nvar t=msg.length*step+500;\nst.forEach(function(s,n){at(t+n*650,function(){s.classList.add(\'on\')})});\nt+=st.length*650+700;\nat(t,function(){chat.classList.add(\'out\')});\nat(t+300,function(){ps.forEach(function(p,n){p.style.transitionDelay=(n*120)+\'ms\'});app.classList.add(\'in\')});\nat(t+800,function(){nums.forEach(count)});\nvar rest=[].filter.call(aps,function(a){return a.id!=\'last\'});rest.forEach(function(a,n){at(t+1000+n*170,function(){a.classList.add(\'on\')})});\nvar last=app.querySelector(\'#last\');\nat(t+1000+aps.length*170+700,function(){last.classList.add(\'on\');toast.classList.add(\'on\')});\nat(t+1000+aps.length*170+5200,run);}\nrun();})()</script></div>'
+
+
+def _strings_svg():
+    """קווי "חוטים" ירוקים לחלק הפתיחה: שני צרורות עקומות שזזים לאט (CSS)."""
+    def bundle(n, f):
+        return "".join(f'<path d="{f((i / (n - 1)) - .5)}"/>' for i in range(n))
+    a = bundle(28, lambda t: f"M 560 {470 + 80 * t:.1f} C 860 {470 - 160 * t:.1f}, 1080 {330 + 60 * t:.1f}, 1500 {130 + 560 * t:.1f}")
+    b = bundle(24, lambda t: f"M -60 {760 + 380 * t:.1f} C 240 {880 - 220 * t:.1f}, 460 {640 + 160 * t:.1f}, 700 {600 + 120 * t:.1f}")
+    return ('<svg class="strings" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">'
+            '<defs><linearGradient id="sg-a" gradientUnits="userSpaceOnUse" x1="620" y1="0" x2="1500" y2="0">'
+            '<stop offset="0" stop-color="#2DD4BF" stop-opacity="0"/><stop offset=".45" stop-color="#4ADE80" stop-opacity=".75"/><stop offset="1" stop-color="#A3E635" stop-opacity=".35"/></linearGradient>'
+            '<linearGradient id="sg-b" gradientUnits="userSpaceOnUse" x1="-80" y1="0" x2="760" y2="0">'
+            '<stop offset="0" stop-color="#2DD4BF" stop-opacity=".25"/><stop offset=".6" stop-color="#4ADE80" stop-opacity=".7"/><stop offset="1" stop-color="#A3E635" stop-opacity="0"/></linearGradient></defs>'
+            f'<g class="s-a" fill="none" stroke="url(#sg-a)" stroke-width=".9">{a}</g>'
+            f'<g class="s-b" fill="none" stroke="url(#sg-b)" stroke-width=".9">{b}</g></svg>')
+
+
+STRINGS = _strings_svg()
+(SITE / "assets/images/section/strings.svg").write_text(
+    STRINGS.replace('<svg class="strings"', '<svg xmlns="http://www.w3.org/2000/svg"').replace(' aria-hidden="true" focusable="false"', '')
+    .replace('</defs>', '</defs><style>g{transform-box:view-box;transform-origin:50% 50%}.s-a{animation:a 16s cubic-bezier(.77,0,.175,1) infinite alternate}.s-b{animation:b 20s cubic-bezier(.77,0,.175,1) infinite alternate}@keyframes a{to{transform:translate(-24px,-18px) rotate(-1.4deg)}}@keyframes b{to{transform:translate(20px,12px) rotate(1.2deg)}}@media (prefers-reduced-motion:reduce){g{animation:none!important}}</style>', 1))
+
 
 def header(active):
     links = "".join(f'<a href="{h}"{" class=\"active\"" if h == active else ""}>{t}</a>' for h, t in NAV)
@@ -65,8 +87,10 @@ def _page(title, desc, body, script="", cls=""):
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261118">
+    <link rel="preload" href="assets/fonts/files/frank/frank-ruhl-libre-hebrew-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
+    <link rel="stylesheet" href="assets/css/tokens.css?v={CSS_VERSION}">
     <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
@@ -74,7 +98,7 @@ def _page(title, desc, body, script="", cls=""):
 <body{(f' class="{cls}"' if cls else "")}>
 {body}
 {script}
-<script src="assets/js/header.js?v=1" defer></script>
+<script src="assets/js/header.js?v=2" defer></script>
 </body>
 </html>
 '''
@@ -97,11 +121,15 @@ def build_home():
     ])
     body = f'''    <div class="wrap full">
         <section class="c-hero">
+        {STRINGS}
         {header("index.html")}
             <div class="hero-in">
                 <div class="hero-text">
+                    <span class="chip">המדריך הכתוב <b>{len(CHAPTERS)} פרקים</b></span>
                     <h1 class="hero-title"><span class="hero-line"><span class="grad">קורס קלוד קוד בחינם</span></span></h1>
-                    <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב צעד אחרי צעד וסקילים מוכנים להורדה.</p>
+                    <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: <b>שיעורי וידאו</b>, <b>מדריך כתוב</b> צעד אחרי צעד ו<b>סקילים</b> מוכנים להורדה.</p>
+                    <div class="btns"><a href="service.html" class="btn">התחל ללמוד <span class="arr">←</span></a><a href="guide-1.html" class="btn-2">למדריך הכתוב</a></div>
+                    <span class="hero-note"><i></i>חינם ובעברית, בלי לדעת לתכנת</span>
                 </div>
                 {HERO_DEMO}
             </div>
@@ -109,11 +137,11 @@ def build_home():
     </div>
     <main class="wrap full stack" style="margin-top:16px">
         <div class="three">
-            <a href="service.html" class="card pick"><h2>הקורס</h2><p class="muted">8 שיעורי וידאו קצרים, לפי הסדר.</p><span class="go">לקורס ←</span></a>
-            <a href="guide-1.html" class="card pick"><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
-            <a href="work.html" class="card pick"><h2>סקילים</h2><p class="muted">יכולות מוכנות לקלוד, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
+            <a href="service.html" class="card pick"><span class="ic" aria-hidden="true">▶</span><h2>הקורס</h2><p class="muted">8 שיעורי וידאו קצרים, לפי הסדר.</p><span class="go">לקורס ←</span></a>
+            <a href="guide-1.html" class="card pick"><span class="ic" aria-hidden="true">☰</span><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
+            <a href="work.html" class="card pick"><span class="ic" aria-hidden="true">✦</span><h2>סקילים</h2><p class="muted">יכולות מוכנות לקלוד, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
         </div>
-        <h2 class="sec-title">שאלות נפוצות</h2>
+        <h2 class="sec-title">שאלות נפוצות<small>מה ששואלים אותנו הכי הרבה.</small></h2>
         <div class="faq">{faq}</div>
         {FOOTER}
     </main>'''
@@ -649,6 +677,7 @@ def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual
     dt = f'<span class="a-date">עודכן: {date}</span>' if date else ""
     page_body = f'''    <div class="wrap full">
         <section class="c-hero a-hero">
+        {STRINGS}
         {header("articles.html")}
             <div class="hero-in">
                 <div class="hero-text">
@@ -677,6 +706,7 @@ def build_articles_index():
         for n, t, d, m in ARTICLES)
     body = f'''    <div class="wrap full">
         <section class="c-hero a-hero">
+        {STRINGS}
         {header("articles.html")}
             <div class="hero-in">
                 <div class="hero-text">

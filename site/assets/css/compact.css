@@ -1,6 +1,5 @@
 /* Free AI – עיצוב מצומצם. אותה שפה עיצובית (כרטיסים רכים, כתום, כפתורי גלולה), בגדלים קטנים. */
-:root { --ink: #09090B; --muted: #71717A; --soft: #A1A1AA; --brand: #D97757; --card: #F4F4F5; --body: #EDECEC; --line: rgba(0,0,0,.08);
-  --card-shadow: 0 5px 12px rgba(0,0,0,.06), 0 2px 2px rgba(0,0,0,.08), 0 -5px 0 rgba(0,0,0,.05) inset, 0 3px 0 rgba(255,255,255,.6) inset; }
+/* המשתנים (צבעים, פונטים, רדיוסים, תנועה) נמצאים ב-tokens.css */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: 'Kobi', sans-serif; font-size: 15px; line-height: 1.5; color: var(--ink); background: var(--body); -webkit-font-smoothing: antialiased; }
@@ -433,3 +432,256 @@ body.guide-page .lesson::-webkit-scrollbar, body.guide-page .side::-webkit-scrol
 @media (max-width: 700px) { .plans { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .duo { grid-template-columns: 1fr; } }
 .note-box a { color: var(--brand); text-decoration: underline; font-weight: 600; }
+
+/* =====================================================================
+   כיוון עיצובי חדש (בהשראת Mintlify): לבן, קווים דקים, כותרות סריף,
+   כפתורים שחורים מרובעים, הדגשות ירוקות וקווי "חוטים" בפתיחה.
+   הכול נשען על המשתנים ב-:root למעלה.
+   ===================================================================== */
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); }
+::selection { background: var(--brand-soft); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: var(--r-xs); }
+h1, .art-head h1, .article h1 { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; }
+.grad { background: none; -webkit-text-fill-color: currentColor; color: var(--ink); padding-bottom: 0; }
+.hero-title, .hero-title .grad { font-weight: 500; }
+.muted { color: var(--muted); }
+
+/* כפתורים */
+.btn, .btn-2 { border-radius: var(--r-xs); font-weight: 500; font-size: 14px; line-height: 16px; padding: 12px 16px; min-height: 40px; box-shadow: none;
+  transition: background-color var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.btn, .btn-brand { color: #fff; background: var(--btn-bg); box-shadow: none; }
+.btn:hover, .btn-brand:hover { background: var(--btn-bg-hover); }
+.btn-2 { color: var(--ink); background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn-2:hover { background: var(--card); }
+.btn:active, .btn-2:active { transform: scale(.98); }
+.btn.sm, .btn-2.sm { padding: 8px 12px; min-height: 34px; font-size: 13px; }
+.btn .arr, .btn-2 .arr { display: inline-block; transition: transform var(--dur-2) var(--ease); }
+.btn:hover .arr, .btn-2:hover .arr { transform: translateX(-3px); }
+
+/* תגית: מסגרת דקה ומספר ירוק בכתב מכונה */
+.chip { gap: 8px; font-size: 13px; font-weight: 500; color: var(--ink); background: var(--bg); border-radius: var(--r-xs); padding: 4px 10px; box-shadow: inset 0 0 0 1px var(--line-2); }
+.chip::before { background: var(--brand-strong); width: 6px; height: 6px; }
+.chip:has(b)::before { display: none; }
+.chip b { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--brand); background: var(--brand-soft); border-radius: 2px; padding: 2px 6px; direction: ltr; unicode-bidi: isolate; }
+.chip:has(b) { padding-inline-end: 4px; }
+
+/* כרטיסים, אריחי מספר */
+.card { background: var(--card); border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line); }
+.tile { width: 32px; height: 32px; border-radius: var(--r-sm); font-size: 14px; font-weight: 600; color: var(--brand); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand-line); }
+
+/* ראש העמוד: פס לבן עם קו תחתון לכל הרוחב */
+.wrap.full:has(> .c-hero) { padding: 0; }
+.c-hero { position: relative; isolation: isolate; overflow: clip; border-radius: 0; background: var(--bg); padding: 0; margin: 0; min-height: 0; border-bottom: 1px solid var(--line); }
+.c-header { position: relative; max-width: var(--container); margin: 0 auto; height: 60px; padding: 0 16px; border-radius: 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.c-header::after { content: ""; position: absolute; inset-inline: -100vw; bottom: 0; height: 1px; background: var(--line); }
+.c-logo img { height: 34px; }
+.c-nav { gap: 4px; font-size: 15px; font-weight: 500; }
+.c-nav a { padding: 6px 12px; border: 0; border-radius: var(--r-xs); color: var(--ink-2); transition: color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease); }
+.c-nav a:hover { color: var(--ink); background: var(--card); }
+.c-nav a.active { color: var(--ink); background: var(--card); border: 0; }
+.c-header > a.btn { height: 36px; min-height: 36px; padding: 0 14px; }
+.c-header .c-menu-btn { border-radius: var(--r-xs); }
+/* הדר נדבק בגלילה: פס מלא עם זכוכית */
+.hdr-fixed.hdr-small { top: 0; left: 0; right: 0; max-width: none !important; padding-inline: max(16px, calc(50% - var(--container) / 2 + 16px));
+  border-radius: 0; background: rgba(255,255,255,.86); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: 0 1px 0 var(--line); }
+.hdr-fixed.hdr-small::after { display: none; }
+
+/* פתיחה: כותרת סריף, פסקה אפורה, כפתורים, הדגמה שיוצאת מהתחתית */
+.c-hero .hero-in { position: relative; z-index: 1; max-width: var(--container); margin: 0 auto; padding: 72px 16px 0; gap: 48px; align-items: end; grid-template-columns: minmax(0, 1fr) minmax(340px, 470px); }
+.hero-text { gap: 18px; padding-bottom: 72px; align-self: center; }
+.c-hero h1, .c-hero .hero-title { font-size: clamp(36px, 3.6vw, 44px); line-height: 1.06; letter-spacing: -.02em; }
+.hero-title .grad { white-space: normal; }
+.c-hero .hero-text p { font-size: 17px; line-height: 1.45; color: var(--muted); max-width: 460px; }
+.c-hero .hero-text p b { color: var(--ink); font-weight: 600; }
+.btns { gap: 8px; margin-top: 6px; }
+.hero-note { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-2); }
+.hero-note i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-strong); box-shadow: 0 0 0 3px var(--brand-soft); }
+
+/* קווי החוטים */
+.strings { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; transform: scaleX(-1); }
+.strings g { transform-box: view-box; transform-origin: 50% 50%; }
+.strings .s-a { animation: str-a 16s var(--ease-in-out-strong) infinite alternate; }
+.strings .s-b { animation: str-b 20s var(--ease-in-out-strong) infinite alternate; }
+@keyframes str-a { from { transform: translate3d(0, 0, 0) rotate(0deg); } to { transform: translate3d(-24px, -18px, 0) rotate(-1.4deg); } }
+@keyframes str-b { from { transform: translate3d(0, 0, 0) rotate(0deg); } to { transform: translate3d(20px, 12px, 0) rotate(1.2deg); } }
+
+/* כניסה בטעינה: עולה מעט ומתבהרת, אחד אחרי השני */
+@keyframes rise { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
+@keyframes rise-panel { from { opacity: 0; transform: translate3d(0, 28px, 0) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.hero-text > * { animation: rise var(--dur-enter) var(--ease-out-expo) both; }
+.hero-text > :nth-child(2) { animation-delay: calc(var(--stagger) * 1); }
+.hero-text > :nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+.hero-text > :nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+.hero-text > :nth-child(5) { animation-delay: calc(var(--stagger) * 4); }
+.c-hero .hero-stage, .a-visual { animation: rise-panel 1s var(--ease-out-expo) both calc(var(--stagger) * 3); }
+.strings { animation: fade 1.6s var(--ease) both; }
+
+/* הדגמה בפתיחה: חלון אפליקציה בהיר */
+.demo { background: var(--bg); color: var(--ink); border-radius: var(--r-md) var(--r-md) 0 0; height: 420px; box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); }
+.c-hero .demo::before { content: ""; position: absolute; inset: 0 0 auto; height: 36px; border-bottom: 1px solid var(--line); z-index: 2; background-color: var(--card);
+  background-image: radial-gradient(circle, var(--line-2) 4px, transparent 4.5px), radial-gradient(circle, var(--line-2) 4px, transparent 4.5px), radial-gradient(circle, var(--line-2) 4px, transparent 4.5px);
+  background-size: 10px 10px; background-repeat: no-repeat; background-position: calc(100% - 14px) 50%, calc(100% - 30px) 50%, calc(100% - 46px) 50%; }
+.c-hero .demo { padding-top: 36px; }
+.demo .chat { top: 36px; }
+.demo .app { top: 36px; background: var(--bg); color: var(--ink); }
+.demo .who { color: var(--soft); font-size: 12px; }
+.demo .box { background: var(--card); border: 1px solid var(--line-2); border-radius: var(--r-sm); color: var(--ink); }
+.demo .cur { background: var(--brand-strong); }
+.demo .steps { color: var(--ink-2); }
+.demo .steps i { color: var(--brand); }
+.demo .top .btn2 { background: var(--btn-bg); border-radius: var(--r-xs); font-weight: 500; }
+.demo .st, .demo .cal { border-color: var(--line-2); border-radius: var(--r-sm); }
+.demo .slot { background: var(--card); }
+.demo .ap { color: #0B4D35; background: var(--brand-soft); border-color: var(--brand-strong); }
+.demo .ap.g { background: #F3FBE4; color: #3F5A12; border-color: var(--lime); }
+.demo .ap.b { background: #E8FAF7; color: #0F4E47; border-color: var(--teal); }
+.demo .toast { background: var(--btn-bg); border-radius: var(--r-xs); }
+.demo .toast i { color: var(--lime); }
+
+/* עמודי תוכן: מסגרת עם קווים אנכיים דקים, כמו רשת */
+main.wrap.stack:not(.guide-main) { max-width: calc(var(--container) + 2px); padding: 40px 24px 0; margin-top: 0 !important; border-inline: 1px solid var(--line); gap: 20px; }
+.three { gap: 12px; }
+.pick, .art-card { padding: 24px; gap: 8px; min-height: 170px; transition: transform var(--dur-3) var(--ease-out-expo), box-shadow var(--dur-2) var(--ease), background-color var(--dur-2) var(--ease); }
+.pick:hover, .art-card:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--line-2), 0 10px 30px -18px rgba(8,9,10,.25); background: var(--card-2); }
+.pick h2, .art-card h2 { font-size: 18px; font-weight: 600; }
+.pick .go, .art-card .go { color: var(--brand); font-weight: 600; margin-top: auto; }
+.pick .ic { width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-2); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 16px; margin-bottom: 8px; }
+.sec-title { display: block; font-size: 28px; line-height: 1.2; font-weight: 600; letter-spacing: -.02em; padding: 40px 0 4px; margin-inline: -24px; padding-inline: 24px; border-top: 1px solid var(--line); }
+.sec-title small { display: block; font-size: inherit; font-weight: inherit; color: var(--soft); }
+
+/* שאלות נפוצות: רשימה עם קו מפריד וחץ שמסתובב */
+.faq { grid-template-columns: minmax(0, 1fr); gap: 0; max-width: 760px; width: 100%; }
+.faq details, .faq details.card, .article .faq details { background: none; box-shadow: none; border-radius: 0; padding: 0; border-bottom: 1px solid var(--line-2); }
+.faq summary { padding: 16px 0; font-weight: 500; font-size: 16px; align-items: center; transition: color var(--dur-1) var(--ease); }
+.faq summary:hover { color: var(--brand); }
+.faq summary::after, .faq details[open] summary::after { content: ""; flex: 0 0 auto; width: 7px; height: 7px; border-right: 1.5px solid var(--soft); border-bottom: 1.5px solid var(--soft); transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-2) var(--ease); margin-inline-end: 4px; }
+.faq details[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.faq details p { margin: -6px 0 16px; font-size: 15px; }
+.faq details[open] p { animation: rise var(--dur-3) var(--ease-out-expo) both; }
+
+/* פוטר */
+.c-foot { border-top: 1px solid var(--line); margin-inline: -24px; padding: 20px 24px 28px; font-size: 13px; color: var(--muted); }
+.c-foot nav a { transition: color var(--dur-1) var(--ease); }
+.c-foot nav a:hover { color: var(--ink); }
+.c-foot .ok { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: var(--r-xs); box-shadow: inset 0 0 0 1px var(--line-2); }
+.c-foot .ok::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-strong); }
+
+/* חשיפה בגלילה (רק כשיש JavaScript, ורק למה שמתחת למסך) */
+.rv { opacity: 0; transform: translate3d(0, 14px, 0); }
+.rv.rv-in { opacity: 1; transform: none; transition: opacity var(--dur-enter) var(--ease-out-expo) var(--rv-d, 0ms), transform var(--dur-enter) var(--ease-out-expo) var(--rv-d, 0ms); }
+
+/* המדריך: נראה כמו אתר תיעוד – תפריט צד לבן, פרק פעיל ירוק */
+body.guide-page { background: var(--bg); }
+.side { background: var(--bg); box-shadow: none; border-radius: 0; border-inline-end: 1px solid var(--line); }
+.side h3 { font-family: var(--font-display); font-weight: 500; font-size: 19px; }
+.bar { background: var(--line); height: 4px; }
+.bar i { background: var(--brand-strong); }
+.ch { color: var(--muted); font-weight: 500; font-size: 14px; border-radius: var(--r-sm); transition: color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease); }
+a.ch:hover { color: var(--ink); background: var(--card); }
+.ch.is-on { background: var(--brand-soft); color: var(--brand); box-shadow: none; font-weight: 600; }
+.ch.is-done { color: var(--ink-2); }
+.dot { border-color: var(--line-2); }
+.dot.on, .ch.is-on .dot { border-color: var(--brand-strong); }
+.is-done > .dot { border-color: var(--brand-strong); background: var(--brand-strong); }
+.lesson { background: var(--bg); box-shadow: none; border-radius: 0; }
+.lesson h1 { font-size: 36px; line-height: 1.12; }
+.lesson .lead, .article .lead { color: var(--muted); }
+.row { background: var(--bg); border-radius: var(--r-sm); box-shadow: inset 0 0 0 1px var(--line-2); font-weight: 500; }
+.row small { color: var(--muted); }
+.rows-sep { color: var(--brand); font-weight: 600; }
+.rows-sep::after { background: var(--line-2); }
+.coupon, .tipcard, .note-box { background: var(--brand-soft); border: 1px solid var(--brand-line); border-radius: var(--r-sm); }
+.tipcard b { background: var(--brand); border-radius: var(--r-xs); }
+.coupon code, .article code.inl { background: var(--bg); border-radius: var(--r-xs); box-shadow: inset 0 0 0 1px var(--brand-line); }
+.when-col { background: var(--card); border-radius: var(--r-sm); box-shadow: inset 0 0 0 1px var(--line); }
+.when-col h3 { color: var(--brand); }
+.when-col li::before { color: var(--brand-strong); }
+.fstep { background: var(--bg); border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line-2); }
+.fshot { border-radius: var(--r-sm); border-color: var(--line-2); background: var(--card); }
+.farrow { color: var(--brand-strong); }
+.ftext a, .row small a, .more-link a, .faq details p a, .note-box a, .article p a, .duo-c p a { color: var(--brand); text-decoration-color: var(--brand-line); text-underline-offset: 3px; }
+.split-bar { background: var(--line-2); }
+.split-bar::after { background: var(--brand-strong); }
+.split-bar:hover, .split.dragging .split-bar { background: var(--brand-line); }
+.gmenu > .btn { border-radius: var(--r-xs); }
+.gmenu nav { border-radius: var(--r-sm); box-shadow: var(--shadow-menu); transform-origin: top left; animation: menu-in var(--dur-2) var(--ease-out-expo) both; }
+.gmenu nav a { border-radius: var(--r-xs); font-weight: 500; }
+.gmenu nav a.active { color: var(--brand); background: var(--brand-soft); }
+.c-header.open .c-nav { animation: menu-in var(--dur-2) var(--ease-out-expo) both; }
+@keyframes menu-in { from { opacity: 0; transform: translate3d(0, -4px, 0) scale(.97); } to { opacity: 1; transform: none; } }
+.lightbox { background: rgba(8,9,10,.7); animation: fade var(--dur-2) var(--ease) both; }
+.lightbox img { border-radius: var(--r-sm); animation: rise-panel var(--dur-3) var(--ease-out-expo) both; }
+@media (min-width: 861px) {
+  body.guide-page .course { gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  body.guide-page .guide-main { padding-top: 0 !important; padding-inline: 0; }
+  body.guide-page .c-foot { margin: 0; padding: 4px 24px 8px; border: 0; }
+}
+
+/* מאמרים */
+.a-hero .hero-in { padding: 64px 16px 0; align-items: end; grid-template-columns: minmax(0, 1.1fr) minmax(300px, 440px); }
+.a-hero .hero-text { padding-bottom: 56px; }
+.a-hero h1, .a-hero .hero-title { font-size: clamp(32px, 3vw, 40px); line-height: 1.12; }
+.a-hero .chip { background: var(--bg); }
+.a-date { color: var(--soft); }
+.a-visual { padding-bottom: 40px; }
+.article.art-main { max-width: calc(860px + 2px); padding: 40px 24px 0; margin: 0 auto; border-inline: 1px solid var(--line); gap: 12px; }
+.art-sec { background: var(--bg); box-shadow: none; border-radius: 0; padding: 28px 0; border-top: 1px solid var(--line); }
+.art-sec:first-child { border-top: 0; padding-top: 0; }
+.art-sec h2 { font-size: 26px; font-weight: 600; letter-spacing: -.02em; }
+.art-sec h2::before { width: 3px; height: 22px; border-radius: 2px; background: var(--brand-strong); }
+.art-cta.card { background: var(--card); padding: 20px 24px; }
+.duo-c, .plan { border-radius: var(--r-sm); border-color: var(--line-2); }
+.duo-c.hl, .plan.yes:nth-child(2) { background: var(--brand-soft); border-color: var(--brand-line); }
+.plan.yes .plan-ok { color: var(--brand); }
+.tbl-wrap { border-radius: var(--r-sm); border-color: var(--line-2); }
+.tbl thead th { background: var(--card); font-weight: 600; }
+.tbl th, .tbl td { border-color: var(--line); }
+.code-box { border-radius: var(--r-md); background: #0E0F10; }
+.ill-msg, .bk-box.gh { background: var(--bg); color: var(--ink); border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); }
+.ill-msg small { color: var(--soft); }
+.ill-msg span::after { background: var(--brand-strong); }
+.bk-box.gh span { background: var(--card); }
+.ill-go, .bk-go em { color: var(--brand); }
+.bk-go em { background: var(--bg); box-shadow: inset 0 0 0 1px var(--brand-line); border-radius: var(--r-xs); }
+.ill-go i { background: linear-gradient(90deg, transparent, var(--brand-strong)); }
+.bk-go i { background: var(--brand-strong); }
+.ill-site, .bk-box.dr { border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); background: var(--bg); }
+.ill-bar span { background: var(--line-2); }
+.ill-bar em { background: var(--card); }
+.ill-top { background: linear-gradient(135deg, var(--brand-soft), #E3F6D2); border-radius: var(--r-sm); }
+.ill-top b { color: var(--ink); }
+.ill-top span { color: var(--brand); }
+.ill-top em, .ill-form em { background: var(--btn-bg); border-radius: var(--r-xs); }
+.ill-gal i { border-radius: var(--r-xs); background: linear-gradient(160deg, #DDEFE5, #B9DDC8); }
+.ill-gal i:nth-child(2) { background: linear-gradient(160deg, #E7F4D4, #C4E39C); }
+.ill-form i { border-radius: var(--r-xs); border-color: var(--line-2); }
+
+/* מובייל */
+@media (max-width: 860px) {
+  .c-header { height: 56px; }
+  .c-nav { top: 60px; border-radius: var(--r-sm); box-shadow: var(--shadow-menu); }
+  .c-nav a { padding: 12px; min-height: 44px; }
+  .c-header .c-menu-btn { width: 44px; height: 44px; }
+  .btn, .btn-2 { min-height: 44px; }
+  .c-hero .hero-in, .a-hero .hero-in { grid-template-columns: minmax(0, 1fr); padding: 40px 16px 0; gap: 28px; }
+  .hero-text, .a-hero .hero-text { padding-bottom: 0; }
+  .c-hero h1, .c-hero .hero-title { font-size: 34px; }
+  .a-hero h1, .a-hero .hero-title { font-size: 29px; }
+  .demo { height: 400px; }
+  .a-visual { padding-bottom: 28px; }
+  main.wrap.stack:not(.guide-main), .article.art-main { padding: 28px 16px 0; border-inline: 0; }
+  .sec-title { font-size: 24px; margin-inline: -16px; padding: 28px 16px 0; }
+  .c-foot { margin-inline: -16px; padding-inline: 16px; }
+  .side { border-inline-end: 0; border-top: 1px solid var(--line); }
+  .lesson h1 { font-size: 29px; }
+  .art-sec h2 { font-size: 21px; }
+  .gmenu nav a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* מי שביקש פחות תנועה: הכול מופיע מיד */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
