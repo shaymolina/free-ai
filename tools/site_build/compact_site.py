@@ -150,6 +150,13 @@ GUIDE_JS = '''<script>
     var copy = document.getElementById('guide-copy');
     if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
+    var tb = document.getElementById('theme-btn');
+    if (tb) tb.addEventListener('click', function () {
+        var d = !document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', d);
+        try { localStorage.setItem('theme', d ? 'dark' : 'light'); } catch (e) {}
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.body.classList.remove('side-open'); });
     document.addEventListener('click', function (e) {
         var img = e.target.closest ? e.target.closest('.fshot img') : null;
         if (!img) return;
@@ -181,21 +188,51 @@ GUIDE_JS = '''<script>
 </script>'''
 
 
+def _ico(paths, cls=""):
+    return f'<svg class="ico{(" " + cls) if cls else ""}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths}</svg>'
+
+
+ICO = {  # Lucide
+    "menu": '<path d="M4 6h16M4 12h16M4 18h16"/>',
+    "sun": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+    "moon": '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    "home": '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    "play": '<circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/>',
+    "book": '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    "box": '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>',
+    "news": '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>',
+    "check": '<path d="M20 6 9 17l-5-5"/>',
+    "down": '<path d="M12 5v14m-6-6 6 6 6-6"/>',
+    "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+}
+SITE_LINKS = [("index.html", "דף הבית", "home"), ("service.html", "הקורס", "play"), ("guide-1.html", "המדריך", "book"), ("work.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
+
+THEME_HEAD = """<script>(function(){var m='system';try{m=localStorage.getItem('theme')||'system'}catch(e){}
+var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>"""
+
+
 def sidebar(current):
     items = []
     for i, (name, _) in enumerate(CHAPTERS, 1):
         cls = "ch" + (" is-on" if i == current else "")
-        inner = f'<span class="dot">✓</span>{i}. {name}'
+        inner = f'<span class="num">{i}</span><span class="nm">{name}</span>{_ico(ICO["check"], "dot")}'
         if i in READY:
-            items.append(f'<li><a href="guide-{i}.html" class="{cls}" data-ch="{i}">{inner}</a></li>')
+            cur = ' aria-current="page"' if i == current else ""
+            items.append(f'<li><a href="guide-{i}.html" class="{cls}" data-ch="{i}"{cur}>{inner}</a></li>')
         else:
-            items.append(f'<li><span class="{cls}" data-ch="{i}">{inner}</span></li>')
-    return f'''<aside class="card side">
-                <h3>המדריך לקלוד קוד</h3>
-                <div class="bar"><i id="guide-fill"></i></div>
-                <div class="count" id="guide-count"></div>
-                <ol class="chs">{"".join(items)}</ol>
-            </aside>'''
+            items.append(f'<li><span class="{cls} is-soon" data-ch="{i}">{inner}</span></li>')
+    links = "".join(f'<a href="{h}" class="nav-link{" active" if h == "guide-1.html" else ""}">{_ico(ICO[ic])}<span>{t}</span></a>' for h, t, ic in SITE_LINKS)
+    return f'''<aside class="ds-side" id="ds-side">
+            <a href="index.html" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
+            <div class="ds-scroll">
+                <div class="ds-group">
+                    <div class="ds-group-title">המדריך לקלוד קוד</div>
+                    <div class="ds-prog"><div class="bar"><i id="guide-fill"></i></div><span class="count" id="guide-count"></span></div>
+                    <ol class="chs">{"".join(items)}</ol>
+                </div>
+            </div>
+            <nav class="ds-links">{links}</nav>
+        </aside>'''
 
 
 def rows_html(rows):
@@ -210,7 +247,7 @@ def rows_html(rows):
 
 
 def tip(text):
-    return f'<div class="tipcard"><b>טיפ</b><span>{text}</span></div>'
+    return f'<div class="tipcard">{_ico(ICO["info"])}<b>טיפ</b><span>{text}</span></div>'
 
 
 def split(img, alt, rows):
@@ -232,27 +269,59 @@ GUIDE_DESC = {
 }
 
 
+GUIDE_PAGE = """<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>{title}</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{desc}">
+    {theme}
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100..900&family=Noto+Sans:wght@100..900&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/css/guide.css?v={v}">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+</head>
+<body class="guide-page">
+{body}
+{script}
+</body>
+</html>
+"""
+
+
 def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     name, mins = CHAPTERS[n - 1]
     rows_block = rows_html(rows)
     nxt = f' data-next="guide-{n + 1}"' if (n + 1) in READY else ""
-    body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
-        <div class="course">
-            {burger("guide-1.html")}
-            {sidebar(n)}
-            <article class="card lesson">
-                <h1>{name}</h1>
-                {f'<p class="lead">{lead}</p>' if lead else ''}
-                {top}{rows_block}{flow}{extra}
-                <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-brand" id="guide-done"{nxt}>סיימתי, לפרק הבא ←</button></div>
-            </article>
+    body = f'''<div class="ds-app">
+        {sidebar(n)}
+        <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
+        <div class="ds-main">
+            <header class="ds-top">
+                <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
+                <span class="ds-vsep"></span>
+                <nav class="crumbs" aria-label="מיקום"><a href="guide-1.html">המדריך</a><i>/</i><span>{name}</span></nav>
+                <div class="ds-actions"><button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="מצב כהה או בהיר">{_ico(ICO["moon"], "i-moon")}{_ico(ICO["sun"], "i-sun")}</button></div>
+            </header>
+            <main class="ds-content">
+                <article class="lesson">
+                    <div class="page-head"><span class="eyebrow">פרק {n} · {mins} דקות</span><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
+                    {top}{rows_block}{flow}{extra}
+                    <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-primary" id="guide-done"{nxt}>סיימתי, לפרק הבא ←</button></div>
+                </article>
+                {FOOTER}
+            </main>
         </div>
-        {FOOTER}
-    </main>'''
-    (SITE / f"guide-{n}.html").write_text(page(
-        f"{GUIDE_TITLE.get(n, name + ' – המדריך לקלוד קוד')} | Free AI",
-        f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead or GUIDE_DESC.get(n, name)}", body,
-        GUIDE_JS % {"total": len(CHAPTERS), "current": n}, cls="guide-page"))
+    </div>'''
+    html = clean(GUIDE_PAGE.format(
+        title=f"{GUIDE_TITLE.get(n, name + ' – המדריך לקלוד קוד')} | Free AI",
+        desc=f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead or GUIDE_DESC.get(n, name)}",
+        theme=THEME_HEAD, v=CSS_VERSION, body=body,
+        script=GUIDE_JS % {"total": len(CHAPTERS), "current": n}))
+    (SITE / f"guide-{n}.html").write_text(html)
     print(f"guide-{n}.html done")
 
 
