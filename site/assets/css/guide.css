@@ -131,11 +131,11 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 .dark .theme-btn .i-sun { opacity: 1; transform: none; }
 
 /* אזור תוכן */
-.ds-content { flex: 1; padding: var(--card-gap); display: flex; flex-direction: column; }
-.lesson { display: flex; flex-direction: column; gap: var(--card-gap); flex: 1; }
+.ds-content { flex: 1; width: 100%; max-width: calc(980px + 2 * var(--card-gap)); margin-inline: auto; padding: calc(var(--card-gap) + 8px) var(--card-gap) var(--card-gap); display: flex; flex-direction: column; }
+.lesson { display: flex; flex-direction: column; gap: var(--card-gap); }
 .page-head { display: grid; gap: 4px; }
 .eyebrow { font-size: 13px; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
-.lesson h1 { font-size: 22px; font-weight: 600; line-height: 1.3; }
+.lesson h1 { font-size: 26px; font-weight: 600; line-height: 1.3; }
 .lesson .lead { font-size: 15px; color: var(--muted-foreground); max-width: 72ch; }
 .lesson > p, .more-link { font-size: 14px; color: var(--muted-foreground); }
 .lesson a:not(.btn), .fnote a, .row small a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
@@ -147,7 +147,7 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 }
 .rows { overflow: hidden; }
 .row {
-  display: grid; grid-template-columns: 28px minmax(0, 1fr) minmax(0, 1.35fr); column-gap: 14px; align-items: center;
+  display: grid; grid-template-columns: 28px minmax(140px, 240px) minmax(0, 1fr); column-gap: 16px; align-items: center;
   padding: 12px 20px; border-top: 1px solid var(--border); font-size: 14px; font-weight: 500;
 }
 .rows > li:first-child { border-top: 0; }
@@ -161,7 +161,7 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 
 /* ---------- תרשים זרימה: כל שלב = כרטיס ---------- */
 .flow { display: flex; flex-direction: column; }
-.fstep { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px; align-items: center; padding: 20px; }
+.fstep { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 24px; align-items: center; padding: 20px; }
 .ftext { display: flex; gap: 12px; align-items: flex-start; }
 .ftext h3 { font-size: 15px; font-weight: 600; line-height: 28px; }
 .ftext p { margin-top: 2px; font-size: 14px; color: var(--muted-foreground); }
@@ -238,8 +238,8 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 
 /* סוף הפרק */
 .lesson-end {
-  margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-  padding-top: 16px; border-top: 1px solid var(--border);
+  margin-top: 8px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  padding-top: 20px; border-top: 1px solid var(--border);
 }
 .lesson-end span { font-size: 13px; color: var(--muted-foreground); }
 
