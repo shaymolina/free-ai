@@ -150,7 +150,7 @@ def apply_common(html, active, title, description):
     html = re.sub(r'<meta name="author" content="[^"]*">', '<meta name="author" content="Free AI">', html)
     html = re.sub(r'<meta name="description"\s+content="[^"]*">', f'<meta name="description" content="{description}">', html, flags=re.S)
     html = html.replace('<link rel="stylesheet" type="text/css" href="assets/css/styles.css">',
-                        '<link rel="stylesheet" type="text/css" href="assets/css/styles.css?v=2">\n    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css?v=2">\n    <link rel="stylesheet" type="text/css" href="assets/css/tokens.css?v=38">\n    <link rel="stylesheet" type="text/css" href="assets/css/mint.css?v=1">')
+                        '<link rel="stylesheet" type="text/css" href="assets/css/styles.css?v=2">\n    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css?v=2">\n    <link rel="stylesheet" type="text/css" href="assets/css/tokens.css?v=40">\n    <link rel="stylesheet" type="text/css" href="assets/css/mint.css?v=2">')
     html = re.sub(r"<!-- Header -->.*?<!-- /Header -->", lambda m: header(active), html, flags=re.S)
     html = re.sub(r"<!-- footer -->.*?<!-- /footer -->", lambda m: FOOTER, html, flags=re.S)
     html = re.sub(r"<!-- Mobile Menu -->.*?<!-- /Mobile Menu -->", lambda m: mobile_menu(), html, flags=re.S)

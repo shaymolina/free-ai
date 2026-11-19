@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "39"
+CSS_VERSION = "40"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -87,7 +87,6 @@ def _page(title, desc, body, script="", cls="", css=""):
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/frank/frank-ruhl-libre-hebrew-500-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/tokens.css?v={CSS_VERSION}">
@@ -99,7 +98,7 @@ def _page(title, desc, body, script="", cls="", css=""):
 <body{(f' class="{cls}"' if cls else "")}>
 {body}
 {script}
-<script src="assets/js/header.js?v=4" defer></script>
+<script src="assets/js/header.js?v=5" defer></script>
 </body>
 </html>
 '''

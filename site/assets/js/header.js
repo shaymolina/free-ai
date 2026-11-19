@@ -44,7 +44,7 @@
 (function () {
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var els = document.querySelectorAll('.three > *, .sec-title, .faq > *, .art-list > *, .art-sec, .art-cta, .lesson .fstep, .lesson .row, .m-head, .tools-grid > *, .bento > *, .car-track, .stats > *, .starts > *, .prompts > *, .posts > *, .cta-in > h2, .f-col');
+  var els = document.querySelectorAll('.three > *, .sec-title, .faq > *, .art-list > *, .art-sec, .art-cta, .lesson .fstep, .lesson .row, .m-head, .tools-grid > *, .bento > *, .car-track, .stats > *, .posts > *, .cta-in > h2');
   if (!els.length) return;
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {

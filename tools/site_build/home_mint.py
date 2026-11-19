@@ -93,6 +93,15 @@ ICONS = {  # אייקונים פשוטים בקו (24x24)
     "bag": '<path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/>',
     "dumbbell": '<path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10"/>',
     "camera": '<path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    "chev-d": '<path d="M6 9l6 6 6-6"/>',
+    "search": '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
+    "rocket": '<path d="M5 15c-1 1-1.5 3.5-1.5 5.5 2 0 4.5-.5 5.5-1.5M9 15l-2-2c1-4 4.5-9 12-9.5-.5 7.5-5.5 11-9.5 12z"/><circle cx="14.5" cy="9.5" r="1.5"/>',
+    "box": '<path d="M12 3 4 7.5v9L12 21l8-4.5v-9zM4 7.5 12 12l8-4.5M12 12v9"/>',
+    "plug": '<path d="M9 3v5M15 3v5M6 8h12v4a6 6 0 0 1-12 0zM12 18v3"/>',
+    "shield": '<path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="M9 12l2 2 4-4"/>',
+    "chat": '<path d="M5 5h14v10H9l-4 4z"/>',
+    "gear": '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/>',
+    "layers": '<path d="M12 4 3 9l9 5 9-5zM3 14l9 5 9-5"/>',
 }
 
 
@@ -107,22 +116,49 @@ def head(line1, line2, btn_href=None, btn_text=None, extra=""):
 
 
 # ---------------------------------------------------------------------
-# המקטעים
+# המקטעים (כל אחד מקביל למקטע באתר המקור)
 # ---------------------------------------------------------------------
+def canvas(kind, cls, flip=False):
+    return f'<canvas class="{cls}" data-kind="{kind}"{" data-flip=\"1\"" if flip else ""} aria-hidden="true"></canvas>'
+
+
+def hero_preview(chapters):
+    side = [("chat", "שאלו את קלוד", ""), ("rocket", "מתחילים", "on"), ("gear", "הגדרות", ""), ("plug", "חיבורים", ""),
+            ("box", "סקילים", ""), ("layers", "חבילות", ""), (None, None, None),
+            ("shield", "הרשאות", "dim"), ("book", "בחירת המודל", "dim"), ("file", "מיקום הפרויקט", "dim"), ("clock", "כמה נשאר מהמנוי", "dim"),
+            (None, None, None), ("send", "מעלים לאוויר", "dim2"), ("home", "פותחים 4CODE", "dim2")]
+    side_html = "".join('<li class="sep"></li>' if i is None else f'<li class="{c}">{icon(i)}<span>{t}</span></li>' for i, t, c in side)
+    cards = [("rocket", "מתחילים", "שלושה דברים להכין, ואפשר לצאת לדרך"),
+             ("box", "התקנה", "מתקינים את האפליקציה במחשב, Windows או Mac"),
+             ("layers", "ריפו ראשון", "פותחים מקום לפרויקט ב-GitHub"),
+             ("send", "מעלים לאוויר", "האתר מקבל כתובת שאפשר לשלוח לכל אחד")]
+    cards_html = "".join(f'<li><span class="pv-art">{icon(i)}</span><b>{t}</b><small>{d}</small></li>' for i, t, d in cards)
+    return f"""<div class="hero-stage"><div class="pv" aria-hidden="true">
+        <aside class="pv-side"><div class="pv-logo"><img src="assets/images/logo/favicon.svg" alt=""><b>Free AI</b></div><ul>{side_html}</ul></aside>
+        <div class="pv-main">
+            <div class="pv-top"><nav><span class="on">המדריך</span><span>הקורס</span><span>סקילים</span></nav><span class="pv-search">{icon("search")}חיפוש או שאלה</span></div>
+            <span class="pv-crumb">מתחילים</span>
+            <b class="pv-h">המדריך לקלוד קוד</b>
+            <small class="pv-sub">{len([1 for _ in chapters])} פרקים קצרים, מהחשבון הראשון ועד אתר באוויר</small>
+            <ul class="pv-cards">{cards_html}</ul>
+        </div>
+        <span class="pv-ask">{icon("chat")}שאלו את קלוד</span>
+    </div></div>"""
+
+
 def sec_tools(n_chapters, n_minutes, n_articles):
-    tools = [("Claude", "המוח שעונה וחושב"), ("Claude Code", "הבנאי שבונה בשבילכם"), ("GitHub", "המחסן של הפרויקטים"),
-             ("4CODE", "איפה שהאתר גר"), ("Supabase", "מאגר המידע"), ("Google Drive", "הגיבוי של הלילה"),
-             ("Skills", "יכולות מוכנות"), ("Connectors", "חיבור לשירותים")]
-    tiles = "".join(f'<li class="tool"><b dir="ltr">{a}</b><small>{b}</small></li>' for a, b in tools)
+    tools = [("Claude", "guide-3.html"), ("Claude Code", "guide-4.html"), ("GitHub", "guide-5.html"), ("4CODE", "guide-19.html"),
+             ("Connectors", "guide-13.html"), ("Skills", "guide-14.html"), ("Plugins", "guide-15.html"), ("Google Drive", "article-github-backup.html")]
+    tiles = "".join(f'<li><a class="tool" href="{h}"><b dir="ltr">{a}</b><span class="tool-go">{icon("chev-l")}</span></a></li>' for a, h in tools)
     items = [("פרקים במדריך", n_chapters), ("שיעורי וידאו", 8), ("דקות קריאה", n_minutes), ("מאמרים", n_articles),
              ("מחיר", "₪0"), ("שורות קוד שתכתבו", 0), ("בעברית", "100%")]
     run = "".join(f'<span class="tk">{a} <b>{b}</b></span>' for a, b in items)
-    return f'''
+    return f"""
     <section class="m-sec m-tools">
         <div class="m-in tools-in">
             <div class="tools-txt">
-                <p>כל <b>הכלים</b> שתפגשו בדרך, <b>ומה כל אחד</b> עושה.</p>
-                <a href="guide-1.html" class="btn">למדריך המלא <span class="arr">←</span></a>
+                <p>כל <b>{len(tools)} הכלים</b> שתפגשו בדרך, <b>בעברית ובחינם</b>.</p>
+                <a href="guide-1.html" class="btn">למדריך המלא <span class="arr">‹</span></a>
             </div>
             <ul class="tools-grid">{tiles}</ul>
         </div>
@@ -130,156 +166,167 @@ def sec_tools(n_chapters, n_minutes, n_articles):
     <section class="m-sec m-ticker" aria-label="הקורס במספרים">
         <div class="m-in ticker-in">
             <span class="tk-label">מה מחכה לכם</span>
-            <div class="tk-view"><div class="tk-run">{run}{run.replace('class="tk"', 'class="tk" aria-hidden="true"')}</div></div>
+            <div class="tk-view"><div class="tk-run">{run}<span class="tk-dup" aria-hidden="true">{run}</span></div></div>
         </div>
-    </section>'''
+    </section>"""
 
 
 def sec_bento():
-    ask = f'<div class="mk-ask"><span class="spark">✦</span><span class="t">תבנה לי אתר לנגרייה, עם גלריה וטופס</span><span class="go">{icon("send")}</span></div>'
+    ask = f'<div class="mk-ask"><span class="spark">✦</span><span class="t"><span class="ty">תבנה לי אתר לנגרייה, עם גלריה וטופס</span></span><span class="go">{icon("send")}</span></div>'
     check = '<ul class="mk-list">' + "".join(
-        f'<li class="{c}"><i>{icon("check") if c == "done" else ""}</i><span>{t}</span></li>'
-        for c, t in [("done", "פותחים חשבון קלוד"), ("done", "מתקינים את האפליקציה"), ("now", "פותחים GitHub"), ("", "בונים אתר ראשון")]) + '</ul>'
+        f'<li style="--i:{n}"><i>{icon("check")}</i><span>{t}</span></li>'
+        for n, t in enumerate(["פותחים חשבון קלוד", "מתקינים את האפליקציה", "פותחים GitHub", "בונים אתר ראשון"])) + '</ul>'
     roles = '<ul class="mk-roles">' + "".join(
-        f'<li class="{c}"><i></i><span>{t}</span><em>{e}</em></li>'
-        for c, t, e in [("", "שואל לפני כל שינוי", "זהיר"), ("on", "עורך קבצים לבד", "מומלץ"), ("", "עושה הכול בלי לשאול", "מהיר")]) + '</ul>'
+        f'<li style="--i:{n}"><i></i><span>{t}</span><em>{e}</em></li>'
+        for n, (t, e) in enumerate([("שואל לפני כל שינוי", "זהיר"), ("עורך קבצים לבד", "מומלץ"), ("עושה הכול בלי לשאול", "מהיר")])) + '</ul>'
     conn = ('<div class="mk-conn"><span class="c1" dir="ltr">GH</span><i></i><span class="c0">'
-            '<img src="assets/images/logo/favicon.svg" alt=""></span><i></i><span class="c2" dir="ltr">SB</span></div>'
-            '<div class="mk-conn-l"><span>GitHub</span><span>Free AI</span><span>Supabase</span></div>')
-    chips = '<div class="mk-chips">' + "".join(f'<span class="{c}">{t}</span>' for c, t in [
-        ("on", "/בדיקת-אבטחה"), ("", "/מאמר-חדש"), ("", "/תמונות"), ("on", "/קידום-בגוגל"), ("", "/גיבוי")]) + '</div>'
+            '<img src="assets/images/logo/favicon.svg" alt=""></span><i></i><span class="c2" dir="ltr">SB</span></div>')
+    chips = '<div class="mk-doc"><div class="dl w1"></div><div class="dl w2"><em class="tg a">קלוד</em></div><div class="dl w3"></div><div class="dl w2 hl"><em class="tg b">אתם</em></div><div class="dl w1"></div></div>'
     site = ('<div class="mk-site"><div class="bar"><span></span><span></span><span></span><em dir="ltr">nagariya.co.il</em>'
             '<b class="live"><i></i>באוויר</b></div><div class="body"><div class="hero"><b>נגרות יוסי</b><small>רהיטים בהזמנה אישית</small>'
             '<em>צרו קשר</em></div><div class="gal"><i></i><i></i><i></i><i></i></div></div></div>')
     cards = [
-        ("w2", "כותבים בעברית, קלוד קוד בונה", ask, "b1"),
-        ("", "מדריך שזוכר איפה עצרתם", check, "b2"),
-        ("", "מחליטים כמה קלוד עושה לבד", roles, "b3"),
-        ("", "מחברים לשירותים שאתם כבר משתמשים בהם", conn, "b4"),
-        ("", "סקילים: יכולות מוכנות להורדה", chips, "b5"),
-        ("w3", "מהרעיון לאתר שעובד באוויר", site, "b6"),
+        ("w2", "כותבים בעברית, קלוד קוד בונה", ask),
+        ("", "מדריך שזוכר איפה עצרתם", check),
+        ("", "מחליטים כמה קלוד עושה לבד", roles),
+        ("", "מתחברים לשירותים", conn),
+        ("", "עובדים ביחד עם קלוד", chips),
+        ("w3", "מהרעיון לאתר שעובד באוויר", site),
     ]
-    html = "".join(f'<li class="bento-c {w}">{card_strings(g)}<div class="mk">{m}</div><h3>{t}</h3></li>' for w, t, m, g in cards)
-    return f'''
+    html = "".join(f'<li class="bento-c {w}">{canvas("card", "b-cv")}<div class="mk">{m}</div><h3>{t}</h3></li>' for w, t, m in cards)
+    return f"""
     <section class="m-sec">
         <div class="m-in">
             {head("כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "service.html", "התחל ללמוד")}
             <ul class="bento">{html}</ul>
         </div>
-    </section>'''
+    </section>"""
+
+
+def car_nav():
+    return (f'<div class="car-nav"><button type="button" class="btn-2 ic" data-car="-1" aria-label="הקודם">{icon("chev-r")}</button>'
+            f'<button type="button" class="btn-2 ic" data-car="1" aria-label="הבא">{icon("chev-l")}</button></div>')
 
 
 def sec_stories():
     stories = [
-        ("green", "אתר לעסק", 'כותבים <b>הודעה אחת בעברית</b> ומקבלים אתר עם גלריה וטופס', [("1", "הודעה בעברית"), ("0", "שורות קוד שאתם כותבים")],
+        ("green", "אתר לעסק", 'ככה <b>הודעה אחת בעברית</b> הופכת לאתר עם גלריה וטופס', [("1", "הודעה בעברית"), ("0", "שורות קוד שאתם כותבים")],
          "article-what-is-claude-code.html", "assets/images/claude/build-site.jpg"),
-        ("ink", "גיבוי אוטומטי", '<b>כל הפרויקטים</b> נשמרים לבד בגוגל דרייב, כל לילה', [("03:00", "כל לילה"), ("₪0", "עלות")],
+        ("ink", "גיבוי אוטומטי", 'ככה <b>כל הפרויקטים</b> נשמרים לבד בגוגל דרייב, כל לילה', [("03:00", "כל לילה"), ("₪0", "עלות")],
          "article-github-backup.html", "assets/images/guide/backup-1.png"),
-        ("orange", "מעלים לאוויר", 'האתר מקבל <b>כתובת אמיתית</b> שאפשר לשלוח לכל אחד', [("1", "כתובת לשתף"), ("30", "ימים בחינם עם הקופון")],
+        ("orange", "מעלים לאוויר", 'ככה האתר מקבל <b>כתובת אמיתית</b> שאפשר לשלוח לכל אחד', [("1", "כתובת לשתף"), ("30", "ימים בחינם עם הקופון")],
          "guide-18.html", "assets/images/guide/claude-map.png"),
     ]
-    cards = "".join(f'''<li class="story s-{c}">
-                <div class="st-l"><span class="st-dots" aria-hidden="true"></span><span class="st-tag">{tag}</span><h3>{t}</h3>
-                    <div class="st-nums">{"".join(f'<div><strong dir="ltr">{a}</strong><small>{b}</small></div>' for a, b in nums)}</div>
-                    <a href="{href}" class="btn-2">לסיפור המלא <span class="arr">←</span></a></div>
+    cards = "".join(f"""<li class="story s-{c}">
+                <div class="st-l"><span class="st-dots d1" aria-hidden="true"></span><span class="st-dots d2" aria-hidden="true"></span><span class="st-dots d3" aria-hidden="true"></span>
+                    <span class="st-tag">{tag}</span><h3>{t}</h3>
+                    <div class="st-nums">{"".join(f'<div><strong dir="ltr" data-roll>{a}</strong><small>{b}</small></div>' for a, b in nums)}</div>
+                    <a href="{href}" class="btn-2">לסיפור המלא <span class="arr">‹</span></a></div>
                 <div class="st-img"><img src="{img}" alt="{tag}" loading="lazy"></div>
-            </li>''' for c, tag, t, nums, href, img in stories)
-    nav = (f'<div class="car-nav"><button type="button" class="btn-2 ic" data-car="-1" aria-label="הקודם">{icon("chev-r")}</button>'
-           f'<button type="button" class="btn-2 ic" data-car="1" aria-label="הבא">{icon("chev-l")}</button></div>')
-    return f'''
-    <section class="m-sec m-stories">
-        <div class="m-in">{head("מה בונים עם קלוד קוד.", "שלוש דוגמאות מהמדריך ומהמאמרים.", "articles.html", "לכל המאמרים", nav)}</div>
-        <div class="car" id="car"><ul class="car-track">{cards}</ul></div>
-    </section>'''
+            </li>""" for c, tag, t, nums, href, img in stories)
+    return f"""
+    <section class="m-sec m-stories" data-carousel data-dim>
+        <div class="m-in">{head("מה בונים עם קלוד קוד.", "שלוש דוגמאות מהמדריך ומהמאמרים.", "articles.html", "לכל המאמרים", car_nav())}</div>
+        <div class="car"><ul class="car-track">{cards}</ul></div>
+    </section>"""
 
 
 def sec_scale(n_chapters):
     stats = [("chart", str(n_chapters), "פרקים קצרים במדריך"), ("play", "8", "שיעורי וידאו לפי הסדר"), ("coin", "₪0", "מחיר הקורס, תמיד")]
-    st = "".join(f'<li>{icon(i)}<strong dir="ltr">{a}</strong><span>{b}</span></li>' for i, a, b in stats)
-    return f'''
+    st = "".join(f'<li>{icon(i)}<strong dir="ltr" data-roll>{a}</strong><span>{b}</span></li>' for i, a, b in stats)
+    return f"""
     <section class="m-sec m-scale">
         <div class="m-in">
             {head("לומדים בקצב שלכם.", "פרקים קצרים, צעד אחד בכל פעם.", "guide-1.html", "לפרק הראשון")}
-            <div class="wave-box">{wave("wv")}</div>
+            <div class="wave-box">{canvas("wave", "wave")}</div>
             <ul class="stats">{st}</ul>
         </div>
-    </section>'''
+    </section>"""
 
 
 def sec_start(n_chapters):
     items = [("p-pink", "play", "הקורס", "8 שיעורי וידאו, לפי הסדר.", "service.html", "לקורס"),
              ("p-mint", "book", "המדריך", f"{n_chapters} פרקים לקריאה, צעד אחרי צעד.", "guide-1.html", "למדריך"),
              ("p-night", "spark", "סקילים", "יכולות מוכנות לקלוד, להורדה בחינם.", "work.html", "לסקילים"),
-             ("p-fire", "file", "מאמרים", "מדריכים קצרים שאפשר לעשות היום.", "articles.html", "למאמרים")]
-    cards = "".join(f'''<li class="start">
-                <a href="{h}" class="start-art {c}">{art_strings("as" + str(k))}<span class="start-tile">{icon(i)}</span></a>
-                <p><b>{t}</b> {d}</p><a href="{h}" class="start-go">{g} <span class="arr">←</span></a>
-            </li>''' for k, (c, i, t, d, h, g) in enumerate(items))
-    return f'''
-    <section class="m-sec">
-        <div class="m-in">
-            {head("מאיפה מתחילים.", "ארבע דרכים להיכנס לחומר.", "service.html", "התחל ללמוד")}
-            <ul class="starts">{cards}</ul>
-        </div>
-    </section>'''
+             ("p-fire", "file", "מאמרים", "מדריכים קצרים שאפשר לעשות היום.", "articles.html", "למאמרים"),
+             ("p-sky", "rocket", "הפרק הראשון", "שלושה דברים להכין, ואפשר לצאת לדרך.", "guide-1.html", "לפרק 1")]
+    cards = "".join(f"""<li class="start">
+                <a href="{h}" class="start-art {c}" tabindex="-1" aria-hidden="true">{canvas("art", "art-cv")}<span class="start-tile">{icon(i)}</span></a>
+                <p><b>{t}</b> {d}</p><a href="{h}" class="start-go">{g} <span class="arr">‹</span></a>
+            </li>""" for c, i, t, d, h, g in items)
+    return f"""
+    <section class="m-sec m-starts" data-carousel>
+        <div class="m-in">{head("מאיפה מתחילים.", "חמש דרכים להיכנס לחומר.", "service.html", "התחל ללמוד", car_nav())}</div>
+        <div class="car"><ul class="car-track starts">{cards}</ul></div>
+    </section>"""
+
+
+PROMPTS = [("cut", "מספרה", "יומן תורים", "תבנה לי יומן תורים למספרה, שהלקוחות יקבעו לבד ויקבלו תזכורת בוואטסאפ."),
+           ("cake", "קונדיטוריה", "אתר עם הזמנות", "תבנה אתר לקונדיטוריה שלי עם תפריט עוגות, תמונות וטופס הזמנה לאירועים."),
+           ("home", "שיפוצים", "עמוד נחיתה", "תכין עמוד אחד לקבלן שיפוצים: לפני ואחרי, המלצות וכפתור וואטסאפ."),
+           ("bag", "חנות קטנה", "קטלוג מוצרים", "תבנה קטלוג ל-30 מוצרים עם מחירים, חיפוש וכפתור 'להזמנה'."),
+           ("dumbbell", "מאמן כושר", "מעקב מתאמנים", "תבנה מערכת קטנה שאני רושם בה אימונים של כל מתאמן ורואה התקדמות."),
+           ("camera", "צלמת", "גלריה ללקוחות", "תבנה גלריה שכל לקוח נכנס עם קוד ורואה רק את התמונות שלו."),
+           ("chat", "רואת חשבון", "טופס קליטת לקוח", "תבנה טופס שלקוח חדש ממלא, ואני מקבלת את הפרטים במייל מסודרים."),
+           ("file", "מורה פרטי", "דף שיעורים", "תבנה עמוד שבו התלמידים רואים את השיעורים הבאים ומורידים דפי עבודה."),
+           ("layers", "גן ילדים", "לוח הודעות להורים", "תבנה לוח הודעות קטן לגן, שההורים רואים בו תמונות ועדכונים מהיום.")]
 
 
 def sec_prompts():
-    items = [("cut", "מספרה", "יומן תורים", "תבנה לי יומן תורים למספרה, שהלקוחות יקבעו לבד ויקבלו תזכורת בוואטסאפ."),
-             ("cake", "קונדיטוריה", "אתר עם הזמנות", "תבנה אתר לקונדיטוריה שלי עם תפריט עוגות, תמונות וטופס הזמנה לאירועים."),
-             ("home", "שיפוצים", "עמוד נחיתה", "תכין עמוד אחד לקבלן שיפוצים: לפני ואחרי, המלצות וכפתור וואטסאפ."),
-             ("bag", "חנות קטנה", "קטלוג מוצרים", "תבנה קטלוג ל-30 מוצרים עם מחירים, חיפוש וכפתור 'להזמנה'."),
-             ("dumbbell", "מאמן כושר", "מעקב מתאמנים", "תבנה מערכת קטנה שאני רושם בה אימונים של כל מתאמן ורואה התקדמות."),
-             ("camera", "צלמת", "גלריה ללקוחות", "תבנה גלריה שכל לקוח נכנס עם קוד ורואה רק את התמונות שלו.")]
-    cards = "".join(f'''<li class="pr"><div class="pr-h"><span class="pr-ic">{icon(i)}</span><div><b>{a}</b><small>{b}</small></div></div>
-                <p>"{t}"</p></li>''' for i, a, b, t in items)
-    return f'''
+    def card(i, a, b, t):
+        return f'<li class="pr"><div class="pr-h"><span class="pr-ic">{icon(i)}</span><div><b>{a}</b><small>{b}</small></div></div><p>"{t}"</p></li>'
+    cols = []
+    for c in range(3):
+        group = [PROMPTS[k] for k in range(c, len(PROMPTS), 3)]
+        one = "".join(card(*x) for x in group)
+        dup = "".join(card(*x) for x in group).replace('<li class="pr">', '<li class="pr" aria-hidden="true">')
+        cols.append(f'<ul class="pr-col c{c}">{one}{dup}</ul>')
+    return f"""
     <section class="m-sec">
         <div class="m-in">
             {head("מה כותבים לקלוד קוד.", "הודעות אמיתיות, בעברית רגילה.", "guide-16.html", "איך כותבים בקשה טובה")}
-            <ul class="prompts">{cards}</ul>
+            <div class="pr-bar"><button type="button" class="pr-pause" id="pr-pause" aria-pressed="false" aria-controls="prompts">עצירה</button></div>
+            <div class="prompts" id="prompts">{"".join(cols)}</div>
         </div>
-    </section>'''
+    </section>"""
 
 
 def sec_posts(articles):
     arts = ["p-forest", "p-deep", "p-sand"]
     icons_ = ["file", "clock", "book"]
     posts = [(n, t) for n, t, d, m in articles][:2] + [("articles.html", "כל המאמרים במקום אחד")]
-    cards = "".join(f'''<li class="post"><a href="{n}">
-                <span class="post-art {arts[k]}">{art_strings("ps" + str(k))}<span class="start-tile">{icon(icons_[k])}</span></span>
-                <span class="post-meta"><em>{"מאמר" if k < 2 else "מאמרים"}</em>{"2026" if k < 2 else ""}</span>
-                <b>{t}</b></a></li>''' for k, (n, t) in enumerate(posts))
-    return f'''
+    cards = "".join(f"""<li class="post"><a href="{n}">
+                <span class="post-art {arts[k]}">{canvas("art", "art-cv")}<span class="start-tile">{icon(icons_[k])}</span></span>
+                <span class="post-meta"><em>{"מאמר" if k < 2 else "מאמרים"}</em>{"נובמבר 2026" if k < 2 else ""}</span>
+                <b>{t}</b></a></li>""" for k, (n, t) in enumerate(posts))
+    return f"""
     <section class="m-sec">
         <div class="m-in">
             {head("מאמרים אחרונים.", "קצרים, ואפשר לעשות אותם היום.", "articles.html", "לכל המאמרים")}
             <ul class="posts">{cards}</ul>
         </div>
-    </section>'''
+    </section>"""
 
 
 def sec_cta():
-    s = strands("cta", 760, 260, 22,
-                lambda t: f"M -20 {250 + 30 * t:.1f} C 200 {230 - 120 * t:.1f}, 420 {120 + 140 * t:.1f}, 780 {20 + 120 * t:.1f}", cls="cta-str")
-    return f'''
+    return f"""
     <section class="m-sec m-cta">
         <div class="m-in cta-in">
-            {s}
+            {canvas("cta", "cta-cv", flip=True)}
             <h2>קורס קלוד קוד, בחינם ובעברית</h2>
-            <div class="btns"><a href="guide-1.html" class="btn-2">למדריך הכתוב</a><a href="service.html" class="btn">התחל ללמוד <span class="arr">←</span></a></div>
+            <div class="btns"><a href="guide-1.html" class="btn-3">למדריך הכתוב</a><a href="service.html" class="btn">התחל ללמוד <span class="arr">‹</span></a></div>
         </div>
-    </section>'''
+    </section>"""
 
 
 def sec_faq(faq_html):
-    return f'''
+    return f"""
     <section class="m-sec">
         <div class="m-in faq-in">
             <h2 class="faq-t">שאלות נפוצות</h2>
             {faq_html}
         </div>
-    </section>'''
+    </section>"""
 
 
 def footer(chapters, articles, ready):
@@ -290,52 +337,42 @@ def footer(chapters, articles, ready):
         ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש")]),
     ]
     c = "".join(f'<div class="f-col"><h3>{h}</h3><ul>{"".join(f"<li><a href=\"{a}\">{b}</a></li>" for a, b in links)}</ul></div>' for h, links in cols)
-    return f'''
+    return f"""
     <footer class="m-foot">
-        {dots(7, 160, 420, 90, "dither f-d1")}{dots(11, 160, 420, 90, "dither f-d2")}
+        {dots(7, 160, 420, 90, "dither f-d1")}{dots(11, 160, 420, 90, "dither f-d2")}{dots(5, 160, 420, 50, "dither f-d3")}
         <div class="m-in foot-in">
             <div class="f-brand"><a href="index.html" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
-                <span class="f-ok">{len(ready)} פרקים זמינים לקריאה</span></div>
+                <span class="f-ok"><i></i>{len(ready)} פרקים זמינים לקריאה</span></div>
             <nav class="f-cols" aria-label="קישורים בפוטר">{c}</nav>
         </div>
         <div class="m-in f-bot">
             <span>© 2026 Free AI. כל הזכויות שמורות.</span>
             <a href="#top" class="f-top">חזרה למעלה {icon("up")}</a>
         </div>
-    </footer>'''
+    </footer>"""
 
 
-HOME_JS = '''<script>
-(function () {
-  var car = document.getElementById('car');
-  if (!car) return;
-  document.querySelectorAll('[data-car]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var card = car.querySelector('.story');
-      var step = card ? card.getBoundingClientRect().width + 12 : 600;
-      car.scrollBy({ left: -step * +b.dataset.car, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    });
-  });
-})();
-</script>'''
+HOME_JS = '<script src="assets/js/mint.js?v=2" defer></script>'
 
 
 def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):
-    n_ch = len(chapters)
+    n_ch = len(ready)
     mins = sum(m for _, m in chapters)
-    return f'''    <div class="wrap full" id="top">
-        <section class="c-hero">
-        {strings}
+    need = "".join(f"<li>{icon('check')}<span><b>{a}</b> {b}</span></li>" for a, b in [
+        ("מחשב", "Mac או Windows"), ("מייל", "אחד לכל השירותים"), ("מנוי Claude Pro", "כ-20 דולר לחודש")])
+    return f"""    <div class="wrap full" id="top">
+        <section class="c-hero m-hero">
+        {canvas("hero", "hero-cv", flip=True)}
         {header_html}
             <div class="hero-in">
                 <div class="hero-text">
-                    <span class="chip">המדריך הכתוב <b>{n_ch} פרקים</b></span>
-                    <h1 class="hero-title"><span class="hero-line"><span class="grad">קורס קלוד קוד בחינם</span></span></h1>
-                    <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: <b>שיעורי וידאו</b>, <b>מדריך כתוב</b> צעד אחרי צעד ו<b>סקילים</b> מוכנים להורדה.</p>
-                    <div class="btns"><a href="service.html" class="btn">התחל ללמוד <span class="arr">←</span></a><a href="guide-1.html" class="btn-2">למדריך הכתוב</a></div>
-                    <span class="hero-note"><i></i>חינם ובעברית, בלי לדעת לתכנת</span>
+                    <a href="guide-1.html" class="chip">המדריך הכתוב <b><span data-roll>{n_ch}</span> פרקים</b><span class="chip-go">‹</span></a>
+                    <h1 class="hero-title">קורס קלוד קוד בחינם</h1>
+                    <p>קורס Claude Code למתחילים, בלי ידע בתכנות. <b>שיעורי וידאו</b>, <b>מדריך כתוב</b> ו<b>סקילים</b>.</p>
+                    <div class="btns"><a href="service.html" class="btn">התחל ללמוד <span class="arr">‹</span></a><a href="guide-1.html" class="btn-2">{icon("book")}למדריך הכתוב</a></div>
+                    <details class="need"><summary><span class="need-ic">{icon("home")}{icon("chat")}{icon("spark")}</span>מה צריך כדי להתחיל{icon("chev-d")}</summary><ul>{need}</ul></details>
                 </div>
-                {hero_demo}
+                {hero_preview(ready)}
             </div>
         </section>
     </div>
@@ -350,4 +387,4 @@ def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):
 {sec_cta()}
 {sec_faq(faq_html)}
     </main>
-{footer(chapters, articles, ready)}'''
+{footer(chapters, articles, ready)}"""

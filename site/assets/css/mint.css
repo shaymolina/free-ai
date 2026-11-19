@@ -7,16 +7,6 @@ body { background: var(--bg); color: var(--ink); }
 .text-gradient-1, .text-gradient-2, .text-gradient-3 { background: none; -webkit-text-fill-color: currentColor; color: var(--ink); padding-bottom: 0; margin-bottom: 0; }
 .heading-title, .section-hero .title, .text-display-1, .text-display-2, h1, h2 { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; }
 
-/* הדר: פס לבן עם קו תחתון */
-.tf-header { padding-top: 0; margin-bottom: 0; position: relative; z-index: 20; border-bottom: 1px solid var(--line); }
-.tf-header .header-inner, .tf-header.header2 .header-inner { max-width: var(--container); height: 64px; padding: 0 16px; border-radius: 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
-.tf-header .header-inner > .tf-btn { height: 38px; padding: 0 16px; }
-.nav-menu-main .menu-item .item-link { font-weight: 500; color: var(--ink-2); transition: color var(--dur-1) var(--ease); }
-.nav-menu-main .menu-item .item-link:hover, .nav-menu-main .menu-item.active .item-link { color: var(--ink); }
-.nav-menu-main .menu-item.active .item-link::before, .nav-menu-main .menu-item.active .item-link::after { background: var(--ink); }
-.hdr-fixed.hdr-small { top: 0; left: 0; right: 0; padding-inline: max(16px, calc(50% - var(--container) / 2 + 16px));
-  border-radius: 0; background: rgba(255,255,255,.86); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); box-shadow: 0 1px 0 var(--line); }
-
 /* כפתורים: שחור מרובע, משני לבן עם מסגרת */
 .tf-btn { border-radius: var(--r-xs); font-weight: 500; font-size: 15px; padding: 12px 18px; background: var(--btn-bg); box-shadow: none;
   transition: background-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
@@ -46,7 +36,7 @@ body { background: var(--bg); color: var(--ink); }
 .heading-section .heading-sub { gap: 8px; align-items: center; }
 .heading-section .heading-sub.style-1 { background: var(--bg); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
 .heading-section .heading-title { font-weight: 500; }
-@media (min-width: 768px) { .heading-section .heading-title { font-size: 48px; line-height: 54px; } }
+@media (min-width: 768px) { .heading-section .heading-title { font-size: 42px; line-height: 48px; } }
 
 /* כרטיסים ואזורים */
 .box-white { background: var(--card); border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line); }
@@ -84,7 +74,6 @@ footer a:hover, .link-underline:hover { color: var(--brand); }
 .cursor-trail, .border-progress { display: none; }
 
 @media (max-width: 991px) {
-  .tf-header .header-inner { margin: 0; height: 56px; }
   .section-hero .content-wrap { padding: 64px 0 56px; }
   .tf-btn, .tf-header .mobile-menu { min-height: 44px; }
 }
@@ -93,3 +82,11 @@ footer a:hover, .link-underline:hover { color: var(--brand); }
 }
 .section-hero .title, .section-hero .title *, .heading-title, .heading-title * { font-weight: 500 !important; }
 .tf-social-1 a, footer .tf-btn-2, footer .tf-link-icon { border-radius: var(--r-xs); }
+
+/* ההדר: כמו בגרסה הקודמת (גלולה) */
+.tf-header .tf-btn, .tf-header .mobile-menu { border-radius: 99px; background: radial-gradient(62.56% 62.56% at 28.14% -10.42%, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 100%), #272727;
+  box-shadow: 0 -3px 0 #080808 inset, 0 1px 0 rgba(255,255,255,.3) inset, 0 3px 4px rgba(0,0,0,.13), 0 10px 14px rgba(0,0,0,.14); }
+.tf-header .header-inner { box-shadow: 0 6px 20px rgba(8,9,10,.05), inset 0 0 0 1px var(--line-2); background: rgba(255,255,255,.7); }
+.tf-header { padding-top: 24px; margin-bottom: -88px; position: relative; z-index: 20; }
+.section-hero .content-wrap { padding-top: 150px; }
+.section-hero .title, .section-hero .text-display-1, .section-hero .text-display-2 { font-weight: 600 !important; }
