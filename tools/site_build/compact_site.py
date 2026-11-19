@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "38"
+CSS_VERSION = "39"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -71,11 +71,11 @@ FOOTER = '''<footer class="c-foot">
         </footer>'''
 
 
-def page(title, desc, body, script="", cls=""):
-    return clean(_page(title, desc, body, script, cls))
+def page(title, desc, body, script="", cls="", css=""):
+    return clean(_page(title, desc, body, script, cls, css))
 
 
-def _page(title, desc, body, script="", cls=""):
+def _page(title, desc, body, script="", cls="", css=""):
     return f'''<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -91,14 +91,15 @@ def _page(title, desc, body, script="", cls=""):
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/tokens.css?v={CSS_VERSION}">
-    <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">
+    <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">{f'''
+    <link rel="stylesheet" href="assets/css/{css}?v={CSS_VERSION}">''' if css else ""}
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
 </head>
 <body{(f' class="{cls}"' if cls else "")}>
 {body}
 {script}
-<script src="assets/js/header.js?v=2" defer></script>
+<script src="assets/js/header.js?v=4" defer></script>
 </body>
 </html>
 '''
@@ -108,9 +109,7 @@ def _page(title, desc, body, script="", cls=""):
 # דף הבית
 # =====================================================================
 def build_home():
-    rows = "".join(
-        f'<a href="guide-{i if i in READY else 1}.html"><span class="dot{" on" if i == 1 else ""}"></span>{i}. {name}</a>'
-        for i, (name, mins) in enumerate(CHAPTERS[:4], 1))
+    import home_mint
     faq = "".join(f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in [
         ("צריך מנוי בתשלום לקלוד?", "כן. קלוד Pro ומעלה."),
         ("צריך ידע קודם?", "לא. מתחילים מאפס."),
@@ -119,35 +118,11 @@ def build_home():
         ("מה זה קלוד קוד?", 'כלי של Anthropic שבונה אתרים ומערכות לפי מה שכותבים לו. <a href="article-what-is-claude-code.html">הסבר פשוט על קלוד קוד</a>.'),
         ("קלוד קוד עובד בעברית?", "כן. כותבים לו בעברית רגילה, והוא בונה גם אתרים בעברית."),
     ])
-    body = f'''    <div class="wrap full">
-        <section class="c-hero">
-        {STRINGS}
-        {header("index.html")}
-            <div class="hero-in">
-                <div class="hero-text">
-                    <span class="chip">המדריך הכתוב <b>{len(CHAPTERS)} פרקים</b></span>
-                    <h1 class="hero-title"><span class="hero-line"><span class="grad">קורס קלוד קוד בחינם</span></span></h1>
-                    <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: <b>שיעורי וידאו</b>, <b>מדריך כתוב</b> צעד אחרי צעד ו<b>סקילים</b> מוכנים להורדה.</p>
-                    <div class="btns"><a href="service.html" class="btn">התחל ללמוד <span class="arr">←</span></a><a href="guide-1.html" class="btn-2">למדריך הכתוב</a></div>
-                    <span class="hero-note"><i></i>חינם ובעברית, בלי לדעת לתכנת</span>
-                </div>
-                {HERO_DEMO}
-            </div>
-        </section>
-    </div>
-    <main class="wrap full stack" style="margin-top:16px">
-        <div class="three">
-            <a href="service.html" class="card pick"><span class="ic" aria-hidden="true">▶</span><h2>הקורס</h2><p class="muted">8 שיעורי וידאו קצרים, לפי הסדר.</p><span class="go">לקורס ←</span></a>
-            <a href="guide-1.html" class="card pick"><span class="ic" aria-hidden="true">☰</span><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
-            <a href="work.html" class="card pick"><span class="ic" aria-hidden="true">✦</span><h2>סקילים</h2><p class="muted">יכולות מוכנות לקלוד, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
-        </div>
-        <h2 class="sec-title">שאלות נפוצות<small>מה ששואלים אותנו הכי הרבה.</small></h2>
-        <div class="faq">{faq}</div>
-        {FOOTER}
-    </main>'''
+    body = home_mint.body(header("index.html"), HERO_DEMO, STRINGS, CHAPTERS, READY, ARTICLES, f'<div class="faq">{faq}</div>')
     (SITE / "index.html").write_text(page(
         "קורס קלוד קוד בחינם בעברית | Free AI",
-        "קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.", body))
+        "קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.", body,
+        home_mint.HOME_JS, css="home.css"))
     print("index.html done")
 
 
@@ -281,7 +256,6 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     print(f"guide-{n}.html done")
 
 
-build_home()
 build_chapter(
     1, "שלושה דברים להכין, ואפשר לצאת לדרך.",
     [("מחשב", "Mac או Windows"), ("מייל", "אחד לכל השירותים"), ("כרטיס אשראי", "כ-20 דולר לחודש לקלוד")],
@@ -693,14 +667,15 @@ def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual
     <main class="wrap stack art-main article">
 {secs}
         <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
-        {FOOTER}
-    </main>'''
-    (SITE / name).write_text(page(f"{seo_title or title} | Free AI", desc, page_body, ARTICLE_JS))
+    </main>
+<!--big-footer-->'''
+    (SITE / name).write_text(page(f"{seo_title or title} | Free AI", desc, page_body, ARTICLE_JS, css="home.css"))
     print(f"{name} done")
 
 
 
 def build_articles_index():
+    import home_mint
     cards = "".join(
         f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
         for n, t, d, m in ARTICLES)
@@ -720,10 +695,10 @@ def build_articles_index():
     </div>
     <main class="wrap stack" style="margin-top:16px">
         <div class="art-list">{cards}</div>
-        {FOOTER}
-    </main>'''
+    </main>
+{home_mint.footer(CHAPTERS, ARTICLES, READY)}'''
     (SITE / "articles.html").write_text(page(
-        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body))
+        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body, css="home.css"))
     print("articles.html done")
 
 
@@ -906,6 +881,13 @@ build_article(
 )
 
 build_articles_index()
+build_home()
+
+# הפוטר הגדול במאמרים (אחרי שכל המאמרים ידועים)
+import home_mint as _hm
+for _n, *_ in ARTICLES:
+    _f = SITE / _n
+    _f.write_text(_f.read_text().replace("<!--big-footer-->", clean(_hm.footer(CHAPTERS, ARTICLES, READY))))
 
 # שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
 import runpy as _runpy

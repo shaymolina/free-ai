@@ -44,7 +44,7 @@
 (function () {
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var els = document.querySelectorAll('.three > *, .sec-title, .faq > *, .art-list > *, .art-sec, .art-cta, .lesson .fstep, .lesson .row');
+  var els = document.querySelectorAll('.three > *, .sec-title, .faq > *, .art-list > *, .art-sec, .art-cta, .lesson .fstep, .lesson .row, .m-head, .tools-grid > *, .bento > *, .car-track, .stats > *, .starts > *, .prompts > *, .posts > *, .cta-in > h2, .f-col');
   if (!els.length) return;
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
@@ -54,7 +54,7 @@
       el.classList.add('rv-in');
       setTimeout(function () { el.classList.remove('rv', 'rv-in'); el.style.removeProperty('--rv-d'); }, 1200);
     });
-  }, { rootMargin: '0px 0px -6% 0px' });
+  }, { rootMargin: '0px' });
   els.forEach(function (el) {
     if (el.getBoundingClientRect().top < innerHeight * 0.92) return;
     var i = Array.prototype.indexOf.call(el.parentNode.children, el) % 4;
