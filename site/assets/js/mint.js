@@ -11,10 +11,10 @@
   /* ---------- צורות החוטים (במערכת קואורדינטות וירטואלית W x H) ---------- */
   var KINDS = {
     hero: { W: 1440, H: 900, bundles: [
-      { n: 30, amp: 22, sp: .35, stops: [[0, '45,212,191', 0], [.45, '74,222,128', .8], [1, '163,230,53', .35]],
-        f: function (t) { return [660, 480 + 80 * t, 900, 470 - 160 * t, 1100, 330 + 60 * t, 1500, 130 + 560 * t]; } },
-      { n: 26, amp: 16, sp: .28, stops: [[0, '45,212,191', .2], [.6, '74,222,128', .75], [1, '163,230,53', 0]],
-        f: function (t) { return [-60, 760 + 380 * t, 300, 880 - 200 * t, 700, 680 + 80 * t, 1180, 540 + 300 * t]; } }
+      { n: 26, amp: 18, sp: .35, stops: [[0, '45,212,191', 0], [.55, '74,222,128', .7], [.8, '163,230,53', .85], [1, '163,230,53', .3]],
+        f: function (t) { return [820 + 300 * t, 480, 980 + 250 * t, 380 - 60 * t, 1150 + 60 * t, 300 + 120 * t, 1500, 110 + 300 * t]; } },
+      { n: 24, amp: 16, sp: .28, stops: [[0, '45,212,191', .15], [.45, '74,222,128', .7], [1, '163,230,53', 0]],
+        f: function (t) { return [-60, 820 + 420 * t, 250 + 60 * t, 880 - 160 * t, 520 - 40 * t, 690 + 100 * t, 760, 600 + 160 * t]; } }
     ] },
     card: { W: 600, H: 360, bundles: [
       { n: 18, amp: 14, sp: .3, stops: [[0, '45,212,191', .1], [.5, '74,222,128', .55], [1, '163,230,53', .2]],
@@ -24,13 +24,21 @@
       { n: 34, amp: 20, sp: .45, stops: [[0, '255,255,255', .05], [.5, '255,255,255', .6], [1, '255,255,255', .15]],
         f: function (t) { return [-40, 420 + 240 * t, 120, 300 - 260 * t, 260, 200 + 300 * t, 440, 40 + 160 * t]; } }
     ] },
+    art2: { W: 400, H: 460, bundles: [
+      { n: 30, amp: 10, sp: .3, stops: [[0, '8,60,40', .35], [.5, '8,60,40', .5], [1, '8,60,40', .3]],
+        f: function (t) { var y = 230 + 560 * t; return [-40, y + 40, 120, y - 90, 280, y + 90, 440, y - 30]; } }
+    ] },
+    art3: { W: 400, H: 460, bundles: [
+      { n: 16, amp: 16, sp: .4, stops: [[0, '94,234,212', .1], [.5, '129,140,248', .8], [1, '94,234,212', .3]],
+        f: function (t) { return [-40, 400 + 160 * t, 130, -160 + 260 * t, 270, 640 - 260 * t, 440, 60 + 160 * t]; } }
+    ] },
     cta: { W: 760, H: 260, bundles: [
-      { n: 9, amp: 8, sp: .4, stops: [[0, '74,222,128', 0], [.5, '74,222,128', .8], [1, '163,230,53', .6]],
-        f: function (t) { return [380 + 300 * t, 300, 470 + 300 * t, 200, 560 + 300 * t, 120, 650 + 300 * t, 10]; } },
-      { n: 7, amp: 8, sp: .3, stops: [[0, '96,165,250', 0], [.5, '96,165,250', .7], [1, '45,212,191', .5]],
-        f: function (t) { return [300 + 300 * t, 300, 400 + 300 * t, 210, 500 + 300 * t, 130, 610 + 300 * t, 20]; } },
-      { n: 6, amp: 8, sp: .35, stops: [[0, '250,204,21', 0], [.5, '250,204,21', .8], [1, '163,230,53', .5]],
-        f: function (t) { return [430 + 280 * t, 300, 520 + 280 * t, 215, 610 + 280 * t, 135, 700 + 280 * t, 30]; } }
+      { n: 8, amp: 8, sp: .4, stops: [[0, '74,222,128', .1], [.5, '34,197,94', 1], [1, '163,230,53', .9]],
+        f: function (t) { return [480 + 300 * t, 290, 600 + 280 * t, 220, 650 + 260 * t, 100, 700 + 280 * t, -30]; } },
+      { n: 6, amp: 8, sp: .3, stops: [[0, '96,165,250', .1], [.5, '59,130,246', .8], [1, '45,212,191', .8]],
+        f: function (t) { return [400 + 300 * t, 290, 540 + 280 * t, 230, 600 + 260 * t, 110, 640 + 280 * t, -30]; } },
+      { n: 6, amp: 8, sp: .35, stops: [[0, '250,204,21', .1], [.5, '234,179,8', .9], [1, '163,230,53', .9]],
+        f: function (t) { return [540 + 260 * t, 290, 660 + 250 * t, 215, 720 + 240 * t, 95, 760 + 240 * t, -30]; } }
     ] }
   };
 
@@ -83,27 +91,36 @@
   }
 
   function drawWave(it, time) {
-    var c = it.ctx, w = it.w, h = it.h, n = 26;
-    var prog = reduce ? 1 : easeOutExpo(Math.min(1, time / 2200));
+    var c = it.ctx, w = it.w, h = it.h, n = 30;
+    var prog = reduce ? 1 : easeOutExpo(Math.min(1, time / 2400));
+    var T = reduce ? 0 : time / 1000;
     c.setTransform(DPR, 0, 0, DPR, 0, 0);
     c.clearRect(0, 0, w, h);
-    var g = c.createLinearGradient(0, 0, w, 0);
-    g.addColorStop(0, 'rgba(45,212,191,.05)'); g.addColorStop(.3, 'rgba(52,211,153,.75)');
-    g.addColorStop(.7, 'rgba(163,230,53,.75)'); g.addColorStop(1, 'rgba(45,212,191,.1)');
-    c.strokeStyle = g; c.lineWidth = .9;
-    var T = reduce ? 0 : time / 1000;
+    if (it.flip) { c.translate(w, 0); c.scale(-1, 1); }
+    c.lineWidth = .85;
+    var A = [45, 212, 191], B = [163, 230, 53], M = [74, 222, 128];
     for (var i = 0; i < n; i++) {
-      var k = i / (n - 1), amp = (h * .14 + h * .26 * Math.sin(k * Math.PI)) * prog, ph = k * 2.4 + T * .55;
+      var k = i / (n - 1);
+      var col = k < .5 ? mix(A, M, k * 2) : mix(M, B, (k - .5) * 2);
+      var g = c.createLinearGradient(0, 0, w, 0);
+      g.addColorStop(0, 'rgba(' + col + ',0)'); g.addColorStop(.12, 'rgba(' + col + ',.75)');
+      g.addColorStop(.88, 'rgba(' + col + ',.75)'); g.addColorStop(1, 'rgba(' + col + ',0)');
+      c.strokeStyle = g;
+      var ph = k * Math.PI * 1.7 + T * .45;
+      var last = Math.max(2, Math.round(90 * prog));
       c.beginPath();
-      for (var j = 0; j <= 80; j++) {
-        var x = j / 80 * w, e = .35 + .65 * Math.sin(x / w * Math.PI);
-        var y = h / 2 + amp * Math.sin(x / w * Math.PI * 2.3 + ph) * e;
+      for (var j = 0; j <= last; j++) {
+        var u = j / 90, x = u * w;
+        var spread = h * (.3 * Math.pow(1 - u, 1.8) + .03) * (k - .5) * 2;
+        var amp = h * (.26 - .12 * u);
+        var y = h * .5 + spread + amp * Math.sin(u * Math.PI * 1.9 + ph);
         if (j) c.lineTo(x, y); else c.moveTo(x, y);
       }
       c.stroke();
     }
     c.setTransform(1, 0, 0, 1, 0, 0);
   }
+  function mix(a, b, t) { return [0, 1, 2].map(function (q) { return Math.round(a[q] + (b[q] - a[q]) * t); }).join(','); }
 
   function draw(it, time) { it.last = time; if (it.kind === 'wave') drawWave(it, time); else if (it.k) drawStrings(it, time); }
 

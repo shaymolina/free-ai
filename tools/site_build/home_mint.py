@@ -238,7 +238,7 @@ def sec_scale(n_chapters):
     <section class="m-sec m-scale">
         <div class="m-in">
             {head("לומדים בקצב שלכם.", "פרקים קצרים, צעד אחד בכל פעם.", "guide-1.html", "לפרק הראשון")}
-            <div class="wave-box">{canvas("wave", "wave")}</div>
+            <div class="wave-box">{canvas("wave", "wave", flip=True)}</div>
             <ul class="stats">{st}</ul>
         </div>
     </section>"""
@@ -251,9 +251,9 @@ def sec_start(n_chapters):
              ("p-fire", "file", "מאמרים", "מדריכים קצרים שאפשר לעשות היום.", "articles.html", "למאמרים"),
              ("p-sky", "rocket", "הפרק הראשון", "שלושה דברים להכין, ואפשר לצאת לדרך.", "guide-1.html", "לפרק 1")]
     cards = "".join(f"""<li class="start">
-                <a href="{h}" class="start-art {c}" tabindex="-1" aria-hidden="true">{canvas("art", "art-cv")}<span class="start-tile">{icon(i)}</span></a>
+                <a href="{h}" class="start-art {c}" tabindex="-1" aria-hidden="true">{canvas(("art", "art2", "art3")[n % 3], "art-cv")}<span class="start-tile">{icon(i)}</span></a>
                 <p><b>{t}</b> {d}</p><a href="{h}" class="start-go">{g} <span class="arr">‹</span></a>
-            </li>""" for c, i, t, d, h, g in items)
+            </li>""" for n, (c, i, t, d, h, g) in enumerate(items))
     return f"""
     <section class="m-sec m-starts" data-carousel>
         <div class="m-in">{head("מאיפה מתחילים.", "חמש דרכים להיכנס לחומר.", "service.html", "התחל ללמוד", car_nav())}</div>
@@ -352,7 +352,7 @@ def footer(chapters, articles, ready):
     </footer>"""
 
 
-HOME_JS = '<script src="assets/js/mint.js?v=2" defer></script>'
+HOME_JS = '<script src="assets/js/mint.js?v=10" defer></script>'
 
 
 def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):
@@ -367,7 +367,7 @@ def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):
             <div class="hero-in">
                 <div class="hero-text">
                     <a href="guide-1.html" class="chip">המדריך הכתוב <b><span data-roll>{n_ch}</span> פרקים</b><span class="chip-go">‹</span></a>
-                    <h1 class="hero-title">קורס קלוד קוד בחינם</h1>
+                    <h1 class="hero-title">קורס קלוד קוד<br>בחינם ובעברית</h1>
                     <p>קורס Claude Code למתחילים, בלי ידע בתכנות. <b>שיעורי וידאו</b>, <b>מדריך כתוב</b> ו<b>סקילים</b>.</p>
                     <div class="btns"><a href="service.html" class="btn">התחל ללמוד <span class="arr">‹</span></a><a href="guide-1.html" class="btn-2">{icon("book")}למדריך הכתוב</a></div>
                     <details class="need"><summary><span class="need-ic">{icon("home")}{icon("chat")}{icon("spark")}</span>מה צריך כדי להתחיל{icon("chev-d")}</summary><ul>{need}</ul></details>
