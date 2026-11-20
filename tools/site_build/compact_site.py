@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "37"
+CSS_VERSION = "41"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -24,6 +24,28 @@ READY = set(range(1, 24))  # פרקים שכבר כתובים
 
 
 HERO_DEMO = '<div class="hero-stage"><div class="demo">\n<div class="chat"><div class="who">אתם כותבים:</div><div class="box"><span class="tx"></span><span class="cur"></span></div>\n<div class="who">קלוד קוד עושה:</div><div class="steps"><div><i>✓</i>בונה יומן תורים</div><div><i>✓</i>מוסיף טופס הזמנה ללקוחות</div><div><i>✓</i>מחבר תזכורות בוואטסאפ</div><div><i>✓</i>בונה מסך ניהול להזמנות</div></div></div>\n<div class="app">\n<div class="top p"><b>התורים שלי</b><span class="btn2">+ תור חדש</span></div>\n<div class="stats"><div class="st p"><small>תורים השבוע</small><strong data-n="38">0</strong></div><div class="st p"><small>הזמנות חדשות</small><strong data-n="7">0</strong></div><div class="st p"><small>הכנסות</small><strong data-n="4260" data-c="₪">0</strong></div></div>\n<div class="cal p"><div></div><div class="h">ראשון</div><div class="h">שני</div><div class="h">שלישי</div><div class="h">רביעי</div><div class="t">09:00</div><div class="ap ">נועה<span>תספורת</span></div><div class="slot"></div><div class="ap g">אבי<span>זקן</span></div><div class="slot"></div><div class="t">10:00</div><div class="slot"></div><div class="ap b">מיכל<span>פן</span></div><div class="slot"></div><div class="ap b">דנה<span>החלקה</span></div><div class="t">11:00</div><div class="ap g">רון<span>צבע</span></div><div class="ap" id="last">יוסי<span>תספורת</span></div><div class="slot"></div><div class="slot"></div><div class="t">12:00</div><div class="slot"></div><div class="slot"></div><div class="ap ">שירה<span>תספורת</span></div><div class="ap g">תמר<span>צבע</span></div><div class="t">13:00</div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div></div>\n<div class="toast"><i>✓</i>תור חדש נקבע: יוסי, שני 11:00</div>\n</div></div>\n<script>(function(){\nvar msg="תבנה לי מערכת לניהול הזמנות ותורים של העסק שלי";\nvar d=document.querySelector(\'.demo\'),chat=d.querySelector(\'.chat\'),tx=d.querySelector(\'.tx\'),st=d.querySelectorAll(\'.steps div\'),app=d.querySelector(\'.app\'),ps=app.querySelectorAll(\'.p\'),aps=app.querySelectorAll(\'.ap\'),nums=app.querySelectorAll(\'[data-n]\'),toast=app.querySelector(\'.toast\');\nvar T=[];function at(ms,f){T.push(setTimeout(f,ms))}\nfunction reset(){T.forEach(clearTimeout);T=[];tx.textContent=\'\';chat.classList.remove(\'out\');app.classList.remove(\'in\');st.forEach(function(s){s.classList.remove(\'on\')});aps.forEach(function(a){a.classList.remove(\'on\')});toast.classList.remove(\'on\');nums.forEach(function(n){n.textContent=\'0\'});ps.forEach(function(p){p.style.transitionDelay=\'\'})}\nfunction count(el){var N=+el.dataset.n,c=el.dataset.c||\'\',t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=c+Math.round(N*k).toLocaleString(\'en-US\');if(k<1)requestAnimationFrame(f)})(t0)}\nfunction run(){reset();var k=0,step=50;\nfor(var i=1;i<=msg.length;i++)(function(i){at(i*step,function(){tx.textContent=msg.slice(0,i)})})(i);\nvar t=msg.length*step+500;\nst.forEach(function(s,n){at(t+n*650,function(){s.classList.add(\'on\')})});\nt+=st.length*650+700;\nat(t,function(){chat.classList.add(\'out\')});\nat(t+300,function(){ps.forEach(function(p,n){p.style.transitionDelay=(n*120)+\'ms\'});app.classList.add(\'in\')});\nat(t+800,function(){nums.forEach(count)});\nvar rest=[].filter.call(aps,function(a){return a.id!=\'last\'});rest.forEach(function(a,n){at(t+1000+n*170,function(){a.classList.add(\'on\')})});\nvar last=app.querySelector(\'#last\');\nat(t+1000+aps.length*170+700,function(){last.classList.add(\'on\');toast.classList.add(\'on\')});\nat(t+1000+aps.length*170+5200,run);}\nrun();})()</script></div>'
+
+
+def _strings_svg():
+    """קווי "חוטים" ירוקים לחלק הפתיחה: שני צרורות עקומות שזזים לאט (CSS)."""
+    def bundle(n, f):
+        return "".join(f'<path d="{f((i / (n - 1)) - .5)}"/>' for i in range(n))
+    a = bundle(28, lambda t: f"M 560 {470 + 80 * t:.1f} C 860 {470 - 160 * t:.1f}, 1080 {330 + 60 * t:.1f}, 1500 {130 + 560 * t:.1f}")
+    b = bundle(24, lambda t: f"M -60 {760 + 380 * t:.1f} C 240 {880 - 220 * t:.1f}, 460 {640 + 160 * t:.1f}, 700 {600 + 120 * t:.1f}")
+    return ('<svg class="strings" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">'
+            '<defs><linearGradient id="sg-a" gradientUnits="userSpaceOnUse" x1="620" y1="0" x2="1500" y2="0">'
+            '<stop offset="0" stop-color="#2DD4BF" stop-opacity="0"/><stop offset=".45" stop-color="#4ADE80" stop-opacity=".75"/><stop offset="1" stop-color="#A3E635" stop-opacity=".35"/></linearGradient>'
+            '<linearGradient id="sg-b" gradientUnits="userSpaceOnUse" x1="-80" y1="0" x2="760" y2="0">'
+            '<stop offset="0" stop-color="#2DD4BF" stop-opacity=".25"/><stop offset=".6" stop-color="#4ADE80" stop-opacity=".7"/><stop offset="1" stop-color="#A3E635" stop-opacity="0"/></linearGradient></defs>'
+            f'<g class="s-a" fill="none" stroke="url(#sg-a)" stroke-width=".9">{a}</g>'
+            f'<g class="s-b" fill="none" stroke="url(#sg-b)" stroke-width=".9">{b}</g></svg>')
+
+
+STRINGS = _strings_svg()
+(SITE / "assets/images/section/strings.svg").write_text(
+    STRINGS.replace('<svg class="strings"', '<svg xmlns="http://www.w3.org/2000/svg"').replace(' aria-hidden="true" focusable="false"', '')
+    .replace('</defs>', '</defs><style>g{transform-box:view-box;transform-origin:50% 50%}.s-a{animation:a 16s cubic-bezier(.77,0,.175,1) infinite alternate}.s-b{animation:b 20s cubic-bezier(.77,0,.175,1) infinite alternate}@keyframes a{to{transform:translate(-24px,-18px) rotate(-1.4deg)}}@keyframes b{to{transform:translate(20px,12px) rotate(1.2deg)}}@media (prefers-reduced-motion:reduce){g{animation:none!important}}</style>', 1))
+
 
 def header(active):
     links = "".join(f'<a href="{h}"{" class=\"active\"" if h == active else ""}>{t}</a>' for h, t in NAV)
@@ -49,11 +71,11 @@ FOOTER = '''<footer class="c-foot">
         </footer>'''
 
 
-def page(title, desc, body, script="", cls=""):
-    return clean(_page(title, desc, body, script, cls))
+def page(title, desc, body, script="", cls="", css=""):
+    return clean(_page(title, desc, body, script, cls, css))
 
 
-def _page(title, desc, body, script="", cls=""):
+def _page(title, desc, body, script="", cls="", css=""):
     return f'''<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -65,16 +87,18 @@ def _page(title, desc, body, script="", cls=""):
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261118">
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
-    <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">
+    <link rel="stylesheet" href="assets/css/tokens.css?v={CSS_VERSION}">
+    <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">{f'''
+    <link rel="stylesheet" href="assets/css/{css}?v={CSS_VERSION}">''' if css else ""}
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
 </head>
 <body{(f' class="{cls}"' if cls else "")}>
 {body}
 {script}
-<script src="assets/js/header.js?v=1" defer></script>
+<script src="assets/js/header.js?v=5" defer></script>
 </body>
 </html>
 '''
@@ -84,9 +108,7 @@ def _page(title, desc, body, script="", cls=""):
 # דף הבית
 # =====================================================================
 def build_home():
-    rows = "".join(
-        f'<a href="guide-{i if i in READY else 1}.html"><span class="dot{" on" if i == 1 else ""}"></span>{i}. {name}</a>'
-        for i, (name, mins) in enumerate(CHAPTERS[:4], 1))
+    import home_mint
     faq = "".join(f'<details class="card"><summary>{q}</summary><p>{a}</p></details>' for q, a in [
         ("צריך מנוי בתשלום לקלוד?", "כן. קלוד Pro ומעלה."),
         ("צריך ידע קודם?", "לא. מתחילים מאפס."),
@@ -95,31 +117,11 @@ def build_home():
         ("מה זה קלוד קוד?", 'כלי של Anthropic שבונה אתרים ומערכות לפי מה שכותבים לו. <a href="article-what-is-claude-code.html">הסבר פשוט על קלוד קוד</a>.'),
         ("קלוד קוד עובד בעברית?", "כן. כותבים לו בעברית רגילה, והוא בונה גם אתרים בעברית."),
     ])
-    body = f'''    <div class="wrap full">
-        <section class="c-hero">
-        {header("index.html")}
-            <div class="hero-in">
-                <div class="hero-text">
-                    <h1 class="hero-title"><span class="hero-line"><span class="grad">קורס קלוד קוד בחינם</span></span></h1>
-                    <p>קורס Claude Code בעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב צעד אחרי צעד וסקילים מוכנים להורדה.</p>
-                </div>
-                {HERO_DEMO}
-            </div>
-        </section>
-    </div>
-    <main class="wrap full stack" style="margin-top:16px">
-        <div class="three">
-            <a href="service.html" class="card pick"><h2>הקורס</h2><p class="muted">8 שיעורי וידאו קצרים, לפי הסדר.</p><span class="go">לקורס ←</span></a>
-            <a href="guide-1.html" class="card pick"><h2>המדריך</h2><p class="muted">{len(CHAPTERS)} פרקים קצרים לקריאה, צעד אחרי צעד.</p><span class="go">למדריך ←</span></a>
-            <a href="work.html" class="card pick"><h2>סקילים</h2><p class="muted">יכולות מוכנות לקלוד, להורדה בחינם.</p><span class="go">לסקילים ←</span></a>
-        </div>
-        <h2 class="sec-title">שאלות נפוצות</h2>
-        <div class="faq">{faq}</div>
-        {FOOTER}
-    </main>'''
+    body = home_mint.body(header("index.html"), HERO_DEMO, STRINGS, CHAPTERS, READY, ARTICLES, f'<div class="faq">{faq}</div>')
     (SITE / "index.html").write_text(page(
         "קורס קלוד קוד בחינם בעברית | Free AI",
-        "קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.", body))
+        "קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.", body,
+        home_mint.HOME_JS, css="home.css"))
     print("index.html done")
 
 
@@ -147,6 +149,13 @@ GUIDE_JS = '''<script>
     var copy = document.getElementById('guide-copy');
     if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
+    var tb = document.getElementById('theme-btn');
+    if (tb) tb.addEventListener('click', function () {
+        var d = !document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', d);
+        try { localStorage.setItem('theme', d ? 'dark' : 'light'); } catch (e) {}
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.body.classList.remove('side-open'); });
     document.addEventListener('click', function (e) {
         var img = e.target.closest ? e.target.closest('.fshot img') : null;
         if (!img) return;
@@ -178,21 +187,51 @@ GUIDE_JS = '''<script>
 </script>'''
 
 
+def _ico(paths, cls=""):
+    return f'<svg class="ico{(" " + cls) if cls else ""}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths}</svg>'
+
+
+ICO = {  # Lucide
+    "menu": '<path d="M4 6h16M4 12h16M4 18h16"/>',
+    "sun": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+    "moon": '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    "home": '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    "play": '<circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/>',
+    "book": '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    "box": '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>',
+    "news": '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>',
+    "check": '<path d="M20 6 9 17l-5-5"/>',
+    "down": '<path d="M12 5v14m-6-6 6 6 6-6"/>',
+    "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+}
+SITE_LINKS = [("index.html", "דף הבית", "home"), ("service.html", "הקורס", "play"), ("guide-1.html", "המדריך", "book"), ("work.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
+
+THEME_HEAD = """<script>(function(){var m='system';try{m=localStorage.getItem('theme')||'system'}catch(e){}
+var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>"""
+
+
 def sidebar(current):
     items = []
     for i, (name, _) in enumerate(CHAPTERS, 1):
         cls = "ch" + (" is-on" if i == current else "")
-        inner = f'<span class="dot">✓</span>{i}. {name}'
+        inner = f'<span class="num">{i}</span><span class="nm">{name}</span>{_ico(ICO["check"], "dot")}'
         if i in READY:
-            items.append(f'<li><a href="guide-{i}.html" class="{cls}" data-ch="{i}">{inner}</a></li>')
+            cur = ' aria-current="page"' if i == current else ""
+            items.append(f'<li><a href="guide-{i}.html" class="{cls}" data-ch="{i}"{cur}>{inner}</a></li>')
         else:
-            items.append(f'<li><span class="{cls}" data-ch="{i}">{inner}</span></li>')
-    return f'''<aside class="card side">
-                <h3>המדריך לקלוד קוד</h3>
-                <div class="bar"><i id="guide-fill"></i></div>
-                <div class="count" id="guide-count"></div>
-                <ol class="chs">{"".join(items)}</ol>
-            </aside>'''
+            items.append(f'<li><span class="{cls} is-soon" data-ch="{i}">{inner}</span></li>')
+    links = "".join(f'<a href="{h}" class="nav-link{" active" if h == "guide-1.html" else ""}">{_ico(ICO[ic])}<span>{t}</span></a>' for h, t, ic in SITE_LINKS)
+    return f'''<aside class="ds-side" id="ds-side">
+            <a href="index.html" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
+            <div class="ds-scroll">
+                <div class="ds-group">
+                    <div class="ds-group-title">המדריך לקלוד קוד</div>
+                    <div class="ds-prog"><div class="bar"><i id="guide-fill"></i></div><span class="count" id="guide-count"></span></div>
+                    <ol class="chs">{"".join(items)}</ol>
+                </div>
+            </div>
+            <nav class="ds-links">{links}</nav>
+        </aside>'''
 
 
 def rows_html(rows):
@@ -207,7 +246,7 @@ def rows_html(rows):
 
 
 def tip(text):
-    return f'<div class="tipcard"><b>טיפ</b><span>{text}</span></div>'
+    return f'<div class="tipcard">{_ico(ICO["info"])}<b>טיפ</b><span>{text}</span></div>'
 
 
 def split(img, alt, rows):
@@ -229,31 +268,62 @@ GUIDE_DESC = {
 }
 
 
+GUIDE_PAGE = """<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>{title}</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{desc}">
+    {theme}
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100..900&family=Noto+Sans:wght@100..900&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/css/guide.css?v={v}">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+</head>
+<body class="guide-page">
+{body}
+{script}
+</body>
+</html>
+"""
+
+
 def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     name, mins = CHAPTERS[n - 1]
     rows_block = rows_html(rows)
     nxt = f' data-next="guide-{n + 1}"' if (n + 1) in READY else ""
-    body = f'''    <main class="wrap full stack guide-main" style="padding-top:14px">
-        <div class="course">
-            {burger("guide-1.html")}
-            {sidebar(n)}
-            <article class="card lesson">
-                <h1>{name}</h1>
-                {f'<p class="lead">{lead}</p>' if lead else ''}
-                {top}{rows_block}{flow}{extra}
-                <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-brand" id="guide-done"{nxt}>{"סיימתי, לפרק הבא ←" if nxt or n < len(CHAPTERS) else "סיימתי את המדריך ✓"}</button></div>
-            </article>
+    body = f'''<div class="ds-app">
+        {sidebar(n)}
+        <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
+        <div class="ds-main">
+            <header class="ds-top">
+                <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
+                <span class="ds-vsep"></span>
+                <nav class="crumbs" aria-label="מיקום"><a href="guide-1.html">המדריך</a><i>/</i><span>{name}</span></nav>
+                <div class="ds-actions"><button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="מצב כהה או בהיר">{_ico(ICO["moon"], "i-moon")}{_ico(ICO["sun"], "i-sun")}</button></div>
+            </header>
+            <main class="ds-content">
+                <article class="lesson">
+                    <div class="page-head"><span class="eyebrow">פרק {n} · {mins} דקות</span><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
+                    {top}{rows_block}{flow}{extra}
+                    <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לפרק הבא ←" if nxt or n < len(CHAPTERS) else "סיימתי את המדריך ✓"}</button></div>
+                </article>
+                {FOOTER}
+            </main>
         </div>
-        {FOOTER}
-    </main>'''
-    (SITE / f"guide-{n}.html").write_text(page(
-        f"{GUIDE_TITLE.get(n, name + ' – המדריך לקלוד קוד')} | Free AI",
-        f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead or GUIDE_DESC.get(n, name)}", body,
-        GUIDE_JS % {"total": len(CHAPTERS), "current": n}, cls="guide-page"))
+    </div>'''
+    html = clean(GUIDE_PAGE.format(
+        title=f"{GUIDE_TITLE.get(n, name + ' – המדריך לקלוד קוד')} | Free AI",
+        desc=f"פרק {n} במדריך לקלוד קוד למי שלא מתכנת: {lead or GUIDE_DESC.get(n, name)}",
+        theme=THEME_HEAD, v=CSS_VERSION, body=body,
+        script=GUIDE_JS % {"total": len(CHAPTERS), "current": n}))
+    (SITE / f"guide-{n}.html").write_text(html)
     print(f"guide-{n}.html done")
 
 
-build_home()
 build_chapter(
     1, "שלושה דברים להכין, ואפשר לצאת לדרך.",
     [("מחשב", "Mac או Windows"), ("מייל", "אחד לכל השירותים"), ("כרטיס אשראי", "כ-20 דולר לחודש לקלוד")],
@@ -608,7 +678,7 @@ build_chapter(
      (None, "דוגמאות לבקשה הבאה"),
      ("עמוד חדש", "\"תוסיף עמוד גלריה עם 12 תמונות של עבודות, וקישור אליו בתפריט\""),
      ("גוגל", "\"תסדר את האתר כך שיופיע בגוגל כשמחפשים נגר בחיפה\"")],
-    "סיימתם את המדריך",
+    "נתקעתם? חוזרים לפרק 22",
     extra='\n                <p class="more-link">רוצים עוד? <a href="articles.html">כל המאמרים</a></p>',
 )
 
@@ -701,6 +771,7 @@ def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual
     dt = f'<span class="a-date">עודכן: {date}</span>' if date else ""
     page_body = f'''    <div class="wrap full">
         <section class="c-hero a-hero">
+        {STRINGS}
         {header("articles.html")}
             <div class="hero-in">
                 <div class="hero-text">
@@ -716,19 +787,21 @@ def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual
     <main class="wrap stack art-main article">
 {secs}
         <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
-        {FOOTER}
-    </main>'''
-    (SITE / name).write_text(page(f"{seo_title or title} | Free AI", desc, page_body, ARTICLE_JS))
+    </main>
+<!--big-footer-->'''
+    (SITE / name).write_text(page(f"{seo_title or title} | Free AI", desc, page_body, ARTICLE_JS, css="home.css"))
     print(f"{name} done")
 
 
 
 def build_articles_index():
+    import home_mint
     cards = "".join(
         f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
         for n, t, d, m in ARTICLES)
     body = f'''    <div class="wrap full">
         <section class="c-hero a-hero">
+        {STRINGS}
         {header("articles.html")}
             <div class="hero-in">
                 <div class="hero-text">
@@ -742,10 +815,10 @@ def build_articles_index():
     </div>
     <main class="wrap stack" style="margin-top:16px">
         <div class="art-list">{cards}</div>
-        {FOOTER}
-    </main>'''
+    </main>
+{home_mint.footer(CHAPTERS, ARTICLES, READY)}'''
     (SITE / "articles.html").write_text(page(
-        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body))
+        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body, css="home.css"))
     print("articles.html done")
 
 
@@ -928,6 +1001,13 @@ build_article(
 )
 
 build_articles_index()
+build_home()
+
+# הפוטר הגדול במאמרים (אחרי שכל המאמרים ידועים)
+import home_mint as _hm
+for _n, *_ in ARTICLES:
+    _f = SITE / _n
+    _f.write_text(_f.read_text().replace("<!--big-footer-->", clean(_hm.footer(CHAPTERS, ARTICLES, READY))))
 
 # שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
 import runpy as _runpy

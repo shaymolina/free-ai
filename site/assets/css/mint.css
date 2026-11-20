@@ -1,0 +1,92 @@
+/* Free AI – הכיוון העיצובי החדש (בהשראת Mintlify) לעמודים שבנויים על התבנית הישנה:
+   הקורס, הסקילים, פרטיות ותנאי שימוש. נטען אחרי styles.css ו-rtl.css, ונשען על tokens.css. */
+:root { --primary: var(--ink); --secondary: var(--muted); --body: var(--bg); }
+body { background: var(--bg); color: var(--ink); }
+::selection { background: var(--brand-soft); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.text-gradient-1, .text-gradient-2, .text-gradient-3 { background: none; -webkit-text-fill-color: currentColor; color: var(--ink); padding-bottom: 0; margin-bottom: 0; }
+.heading-title, .section-hero .title, .text-display-1, .text-display-2, h1, h2 { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; }
+
+/* כפתורים: שחור מרובע, משני לבן עם מסגרת */
+.tf-btn { border-radius: var(--r-xs); font-weight: 500; font-size: 15px; padding: 12px 18px; background: var(--btn-bg); box-shadow: none;
+  transition: background-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.tf-btn:hover { background: var(--btn-bg-hover); box-shadow: none; }
+.tf-btn:active { transform: scale(.98); }
+.tf-btn-2 { border-radius: var(--r-xs); background: var(--bg); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tf-btn-2:hover { background: var(--card); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tf-link-icon .icon, .ic-wrap { border-radius: var(--r-xs); }
+
+/* פתיחה: לבן עם קווי חוטים ירוקים */
+.section-hero { min-height: 0; padding: 0; border-bottom: 1px solid var(--line); overflow: clip; }
+.section-hero .hero-image { inset: 0; border-radius: 0; background: url(../images/section/strings.svg) center / cover no-repeat; background-attachment: scroll; transform: scaleX(-1); animation: mint-fade 1.6s var(--ease) both; }
+.section-hero .hero-image img, .section-hero .hero-image video { display: none; }
+.section-hero .content-wrap { padding: 96px 0 88px; position: relative; }
+.section-hero .content-wrap > * { animation: mint-rise var(--dur-enter) var(--ease-out-expo) both; }
+.section-hero .content-wrap > :nth-child(2) { animation-delay: calc(var(--stagger) * 1); }
+.section-hero .content-wrap > :nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+.section-hero .content-wrap > :nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+.section-hero .content-wrap .title-icon .box { background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand-line); border-radius: var(--r-md); }
+.section-hero .content-wrap .text, .section-hero .content-wrap .sub { color: var(--muted); }
+@keyframes mint-rise { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
+@keyframes mint-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* תגית מעל כותרת */
+.heading-section .heading-sub { border-radius: var(--r-xs); color: var(--ink); font-weight: 500; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-2); padding: 4px 12px; }
+.heading-section .heading-sub::before { display: none; }
+.heading-section .heading-sub { gap: 8px; align-items: center; }
+.heading-section .heading-sub.style-1 { background: var(--bg); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.heading-section .heading-title { font-weight: 500; }
+@media (min-width: 768px) { .heading-section .heading-title { font-size: 42px; line-height: 48px; } }
+
+/* כרטיסים ואזורים */
+.box-white { background: var(--card); border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line); }
+.accordion-faq_item { background: var(--card); border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line); padding: 28px 32px; }
+.accordion-faq_item .accordion-title { font-size: 26px; line-height: 34px; color: var(--muted); }
+.accordion-faq_item .accordion-action::before { background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand-line); transition: bottom var(--dur-3) var(--ease-out-expo); }
+.accordion-faq_item .accordion-action:not(.collapsed) .accordion-title { color: var(--ink); font-size: 32px; line-height: 40px; }
+.accordion-faq_item .text-neutral-300, .accordion-faq_item .text-neutral-200 { color: var(--muted) !important; }
+.accordion-faq_item .accordion-content .num { color: var(--brand); }
+.accordion-faq_item .icon { border-radius: var(--r-xs); }
+
+/* שאלות נפוצות: רשימה עם קווים */
+.accordion-asked .accordion-asked-item { background: none; box-shadow: none; border-radius: 0; padding: 18px 0; border-bottom: 1px solid var(--line-2); }
+.accordion-asked .accordion-button { font-weight: 500; transition: color var(--dur-1) var(--ease); }
+.accordion-asked .accordion-button:hover { color: var(--brand); }
+.accordion-asked .accordion-button span { width: 28px; height: 28px; border-radius: var(--r-xs); background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-2); }
+.accordion-asked .accordion-button span::before, .accordion-asked .accordion-button span::after { background-color: var(--ink) !important; }
+
+/* הרשמה */
+.section-contact .contact-image { inset: 0 16px; border-radius: var(--r-md); background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+.section-contact .contact-image img { display: none; }
+.section-contact .form-contact, .form-contact { border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); background: var(--bg); }
+.section-contact .contact-item .icon { border-radius: var(--r-sm); color: var(--brand); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand-line); }
+.form-contact input, .form-contact textarea { border-color: var(--line-2); }
+.form-contact input:focus, .form-contact textarea:focus { border-color: var(--brand); }
+
+/* פוטר */
+footer { border-top: 1px solid var(--line); }
+footer .footer-image { opacity: .35; }
+footer .footer-bottom { border-color: var(--line) !important; }
+footer a:hover, .link-underline:hover { color: var(--brand); }
+
+/* שאר הצבעים החמים של התבנית */
+.text-brand, .text-primary-brand { color: var(--brand) !important; }
+.cursor-trail, .border-progress { display: none; }
+
+@media (max-width: 991px) {
+  .section-hero .content-wrap { padding: 64px 0 56px; }
+  .tf-btn, .tf-header .mobile-menu { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.section-hero .title, .section-hero .title *, .heading-title, .heading-title * { font-weight: 500 !important; }
+.tf-social-1 a, footer .tf-btn-2, footer .tf-link-icon { border-radius: var(--r-xs); }
+
+/* ההדר: כמו בגרסה הקודמת (גלולה) */
+.tf-header .tf-btn, .tf-header .mobile-menu { border-radius: 99px; background: radial-gradient(62.56% 62.56% at 28.14% -10.42%, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 100%), #272727;
+  box-shadow: 0 -3px 0 #080808 inset, 0 1px 0 rgba(255,255,255,.3) inset, 0 3px 4px rgba(0,0,0,.13), 0 10px 14px rgba(0,0,0,.14); }
+.tf-header .header-inner { box-shadow: 0 6px 20px rgba(8,9,10,.05), inset 0 0 0 1px var(--line-2); background: rgba(255,255,255,.7); }
+.tf-header { padding-top: 24px; margin-bottom: -88px; position: relative; z-index: 20; }
+.section-hero .content-wrap { padding-top: 150px; }
+.section-hero .title, .section-hero .text-display-1, .section-hero .text-display-2 { font-weight: 600 !important; }
