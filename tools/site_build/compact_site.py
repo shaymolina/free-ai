@@ -1000,8 +1000,34 @@ build_article(
     visual=ILL_BACKUP,
 )
 
+
+def build_soon():
+    """עמוד "בשיפוצים": מוגש במקום עמודי הקורס עד שהקורס חוזר."""
+    import home_mint
+    body = f'''    <div class="wrap full">
+        <section class="c-hero a-hero">
+        {STRINGS}
+        {header("service.html")}
+            <div class="hero-in">
+                <div class="hero-text">
+                    <span class="chip">הקורס בשיפוצים</span>
+                    <h1 class="hero-title"><span class="grad">משפצים את הקורס. תכף חוזרים.</span></h1>
+                    <p>אנחנו מסדרים את השיעורים מחדש כדי שיהיה עוד יותר קל ללמוד.</p>
+                    <p>וכמו תמיד: הקורס נשאר בחינם.</p>
+                    <div class="btns"><a href="articles.html" class="btn">בינתיים, למאמרים <span class="arr">‹</span></a><a href="index.html" class="btn-2">לדף הבית</a></div>
+                </div>
+                <div class="a-visual">{ILL_BUILD}</div>
+            </div>
+        </section>
+    </div>
+{home_mint.footer(CHAPTERS, ARTICLES, READY)}'''
+    (SITE / "soon.html").write_text(page("הקורס בשיפוצים – תכף חוזרים | Free AI", "משפצים את הקורס ותכף חוזרים. הקורס נשאר בחינם.", body, css="home.css"))
+    print("soon.html done")
+
+
 build_articles_index()
 build_home()
+build_soon()
 
 # הפוטר הגדול במאמרים (אחרי שכל המאמרים ידועים)
 import home_mint as _hm

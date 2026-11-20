@@ -38,6 +38,8 @@ http.createServer((req, res) => {
     res.writeHead(301, { Location: clean + u.search });
     return res.end();
   }
+  // הקורס בשיפוצים: כל עמודי הקורס מראים את עמוד "תכף חוזרים"
+  if (/^\/(service|service-single|guide-\d+)\/?$/.test(p)) return send(res, path.join(ROOT, 'soon.html'));
   let file = path.normalize(path.join(ROOT, p));
   if (!file.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
   if (p.endsWith('/')) file = path.join(file, 'index.html');
