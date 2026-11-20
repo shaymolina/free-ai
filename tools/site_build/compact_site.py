@@ -1000,8 +1000,35 @@ build_article(
     visual=ILL_BACKUP,
 )
 
+
+def build_soon():
+    """עמוד "בשיפוצים": מוגש במקום עמודי הקורס עד שהקורס חוזר. ממורכז, בלי איורים."""
+    import home_mint
+    body = f'''    <div class="wrap full">
+        <section class="c-hero a-hero">
+        {header("service.html")}
+        </section>
+    </div>
+    <main class="soon">
+        <span class="chip">תכף חוזרים</span>
+        <h1 class="soon-big"><span class="grad">בשיפוצים</span></h1>
+        <p class="soon-sub">משפצים את הקורס כדי שיהיה עוד יותר קל ללמוד.<br>וכמו תמיד: הוא נשאר בחינם.</p>
+        <div class="btns"><a href="articles.html" class="btn">בינתיים, למאמרים <span class="arr">‹</span></a><a href="index.html" class="btn-2">לדף הבית</a></div>
+    </main>
+    <style>
+        .soon {{ min-height: 62vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; padding: 40px 16px 80px; }}
+        .soon-big {{ font-size: clamp(72px, 16vw, 200px); line-height: .95; margin: 0; font-weight: 700; letter-spacing: -.02em; }}
+        .soon-sub {{ font-size: clamp(18px, 2.4vw, 22px); color: var(--neutral-500, #6b7280); margin: 0; }}
+        .soon .btns {{ justify-content: center; margin-top: 8px; }}
+    </style>
+{home_mint.footer(CHAPTERS, ARTICLES, READY)}'''
+    (SITE / "soon.html").write_text(page("הקורס בשיפוצים – תכף חוזרים | Free AI", "משפצים את הקורס ותכף חוזרים. הקורס נשאר בחינם.", body, css="home.css"))
+    print("soon.html done")
+
+
 build_articles_index()
 build_home()
+build_soon()
 
 # הפוטר הגדול במאמרים (אחרי שכל המאמרים ידועים)
 import home_mint as _hm
