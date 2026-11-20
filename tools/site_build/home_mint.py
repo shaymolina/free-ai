@@ -46,16 +46,17 @@ def wave(gid, w=1088, h=300, n=26):
 
 
 def dots(seed, w, h, n, cls="dither"):
-    """ענני נקודות קטנות (אפור, עם מעט ירוק וצהוב), כמו ברקע של הפוטר."""
+    """רשת נקודות קטנות בגושים (אפור, עם מעט ירוק), כמו ברקע של הפוטר."""
     r = random.Random(seed)
+    centers = [(r.uniform(.2, .8) * w, r.uniform(.15, .85) * h, r.uniform(.18, .3) * w) for _ in range(2 + n // 60)]
     out = []
-    for _ in range(n):
-        cx, cy = r.gauss(w / 2, w / 4), r.gauss(h / 2, h / 3)
-        if not (0 < cx < w and 0 < cy < h):
-            continue
-        x, y = round(cx / 8) * 8, round(cy / 8) * 8
-        c = r.choices(["#C9C7C3", "#9B9C9E", "#4ADE80", "#FACC15"], [70, 18, 8, 4])[0]
-        out.append(f'<rect x="{x}" y="{y}" width="2" height="2" fill="{c}"/>')
+    for gy in range(4, h, 14):
+        for gx in range(4, w, 14):
+            p = max(2.718 ** (-((gx - cx) ** 2 + (gy - cy) ** 2) / (2 * sg * sg)) for cx, cy, sg in centers)
+            if r.random() > p * .85:
+                continue
+            c = r.choices(["#D6D4D0", "#B9B8B5", "#16A34A", "#84CC16"], [72, 16, 8, 4])[0]
+            out.append(f'<rect x="{gx}" y="{gy}" width="1.6" height="1.6" fill="{c}"/>')
     return f'<svg class="{cls}" viewBox="0 0 {w} {h}" aria-hidden="true" focusable="false">{"".join(out)}</svg>'
 
 
@@ -102,6 +103,10 @@ ICONS = {  # אייקונים פשוטים בקו (24x24)
     "chat": '<path d="M5 5h14v10H9l-4 4z"/>',
     "gear": '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/>',
     "layers": '<path d="M12 4 3 9l9 5 9-5zM3 14l9 5 9-5"/>',
+    "term": '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h5"/>',
+    "branch": '<circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 7v10M18 10c0 4-6 3-11 7"/>',
+    "cloud": '<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z"/>',
+    "drive": '<path d="M8 4h8l5 9-4 7H7l-4-7z"/><path d="M8 4l9 16M16 4 7 20M3 13h18"/>',
 }
 
 
@@ -147,9 +152,9 @@ def hero_preview(chapters):
 
 
 def sec_tools(n_chapters, n_minutes, n_articles):
-    tools = [("Claude", "guide-3.html"), ("Claude Code", "guide-4.html"), ("GitHub", "guide-5.html"), ("4CODE", "guide-19.html"),
-             ("Connectors", "guide-13.html"), ("Skills", "guide-14.html"), ("Plugins", "guide-15.html"), ("Google Drive", "article-github-backup.html")]
-    tiles = "".join(f'<li><a class="tool" href="{h}"><b dir="ltr">{a}</b><span class="tool-go">{icon("chev-l")}</span></a></li>' for a, h in tools)
+    tools = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-19.html", "cloud"),
+             ("Connectors", "guide-13.html", "plug"), ("Skills", "guide-14.html", "box"), ("Plugins", "guide-15.html", "layers"), ("Google Drive", "article-github-backup.html", "drive")]
+    tiles = "".join(f'<li><a class="tool" href="{h}"><b dir="ltr">{icon(i)}{a}</b><span class="tool-go">{icon("chev-l")}</span></a></li>' for a, h, i in tools)
     items = [("פרקים במדריך", n_chapters), ("שיעורי וידאו", 8), ("דקות קריאה", n_minutes), ("מאמרים", n_articles),
              ("מחיר", "₪0"), ("שורות קוד שתכתבו", 0), ("בעברית", "100%")]
     run = "".join(f'<span class="tk">{a} <b>{b}</b></span>' for a, b in items)
