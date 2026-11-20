@@ -123,8 +123,8 @@ def head(line1, line2, btn_href=None, btn_text=None, extra=""):
 # ---------------------------------------------------------------------
 # המקטעים (כל אחד מקביל למקטע באתר המקור)
 # ---------------------------------------------------------------------
-def canvas(kind, cls, flip=False):
-    return f'<canvas class="{cls}" data-kind="{kind}"{" data-flip=\"1\"" if flip else ""} aria-hidden="true"></canvas>'
+def canvas(kind, cls, flip=False, rib=""):
+    return f'<canvas class="{cls}" data-kind="{kind}"{" data-flip=\"1\"" if flip else ""}{f" data-rib=\"{rib}\"" if rib else ""} aria-hidden="true"></canvas>'
 
 
 def hero_preview(chapters):
@@ -357,7 +357,7 @@ def footer(chapters, articles, ready):
     </footer>"""
 
 
-HOME_JS = '<script src="assets/js/mint.js?v=11" defer></script>'
+HOME_JS = '<script src="assets/js/mint.js?v=12" defer></script>'
 
 
 def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):
@@ -367,7 +367,7 @@ def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):
         ("מחשב", "Mac או Windows"), ("מייל", "אחד לכל השירותים"), ("מנוי Claude Pro", "כ-20 דולר לחודש")])
     return f"""    <div class="wrap full" id="top">
         <section class="c-hero m-hero">
-        {canvas("hero", "hero-cv", flip=True)}
+        {canvas("hero", "hero-cv", flip=True, rib="hero")}
         {header_html}
             <div class="hero-in">
                 <div class="hero-text">

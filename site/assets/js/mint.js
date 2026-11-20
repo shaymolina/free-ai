@@ -42,11 +42,95 @@
     ] }
   };
 
+
+  /* ---------- סרט חוטים (כמו בפתיחה של Mintlify): 24 חוטים, סיבוב, הבזקי צבע ---------- */
+  var RIB = {
+    hero: { W: 1720, H: 1080, count: 24, res: 81, spacing: 4.9, amp: 163, freq: .75, phase: .14, twist: .41, bulge: .66, morph: .5,
+      speed: .66, from: '#18e299', to: '#baff24', pColors: ['#d87cff', '#ffa723', '#44aeff', '#ffa3d3'], pSize: 3, pLen: 88,
+      pSpeed: .84, pSparse: .32, seed: 2025, rotate: -28, edge: .25 }
+  };
+  function hx(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
+  function hash(a, b, c) {
+    var r = (Math.imul(a, 0x165667b1) + Math.imul(b, 0x27d4eb2f) + Math.imul(c, 0x3a8f05c5)) | 0;
+    r = Math.imul(r ^ (r >>> 13), 0x4bf19f61); r ^= r >>> 16;
+    return ((r >>> 0) % 1e5) / 1e5;
+  }
+  function ribPoints(g, e, T) {
+    var pts = [], n = g.res - 1, ang = g.rotate * Math.PI / 180, co = Math.cos(ang), si = Math.sin(ang);
+    var cx = g.W / 2, cy = g.H / 2, ph = g.phase * (e - (g.count - 1) / 2), om = g.freq * Math.PI * 2, spin = .7 * T;
+    var off = (e / (g.count - 1) - .5) * g.count * g.spacing;
+    for (var j = 0; j <= n; j++) {
+      var t = j / n, bul = 1 + g.bulge * Math.sin(t * Math.PI);
+      var a = Math.sin(om * t + ph), b = Math.sin(.5 * om * t - 2 * ph + spin);
+      var m = Math.sin(3.7 * t + .2 * e) * Math.cos(2.1 * t + .13 * e);
+      var x = t * g.W, y = cy + off + (a + g.twist * b + g.morph * m) * .5 * bul * g.amp;
+      var dx = x - cx, dy = y - cy;
+      pts.push([cx + dx * co - dy * si, cy + dx * si + dy * co]);
+    }
+    return pts;
+  }
+  function drawRibbon(it, time) {
+    var c = it.ctx, g = it.g, w = it.w, h = it.h;
+    var T = reduce ? 0 : time / 1000 * g.speed, intro = reduce ? 1 : Math.min(time / 1500, 1);
+    c.setTransform(DPR, 0, 0, DPR, 0, 0); c.clearRect(0, 0, w, h);
+    if (it.flip) { c.translate(w, 0); c.scale(-1, 1); }
+    var s = Math.max(w / g.W, h / g.H); c.translate((w - g.W * s) / 2, (h - g.H * s) / 2); c.scale(s, s);
+    c.lineJoin = 'round'; c.lineCap = 'round'; c.lineWidth = 1;
+    var A = hx(g.from), B = hx(g.to), lines = [];
+    for (var e = 0; e < g.count; e++) {
+      var P = ribPoints(g, e, T); lines.push(P);
+      var k = e / (g.count - 1), col = [0, 1, 2].map(function (q) { return Math.round(A[q] + (B[q] - A[q]) * k); }).join(',');
+      var f = P[0], l = P[P.length - 1], gr = c.createLinearGradient(f[0], f[1], l[0], l[1]);
+      gr.addColorStop(0, 'rgba(' + col + ',0)'); gr.addColorStop(g.edge, 'rgba(' + col + ',1)');
+      gr.addColorStop(1 - g.edge, 'rgba(' + col + ',1)'); gr.addColorStop(1, 'rgba(' + col + ',0)');
+      c.strokeStyle = gr;
+      if (intro < 1) {
+        var r = Math.min(intro / (.6 + .4 * hash(e, 53, g.seed)), 1), sm = r * r * (3 - 2 * r);
+        if (sm <= 0) continue;
+        var len = 0; for (var q = 1; q < P.length; q++) len += Math.hypot(P[q][0] - P[q - 1][0], P[q][1] - P[q - 1][1]);
+        c.setLineDash([len * sm, len + 1]);
+      } else c.setLineDash([]);
+      c.beginPath(); c.moveTo(f[0], f[1]);
+      for (var j = 1; j < P.length - 1; j++) c.quadraticCurveTo(P[j][0], P[j][1], (P[j][0] + P[j + 1][0]) / 2, (P[j][1] + P[j + 1][1]) / 2);
+      c.lineTo(l[0], l[1]); c.stroke();
+    }
+    c.setLineDash([]);
+    if (!reduce && intro >= 1) {
+      var life = Math.max(.8, 3.4 / Math.max(.15, g.pSpeed)), cyc = life + 2.2;
+      c.lineWidth = g.pSize;
+      for (var e2 = 0; e2 < g.count; e2++) {
+        if (hash(e2, 7, g.seed) > g.pSparse) continue;
+        var o = (T + .18 * e2 - 1.8 * hash(e2, 3, g.seed)) % cyc; if (o < 0) o += cyc;
+        if (o > life) continue;
+        var u = o / life, fade = u < .18 ? u / .18 : u > .68 ? (1 - u) / .32 : 1;
+        var pt = along(lines[e2], u), colr = g.pColors[Math.floor(hash(e2, 11, g.seed) * g.pColors.length) % g.pColors.length];
+        var d = Math.hypot(pt[2], pt[3]) || 1, vx = pt[2] / d, vy = pt[3] / d, half = g.pLen / 2;
+        var x1 = pt[0] - vx * half, y1 = pt[1] - vy * half, x2 = pt[0] + vx * half, y2 = pt[1] + vy * half;
+        var pc = hx(colr), pg = c.createLinearGradient(x1, y1, x2, y2);
+        pg.addColorStop(0, 'rgba(' + pc + ',0)'); pg.addColorStop(1, 'rgba(' + pc + ',1)');
+        c.strokeStyle = pg; c.globalAlpha = fade;
+        c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke();
+      }
+      c.globalAlpha = 1;
+    }
+    c.setTransform(1, 0, 0, 1, 0, 0);
+  }
+  function along(P, u) {
+    var segs = [], tot = 0;
+    for (var i = 1; i < P.length; i++) { var d = Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]); segs.push(d); tot += d; }
+    var target = u * tot, acc = 0;
+    for (var j = 0; j < segs.length; j++) {
+      if (acc + segs[j] >= target) { var a = P[j], b = P[j + 1], f = segs[j] ? (target - acc) / segs[j] : 0; return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, b[0] - a[0], b[1] - a[1]]; }
+      acc += segs[j];
+    }
+    var z = P[P.length - 1]; return [z[0], z[1], 0, 0];
+  }
+
   var items = [];
 
   function setup(cv) {
-    var kind = cv.dataset.kind, k = KINDS[kind] || null;
-    var it = { cv: cv, ctx: cv.getContext('2d'), kind: kind, k: k, t0: 0, vis: false, w: 0, h: 0, flip: cv.dataset.flip === '1', done: false };
+    var kind = cv.dataset.kind, k = KINDS[kind] || null, g = RIB[cv.dataset.rib] || null;
+    var it = { cv: cv, ctx: cv.getContext('2d'), kind: kind, k: k, t0: 0, vis: false, w: 0, h: 0, flip: cv.dataset.flip === '1', done: false, g: g };
     function size() {
       var r = cv.getBoundingClientRect();
       it.w = Math.max(1, cv.clientWidth); it.h = Math.max(1, cv.clientHeight);
@@ -122,7 +206,7 @@
   }
   function mix(a, b, t) { return [0, 1, 2].map(function (q) { return Math.round(a[q] + (b[q] - a[q]) * t); }).join(','); }
 
-  function draw(it, time) { it.last = time; if (it.kind === 'wave') drawWave(it, time); else if (it.k) drawStrings(it, time); }
+  function draw(it, time) { it.last = time; if (it.g) drawRibbon(it, time); else if (it.kind === 'wave') drawWave(it, time); else if (it.k) drawStrings(it, time); }
 
   function initCanvases() {
     var cvs = document.querySelectorAll('canvas[data-kind]');
