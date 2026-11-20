@@ -1029,6 +1029,8 @@ def build_soon():
 build_articles_index()
 build_home()
 build_soon()
+import home2 as _h2
+_h2.build()  # דף בית 2 (המבנה של Mintlify)
 
 # הפוטר הגדול במאמרים (אחרי שכל המאמרים ידועים)
 import home_mint as _hm
