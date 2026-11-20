@@ -20,7 +20,7 @@ CHAPTERS = [
     ("פותחים 4CODE", 4), ("Supabase, כן או לא", 3),
     ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
-READY = set(range(1, 20))  # פרקים שכבר כתובים
+READY = set(range(1, 24))  # פרקים שכבר כתובים
 
 
 HERO_DEMO = '<div class="hero-stage"><div class="demo">\n<div class="chat"><div class="who">אתם כותבים:</div><div class="box"><span class="tx"></span><span class="cur"></span></div>\n<div class="who">קלוד קוד עושה:</div><div class="steps"><div><i>✓</i>בונה יומן תורים</div><div><i>✓</i>מוסיף טופס הזמנה ללקוחות</div><div><i>✓</i>מחבר תזכורות בוואטסאפ</div><div><i>✓</i>בונה מסך ניהול להזמנות</div></div></div>\n<div class="app">\n<div class="top p"><b>התורים שלי</b><span class="btn2">+ תור חדש</span></div>\n<div class="stats"><div class="st p"><small>תורים השבוע</small><strong data-n="38">0</strong></div><div class="st p"><small>הזמנות חדשות</small><strong data-n="7">0</strong></div><div class="st p"><small>הכנסות</small><strong data-n="4260" data-c="₪">0</strong></div></div>\n<div class="cal p"><div></div><div class="h">ראשון</div><div class="h">שני</div><div class="h">שלישי</div><div class="h">רביעי</div><div class="t">09:00</div><div class="ap ">נועה<span>תספורת</span></div><div class="slot"></div><div class="ap g">אבי<span>זקן</span></div><div class="slot"></div><div class="t">10:00</div><div class="slot"></div><div class="ap b">מיכל<span>פן</span></div><div class="slot"></div><div class="ap b">דנה<span>החלקה</span></div><div class="t">11:00</div><div class="ap g">רון<span>צבע</span></div><div class="ap" id="last">יוסי<span>תספורת</span></div><div class="slot"></div><div class="slot"></div><div class="t">12:00</div><div class="slot"></div><div class="slot"></div><div class="ap ">שירה<span>תספורת</span></div><div class="ap g">תמר<span>צבע</span></div><div class="t">13:00</div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div></div>\n<div class="toast"><i>✓</i>תור חדש נקבע: יוסי, שני 11:00</div>\n</div></div>\n<script>(function(){\nvar msg="תבנה לי מערכת לניהול הזמנות ותורים של העסק שלי";\nvar d=document.querySelector(\'.demo\'),chat=d.querySelector(\'.chat\'),tx=d.querySelector(\'.tx\'),st=d.querySelectorAll(\'.steps div\'),app=d.querySelector(\'.app\'),ps=app.querySelectorAll(\'.p\'),aps=app.querySelectorAll(\'.ap\'),nums=app.querySelectorAll(\'[data-n]\'),toast=app.querySelector(\'.toast\');\nvar T=[];function at(ms,f){T.push(setTimeout(f,ms))}\nfunction reset(){T.forEach(clearTimeout);T=[];tx.textContent=\'\';chat.classList.remove(\'out\');app.classList.remove(\'in\');st.forEach(function(s){s.classList.remove(\'on\')});aps.forEach(function(a){a.classList.remove(\'on\')});toast.classList.remove(\'on\');nums.forEach(function(n){n.textContent=\'0\'});ps.forEach(function(p){p.style.transitionDelay=\'\'})}\nfunction count(el){var N=+el.dataset.n,c=el.dataset.c||\'\',t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=c+Math.round(N*k).toLocaleString(\'en-US\');if(k<1)requestAnimationFrame(f)})(t0)}\nfunction run(){reset();var k=0,step=50;\nfor(var i=1;i<=msg.length;i++)(function(i){at(i*step,function(){tx.textContent=msg.slice(0,i)})})(i);\nvar t=msg.length*step+500;\nst.forEach(function(s,n){at(t+n*650,function(){s.classList.add(\'on\')})});\nt+=st.length*650+700;\nat(t,function(){chat.classList.add(\'out\')});\nat(t+300,function(){ps.forEach(function(p,n){p.style.transitionDelay=(n*120)+\'ms\'});app.classList.add(\'in\')});\nat(t+800,function(){nums.forEach(count)});\nvar rest=[].filter.call(aps,function(a){return a.id!=\'last\'});rest.forEach(function(a,n){at(t+1000+n*170,function(){a.classList.add(\'on\')})});\nvar last=app.querySelector(\'#last\');\nat(t+1000+aps.length*170+700,function(){last.classList.add(\'on\');toast.classList.add(\'on\')});\nat(t+1000+aps.length*170+5200,run);}\nrun();})()</script></div>'
@@ -139,7 +139,7 @@ GUIDE_JS = '''<script>
         document.querySelectorAll('.ch').forEach(function (el) { el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1); });
         document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%%';
         document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
-        if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
+        if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = CURRENT === TOTAL ? 'סיימתם את המדריך ✓' : 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
     }
     if (btn) btn.addEventListener('click', function () {
         var done = load();
@@ -309,7 +309,7 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
                 <article class="lesson">
                     <div class="page-head"><span class="eyebrow">פרק {n} · {mins} דקות</span><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
                     {top}{rows_block}{flow}{extra}
-                    <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-primary" id="guide-done"{nxt}>סיימתי, לפרק הבא ←</button></div>
+                    <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לפרק הבא ←" if nxt or n < len(CHAPTERS) else "סיימתי את המדריך ✓"}</button></div>
                 </article>
                 {FOOTER}
             </main>
@@ -628,6 +628,58 @@ build_chapter(
         ("נכנסים לפלטפורמה", "לוחצים \"התחברות לחשבון\" ואז \"אשר\".", "4code-2.mp4"),
         ("יוצרים פרויקט", "בפרויקטים לוחצים \"יצירת פרויקט\", נותנים שם ונכנסים אליו.", "4code-3.mp4"),
     ]),
+)
+
+
+build_chapter(
+    20, "Supabase הוא כמו ארון תיוק לאתר: מקום ששומר מידע שאנשים משאירים, כמו הזמנות, משתמשים והודעות.",
+    [("בלי Supabase", "האתר מציג דברים קבועים: טקסט, תמונות, טלפון. מספיק לרוב העסקים"),
+     ("עם Supabase", "האתר זוכר דברים: מי נרשם, מי הזמין, מה נכתב בטופס"),
+     ("מה אנחנו בוחרים", "מתחילים בלי. כשצריך, מבקשים מקלוד לחבר Supabase והוא מסביר מה לעשות"),
+     (None, "דוגמאות"),
+     ("דף נחיתה לנגר", "לא צריך. הטופס יכול לשלוח מייל"),
+     ("יומן תורים", "צריך. האתר זוכר אילו שעות כבר תפוסות"),
+     ("אזור אישי ללקוחות", "צריך. כל לקוח נכנס עם שם משתמש וסיסמה")],
+    "Supabase חינמי להתחלה",
+)
+
+
+build_chapter(
+    21, "כמה הרגלים קטנים ששומרים על הפרויקט מסודר ובטוח.",
+    [("ריפו אחד לכל פרויקט", "לא מערבבים שני אתרים באותו ריפו"),
+     ("בודקים את הריפו לפני ששולחים", "למטה בתיבת הכתיבה רואים על איזה ריפו קלוד עובד"),
+     ("ריפו פרטי", "בוחרים Private, ככה רק אתם רואים את הקוד"),
+     ("סיסמאות לא נכנסות לאתר", "מבקשים מקלוד לשמור אותן בצד, ולא בתוך הקוד"),
+     ("לא מאשרים מה שלא מבינים", "שואלים את קלוד \"מה זה עושה?\" לפני שלוחצים אישור"),
+     ("הכול נשמר", "GitHub זוכר כל שינוי, אז תמיד אפשר לחזור אחורה")],
+    "אלה ההרגלים. השאר קלוד עושה",
+)
+
+
+build_chapter(
+    22, "משהו לא עובד? כמעט תמיד מספיק לספר לקלוד מה קרה.",
+    [("מופיעה שגיאה", "מצלמים את המסך או מעתיקים את ההודעה, ושולחים לקלוד"),
+     ("משהו התקלקל אחרי שינוי", "כותבים לקלוד: \"תחזיר את האתר למצב שהיה לפני השינוי האחרון\""),
+     ("השינוי לא מופיע באתר", "מחכים דקה-שתיים ומרעננים את הדף"),
+     ("קלוד חוזר על אותה טעות", "פותחים משימה חדשה ומסבירים מחדש, בקצרה"),
+     ("קלוד עצר באמצע", "כותבים \"תמשיך\""),
+     ("נגמרה כמות העבודה", "מחכים לאיפוס, כמו בפרק 11")],
+    "לא צריך להבין מה נשבר. צריך רק לספר",
+    extra=tip("אפשר להדביק צילום מסך ישר לתיבת הכתיבה. קלוד רואה אותו ומבין מה הבעיה."),
+)
+
+
+build_chapter(
+    23, "יש לכם אתר באוויר. מכאן ממשיכים לפי מה שהעסק צריך.",
+    [("כתובת פרטית", "קונים שם כמו carpenter.co.il דרך 4CODE ומחברים לאתר"),
+     ("עוד עמודים", "מבקשים מקלוד להוסיף עמוד שירותים, גלריה או שאלות נפוצות"),
+     ("להופיע בגוגל", "מבקשים מקלוד לסדר את האתר כך שגוגל ימצא אותו"),
+     ("מערכת שזוכרת", "תורים, הרשמה או הזמנות, עם Supabase מפרק 20"),
+     (None, "דוגמאות לבקשה הבאה"),
+     ("עמוד חדש", "\"תוסיף עמוד גלריה עם 12 תמונות של עבודות, וקישור אליו בתפריט\""),
+     ("גוגל", "\"תסדר את האתר כך שיופיע בגוגל כשמחפשים נגר בחיפה\"")],
+    "נתקעתם? חוזרים לפרק 22",
+    extra='\n                <p class="more-link">רוצים עוד? <a href="articles.html">כל המאמרים</a></p>',
 )
 
 

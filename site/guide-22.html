@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>כשמשהו נתקע – המדריך לקלוד קוד | Free AI</title>
+    <meta name="author" content="Free AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="פרק 22 במדריך לקלוד קוד למי שלא מתכנת: משהו לא עובד? כמעט תמיד מספיק לספר לקלוד מה קרה.">
+    <script>(function(){var m='system';try{m=localStorage.getItem('theme')||'system'}catch(e){}
+var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100..900&family=Noto+Sans:wght@100..900&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/css/guide.css?v=42">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
+    <!-- seo -->
+    <link rel="canonical" href="https://free-ai.il.4code.site/guide-22">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Free AI">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:title" content="כשמשהו נתקע – המדריך לקלוד קוד | Free AI">
+    <meta property="og:description" content="פרק 22 במדריך לקלוד קוד למי שלא מתכנת: משהו לא עובד? כמעט תמיד מספיק לספר לקלוד מה קרה.">
+    <meta property="og:url" content="https://free-ai.il.4code.site/guide-22">
+    <meta property="og:image" content="https://free-ai.il.4code.site/assets/images/og.png">
+    <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "כשמשהו נתקע", "description": "פרק 22 במדריך לקלוד קוד למי שלא מתכנת: משהו לא עובד? כמעט תמיד מספיק לספר לקלוד מה קרה.", "inLanguage": "he", "url": "https://free-ai.il.4code.site/guide-22", "dateModified": "2026-11-20", "isAccessibleForFree": true, "author": {"@id": "https://free-ai.il.4code.site/#org"}, "publisher": {"@type": "Organization", "@id": "https://free-ai.il.4code.site/#org", "name": "Free AI", "url": "https://free-ai.il.4code.site/", "logo": "https://free-ai.il.4code.site/assets/images/logo/logo-footer.png"}, "image": "https://free-ai.il.4code.site/assets/images/og.png"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "דף הבית", "item": "https://free-ai.il.4code.site/"}, {"@type": "ListItem", "position": 2, "name": "המדריך", "item": "https://free-ai.il.4code.site/guide-1"}, {"@type": "ListItem", "position": 3, "name": "כשמשהו נתקע"}]}]}</script>
+    <!-- /seo -->
+</head>
+<body class="guide-page">
+<div class="ds-app">
+        <aside class="ds-side" id="ds-side">
+            <a href="/" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
+            <div class="ds-scroll">
+                <div class="ds-group">
+                    <div class="ds-group-title">המדריך לקלוד קוד</div>
+                    <div class="ds-prog"><div class="bar"><i id="guide-fill"></i></div><span class="count" id="guide-count"></span></div>
+                    <ol class="chs"><li><a href="guide-1" class="ch" data-ch="1"><span class="num">1</span><span class="nm">לפני שמתחילים</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-2" class="ch" data-ch="2"><span class="num">2</span><span class="nm">קלוד מול קלוד קוד</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-3" class="ch" data-ch="3"><span class="num">3</span><span class="nm">פותחים חשבון קלוד</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-4" class="ch" data-ch="4"><span class="num">4</span><span class="nm">מתקינים את האפליקציה</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-5" class="ch" data-ch="5"><span class="num">5</span><span class="nm">פותחים GitHub</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-6" class="ch" data-ch="6"><span class="num">6</span><span class="nm">מה זה ריפו ופותחים אחד</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-7" class="ch" data-ch="7"><span class="num">7</span><span class="nm">היכרות ראשונה עם קלוד</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-8" class="ch" data-ch="8"><span class="num">8</span><span class="nm">מיקום הפרויקט: מחשב או ענן</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-9" class="ch" data-ch="9"><span class="num">9</span><span class="nm">בחירת המודל</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-10" class="ch" data-ch="10"><span class="num">10</span><span class="nm">הרשאות: כמה קלוד עושה לבד</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-11" class="ch" data-ch="11"><span class="num">11</span><span class="nm">כמה נשאר מהמנוי</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-12" class="ch" data-ch="12"><span class="num">12</span><span class="nm">תוספות: איפה מוסיפים יכולות</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-13" class="ch" data-ch="13"><span class="num">13</span><span class="nm">חיבור לשירותים (Connectors)</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-14" class="ch" data-ch="14"><span class="num">14</span><span class="nm">מיומנויות (Skills)</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-15" class="ch" data-ch="15"><span class="num">15</span><span class="nm">חבילות (Plugins)</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-16" class="ch" data-ch="16"><span class="num">16</span><span class="nm">איך מדברים עם קלוד קוד</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-17" class="ch" data-ch="17"><span class="num">17</span><span class="nm">חיבור GitHub לקלוד ובנייה ראשונה</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-18" class="ch" data-ch="18"><span class="num">18</span><span class="nm">מעלים לאוויר</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-19" class="ch" data-ch="19"><span class="num">19</span><span class="nm">פותחים 4CODE</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-20" class="ch" data-ch="20"><span class="num">20</span><span class="nm">Supabase, כן או לא</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-21" class="ch" data-ch="21"><span class="num">21</span><span class="nm">סדר ובטיחות</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-22" class="ch is-on" data-ch="22" aria-current="page"><span class="num">22</span><span class="nm">כשמשהו נתקע</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li><li><a href="guide-23" class="ch" data-ch="23"><span class="num">23</span><span class="nm">השלב הבא</span><svg class="ico dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></li></ol>
+                </div>
+            </div>
+            <nav class="ds-links"><a href="/" class="nav-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>דף הבית</span></a><a href="service" class="nav-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/></svg><span>הקורס</span></a><a href="guide-1" class="nav-link active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>המדריך</span></a><a href="work" class="nav-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span>סקילים</span></a><a href="articles" class="nav-link"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg><span>מאמרים</span></a></nav>
+        </aside>
+        <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
+        <div class="ds-main">
+            <header class="ds-top">
+                <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+                <span class="ds-vsep"></span>
+                <nav class="crumbs" aria-label="מיקום"><a href="guide-1">המדריך</a><i>/</i><span>כשמשהו נתקע</span></nav>
+                <div class="ds-actions"><button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="מצב כהה או בהיר"><svg class="ico i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="ico i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></div>
+            </header>
+            <main class="ds-content">
+                <article class="lesson">
+                    <div class="page-head"><span class="eyebrow">פרק 22 · 4 דקות</span><h1>כשמשהו נתקע</h1><p class="lead">משהו לא עובד? כמעט תמיד מספיק לספר לקלוד מה קרה.</p></div>
+                    <ol class="rows"><li class="row"><span class="tile">1</span>מופיעה שגיאה<small>מצלמים את המסך או מעתיקים את ההודעה, ושולחים לקלוד</small></li><li class="row"><span class="tile">2</span>משהו התקלקל אחרי שינוי<small>כותבים לקלוד: "תחזיר את האתר למצב שהיה לפני השינוי האחרון"</small></li><li class="row"><span class="tile">3</span>השינוי לא מופיע באתר<small>מחכים דקה-שתיים ומרעננים את הדף</small></li><li class="row"><span class="tile">4</span>קלוד חוזר על אותה טעות<small>פותחים משימה חדשה ומסבירים מחדש, בקצרה</small></li><li class="row"><span class="tile">5</span>קלוד עצר באמצע<small>כותבים "תמשיך"</small></li><li class="row"><span class="tile">6</span>נגמרה כמות העבודה<small>מחכים לאיפוס, כמו בפרק 11</small></li></ol><div class="tipcard"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><b>טיפ</b><span>אפשר להדביק צילום מסך ישר לתיבת הכתיבה. קלוד רואה אותו ומבין מה הבעיה.</span></div>
+                    <div class="lesson-end"><span>לא צריך להבין מה נשבר. צריך רק לספר</span><button type="button" class="btn btn-primary" id="guide-done" data-next="guide-23">סיימתי, לפרק הבא ←</button></div>
+                </article>
+                <footer class="c-foot">
+            <span>© 2026 Free AI. כל הזכויות שמורות.</span>
+            <nav><a href="privacy">פרטיות</a><a href="terms">תנאי שימוש</a></nav>
+        </footer>
+            </main>
+        </div>
+    </div>
+<script>
+(function () {
+    var KEY = 'freeai-guide-done', TOTAL = 23, CURRENT = 22;
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+    function save(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    var btn = document.getElementById('guide-done');
+    function paint() {
+        var done = load();
+        document.querySelectorAll('.ch').forEach(function (el) { el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1); });
+        document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%';
+        document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
+        if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = CURRENT === TOTAL ? 'סיימתם את המדריך ✓' : 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
+    }
+    if (btn) btn.addEventListener('click', function () {
+        var done = load();
+        if (done.indexOf(CURRENT) < 0) { done.push(CURRENT); save(done); }
+        if (btn.dataset.next) location.href = btn.dataset.next; else paint();
+    });
+    var copy = document.getElementById('guide-copy');
+    if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
+    paint();
+    var tb = document.getElementById('theme-btn');
+    if (tb) tb.addEventListener('click', function () {
+        var d = !document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', d);
+        try { localStorage.setItem('theme', d ? 'dark' : 'light'); } catch (e) {}
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.body.classList.remove('side-open'); });
+    document.addEventListener('click', function (e) {
+        var img = e.target.closest ? e.target.closest('.fshot img') : null;
+        if (!img) return;
+        var o = document.createElement('div'); o.className = 'lightbox';
+        o.innerHTML = '<img src="' + img.src + '" alt="">'; o.onclick = function () { o.remove(); };
+        document.body.appendChild(o);
+    });
+})();
+    document.querySelectorAll('.split').forEach(function (sp) {
+        var bar = sp.querySelector('.split-bar');
+        function set(x) {
+            var r = sp.getBoundingClientRect();
+            var pct = Math.min(75, Math.max(25, (x - r.left) / r.width * 100));
+            sp.style.setProperty('--img', pct + '%');
+        }
+        bar.addEventListener('pointerdown', function (e) {
+            e.preventDefault(); bar.setPointerCapture(e.pointerId); sp.classList.add('dragging');
+            function mv(ev) { set(ev.clientX); }
+            function up() { bar.removeEventListener('pointermove', mv); sp.classList.remove('dragging'); }
+            bar.addEventListener('pointermove', mv); bar.addEventListener('pointerup', up, { once: true });
+        });
+    });
+    document.addEventListener('click', function (e) {
+        var v = e.target.closest && e.target.closest('video');
+        if (!v) return;
+        var box = v.parentNode;
+        if (v.paused) { v.play(); box.classList.remove('paused'); } else { v.pause(); box.classList.add('paused'); }
+    });
+</script>
+</body>
+</html>
