@@ -189,7 +189,7 @@
 .car::-webkit-scrollbar { display: none; }
 .car-track { display: flex; gap: 12px; width: max-content; padding-inline: max(16px, calc((100% - var(--container)) / 2 + 8px)); }
 .car-nav { display: flex; gap: 4px; }
-.car.dim .story { opacity: .4; transition: opacity .5s var(--ease); }
+.car.dim .story { opacity: .55; transition: opacity .5s var(--ease); }
 .car.dim .story.is-on { opacity: 1; }
 .story { scroll-snap-align: center; width: min(calc(var(--container) - 16px), 86vw); height: 360px; display: grid; grid-template-columns: 1fr 1fr; border-radius: var(--r-md); overflow: hidden; color: #fff; }
 .st-l { position: relative; isolation: isolate; padding: 26px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
@@ -207,7 +207,7 @@
 .st-img { overflow: hidden; background: var(--card); }
 .st-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .5s var(--ease); }
 .story:hover .st-img img { transform: scale(1.03); }
-.s-green { background: #0F5C3F; } .s-ink { background: #15171A; } .s-orange { background: #C8553A; }
+.s-green { background: #0F5C3F; } .s-ink { background: #4763D6; } .s-orange { background: #C8553A; }
 
 /* ---------- גל + מספרים ---------- */
 .m-scale .m-in { padding-bottom: 0; }
@@ -269,7 +269,7 @@
 .post-art { aspect-ratio: 341 / 300; }
 .post-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); padding: 0 2px; }
 .post-meta em { font-style: normal; font-weight: 600; color: var(--ink); background: var(--card); border-radius: var(--r-xs); padding: 2px 8px; box-shadow: inset 0 0 0 1px var(--line); }
-.post b { font-size: 14.5px; font-weight: 600; padding: 0 2px; transition: color var(--dur-1) var(--ease); }
+.post b { font-size: 14.5px; font-weight: 500; padding: 0 2px; transition: color var(--dur-1) var(--ease); }
 .post a:hover b { color: var(--brand); }
 
 /* ---------- פס סיום ---------- */

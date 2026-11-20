@@ -290,7 +290,7 @@ def sec_prompts():
     <section class="m-sec">
         <div class="m-in">
             {head("מה כותבים לקלוד קוד.", "הודעות אמיתיות, בעברית רגילה.", "guide-16.html", "איך כותבים בקשה טובה")}
-            <div class="pr-bar"><button type="button" class="pr-pause" id="pr-pause" aria-pressed="false" aria-controls="prompts">עצירה</button></div>
+            <div class="pr-bar"><button type="button" class="pr-pause" id="pr-pause" aria-pressed="false" aria-controls="prompts">עצירת הדוגמאות</button></div>
             <div class="prompts" id="prompts">{"".join(cols)}</div>
         </div>
     </section>"""
@@ -357,7 +357,7 @@ def footer(chapters, articles, ready):
     </footer>"""
 
 
-HOME_JS = '<script src="assets/js/mint.js?v=10" defer></script>'
+HOME_JS = '<script src="assets/js/mint.js?v=11" defer></script>'
 
 
 def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):

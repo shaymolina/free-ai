@@ -196,7 +196,7 @@
     if (!b || !box) return;
     b.addEventListener('click', function () {
       var p = box.classList.toggle('paused');
-      b.textContent = p ? 'הפעלה' : 'עצירה';
+      b.textContent = p ? 'הפעלת הדוגמאות' : 'עצירת הדוגמאות';
       b.setAttribute('aria-pressed', p ? 'true' : 'false');
     });
   }
