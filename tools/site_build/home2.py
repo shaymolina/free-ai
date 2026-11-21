@@ -215,14 +215,18 @@ def bento_mocks():
     return [(li.find("h3").get_text(), str(li.find("div", class_="mk"))) for li in soup.find_all("li", class_="bento-c")]
 
 
+RIVES = [("agent-native-platform", "agent-native-platform-mobile"), ("self-updating-knowledge", None), ("control-who-has-access", None),
+         ("connect-with-your-systems", None), ("collaborate-with-your-team-and-agents", None), ("build-on-top-of-your-existing-setup", "build-on-top-of-your-existing-setup-mobile")]
+
+
 def do_bento(sec):
+    """הכרטיסים המקוריים שלהם עם אנימציות ה-Rive המקוריות, והכותרות בעברית."""
     do_head(sec, "כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "service.html", "התחל ללמוד")
-    mocks = bento_mocks()
-    order = [0, 1, 2, 3, 4, 5]
-    for art, k in zip(sec.find_all("article"), order):
-        title, mk = mocks[k]
+    titles = [t for t, _ in bento_mocks()]
+    for art, title, (src, mob) in zip(sec.find_all("article"), titles, RIVES):
         box = art.find("div", class_="absolute")
-        put(box, mk)
+        attrs = f' data-rive="assets/rive/{src}.riv"' + (f' data-rive-m="assets/rive/{mob}.riv"' if mob else "")
+        put(box, f'<canvas aria-hidden="true" class="absolute inset-0 size-full"{attrs}></canvas>')
         put(art.find("h3"), title)
 
 

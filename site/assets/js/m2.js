@@ -380,6 +380,40 @@
     addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
   }
 
+  /* ---------- כרטיסי Rive: נטענים כשמתקרבים, ומקבלים ריחוף ---------- */
+  function initRive() {
+    var cvs = [].slice.call(document.querySelectorAll('canvas[data-rive]'));
+    if (!cvs.length) return;
+    var loading = false;
+    function boot() {
+      if (loading) return; loading = true;
+      var sc = document.createElement('script'); sc.src = 'assets/rive/rive.js'; sc.onload = function () {
+        rive.RuntimeLoader.setWasmUrl('assets/rive/rive.wasm');
+        var mobile = matchMedia('(max-width: 767px)').matches;
+        cvs.forEach(function (cv) {
+          var src = mobile && cv.dataset.riveM ? cv.dataset.riveM : cv.dataset.rive, hov = null, want = false;
+          var r = new rive.Rive({ src: src, canvas: cv, stateMachines: 'State Machine 1', autoplay: !reduce, autoBind: true, shouldDisableRiveListeners: true,
+            layout: new rive.Layout({ fit: rive.Fit.Cover, alignment: rive.Alignment.Center }),
+            onLoad: function () {
+              r.resizeDrawingSurfaceToCanvas();
+              var vm = r.viewModelInstance;
+              if (vm) { var d = vm.boolean('darkMode'); if (d) d.value = false; hov = vm.boolean('ishover'); if (hov) hov.value = want; }
+              if (reduce) { r.play(); setTimeout(function () { r.pause(); }, 600); }
+            } });
+          var card = cv.closest('.group') || cv.parentElement;
+          card.addEventListener('mouseenter', function () { want = true; if (hov) hov.value = true; });
+          card.addEventListener('mouseleave', function () { want = false; if (hov) hov.value = false; });
+          if ('ResizeObserver' in window) new ResizeObserver(function () { r.resizeDrawingSurfaceToCanvas(); }).observe(cv);
+          new IntersectionObserver(function (es) { if (reduce) return; es[0].isIntersecting ? r.startRendering() : r.stopRendering(); }).observe(cv);
+        });
+      };
+      document.head.appendChild(sc);
+    }
+    var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); boot(); } }, { rootMargin: '600px 0px' });
+    cvs.forEach(function (c) { io.observe(c); });
+  }
+
+  initRive();
   initMenu(); initFlow(); initRotate(); initFaq();
   initRibbons(); initRollers(); initTicker(); initCardDots(); initSectionDots(); initCarousels();
 })();
