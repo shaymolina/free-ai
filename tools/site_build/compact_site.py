@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "44"
+CSS_VERSION = "45"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -243,14 +243,24 @@ def sidebar(current):
 
 
 def rows_html(rows):
-    parts, k = [], 0
+    """שורות ממוספרות. כל (None, "כותרת") פותח קבוצה חדשה: הכותרת יושבת מעל הכרטיס, עם מעוין קטן."""
+    if not rows:
+        return ""
+    groups, cur = [], [None, []]
     for a, b in rows:
-        if a is None:  # כותרת מפרידה, והמספור מתחיל מחדש
-            parts.append(f'<li class="rows-sep">{b}</li>'); k = 0
+        if a is None:
+            if cur[1] or cur[0]:
+                groups.append(cur)
+            cur = [b, []]
         else:
-            k += 1
-            parts.append(f'<li class="row"><span class="tile">{k}</span>{a}<small>{b}</small></li>')
-    return f'<ol class="rows">{"".join(parts)}</ol>' if rows else ""
+            cur[1].append((a, b))
+    groups.append(cur)
+    out = []
+    for title, items in groups:
+        li = "".join(f'<li class="row"><span class="tile">{k}</span>{a}<small>{b}</small></li>' for k, (a, b) in enumerate(items, 1))
+        ol = f'<ol class="rows">{li}</ol>'
+        out.append(f'<section class="sec"><div class="card-head"><h3>{title}</h3></div>{ol}</section>' if title else ol)
+    return "".join(out) if len(out) == 1 else f'<div class="rows-stack">{"".join(out)}</div>'
 
 
 def tip(text):
