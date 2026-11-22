@@ -165,7 +165,6 @@ def carousel_buttons(sec, what):
 
 
 import copy
-N_CH = [0]
 
 STORIES = [
     ("#0F5C3F", "אתר לעסק", 'ככה <span class="text-white">הודעה אחת בעברית</span> הופכת לאתר עם גלריה וטופס', [("1", "הודעה בעברית"), ("0", "שורות קוד שאתם כותבים")],
@@ -249,7 +248,7 @@ def mock_css():
 # ---------------------------------------------------------------- גל + מספרים
 def do_scale(sec, n_ch):
     do_head(sec, "לומדים בקצב שלכם.", "פרקים קצרים, צעד אחד בכל פעם.", "guide-1.html", "לפרק הראשון")
-    cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["aria-hidden"] = "true"
+    cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
     stats = [(str(n_ch), "פרקים קצרים במדריך"), ("8", "שיעורי וידאו לפי הסדר"), ("₪0", "מחיר הקורס, תמיד")]
     for blk, (n, lab) in zip(sec.find_all("div", class_="gap-6"), stats):
         ps = blk.find_all("p"); put(ps[0], f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
@@ -370,66 +369,8 @@ def do_footer(soup, arts):
         for href, t in links:
             ul.append(frag(f'<li><a class="{" ".join(cls)}" href="{href}">{t}</a></li>'))
     bottom = f.find(attrs={"aria-label": "Theme switcher"}).find_parent("div", class_="justify-between")
-    put(bottom, '<span class="text-sm/5 text-neutral-500">כל הזכויות שמורות ל-Free AI, 2026 ©</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#">חזרה למעלה ↑</a>')
+    put(bottom, '<span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#">חזרה למעלה ↑</a>')
 
-
-
-# ---------------------------------------------------------------- ארבעה מקטעים כמו שהם בתבנית (הקוד והטקסט שלהם)
-MINT = "https://www.mintlify.com"
-
-
-def abs_links(el):
-    for a in el.find_all("a", href=True):
-        if a["href"].startswith("/"):
-            a["href"] = MINT + a["href"]; a["target"] = "_blank"; a["rel"] = "noopener"
-
-
-def raw_scale(sec):
-    cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["aria-hidden"] = "true"
-    abs_links(sec)
-
-
-def raw_starts(sec):
-    """הכרטיסים שלהם, בלי הלוגואים, השמות והטקסטים של הלקוחות שלהם."""
-    carousel_buttons(sec, "card")
-    track = sec.find(attrs={"aria-label": "Startup customer stories"}); track["data-track"] = ""
-    cards = track.find_all("div", recursive=False)
-    for k, c in enumerate(cards):
-        if k >= len(STARTS):
-            c.decompose(); continue
-        t, d, href, go = STARTS[k]
-        a = c.find("a"); a["href"] = href; a["data-occlude"] = ""
-        imgs = a.find_all("img")
-        imgs[0]["src"] = f"assets/images/home2/card-{k}.webp"; imgs[0]["alt"] = ""
-        for x in ("srcset", "sizes"): imgs[0].attrs.pop(x, None)
-        imgs[1].decompose()
-        p = a.find("p"); p["dir"] = "rtl"; put(p, f'<span class="font-medium text-text-main">{t}</span> {d.format(n=N_CH[0])}')
-        sp = a.find("span", class_="mt-auto"); arrow = sp.find("svg"); put(sp, f'<span dir="rtl">{go}</span>'); sp.append(arrow)
-    sec.find("canvas", class_="-z-10")["data-sectiondots"] = ""
-    abs_links(sec)
-
-
-def raw_prompts(sec):
-    """הכרטיסים שלהם; במקום אנשים אמיתיים וציטוטים שלהם, הבקשות לדוגמה שלנו."""
-    btn = sec.find("button"); btn["data-pause"] = ""; btn["aria-pressed"] = "false"
-    figs = sec.find_all("figure"); grid = figs[0].parent; grid["data-rotate"] = ""
-    for fig, (ic, name, role, quote) in zip(figs, home_mint.PROMPTS):
-        put(fig.find("div", class_="size-12"), icon(ic, "size-6 text-text-main"))
-        put(fig.find("figcaption"), name); put(fig.find("figcaption").find_next_sibling("span"), role)
-        put(fig.find("blockquote"), f'"{quote}"')
-    import json
-    pool = json.dumps([[icon(ic, "size-6 text-text-main"), n, r, f'"{q}"'] for ic, n, r, q in home_mint.PROMPTS], ensure_ascii=False)
-    grid.append(frag(f'<script type="application/json" data-pool>{pool}</script>'))
-    abs_links(sec)
-
-
-def raw_footer(soup):
-    f = soup.find("footer")
-    f.find("canvas")["data-sectiondots"] = ""; f.find("canvas")["data-clip"] = ""; f.find("canvas")["data-feather"] = ".06"
-    logo = f.find("a", attrs={"aria-label": "Go to homepage"}); logo["href"] = "index.html"
-    put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:34px;width:auto">')
-    f.find(attrs={"aria-label": "Theme switcher"})["data-theme-switch"] = ""
-    abs_links(f)
 
 
 def do_mobile_header(soup):
@@ -454,17 +395,13 @@ def transform(s):
     do_tools(secs[1], n_ch, len(arts))
     do_bento(secs[2])
     do_stories(secs[3])
-    N_CH[0] = n_ch
-    raw_scale(secs[4])
-    raw_starts(secs[5])
-    raw_prompts(secs[6])
+    do_scale(secs[4], n_ch)
+    do_starts(secs[5], n_ch)
+    do_prompts(secs[6])
     do_posts(secs[7], arts)
     do_cta(secs[8])
     do_faq(secs[9])
-    raw_footer(soup)
-    # ארבעת המקטעים האלה נשארים בכיוון המקורי (משמאל לימין), אחד לאחד כמו בתבנית
-    for x in (secs[4], secs[5], secs[6], soup.find("footer")):
-        x["dir"] = "ltr"; x["data-ltr"] = ""
+    do_footer(soup, arts)
     soup.find("header")["id"] = "top"
     soup.find_all("header")[1]["id"] = "top-m"
     return str(soup)
