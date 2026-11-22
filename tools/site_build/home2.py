@@ -127,7 +127,6 @@ TOOLS = [("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
          ("Claude Code", "guide-4.html", ["claudecode-mark.svg", "claudecode-text.svg"]),
          ("Skills", "guide-14.html", ["claude-mark.svg", None]),
          ("Connectors", "guide-13.html", ["claude-mark.svg", None]),
-         ("Plugins", "guide-15.html", ["claude-mark.svg", None]),
          ("GitHub", "guide-5.html", ["github-mark.svg", "github-text.svg"]),
          ("4CODE", "guide-18.html", ["4code-logo.png"]),
          ("Supabase", "guide-13.html", ["supabase-logo.svg"]),
@@ -139,7 +138,7 @@ def do_tools(sec, n_ch, n_art):
     a = h2.find_next("a"); a["href"] = "guide-1.html"; a.contents[0].replace_with("למדריך המלא")
     cards = sec.find_all("div", class_="group/card")
     cards[0].parent["class"] = cards[0].parent["class"] + ["m2-tools"]
-    while len(cards) < len(TOOLS):  # שורה עליונה: 5 כלים של קלוד, שורה תחתונה: 4 כלים חיצוניים
+    while len(cards) < len(TOOLS):  # שורה עליונה: 4 כלים של קלוד, שורה תחתונה: 4 כלים חיצוניים
         c = copy.copy(cards[-1]); cards[-1].insert_after(c); cards.append(c)
     for card, (name, href, ic) in zip(cards, TOOLS):
         logo = card.find_all("span", recursive=False)[1]
@@ -177,6 +176,8 @@ def carousel_buttons(sec, what):
     for b in sec.find("header").find_all("button"):
         b["aria-label"] = ("הקודם: " if "Previous" in b["aria-label"] else "הבא: ") + what
         b["data-car"] = "-1" if b["aria-label"].startswith("הקודם") else "1"
+        svg = b.find("svg"); cl = svg.get("class", [])
+        svg["class"] = [c for c in cl if c != "rotate-180"] + ([] if "rotate-180" in cl else ["rotate-180"])
 
 
 import copy
@@ -269,14 +270,22 @@ def mock_css():
 
 
 # ---------------------------------------------------------------- גל + מספרים
+# אייקונים מ-Lucide (רישיון ISC): צוות, קוביות בנייה, מתנה.
+STAT_ICONS = {
+    "users": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    "blocks": '<rect width="7" height="7" x="14" y="3" rx="1"/><path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/>',
+    "gift": '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>',
+}
+
 def do_scale(sec, n_ch):
-    do_head(sec, "קלוד קוד כבר משנה את הדרך שבה אנשים עובדים.", "הגיע הזמן שגם אתם.", "guide-1.html", "לפרק הראשון")
+    do_head(sec, "קלוד קוד כבר משנה את הדרך שבה אנשים עובדים.", "הגיע הזמן שגם אתם תדעו לעבוד איתו.", "guide-1.html", "לפרק הראשון")
     cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
-    stats = [("₪0", "לקורס. למדריכים. לכל הידע"), ("∞", "דברים שתוכלו לבנות"), ("1", "אדם, היכולת של צוות")]
+    stats = [("1", "אדם, היכולת של צוות", "users"), ("∞", "דברים שתוכלו לבנות", "blocks"), ("₪0", "לקורס. למדריכים. לכל הידע", "gift")]
     grid = sec.find_all("div", class_="gap-6")[0].parent  # בעברית הריפוד צריך להיות בצד של הקו המפריד
     grid["class"] = grid["class"] + ["m2-stats"]
-    for blk, (n, lab) in zip(sec.find_all("div", class_="gap-6"), stats):
+    for blk, (n, lab, ic) in zip(sec.find_all("div", class_="gap-6"), stats):
         ps = blk.find_all("p"); put(ps[0], f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
+        blk.find("svg").replace_with(frag(f'<svg aria-hidden="true" class="shrink-0 select-none size-5 text-foreground-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{STAT_ICONS[ic]}</svg>'))
 
 
 # ---------------------------------------------------------------- כרטיסים צבעוניים
@@ -353,23 +362,30 @@ def do_cta(sec):
 
 
 # ---------------------------------------------------------------- שאלות נפוצות
-FAQ = [("צריך מנוי בתשלום לקלוד?", "כן. קלוד Pro ומעלה.", None),
-       ("צריך ידע קודם?", "לא. מתחילים מאפס.", ("guide-1.html", "לפרק הראשון")),
-       ("כמה זמן לוקח הקורס?", "8 שיעורים קצרים, בקצב שלכם.", ("service.html", "לקורס")),
-       ("למה צריך להירשם?", "כדי לצפות, להוריד קבצים ולקבל תעודה.", None),
-       ("מה זה קלוד קוד?", "כלי של Anthropic שבונה אתרים ומערכות לפי מה שכותבים לו.", ("article-what-is-claude-code.html", "הסבר פשוט על קלוד קוד")),
-       ("קלוד קוד עובד בעברית?", "כן. כותבים לו בעברית רגילה, והוא בונה גם אתרים בעברית.", None)]
+# השאלות שאנשים באמת מחפשים בגוגל (docs/seo/longtail-2026-11-18.md). המחירים נבדקו ב-claude.com/pricing.
+FAQ = [("מה זה קלוד קוד?", "כלי של Anthropic שבונה אתרים, אפליקציות ומערכות לפי מה שכותבים לו בשפה רגילה.", ("article-what-is-claude-code.html", "הסבר פשוט על קלוד קוד")),
+       ("האם קלוד קוד בחינם?", "קלוד קוד עצמו דורש מנוי בתשלום לקלוד, החל מ-Pro. הקורס שלנו, המדריך וכל הידע כאן בחינם.", None),
+       ("כמה עולה קלוד קוד לחודש?", "המנוי הזול שכולל אותו הוא Pro: ‏20$ לחודש, או 17$ לחודש בתשלום שנתי. יש גם Max ב-100$.", None),
+       ("האם קלוד קוד עובד בעברית?", "כן. כותבים לו בעברית רגילה, והוא בונה גם אתרים בעברית.", None),
+       ("איך מתקינים קלוד קוד על המחשב?", "מורידים את אפליקציית Claude למחשב, ל-Mac או ל-Windows, וקלוד קוד נמצא בתוכה. אפשר לעבוד איתו גם בדפדפן.", ("guide-4.html", "מדריך ההתקנה")),
+       ("מה ההבדל בין קלוד לקלוד קוד?", "קלוד משוחח איתכם ועונה. קלוד קוד עובד על הקבצים שלכם ובונה בפועל.", ("guide-2.html", "ההבדל בפירוט")),
+       ("צריך לדעת לתכנת?", "לא. הקורס מתחיל מאפס ומתאים לכל רמה.", ("guide-1.html", "לפרק הראשון")),
+       ("איך מתחילים ללמוד קלוד קוד?", "נכנסים לקורס: 8 שיעורי וידאו ומדריך כתוב בעברית, בקצב שלכם.", ("service.html", "לקורס"))]
 
 
 def do_faq(sec):
     put(sec.find("h2"), "שאלות נפוצות")
     items = sec.find_all("div", attrs={"data-slot": "accordion-item"})
+    while len(items) < len(FAQ):
+        c = copy.copy(items[-1]); items[-1].insert_after(c); items.append(c)
     for k, it in enumerate(items):
         if k >= len(FAQ):
             it.decompose(); continue
         q, a, link = FAQ[k]
         b = it.find("button"); svg = b.find("svg"); put(b, q); b.append(svg)
         b["data-faq"] = ""
+        panel = it.find("div", attrs={"data-slot": "accordion-content"})
+        b["id"] = f"faq-q{k}"; panel["id"] = f"faq-a{k}"; b["aria-controls"] = panel["id"]; panel["aria-labelledby"] = b["id"]
         body = it.find("div", attrs={"data-slot": "accordion-content"}).find("div")
         put(body, f"<p>{a}</p>" + (f'<p><a class="faq-link" href="{link[0]}">{link[1]}</a></p>' if link else ""))
 
@@ -394,7 +410,7 @@ def do_footer(soup, arts):
         for href, t in links:
             ul.append(frag(f'<li><a class="{" ".join(cls)}" href="{href}">{t}</a></li>'))
     bottom = f.find(attrs={"aria-label": "Theme switcher"}).find_parent("div", class_="justify-between")
-    put(bottom, '<span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#">חזרה למעלה ↑</a>')
+    put(bottom, '<span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#top" data-totop>חזרה למעלה ↑</a>')
 
 
 
@@ -410,6 +426,10 @@ def do_mobile_header(soup):
                   f'<a class="mt-5 flex h-11 items-center justify-center rounded-[4px] bg-neutral-900 text-sm/4 font-medium text-white" href="service.html">התחל ללמוד</a></nav>'))
 
 
+SHOW_PROMPTS = False  # "מה כותבים לקלוד קוד": מוסתר כרגע, נחזיר בהמשך
+SHOW_POSTS = False    # "מאמרים אחרונים": מוסתר כרגע
+
+
 def transform(s):
     n_ch, arts = counts()
     soup = BeautifulSoup(s, "html.parser")
@@ -422,8 +442,8 @@ def transform(s):
     secs[3].decompose()  # בלי "מה בונים עם קלוד קוד"
     do_scale(secs[4], n_ch)
     do_starts(secs[5], n_ch)
-    do_prompts(secs[6])
-    do_posts(secs[7], arts)
+    do_prompts(secs[6]) if SHOW_PROMPTS else secs[6].decompose()
+    do_posts(secs[7], arts) if SHOW_POSTS else secs[7].decompose()
     do_cta(secs[8])
     do_faq(secs[9])
     do_footer(soup, arts)
