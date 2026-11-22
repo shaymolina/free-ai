@@ -8,7 +8,7 @@ SITE = os.path.join(HERE, "..", "..", "site")
 sys.path.insert(0, HERE)
 import home_mint  # noqa: E402
 
-V = "1"
+V = "2"
 HEAD = """<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
