@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "45"
+CSS_VERSION = "47"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -139,6 +139,7 @@ GUIDE_JS = '''<script>
         document.querySelectorAll('.ch').forEach(function (el) { el.classList.toggle('is-done', done.indexOf(+el.dataset.ch) > -1); });
         document.getElementById('guide-fill').style.width = Math.round(done.length / TOTAL * 100) + '%%';
         document.getElementById('guide-count').textContent = done.length + ' מתוך ' + TOTAL + ' פרקים';
+        var c2 = document.getElementById('guide-count-2'); if (c2) c2.textContent = 'סיימתם ' + done.length + ' מתוך ' + TOTAL + ' פרקים';
         if (btn && done.indexOf(CURRENT) > -1 && !btn.dataset.next) { btn.textContent = CURRENT === TOTAL ? 'סיימתם את המדריך ✓' : 'סיימתם ✓ הפרק הבא בקרוב'; btn.classList.add('is-done'); }
     }
     if (btn) btn.addEventListener('click', function () {
@@ -163,7 +164,11 @@ GUIDE_JS = '''<script>
         document.documentElement.classList.toggle('dark', d);
         try { localStorage.setItem('theme', d ? 'dark' : 'light'); } catch (e) {}
     });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.body.classList.remove('side-open'); });
+    var mb = document.getElementById('top-menu-btn'), mp = document.getElementById('top-menu');
+    function menu(open) { if (!mb) return; mp.hidden = !open; mb.setAttribute('aria-expanded', open); }
+    if (mb) mb.addEventListener('click', function (e) { e.stopPropagation(); menu(mp.hidden); });
+    document.addEventListener('click', function (e) { if (mp && !mp.hidden && !e.target.closest('.top-menu')) menu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { document.body.classList.remove('side-open'); menu(false); } });
     document.addEventListener('click', function (e) {
         var img = e.target.closest ? e.target.closest('.fshot img') : null;
         if (!img) return;
@@ -209,6 +214,8 @@ ICO = {  # Lucide
     "box": '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>',
     "news": '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>',
     "check": '<path d="M20 6 9 17l-5-5"/>',
+    "lines": '<path d="M4 9h16M4 15h16"/>',
+    "user": '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
     "down": '<path d="M12 5v14m-6-6 6 6 6-6"/>',
     "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
 }
@@ -216,6 +223,11 @@ SITE_LINKS = [("index.html", "דף הבית", "home"), ("service.html", "הקו�
 
 THEME_HEAD = """<script>(function(){var m='system';try{m=localStorage.getItem('theme')||'system'}catch(e){}
 var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>"""
+
+
+def site_menu():
+    links = "".join(f'<a href="{h}" class="menu-item{" on" if h == "guide-1.html" else ""}">{_ico(ICO[ic])}<span>{t}</span></a>' for h, t, ic in SITE_LINKS)
+    return f'{links}<div class="menu-sep"></div><button type="button" class="menu-item theme-btn" id="theme-btn">{_ico(ICO["moon"], "i-moon")}{_ico(ICO["sun"], "i-sun")}<span class="t-dark">מצב כהה</span><span class="t-light">מצב בהיר</span></button>'
 
 
 def sidebar(current):
@@ -228,7 +240,6 @@ def sidebar(current):
             items.append(f'<li><a href="guide-{i}.html" class="{cls}" data-ch="{i}"{cur}>{inner}</a></li>')
         else:
             items.append(f'<li><span class="{cls} is-soon" data-ch="{i}">{inner}</span></li>')
-    links = "".join(f'<a href="{h}" class="nav-link{" active" if h == "guide-1.html" else ""}">{_ico(ICO[ic])}<span>{t}</span></a>' for h, t, ic in SITE_LINKS)
     return f'''<aside class="ds-side" id="ds-side">
             <a href="index.html" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
             <div class="ds-scroll">
@@ -238,7 +249,7 @@ def sidebar(current):
                     <ol class="chs">{"".join(items)}</ol>
                 </div>
             </div>
-            <nav class="ds-links">{links}</nav>
+            <div class="ds-profile"><span class="avatar">{_ico(ICO["user"])}</span><span class="who"><b>אורח</b><small id="guide-count-2"></small></span></div>
         </aside>'''
 
 
@@ -321,7 +332,8 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
                 <span class="ds-vsep"></span>
                 <div class="page-head"><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
-                <div class="ds-actions"><button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="מצב כהה או בהיר">{_ico(ICO["moon"], "i-moon")}{_ico(ICO["sun"], "i-sun")}</button></div>
+                <div class="ds-actions top-menu"><button type="button" class="icon-btn" id="top-menu-btn" aria-label="תפריט האתר" aria-expanded="false" aria-controls="top-menu">{_ico(ICO["lines"])}</button>
+                    <div class="menu-pop" id="top-menu" hidden>{site_menu()}</div></div>
             </header>
             <main class="ds-content">
                 <article class="lesson">
