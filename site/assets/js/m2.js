@@ -416,7 +416,7 @@
   function initConnectIcons() {
     var cv = document.querySelector('canvas[data-rive*="connect-with-your-systems"]'); if (!cv) return;
     cv.dataset.nohover = '1';
-    var box = cv.parentElement, AW = 344, AH = 414, tiles = [[172, 207, 'assets/images/brands/4code.svg'], [239.5, 207, 'assets/images/brands/github.svg']], els = [];
+    var box = cv.parentElement, AW = 344, AH = 414, tiles = [[172, 207, 'assets/images/brands/4code-mark.png'], [239.5, 207, 'assets/images/brands/github-mark.svg']], els = [];
     tiles.forEach(function (t) { var d = document.createElement('span'); d.className = 'cn-tile'; d.innerHTML = '<img src="' + t[2] + '" alt="">'; box.appendChild(d); els.push(d); });
     function place() {
       var w = cv.clientWidth, h = cv.clientHeight, s = Math.max(w / AW, h / AH);
