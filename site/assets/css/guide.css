@@ -293,3 +293,62 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
   .ds-top.has-head { height: auto; min-height: 56px; padding-block: 8px; }
   .ds-top .lead, .ds-top h1 { white-space: normal; }
 }
+
+/* =====================================================================
+   שפת העיצוב החדשה (vendor design system): מסגרת אפורה במחשב, תפריט צד שקוף עליה,
+   העמוד הוא פאנל מעוגל, כותרות קבוצה מעל הכרטיס עם מעוין קטן, וטלפון עם הכול גדול יותר.
+   הצבע הראשי נשאר הירוק של Free AI.
+   ===================================================================== */
+:root:not(.dark) { --background:#f2f2f3; }
+:root { --frame:#efefed; }
+:root.dark { --frame:#171717; }
+
+/* כותרת קבוצה מעל הכרטיס */
+.rows-stack { display: flex; flex-direction: column; gap: var(--card-gap); }
+.sec { display: flex; flex-direction: column; min-width: 0; }
+.sec > .card-head { padding: 0 4px 8px; }
+.sec > .card-head h3 { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
+.sec > .card-head h3::before { content: ""; width: 7px; height: 7px; background: var(--primary); transform: rotate(45deg); flex: none; margin-inline: 2px; }
+
+@media (min-width: 992px) {
+  :root { --sidebar-width: 232px; }
+  body { background: var(--frame); }
+  .ds-app { padding-block: 12px; }
+  .ds-side { background: transparent; border-inline-end: 0; padding: 20px 16px 16px; }
+  .ds-brand { height: auto; border: 0; padding: 0 4px 0 2px; margin-bottom: 22px; font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
+  .ds-brand img { width: 26px; height: 26px; }
+  .ds-group { padding: 0 0 12px; }
+  .ds-group-title { padding: 0 12px 8px; }
+  .ds-prog { padding: 0 12px 12px; }
+  .chs { gap: 2px; }
+  .ch { margin: 0; min-height: 36px; padding: 6px 12px; border-radius: 8px; font-size: 14px; color: color-mix(in oklch, var(--foreground) 82%, transparent); }
+  a.ch:hover { background: color-mix(in oklch, var(--foreground) 5%, transparent); }
+  .ch.is-on { background: var(--card); color: var(--foreground); font-weight: 500; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 0 0 1px var(--hairline); }
+  .ds-links { border-top: 0; padding: 8px 0 0; gap: 2px; }
+  .nav-link { height: 36px; padding: 0 12px; gap: 12px; border-radius: 8px; font-size: 14px; color: color-mix(in oklch, var(--foreground) 82%, transparent); }
+  .nav-link:hover { background: color-mix(in oklch, var(--foreground) 5%, transparent); }
+  .nav-link.active { background: var(--card); color: var(--foreground); font-weight: 500; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 0 0 1px var(--hairline); }
+  .ds-main {
+    margin-inline-end: 12px; min-height: calc(100dvh - 24px); background: var(--background); border-radius: 24px;
+    box-shadow: 0 0 0 1px var(--hairline), 0 1px 2px rgba(0,0,0,.04), 0 6px 24px -6px rgba(0,0,0,.08);
+  }
+  .dark .ds-main { box-shadow: 0 0 0 1px var(--hairline), 0 8px 28px -6px rgba(0,0,0,.5); }
+  .ds-top { border-start-start-radius: 24px; border-start-end-radius: 24px; }
+  .tile { background: var(--secondary); }
+  .ds-scroll { margin-inline: -4px; padding-inline: 4px; }
+}
+
+/* טלפון: הכול טיפה יותר גדול */
+@media (max-width: 575.98px) {
+  body { font-size: 16px; }
+  .ds-top.has-head { min-height: 60px; padding: 10px 12px; }
+  .icon-btn { width: 40px; height: 40px; }
+  .icon-btn .ico { width: 20px; height: 20px; }
+  .btn, .btn-2 { min-height: 38px; padding: 6px 14px; font-size: 15px; }
+  .row { font-size: 16px; }
+  .row small, .ftext p { font-size: 15px; }
+  .ftext h3, .sec > .card-head h3 { font-size: 17px; }
+  .sec > .card-head { padding: 0 4px 10px; }
+  .tipcard { font-size: 15px; }
+  .lesson-end .btn { min-height: 46px; font-size: 16px; }
+}
