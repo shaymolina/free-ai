@@ -268,7 +268,7 @@
         var max = track.scrollWidth - track.clientWidth, x = Math.abs(track.scrollLeft);
         btns.forEach(function (b) { b.disabled = b.dataset.car === '-1' ? x < 4 : x > max - 4; });
       }
-      btns.forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: -(+b.dataset.car) * card(), behavior: reduce ? 'auto' : 'smooth' }); }); });
+      btns.forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: (getComputedStyle(track).direction === 'rtl' ? -1 : 1) * (+b.dataset.car) * card(), behavior: reduce ? 'auto' : 'smooth' }); }); });
       track.addEventListener('scroll', edges, { passive: true }); edges();
       var dims = track.querySelectorAll('.carousel-card-dim');
       if (dims.length && 'IntersectionObserver' in window) {

@@ -2,17 +2,20 @@
 :root { --font-inter: 'Kobi', system-ui, sans-serif; --font-arizona: 'Kobi', system-ui, sans-serif; --font-paper-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace; --font-geist-mono: ui-monospace, Menlo, monospace; }
 body { font-family: var(--font-inter); }
 /* חיצים בכפתורים מצביעים שמאלה בעברית */
-[dir="rtl"] a > svg.opacity-50, [dir="rtl"] a svg.size-4.opacity-50 { transform: scaleX(-1); }
+a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scaleX(-1); }
 /* עמעום הכרטיסים שלא במרכז (בעברית דרך JS, כי האנימציה לפי גלילה לא עובדת טוב מימין לשמאל) */
 [dir="rtl"] .carousel-card-dim { animation: none !important; opacity: .4; transition: opacity .5s cubic-bezier(.4,0,.2,1); }
 [dir="rtl"] .carousel-card-dim.is-on { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { [dir="rtl"] .carousel-card-dim { transition: none; } }
 /* כפתורים עם חץ: הריפוד הצר בצד החץ */
-[dir="rtl"] .pl-4.pr-3 { padding-left: .75rem; padding-right: 1rem; }
+.pl-4.pr-3:dir(rtl) { padding-left: .75rem; padding-right: 1rem; }
 /* קווי הזרימה בפס הסיום: בעברית בצד שמאל, בתמונת מראה */
 [dir="rtl"] svg[data-flow] { right: auto; left: -35%; transform: scaleX(-1); }
 @media (min-width: 40rem) { [dir="rtl"] svg[data-flow] { left: -4%; } }
 @media (min-width: 48rem) { [dir="rtl"] svg[data-flow] { left: -6%; } }
 @media (min-width: 64rem) { [dir="rtl"] svg[data-flow] { left: -8%; } }
 /* הכותרת בפס הסיום מיושרת לימין */
-[dir="rtl"] .text-left { text-align: right; }
+.text-left:dir(rtl) { text-align: right; }
+/* מקטעים שנשארו בכיוון המקורי: הטקסט העברי עצמו נכתב נכון, אבל מיושר כמו בתבנית */
+[data-ltr] :is(h2,h3,p,blockquote,figcaption,li,span,a) { unicode-bidi: plaintext; }
+[data-ltr] :is(h2,h3,p,blockquote,figcaption,li) { text-align: left; }

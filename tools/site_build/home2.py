@@ -248,7 +248,7 @@ def mock_css():
 # ---------------------------------------------------------------- גל + מספרים
 def do_scale(sec, n_ch):
     do_head(sec, "לומדים בקצב שלכם.", "פרקים קצרים, צעד אחד בכל פעם.", "guide-1.html", "לפרק הראשון")
-    cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
+    cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["aria-hidden"] = "true"
     stats = [(str(n_ch), "פרקים קצרים במדריך"), ("8", "שיעורי וידאו לפי הסדר"), ("₪0", "מחיר הקורס, תמיד")]
     for blk, (n, lab) in zip(sec.find_all("div", class_="gap-6"), stats):
         ps = blk.find_all("p"); put(ps[0], f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
@@ -360,7 +360,7 @@ def do_footer(soup, arts):
         st.find_all("span", recursive=False)[1].string = "23 פרקים זמינים לקריאה"
     cols = [("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-18.html", "מעלים לאוויר")]),
-            ("מאמרים", [(h, t.split("?")[0] + ("?" if "?" in t else "")) for h, t in arts[:4]]),
+            ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
             ("כלים", [("guide-4.html", "Claude Code"), ("guide-13.html", "Connectors"), ("guide-14.html", "Skills"), ("guide-19.html", "4CODE")]),
             ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש")])]
     for div, (h, links) in zip(f.find("div", class_="lg:grid-cols-5").find_all("div", recursive=False), cols):
@@ -369,7 +369,7 @@ def do_footer(soup, arts):
         for href, t in links:
             ul.append(frag(f'<li><a class="{" ".join(cls)}" href="{href}">{t}</a></li>'))
     bottom = f.find(attrs={"aria-label": "Theme switcher"}).find_parent("div", class_="justify-between")
-    put(bottom, '<span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#">חזרה למעלה ↑</a>')
+    put(bottom, '<span class="text-sm/5 text-neutral-500">כל הזכויות שמורות ל-Free AI, 2026 ©</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#">חזרה למעלה ↑</a>')
 
 
 
@@ -402,6 +402,9 @@ def transform(s):
     do_cta(secs[8])
     do_faq(secs[9])
     do_footer(soup, arts)
+    # ארבעת המקטעים האלה נשארים בכיוון המקורי (משמאל לימין), אחד לאחד כמו בתבנית
+    for x in (secs[4], secs[5], secs[6], soup.find("footer")):
+        x["dir"] = "ltr"; x["data-ltr"] = ""
     soup.find("header")["id"] = "top"
     soup.find_all("header")[1]["id"] = "top-m"
     return str(soup)
