@@ -230,7 +230,7 @@ def bento_mocks():
     return [(li.find("h3").get_text(), str(li.find("div", class_="mk"))) for li in soup.find_all("li", class_="bento-c")]
 
 
-RIVES = [("agent-native-platform", "agent-native-platform-mobile"), ("self-updating-knowledge", None), ("control-who-has-access", None),
+RIVES = [("agent-native-platform-warm", "agent-native-platform-mobile-warm"), ("self-updating-knowledge", None), ("control-who-has-access", None),
          ("connect-with-your-systems", None), ("collaborate-with-your-team-and-agents", None), ("build-on-top-of-your-existing-setup", "build-on-top-of-your-existing-setup-mobile")]
 
 
