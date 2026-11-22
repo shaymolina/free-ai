@@ -14,7 +14,7 @@ SITE = ROOT / "site"
 BASE = "https://free-ai.co.il"
 SITE_NAME = "Free AI"
 OG_IMAGE = BASE + "/assets/images/og.png"
-NOINDEX = {"soon", "home-2"}  # עמודים שלא צריכים להופיע בגוגל (שם הקובץ בלי .html)
+NOINDEX = {"soon"}  # עמודים שלא צריכים להופיע בגוגל (שם הקובץ בלי .html)
 LOW = {"privacy", "terms"}
 
 START, END = "<!-- seo -->", "<!-- /seo -->"

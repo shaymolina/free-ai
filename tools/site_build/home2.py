@@ -13,7 +13,8 @@ HEAD = """<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="utf-8">
-    <title>קורס קלוד קוד בחינם | Free AI</title>
+    <title>קורס קלוד קוד בחינם בעברית | Free AI</title>
+    <meta name="description" content="קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
@@ -411,8 +412,11 @@ def build():
     src = open(os.path.join(HERE, "mint_ref", "page.html")).read()
     mock_css()
     out = HEAD.format(v=V) + transform(src) + f'\n<script src="assets/js/m2.js?v={V}" defer></script>\n</body>\n</html>\n'
-    open(os.path.join(SITE, "home-2.html"), "w").write(out)
-    print("home-2.html done")
+    from clean_urls import clean
+    open(os.path.join(SITE, "index.html"), "w").write(clean(out))  # זה עמוד הבית הראשי
+    old = os.path.join(SITE, "home-2.html")
+    if os.path.exists(old): os.remove(old)
+    print("index.html (home-2) done")
 
 
 if __name__ == "__main__":
