@@ -136,18 +136,17 @@
   /* ---------- פס מספרים שרץ ---------- */
   function initTicker() {
     document.querySelectorAll('[data-ticker]').forEach(function (view) {
-      var track = view.firstElementChild, x = 0, paused = false, last = 0;
+      var track = view.querySelector('.tk-track'), x = 0, paused = false, last = 0;
       if (reduce || !track) return;
-      view.addEventListener('mouseenter', function () { paused = true; });
-      view.addEventListener('mouseleave', function () { paused = false; });
-      view.addEventListener('focusin', function () { paused = true; });
-      view.addEventListener('focusout', function () { paused = false; });
+      var rtl = getComputedStyle(view).direction === 'rtl';
+      ['mouseenter', 'focusin'].forEach(function (e) { view.addEventListener(e, function () { paused = true; }); });
+      ['mouseleave', 'focusout'].forEach(function (e) { view.addEventListener(e, function () { paused = false; }); });
       function step(t) {
-        var dt = last ? t - last : 16; last = t;
+        var dt = last ? Math.min(t - last, 50) : 16; last = t;
         if (!paused) {
-          var half = track.scrollWidth / 2;
-          x = (x + dt * .03) % half;
-          track.style.transform = 'translate3d(' + x + 'px,0,0)';
+          var w = track.firstElementChild.offsetWidth;
+          x = (x + dt * .035) % w;  /* זז משמאל לימין */
+          track.style.transform = 'translate3d(' + (rtl ? x : x - w) + 'px,0,0)';
         }
         requestAnimationFrame(step);
       }
@@ -395,13 +394,13 @@
           var r = new rive.Rive({ src: src, canvas: cv, stateMachines: 'State Machine 1', autoplay: !reduce, autoBind: true, shouldDisableRiveListeners: true,
             layout: new rive.Layout({ fit: rive.Fit.Cover, alignment: rive.Alignment.Center }),
             onLoad: function () {
-              r.resizeDrawingSurfaceToCanvas();
+              r.resizeDrawingSurfaceToCanvas(); cv._rive = r; cv.dispatchEvent(new Event('riveload'));
               var vm = r.viewModelInstance;
               if (vm) { var d = vm.boolean('darkMode'); if (d) d.value = false; hov = vm.boolean('ishover'); if (hov) hov.value = want; }
               if (reduce) { r.play(); setTimeout(function () { r.pause(); }, 600); }
             } });
           var card = cv.closest('.group') || cv.parentElement;
-          card.addEventListener('mouseenter', function () { want = true; if (hov) hov.value = true; });
+          if (!cv.dataset.nohover) card.addEventListener('mouseenter', function () { want = true; if (hov) hov.value = true; });
           card.addEventListener('mouseleave', function () { want = false; if (hov) hov.value = false; });
           if ('ResizeObserver' in window) new ResizeObserver(function () { r.resizeDrawingSurfaceToCanvas(); }).observe(cv);
           new IntersectionObserver(function (es) { if (reduce) return; es[0].isIntersecting ? r.startRendering() : r.stopRendering(); }).observe(cv);
@@ -413,6 +412,23 @@
     cvs.forEach(function (c) { io.observe(c); });
   }
 
+  /* ---------- "מתחברים לשירותים": האייקונים של 4CODE ו-GitHub מעל הריבועים שבאנימציה ---------- */
+  function initConnectIcons() {
+    var cv = document.querySelector('canvas[data-rive*="connect-with-your-systems"]'); if (!cv) return;
+    cv.dataset.nohover = '1';
+    var box = cv.parentElement, AW = 344, AH = 414, tiles = [[172, 207, 'assets/images/brands/4code.svg'], [239.5, 207, 'assets/images/brands/github.svg']], els = [];
+    tiles.forEach(function (t) { var d = document.createElement('span'); d.className = 'cn-tile'; d.innerHTML = '<img src="' + t[2] + '" alt="">'; box.appendChild(d); els.push(d); });
+    function place() {
+      var w = cv.clientWidth, h = cv.clientHeight, s = Math.max(w / AW, h / AH);
+      els.forEach(function (d, i) {
+        var t = tiles[i], size = 60 * s;
+        d.style.cssText = 'left:' + (w / 2 + (t[0] - AW / 2) * s - size / 2) + 'px;top:' + (h / 2 + (t[1] - AH / 2) * s - size / 2) + 'px;width:' + size + 'px;height:' + size + 'px;border-radius:' + 13 * s + 'px';
+      });
+    }
+    place(); if ('ResizeObserver' in window) new ResizeObserver(place).observe(cv);
+  }
+
+  initConnectIcons();
   initRive();
   initMenu(); initFlow(); initRotate(); initFaq();
   /* ---------- מתג בהיר / כהה / לפי המערכת, כמו בתבנית ---------- */

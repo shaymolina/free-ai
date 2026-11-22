@@ -89,22 +89,15 @@ def do_header(soup):
 # ---------------------------------------------------------------- פתיחה
 def do_hero(sec, n_ch):
     cv = sec.find("canvas"); cv["data-rib"] = "hero"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
-    chip = sec.find("a", href="/data"); chip["href"] = "guide-1.html"
-    sp = chip.find_all("span", recursive=False)
-    put(sp[0], "המדריך הכתוב")
-    num = sp[1].find("span", class_="font-paper")
-    put(num, roller(str(n_ch)) + " פרקים")
-    h1 = sec.find("h1"); put(h1, "קורס קלוד קוד<br>בחינם ובעברית")
+    sec.find("a", href="/data").decompose()  # בלי התגית מעל הכותרת
+    h1 = sec.find("h1"); put(h1, "קורס קלוד קוד<br>בחינם ובעברית"); h1["class"] = h1.get("class", []) + ["m2-h1"]
     p = h1.find_next("p")
     put(p, 'קורס Claude Code למתחילים, בלי ידע בתכנות. <span class="font-medium text-text-main">שיעורי וידאו</span>, <span class="font-medium text-text-main">מדריך כתוב</span> ו<span class="font-medium text-text-main">סקילים</span>.')
     a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
     a1.contents[0].replace_with("התחל ללמוד")
     a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = "guide-1.html"
     put(a2, icon("book", "size-4 text-brand") + "למדריך הכתוב")
-    btn = a2.find_parent("div").find_next_sibling("div").find("button")
-    a3 = soup_tag(sec, "a", href="guide-1.html"); a3["class"] = btn["class"]
-    put(a3, f'<span class="flex items-center gap-1">{icon("box")}{icon("chat")}{icon("coin")}</span>מה צריך כדי להתחיל{icon("chev-l", "size-4")}')
-    btn.replace_with(a3)
+    a2.find_parent("div").find_next_sibling("div").decompose()  # בלי "מה צריך כדי להתחיל"
     box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
     box["aria-label"] = "המדריך הכתוב של Free AI"
     imgs = box.find_all("img")
@@ -120,8 +113,8 @@ def soup_tag(node, name, **attrs):
 
 
 # ---------------------------------------------------------------- כלים + פס מספרים
-TOOLS = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-18.html", "cloud"),
-         ("Connectors", "guide-13.html", "plug"), ("Skills", "guide-14.html", "box"), ("Plugins", "guide-15.html", "layers"), ("Google Drive", "article-github-backup.html", "drive")]
+TOOLS = [("Claude", "guide-3.html", "claude"), ("Claude Code", "guide-4.html", "claude"), ("GitHub", "guide-5.html", "github"), ("4CODE", "guide-18.html", "4code"),
+         ("Connectors", "guide-13.html", "claude"), ("Skills", "guide-14.html", "claude"), ("Plugins", "guide-15.html", "claude"), ("Supabase", "guide-13.html", "supabase")]
 
 
 def do_tools(sec, n_ch, n_art):
@@ -130,7 +123,7 @@ def do_tools(sec, n_ch, n_art):
     cards = sec.find_all("div", class_="group/card")
     for card, (name, href, ic) in zip(cards, TOOLS):
         logo = card.find_all("span", recursive=False)[1]
-        put(logo, f'<span class="inline-flex items-center gap-2 text-[17px] font-medium text-text-main" dir="ltr">{icon(ic, "size-5 text-brand")}{name}</span>')
+        put(logo, f'<span class="tool-logo" dir="ltr"><img src="assets/images/brands/{ic}.svg" alt="" width="26" height="26">{name}</span>')
         for x in card.find_all("span", class_="sr-only", recursive=False): x.decompose()
         link = card.find("a", recursive=False)
         arrow = '<span class="pointer-events-none absolute bottom-3 left-3 opacity-0 transition-opacity duration-150 ease-out group-hover/card:opacity-100">' + icon("chev-l", "text-text-sub size-4") + '</span>'
@@ -144,10 +137,10 @@ def do_tools(sec, n_ch, n_art):
     items = [("פרקים במדריך", str(n_ch)), ("שיעורי וידאו", "8"), ("מאמרים", str(n_art)), ("מחיר", "₪0"), ("בעברית", "100%")]
     rows = sec.find("div", attrs={"aria-label": "Live stats, focus to pause"})
     rows["aria-label"] = "הקורס במספרים"; rows["data-ticker"] = ""
-    for grp in rows.find_all("div", class_="gap-8"):
-        for span, (lab, val) in zip(grp.find_all("span", recursive=False), items):
-            s = span.find_all("span", recursive=False)
-            put(s[0], lab); put(s[1], f'<span dir="ltr">{val}</span>')
+    rows["class"] = ["tk-view"]
+    one = "".join(f'<span class="tk-item"><b dir="ltr">{val}</b>{lab}</span>' for lab, val in items)
+    group = f'<div class="tk-group">{one}{one}</div>'
+    put(rows, f'<div class="tk-track">{group}' + f'<div class="tk-group" aria-hidden="true">{one}{one}</div>' * 3 + '</div>')
 
 
 # ---------------------------------------------------------------- כותרת מקטע (קו ירוק + שתי שורות + כפתור)
@@ -220,10 +213,18 @@ RIVES = [("agent-native-platform", "agent-native-platform-mobile"), ("self-updat
          ("connect-with-your-systems", None), ("collaborate-with-your-team-and-agents", None), ("build-on-top-of-your-existing-setup", "build-on-top-of-your-existing-setup-mobile")]
 
 
+BENTO_TITLES = ["כותבים בעברית, קלוד קוד בונה",
+                "מתחילים מאפס, בלי ידע ובחינם",
+                "אתם מחליטים, קלוד מבצע",
+                "מתחברים לשירותים",
+                "עובדים כבר על קורס סוכנים. כן, גם בחינם.",
+                "מהרעיון לאתר שעובד באוויר"]
+
+
 def do_bento(sec):
     """הכרטיסים המקוריים שלהם עם אנימציות ה-Rive המקוריות, והכותרות בעברית."""
     do_head(sec, "כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "service.html", "התחל ללמוד")
-    titles = [t for t, _ in bento_mocks()]
+    titles = BENTO_TITLES
     for art, title, (src, mob) in zip(sec.find_all("article"), titles, RIVES):
         box = art.find("div", class_="absolute")
         attrs = f' data-rive="assets/rive/{src}.riv"' + (f' data-rive-m="assets/rive/{mob}.riv"' if mob else "")
@@ -248,9 +249,11 @@ def mock_css():
 
 # ---------------------------------------------------------------- גל + מספרים
 def do_scale(sec, n_ch):
-    do_head(sec, "לומדים בקצב שלכם.", "פרקים קצרים, צעד אחד בכל פעם.", "guide-1.html", "לפרק הראשון")
+    do_head(sec, "מאפס לאתר באוויר.", "בלי לכתוב קוד, בלי לשלם, ובעברית.", "guide-1.html", "לפרק הראשון")
     cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
-    stats = [(str(n_ch), "פרקים קצרים במדריך"), ("8", "שיעורי וידאו לפי הסדר"), ("₪0", "מחיר הקורס, תמיד")]
+    stats = [("0", "שורות קוד שתצטרכו לכתוב"), ("1", "אתר אמיתי באוויר בסוף הקורס"), ("100%", "בעברית, מהשיעור הראשון")]
+    grid = sec.find_all("div", class_="gap-6")[0].parent  # בעברית הריפוד צריך להיות בצד של הקו המפריד
+    grid["class"] = grid["class"] + ["m2-stats"]
     for blk, (n, lab) in zip(sec.find_all("div", class_="gap-6"), stats):
         ps = blk.find_all("p"); put(ps[0], f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
 
@@ -395,7 +398,7 @@ def transform(s):
     do_hero(secs[0], n_ch)
     do_tools(secs[1], n_ch, len(arts))
     do_bento(secs[2])
-    do_stories(secs[3])
+    secs[3].decompose()  # בלי "מה בונים עם קלוד קוד"
     do_scale(secs[4], n_ch)
     do_starts(secs[5], n_ch)
     do_prompts(secs[6])

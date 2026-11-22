@@ -22,3 +22,22 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 /* ארבעת המקטעים שנלקחו כמו שהם: הפונט המקורי שלהם (Inter), ועברית בקובי */
 @font-face { font-family: 'InterM2'; src: url(../fonts/inter/InterVariable.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0000-04FF, U+2000-206F, U+20A0-20CF, U+2100-214F; }
 [data-ltr] { --font-inter: 'InterM2', 'Kobi', system-ui, sans-serif; font-family: var(--font-inter); }
+/* כותרת הפתיחה: גדולה ובמשקל הכי עבה */
+.m2-h1 { font-weight: 900 !important; font-size: clamp(2.5rem, min(10.5vw, 7.4vw + 1rem), 7rem) !important; line-height: .98 !important; letter-spacing: -.02em !important; white-space: nowrap; }
+/* שלושת המספרים: הריפוד בצד של הקו המפריד */
+@media (min-width: 40rem) {
+  [dir="rtl"] .m2-stats > *:first-child { padding-right: 0 !important; padding-left: 2rem !important; }
+  [dir="rtl"] .m2-stats > *:last-child { padding-left: 0 !important; padding-right: 2rem !important; }
+}
+/* לוגואים של הכלים: אייקון + שם */
+.tool-logo { display: inline-flex; align-items: center; gap: 10px; font: 600 18px/1 'InterM2', 'Kobi', system-ui, sans-serif; letter-spacing: -.01em; color: #141414; }
+.tool-logo img { width: 24px; height: 24px; flex: none; }
+/* הקורס במספרים: פס שזז משמאל לימין, בלי רווח */
+.tk-view { position: relative; flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.tk-track { display: flex; width: max-content; will-change: transform; }
+.tk-group { display: flex; align-items: center; flex: none; }
+.tk-item { display: inline-flex; align-items: baseline; gap: 8px; padding-inline: 22px; white-space: nowrap; font-size: 15px; color: var(--color-text-sub, #5c5c5c); position: relative; }
+.tk-item::after { content: ""; position: absolute; inset-inline-end: 0; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: #1fa77a; opacity: .5; }
+.tk-item b { font: 600 22px/1 'InterM2', 'Kobi', system-ui, sans-serif; color: #0c0c0c; letter-spacing: -.02em; }
+.cn-tile { position: absolute; z-index: 2; display: flex; align-items: center; justify-content: center; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05); pointer-events: none; }
+.cn-tile img { width: 46%; height: 46%; }
