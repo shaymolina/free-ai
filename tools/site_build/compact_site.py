@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "42"
+CSS_VERSION = "43"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -149,6 +149,14 @@ GUIDE_JS = '''<script>
     var copy = document.getElementById('guide-copy');
     if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
+    // תפריט הצד נשאר באותו מקום כשעוברים פרק
+    var sc = document.querySelector('.ds-scroll');
+    if (sc) {
+        var y = null; try { y = sessionStorage.getItem('freeai-side-y'); } catch (e) {}
+        if (y !== null) sc.scrollTop = +y;
+        else { var on = sc.querySelector('.is-on'); if (on) on.scrollIntoView({block: 'center'}); }
+        window.addEventListener('pagehide', function () { try { sessionStorage.setItem('freeai-side-y', sc.scrollTop); } catch (e) {} });
+    }
     var tb = document.getElementById('theme-btn');
     if (tb) tb.addEventListener('click', function () {
         var d = !document.documentElement.classList.contains('dark');
@@ -299,15 +307,14 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
         {sidebar(n)}
         <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
         <div class="ds-main">
-            <header class="ds-top">
+            <header class="ds-top has-head">
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
                 <span class="ds-vsep"></span>
-                <nav class="crumbs" aria-label="מיקום"><a href="guide-1.html">המדריך</a><i>/</i><span>{name}</span></nav>
+                <div class="page-head"><span class="eyebrow">פרק {n} · {mins} דקות</span><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
                 <div class="ds-actions"><button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="מצב כהה או בהיר">{_ico(ICO["moon"], "i-moon")}{_ico(ICO["sun"], "i-sun")}</button></div>
             </header>
             <main class="ds-content">
                 <article class="lesson">
-                    <div class="page-head"><span class="eyebrow">פרק {n} · {mins} דקות</span><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
                     {top}{rows_block}{flow}{extra}
                     <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לפרק הבא ←" if nxt or n < len(CHAPTERS) else "סיימתי את המדריך ✓"}</button></div>
                 </article>

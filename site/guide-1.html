@@ -10,7 +10,7 @@
 var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100..900&family=Noto+Sans:wght@100..900&family=JetBrains+Mono:wght@400;500&display=swap">
-    <link rel="stylesheet" href="assets/css/guide.css?v=42">
+    <link rel="stylesheet" href="assets/css/guide.css?v=43">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
     <!-- seo -->
@@ -43,15 +43,14 @@ var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matc
         </aside>
         <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
         <div class="ds-main">
-            <header class="ds-top">
+            <header class="ds-top has-head">
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
                 <span class="ds-vsep"></span>
-                <nav class="crumbs" aria-label="מיקום"><a href="guide-1">המדריך</a><i>/</i><span>לפני שמתחילים</span></nav>
+                <div class="page-head"><span class="eyebrow">פרק 1 · 2 דקות</span><h1>לפני שמתחילים</h1><p class="lead">שלושה דברים להכין, ואפשר לצאת לדרך.</p></div>
                 <div class="ds-actions"><button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="מצב כהה או בהיר"><svg class="ico i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="ico i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></div>
             </header>
             <main class="ds-content">
                 <article class="lesson">
-                    <div class="page-head"><span class="eyebrow">פרק 1 · 2 דקות</span><h1>לפני שמתחילים</h1><p class="lead">שלושה דברים להכין, ואפשר לצאת לדרך.</p></div>
                     <ol class="rows"><li class="row"><span class="tile">1</span>מחשב<small>Mac או Windows</small></li><li class="row"><span class="tile">2</span>מייל<small>אחד לכל השירותים</small></li><li class="row"><span class="tile">3</span>כרטיס אשראי<small>כ-20 דולר לחודש לקלוד</small></li></ol>
                 <p class="more-link">לא בטוחים מה זה בכלל? <a href="article-what-is-claude-code">מה זה קלוד קוד, בהסבר פשוט</a></p>
                 <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>RVJ34jcn4j1</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="RVJ34jcn4j1">העתקה</button></div>
@@ -85,6 +84,14 @@ var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matc
     var copy = document.getElementById('guide-copy');
     if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
+    // תפריט הצד נשאר באותו מקום כשעוברים פרק
+    var sc = document.querySelector('.ds-scroll');
+    if (sc) {
+        var y = null; try { y = sessionStorage.getItem('freeai-side-y'); } catch (e) {}
+        if (y !== null) sc.scrollTop = +y;
+        else { var on = sc.querySelector('.is-on'); if (on) on.scrollIntoView({block: 'center'}); }
+        window.addEventListener('pagehide', function () { try { sessionStorage.setItem('freeai-side-y', sc.scrollTop); } catch (e) {} });
+    }
     var tb = document.getElementById('theme-btn');
     if (tb) tb.addEventListener('click', function () {
         var d = !document.documentElement.classList.contains('dark');
