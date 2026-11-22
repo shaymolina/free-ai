@@ -15,10 +15,10 @@ h2{font-size:24px;font-weight:700}
 .lbl{font-size:15px;font-weight:700;margin-bottom:6px}
 .inp{width:360px;padding:11px 13px;border-radius:10px;border:1px solid #DDD7CC;background:#fff;font-size:16px}
 .btn{display:inline-block;padding:11px 18px;border-radius:10px;border:1px solid #DDD7CC;background:#fff;font-size:16px;font-weight:600}
-.pri{background:#2DA44E;color:#fff;border:0}
+.pri{background:#A4572D;color:#fff;border:0}
 .blue{background:#1A73E8;color:#fff;border:0}
 .hl{outline:4px solid rgba(217,119,87,.55);outline-offset:3px}
-.chk{display:flex;gap:10px;align-items:center;font-size:16px}.chk u{width:20px;height:20px;border:2px solid #2DA44E;border-radius:5px;background:#2DA44E;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;text-decoration:none}
+.chk{display:flex;gap:10px;align-items:center;font-size:16px}.chk u{width:20px;height:20px;border:2px solid #A4572D;border-radius:5px;background:#A4572D;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;text-decoration:none}
 .chk em{font-style:normal;color:#8a857e;font-size:14px}
 .n{position:absolute;width:30px;height:30px;border-radius:50%;background:#D97757;color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,.2)}
 .rel{position:relative}

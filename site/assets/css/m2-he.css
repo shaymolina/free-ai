@@ -44,7 +44,7 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 .tk-track { display: flex; width: max-content; will-change: transform; }
 .tk-group { display: flex; align-items: center; flex: none; }
 .tk-item { display: inline-flex; align-items: center; gap: 8px; padding-inline: 20px; white-space: nowrap; font-size: 15px; color: #666; }
-.tk-item b { font: 500 16px/1 'InterM2', 'Kobi', system-ui, sans-serif; color: #1fa77a; }
+.tk-item b { font: 500 16px/1 'InterM2', 'Kobi', system-ui, sans-serif; color: #d97757; }
 /* 9 כלים: 5 למעלה, 4 למטה */
 @media (max-width: 39.99rem) { .m2-tools > :last-child { grid-column: span 2; } }
 .tool-logo[data-tool="Cloudflare"] .tl-word { height: 11px; }

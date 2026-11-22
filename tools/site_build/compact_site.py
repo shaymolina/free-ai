@@ -34,9 +34,9 @@ def _strings_svg():
     b = bundle(24, lambda t: f"M -60 {760 + 380 * t:.1f} C 240 {880 - 220 * t:.1f}, 460 {640 + 160 * t:.1f}, 700 {600 + 120 * t:.1f}")
     return ('<svg class="strings" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">'
             '<defs><linearGradient id="sg-a" gradientUnits="userSpaceOnUse" x1="620" y1="0" x2="1500" y2="0">'
-            '<stop offset="0" stop-color="#2DD4BF" stop-opacity="0"/><stop offset=".45" stop-color="#4ADE80" stop-opacity=".75"/><stop offset="1" stop-color="#A3E635" stop-opacity=".35"/></linearGradient>'
+            '<stop offset="0" stop-color="#D43B2D" stop-opacity="0"/><stop offset=".45" stop-color="#F0A27F" stop-opacity=".75"/><stop offset="1" stop-color="#E6BB35" stop-opacity=".35"/></linearGradient>'
             '<linearGradient id="sg-b" gradientUnits="userSpaceOnUse" x1="-80" y1="0" x2="760" y2="0">'
-            '<stop offset="0" stop-color="#2DD4BF" stop-opacity=".25"/><stop offset=".6" stop-color="#4ADE80" stop-opacity=".7"/><stop offset="1" stop-color="#A3E635" stop-opacity="0"/></linearGradient></defs>'
+            '<stop offset="0" stop-color="#D43B2D" stop-opacity=".25"/><stop offset=".6" stop-color="#F0A27F" stop-opacity=".7"/><stop offset="1" stop-color="#E6BB35" stop-opacity="0"/></linearGradient></defs>'
             f'<g class="s-a" fill="none" stroke="url(#sg-a)" stroke-width=".9">{a}</g>'
             f'<g class="s-b" fill="none" stroke="url(#sg-b)" stroke-width=".9">{b}</g></svg>')
 
