@@ -39,12 +39,22 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 .tool-logo[data-tool="Claude Code"] .tl-word { height: 28px; }
 .tool-logo[data-tool="Claude Code"] .tl-mark { height: 22px; }
 .tool-logo .tl-name { font: 600 19px/1 'InterM2', system-ui, sans-serif; letter-spacing: -.01em; }
-/* הקורס במספרים: פס שזז משמאל לימין, בלי רווח */
+/* הקורס במספרים: פס שזז משמאל לימין, בלי רווח (אפשרות 1: מספר ירוק עדין) */
 .tk-view { position: relative; flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .tk-track { display: flex; width: max-content; will-change: transform; }
 .tk-group { display: flex; align-items: center; flex: none; }
-.tk-item { display: inline-flex; align-items: baseline; gap: 8px; padding-inline: 22px; white-space: nowrap; font-size: 15px; color: var(--color-text-sub, #5c5c5c); position: relative; }
-.tk-item::after { content: ""; position: absolute; inset-inline-end: 0; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: #1fa77a; opacity: .5; }
-.tk-item b { font: 600 22px/1 'InterM2', 'Kobi', system-ui, sans-serif; color: #0c0c0c; letter-spacing: -.02em; }
+.tk-item { display: inline-flex; align-items: center; gap: 8px; padding-inline: 20px; white-space: nowrap; font-size: 15px; color: #666; }
+.tk-item b { font: 500 16px/1 'InterM2', 'Kobi', system-ui, sans-serif; color: #1fa77a; }
+/* 9 כלים: 5 למעלה, 4 למטה */
+@media (max-width: 39.99rem) { .m2-tools > :last-child { grid-column: span 2; } }
+.tool-logo[data-tool="Cloudflare"] .tl-word { height: 11px; }
+.tool-logo[data-tool="Cloudflare"] .tl-mark { height: 22px; }
+.tool-logo[data-tool="Cloudflare"] { gap: 7px; }
+@media (min-width: 40rem) {
+  .m2-tools { grid-template-columns: repeat(20, minmax(0, 1fr)) !important; }
+  .m2-tools > * { grid-column: span 5; aspect-ratio: auto !important; min-height: 150px; }
+  .m2-tools > :nth-child(-n+5) { grid-column: span 4; }
+  .m2-tools > :nth-child(-n+5) .tool-logo { transform: scale(.86); }
+}
 .cn-tile { position: absolute; z-index: 2; display: flex; align-items: center; justify-content: center; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05); pointer-events: none; }
 .cn-tile img { width: 46%; height: 46%; }
