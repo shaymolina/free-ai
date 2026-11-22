@@ -448,5 +448,18 @@
     btns.forEach(function (b) { b.addEventListener('click', function () { mode = b.getAttribute('aria-label').toLowerCase(); try { localStorage.setItem(KEY, mode); } catch (e) {} apply(); }); });
     mq.addEventListener && mq.addEventListener('change', apply); apply();
   }
+  /* ---------- חזרה למעלה: גלילה רכה עם האטה בסוף ---------- */
+  function initToTop() {
+    document.querySelectorAll('[data-totop]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var y0 = window.scrollY, t0 = null, dur = Math.min(1400, 500 + y0 / 6);
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !y0) { window.scrollTo(0, 0); return; }
+        var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+        (function step(ts) { if (t0 === null) t0 = ts; var p = Math.min(1, (ts - t0) / dur); window.scrollTo({ top: y0 * (1 - ease(p)), behavior: 'instant' }); if (p < 1) requestAnimationFrame(step); })(performance.now());
+      });
+    });
+  }
+  initToTop();
   initTheme(); initRibbons(); initRollers(); initTicker(); initCardDots(); initSectionDots(); initCarousels();
 })();

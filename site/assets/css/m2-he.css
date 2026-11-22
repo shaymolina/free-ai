@@ -58,6 +58,19 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 }
 .cn-tile { position: absolute; z-index: 2; display: flex; align-items: center; justify-content: center; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05); pointer-events: none; }
 .cn-tile img { width: 46%; height: 46%; }
+/* 8 כלים: 4 למעלה, 4 למטה */
+@media (min-width: 40rem) {
+  .m2-tools { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .m2-tools > *, .m2-tools > :nth-child(-n+5) { grid-column: auto !important; }
+  .m2-tools > :nth-child(-n+5) .tool-logo { transform: none; }
+}
+@media (max-width: 39.99rem) { .m2-tools > :last-child { grid-column: auto; } }
+/* פס המספרים: נקודה כתומה בין פריט לפריט, ומספר צמוד למילה */
+.tk-item { gap: 7px; padding-inline: 0; align-items: baseline; color: #555; }
+.tk-item::after { content: ""; align-self: center; width: 4px; height: 4px; border-radius: 50%; background: #d97757; opacity: .55; margin-inline: 22px; }
+.tk-item b { font-weight: 600; font-size: 17px; letter-spacing: -.01em; }
+/* כל הכותרות הראשיות בבולד הכי עבה */
+main section h2, main section h2 strong, main section h2 > span { font-weight: 900 !important; }
 
 /* התצוגה החיה של המדריך בפתיחה של דף הבית */
 .m2-live { position: absolute; top: 0; left: 0; width: 1200px; height: 729px; border: 0; transform-origin: 0 0; pointer-events: none; background: #fff; }
