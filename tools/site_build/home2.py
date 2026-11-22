@@ -110,9 +110,16 @@ def do_hero(sec, n_ch):
     box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
     box["aria-label"] = "המדריך הכתוב של Free AI"
     imgs = box.find_all("img")
-    imgs[0]["src"] = "assets/images/home2/preview-w.webp"; imgs[0]["alt"] = "המדריך הכתוב: פרק 1, לפני שמתחילים"
-    for k in ("srcset", "sizes"):
-        imgs[0].attrs.pop(k, None)
+    # תצוגה חיה של העמוד הראשון במדריך (לא צילום), כך שכל שינוי במדריך מופיע כאן לבד
+    live = BeautifulSoup(
+        '<iframe class="m2-live" src="guide-1.html" title="המדריך הכתוב: פרק 1" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
+        '<span class="m2-live-fade" aria-hidden="true"></span>'
+        '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
+        'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
+        'fit();addEventListener("resize",fit);'
+        'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";'
+        'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>', "html.parser")
+    imgs[0].replace_with(live)
     imgs[1].decompose()
 
 
@@ -308,7 +315,7 @@ def do_starts(sec, n_ch):
         c = copy.copy(tpl)
         a = c.find("a"); a["href"] = href; a["data-occlude"] = ""
         imgs = a.find_all("img")
-        imgs[0]["src"] = f"assets/images/home2/card-{k}{'-w' if k in (1, 2, 4) else ''}.webp"; imgs[0]["alt"] = ""
+        imgs[0]["src"] = f"assets/images/home2/card-{k}{'-w' if k in (2, 4) else ''}.webp"; imgs[0]["alt"] = ""
         for x in ("srcset", "sizes"): imgs[0].attrs.pop(x, None)
         imgs[1].decompose()
         put(a.find("p"), f'<span class="font-medium text-text-main">{t}</span> {d.format(n=n_ch)}')

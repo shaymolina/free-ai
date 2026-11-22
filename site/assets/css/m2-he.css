@@ -71,3 +71,7 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 .tk-item b { font-weight: 600; font-size: 17px; letter-spacing: -.01em; }
 /* כל הכותרות הראשיות בבולד הכי עבה */
 main section h2, main section h2 strong, main section h2 > span { font-weight: 900 !important; }
+
+/* התצוגה החיה של המדריך בפתיחה של דף הבית */
+.m2-live { position: absolute; top: 0; left: 0; width: 1200px; height: 729px; border: 0; transform-origin: 0 0; pointer-events: none; background: #fff; }
+.m2-live-fade { position: absolute; inset: auto 0 0 0; height: 35%; pointer-events: none; background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); }
