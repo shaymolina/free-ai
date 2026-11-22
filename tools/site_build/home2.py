@@ -119,7 +119,7 @@ def soup_tag(node, name, **attrs):
 
 
 # ---------------------------------------------------------------- כלים + פס מספרים
-TOOLS = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-19.html", "cloud"),
+TOOLS = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-18.html", "cloud"),
          ("Connectors", "guide-13.html", "plug"), ("Skills", "guide-14.html", "box"), ("Plugins", "guide-15.html", "layers"), ("Google Drive", "article-github-backup.html", "drive")]
 
 
@@ -357,7 +357,7 @@ def do_footer(soup, arts):
     put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:34px;width:auto">')
     for st in f.find_all("a", href="https://status.mintlify.com/"):
         st["href"] = "guide-1.html"; st.attrs.pop("target", None); st.attrs.pop("rel", None)
-        st.find_all("span", recursive=False)[1].string = "23 פרקים זמינים לקריאה"
+        st.find_all("span", recursive=False)[1].string = "22 פרקים זמינים לקריאה"
     cols = [("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-18.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
