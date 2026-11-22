@@ -35,7 +35,7 @@ body{font-family:'Urbanist',sans-serif;color:#1F1E1D;direction:rtl;overflow:hidd
 .term .bar i{background:#45423D}
 .term .bar span{color:#8F8A82}
 .tl{font-size:19px;line-height:1.9;font-family:'Urbanist',ui-monospace,monospace}
-.ok{color:#7DC08A}.warn{color:#E8B45A}.bad{color:#E26D5A}
+.ok{color:#C0977D}.warn{color:#E8B45A}.bad{color:#E26D5A}
 `;
 
 const page = (w, h, body) => `<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
@@ -129,7 +129,7 @@ const F = {
         <div style="font-size:72px;font-weight:700" class="spark">88<span style="font-size:30px" class="muted">/100</span></div>
       </div>
       <div style="display:flex;gap:20px">
-        ${[['#E7F4EA', '#2F8A47', '31', 'תקין'], ['#FBF0DC', '#B07A1C', '2', 'לשיפור'], ['#FBE3DF', '#C0432F', '1', 'דחוף']].map(([b, c, n, t]) => `<div style="flex:1;background:${b};border-radius:18px;padding:24px 28px"><div style="font-size:48px;font-weight:700;color:${c}">${n}</div><div style="font-size:20px;font-weight:600;color:${c}">${t}</div></div>`).join('')}
+        ${[['#F4ECE7', '#8A4F2F', '31', 'תקין'], ['#FBF0DC', '#B07A1C', '2', 'לשיפור'], ['#FBE3DF', '#C0432F', '1', 'דחוף']].map(([b, c, n, t]) => `<div style="flex:1;background:${b};border-radius:18px;padding:24px 28px"><div style="font-size:48px;font-weight:700;color:${c}">${n}</div><div style="font-size:20px;font-weight:600;color:${c}">${t}</div></div>`).join('')}
       </div>
       ${[['bad', '✗', 'טופס יצירת הקשר לא מוגן מספאם'], ['warn', '!', 'חסרה כותרת אבטחה בשרת'], ['ok', '✓', 'החיבור מוצפן (HTTPS)']].map(([c, s, t]) => `<div style="display:flex;gap:16px;align-items:center;font-size:22px;border-bottom:1px solid #F0ECE5;padding-bottom:16px"><span class="${c}" style="font-weight:700;font-size:26px;width:26px">${s}</span>${t}</div>`).join('')}
     </div>`),

@@ -110,7 +110,7 @@ def do_hero(sec, n_ch):
     box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
     box["aria-label"] = "המדריך הכתוב של Free AI"
     imgs = box.find_all("img")
-    imgs[0]["src"] = "assets/images/home2/preview.webp"; imgs[0]["alt"] = "המדריך הכתוב: פרק 1, לפני שמתחילים"
+    imgs[0]["src"] = "assets/images/home2/preview-w.webp"; imgs[0]["alt"] = "המדריך הכתוב: פרק 1, לפני שמתחילים"
     for k in ("srcset", "sizes"):
         imgs[0].attrs.pop(k, None)
     imgs[1].decompose()
@@ -182,14 +182,14 @@ def carousel_buttons(sec, what):
 import copy
 
 STORIES = [
-    ("#0F5C3F", "אתר לעסק", 'ככה <span class="text-white">הודעה אחת בעברית</span> הופכת לאתר עם גלריה וטופס', [("1", "הודעה בעברית"), ("0", "שורות קוד שאתם כותבים")],
+    ("#5C1E0F", "אתר לעסק", 'ככה <span class="text-white">הודעה אחת בעברית</span> הופכת לאתר עם גלריה וטופס', [("1", "הודעה בעברית"), ("0", "שורות קוד שאתם כותבים")],
      "article-what-is-claude-code.html", "assets/images/claude/build-site.jpg"),
     ("#4763D6", "גיבוי אוטומטי", 'ככה <span class="text-white">כל הפרויקטים</span> נשמרים לבד בגוגל דרייב, כל לילה', [("03:00", "כל לילה"), ("₪0", "עלות")],
      "article-github-backup.html", "assets/images/guide/backup-1.png"),
     ("#C8553A", "מעלים לאוויר", 'ככה האתר מקבל <span class="text-white">כתובת אמיתית</span> שאפשר לשלוח לכל אחד', [("1", "כתובת לשתף"), ("30", "ימים בחינם עם הקופון")],
      "guide-18.html", "assets/images/guide/claude-map.png"),
     ("#7A3FC4", "סקילים", 'ככה <span class="text-white">יכולת מוכנה</span> נכנסת לקלוד בלחיצה אחת', [("1", "לחיצה להורדה"), ("₪0", "מחיר")],
-     "work.html", "assets/images/home2/skills.webp"),
+     "work.html", "assets/images/home2/skills-w.webp"),
 ]
 
 
@@ -230,8 +230,8 @@ def bento_mocks():
     return [(li.find("h3").get_text(), str(li.find("div", class_="mk"))) for li in soup.find_all("li", class_="bento-c")]
 
 
-RIVES = [("agent-native-platform-warm2", "agent-native-platform-mobile-warm2"), ("self-updating-knowledge", None), ("control-who-has-access", None),
-         ("connect-with-your-systems", None), ("collaborate-with-your-team-and-agents", None), ("build-on-top-of-your-existing-setup", "build-on-top-of-your-existing-setup-mobile")]
+RIVES = [("agent-native-platform-warm3", "agent-native-platform-mobile-warm3"), ("self-updating-knowledge-warm3", None), ("control-who-has-access-warm3", None),
+         ("connect-with-your-systems-warm3", None), ("collaborate-with-your-team-and-agents-warm3", None), ("build-on-top-of-your-existing-setup-warm3", "build-on-top-of-your-existing-setup-mobile-warm3")]
 
 
 BENTO_TITLES = ["כותבים בעברית, קלוד קוד בונה",
@@ -299,7 +299,7 @@ def do_starts(sec, n_ch):
         c = copy.copy(tpl)
         a = c.find("a"); a["href"] = href; a["data-occlude"] = ""
         imgs = a.find_all("img")
-        imgs[0]["src"] = f"assets/images/home2/card-{k}.webp"; imgs[0]["alt"] = ""
+        imgs[0]["src"] = f"assets/images/home2/card-{k}{'-w' if k in (1, 2, 4) else ''}.webp"; imgs[0]["alt"] = ""
         for x in ("srcset", "sizes"): imgs[0].attrs.pop(x, None)
         imgs[1].decompose()
         put(a.find("p"), f'<span class="font-medium text-text-main">{t}</span> {d.format(n=n_ch)}')
@@ -335,7 +335,7 @@ def do_posts(sec, arts):
         k = [x["href"] for x in a.find_parent("div").find_all("a", recursive=False)].index(a["href"]) % 3
         href, title = items[k]
         a["href"] = href
-        img = a.find("img"); img["src"] = f"assets/images/home2/post-{k}.webp"; img["alt"] = ""
+        img = a.find("img"); img["src"] = f"assets/images/home2/post-{k}{'-w' if k in (0, 1) else ''}.webp"; img["alt"] = ""
         for x in ("srcset", "sizes"): img.attrs.pop(x, None)
         spans = a.find("div", class_="items-center").find_all("span", recursive=False)
         put(spans[0], "מאמר" if k < 2 else "מאמרים"); put(spans[1], "נובמבר 2026" if k < 2 else "")

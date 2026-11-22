@@ -14,7 +14,7 @@ def _grad(gid, x1, x2, stops):
     return f'<linearGradient id="{gid}" gradientUnits="userSpaceOnUse" x1="{x1}" y1="0" x2="{x2}" y2="0">{s}</linearGradient>'
 
 
-GREEN = [(0, "#2DD4BF", 0), (.45, "#4ADE80", .75), (1, "#A3E635", .35)]
+GREEN = [(0, "#D43B2D", 0), (.45, "#F0A27F", .75), (1, "#E6BB35", .35)]
 
 
 def strands(gid, w, h, n, f, stops=GREEN, cls="", width=.9):
@@ -38,7 +38,7 @@ def wave(gid, w=1088, h=300, n=26):
         return "M " + " L ".join(pts)
     a = "".join(f'<path d="{line(i)}"/>' for i in range(0, n, 2))
     b = "".join(f'<path d="{line(i)}"/>' for i in range(1, n, 2))
-    stops = [(0, "#2DD4BF", .05), (.3, "#34D399", .75), (.7, "#A3E635", .75), (1, "#2DD4BF", .1)]
+    stops = [(0, "#D43B2D", .05), (.3, "#D35234", .75), (.7, "#E6BB35", .75), (1, "#D43B2D", .1)]
     return (f'<svg class="wave" viewBox="0 0 {w} {h}" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
             f'<defs>{_grad(gid, 0, w, stops)}</defs>'
             f'<g class="w-a" fill="none" stroke="url(#{gid})" stroke-width=".9">{a}</g>'
@@ -55,7 +55,7 @@ def dots(seed, w, h, n, cls="dither"):
             p = max(2.718 ** (-((gx - cx) ** 2 + (gy - cy) ** 2) / (2 * sg * sg)) for cx, cy, sg in centers)
             if r.random() > p * .85:
                 continue
-            c = r.choices(["#D6D4D0", "#B9B8B5", "#16A34A", "#84CC16"], [72, 16, 8, 4])[0]
+            c = r.choices(["#D6D4D0", "#B9B8B5", "#D97757", "#CC9E16"], [72, 16, 8, 4])[0]
             out.append(f'<rect x="{gx}" y="{gy}" width="1.6" height="1.6" fill="{c}"/>')
     return f'<svg class="{cls}" viewBox="0 0 {w} {h}" aria-hidden="true" focusable="false">{"".join(out)}</svg>'
 
@@ -64,7 +64,7 @@ def card_strings(gid):
     """חוטים עדינים לרקע של כרטיסי הבנטו."""
     return strands(gid, 600, 360, 18,
                    lambda t: f"M -40 {250 + 90 * t:.1f} C 160 {120 - 160 * t:.1f}, 380 {330 + 120 * t:.1f}, 660 {90 + 200 * t:.1f}",
-                   stops=[(0, "#2DD4BF", .1), (.5, "#4ADE80", .55), (1, "#A3E635", .2)], cls="b-str", width=.8)
+                   stops=[(0, "#D43B2D", .1), (.5, "#F0A27F", .55), (1, "#E6BB35", .2)], cls="b-str", width=.8)
 
 
 def art_strings(gid, color="#FFFFFF"):

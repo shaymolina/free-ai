@@ -46,7 +46,7 @@
   /* ---------- סרט חוטים (כמו בפתיחה של Mintlify): 24 חוטים, סיבוב, הבזקי צבע ---------- */
   var RIB = {
     hero: { W: 1720, H: 1080, count: 24, res: 81, spacing: 4.9, amp: 163, freq: .75, phase: .14, twist: .41, bulge: .66, morph: .5,
-      speed: .66, from: '#18e299', to: '#baff24', pColors: ['#d87cff', '#ffa723', '#44aeff', '#ffa3d3'], pSize: 3, pLen: 88,
+      speed: .66, from: '#e0461c', to: '#ffc62e', pColors: ['#d87cff', '#ffa723', '#44aeff', '#ffa3d3'], pSize: 3, pLen: 88,
       pSpeed: .84, pSparse: .32, seed: 2025, rotate: -28, edge: .25 }
   };
   function hx(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
