@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SITE = ROOT / "site"
-BASE = "https://free-ai.il.4code.site"
+BASE = "https://free-ai.co.il"
 SITE_NAME = "Free AI"
 OG_IMAGE = BASE + "/assets/images/og.png"
 NOINDEX = {"soon", "home-2"}  # עמודים שלא צריכים להופיע בגוגל (שם הקובץ בלי .html)

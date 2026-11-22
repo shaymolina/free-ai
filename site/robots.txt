@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /files/
 
-Sitemap: https://free-ai.il.4code.site/sitemap.xml
+Sitemap: https://free-ai.co.il/sitemap.xml

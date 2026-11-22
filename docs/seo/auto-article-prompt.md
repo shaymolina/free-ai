@@ -1,7 +1,7 @@
 משימה אוטומטית: לכתוב ולפרסם את המאמר הבא מתור המאמרים של האתר Free AI.
 
 הריפו: shaymolina/free-ai בלבד (לבעל האתר יש כמה חשבונות GitHub ו-Supabase, אל תיגע באף אחד אחר). אם הריפו לא נמצא בסשן, צרף אותו עם add_repo (owner: shaymolina, repo: free-ai) ושכפל אותו.
-האתר החי: https://free-ai.il.4code.site . הענף החי: claude/modest-mccarthy-4tu0v3.
+האתר החי: https://free-ai.co.il . הענף החי: claude/modest-mccarthy-4tu0v3.
 
 שלבים:
 1. קודם כל עובדים על הגרסה העדכנית של האתר החי: `git fetch origin claude/modest-mccarthy-4tu0v3 && git checkout -B seo-auto FETCH_HEAD`.

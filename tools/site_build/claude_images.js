@@ -199,7 +199,7 @@ const skillsSettings = (big) => win(big ? 1200 : 1100, big ? 760 : 720, 'Claude 
 
 const P = {
   // עמוד הקורס – שיעור עם סרטון ורשימת שיעורים
-  'section/service-single-1': [1914, 1092, `<div style="transform:scale(1.35)">${win(1300, 700, 'free-ai.il.4code.site · Claude מאפס', `
+  'section/service-single-1': [1914, 1092, `<div style="transform:scale(1.35)">${win(1300, 700, 'free-ai.co.il · Claude מאפס', `
     <div style="display:flex;flex:1;gap:24px;padding:24px;background:#F7F5F0">
       <div style="flex:1;display:flex;flex-direction:column;gap:16px">
         ${video('שיעור 3 · פרויקטים וקבצים')}
@@ -213,7 +213,7 @@ const P = {
       </div>
     </div>`)}</div>`],
   // סיכום שיעור וקבצים להורדה
-  'section/service-single-2': [1284, 807, `<div style="transform:scale(1.25)">${win(900, 560, 'free-ai.il.4code.site · שיעור 3', `
+  'section/service-single-2': [1284, 807, `<div style="transform:scale(1.25)">${win(900, 560, 'free-ai.co.il · שיעור 3', `
     <div style="flex:1;background:#fff;padding:30px 36px;display:flex;gap:30px">
       <div style="flex:1;display:flex;flex-direction:column;gap:12px">
         <div style="font-size:24px;font-weight:700">סיכום השיעור</div>
