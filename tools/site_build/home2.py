@@ -251,7 +251,7 @@ def do_scale(sec, n_ch):
     cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
     stats = [(str(n_ch), "פרקים קצרים במדריך"), ("8", "שיעורי וידאו לפי הסדר"), ("₪0", "מחיר הקורס, תמיד")]
     for blk, (n, lab) in zip(sec.find_all("div", class_="gap-6"), stats):
-        ps = blk.find_all("p"); put(ps[0], roller(n) if n.isdigit() else f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
+        ps = blk.find_all("p"); put(ps[0], f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
 
 
 # ---------------------------------------------------------------- כרטיסים צבעוניים
