@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "47"
+CSS_VERSION = "48"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -331,14 +331,14 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
             <header class="ds-top has-head">
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
                 <span class="ds-vsep"></span>
-                <div class="page-head"><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
+                <div class="page-head"><h1>{name}</h1>{f'<span class="hsep" aria-hidden="true"></span><p class="lead">{lead}</p>' if lead else ''}</div>
                 <div class="ds-actions top-menu"><button type="button" class="icon-btn" id="top-menu-btn" aria-label="תפריט האתר" aria-expanded="false" aria-controls="top-menu">{_ico(ICO["lines"])}</button>
                     <div class="menu-pop" id="top-menu" hidden>{site_menu()}</div></div>
             </header>
             <main class="ds-content">
                 <article class="lesson">
                     {top}{rows_block}{flow}{extra}
-                    <div class="lesson-end"><span>{note}</span><button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לפרק הבא ←" if nxt or n < len(CHAPTERS) else "סיימתי את המדריך ✓"}</button></div>
+                    <div class="lesson-end"><span>{note}</span><div class="end-btns">{f'<a href="guide-{n - 1}.html" class="btn btn-2">→ הפרק הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לפרק הבא ←" if nxt or n < len(CHAPTERS) else "סיימתי את המדריך ✓"}</button></div></div>
                 </article>
                 {FOOTER}
             </main>
@@ -358,8 +358,7 @@ build_chapter(
     [("מחשב", "Mac או Windows"), ("מייל", "אחד לכל השירותים"), ("כרטיס אשראי", "כ-20 דולר לחודש לקלוד")],
     "כל השאר בחינם להתחלה",
     extra=f'''
-                <p class="more-link">לא בטוחים מה זה בכלל? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a></p>
-                <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>{COUPON}</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="{COUPON}">העתקה</button></div>''',
+                <p class="more-link">לא בטוחים מה זה בכלל? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a></p>''',
 )
 
 
@@ -643,7 +642,9 @@ build_chapter(
      (None, "דוגמאות"),
      ("כתובת חינמית", "שם-האתר.il.4code.site, מוכנה מיד ובלי לשלם"),
      ("כתובת פרטית", "carpenter.co.il, קונים דרך 4CODE ומחברים לאתר")],
-    "יש לכם קופון? בפרק 1 יש קופון לחודש ראשון חינם",
+    "מעכשיו האתר באוויר, וכל שינוי עולה לבד",
+    extra=f'''
+                <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>{COUPON}</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="{COUPON}">העתקה</button></div>''',
     flow=flow([
         ("בוחרים מסלול", 'ב-<a href="https://4code.co.il/pricing" target="_blank" rel="noopener">4code.co.il</a> לוחצים על מסלולים, ובחינם לוחצים "מתחילים בחינם".<small class="fnote">אחר כך ממלאים שם, מייל וטלפון, ומסיימים את ההזמנה.</small>', "4code-1.mp4"),
         ("נכנסים לפלטפורמה", "לוחצים \"התחברות לחשבון\" ואז \"אשר\".", "4code-2.mp4"),

@@ -8,7 +8,16 @@ SITE = os.path.join(HERE, "..", "..", "site")
 sys.path.insert(0, HERE)
 import home_mint  # noqa: E402
 
-V = "2"
+def _asset_version():
+    """גרסה לפי התוכן של קבצי העיצוב והקוד, כדי שהדפדפן ייקח את החדשים אחרי כל שינוי."""
+    import hashlib
+    h = hashlib.md5()
+    for f in ("css/m2.css", "css/m2-he.css", "css/tokens.css", "js/m2.js"):
+        h.update(open(os.path.join(os.path.dirname(__file__), "..", "..", "site", "assets", f), "rb").read())
+    return h.hexdigest()[:8]
+
+
+V = _asset_version()
 HEAD = """<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -90,7 +99,7 @@ def do_header(soup):
 def do_hero(sec, n_ch):
     cv = sec.find("canvas"); cv["data-rib"] = "hero"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
     sec.find("a", href="/data").decompose()  # בלי התגית מעל הכותרת
-    h1 = sec.find("h1"); put(h1, "קורס קלוד קוד<br>בחינם ובעברית"); h1["class"] = h1.get("class", []) + ["m2-h1"]
+    h1 = sec.find("h1"); put(h1, "קורס קלוד קוד בחינם ובעברית"); h1["class"] = h1.get("class", []) + ["m2-h1"]
     p = h1.find_next("p")
     put(p, 'קורס Claude Code למתחילים, בלי ידע בתכנות. <span class="font-medium text-text-main">שיעורי וידאו</span>, <span class="font-medium text-text-main">מדריך כתוב</span> ו<span class="font-medium text-text-main">סקילים</span>.')
     a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
@@ -113,8 +122,15 @@ def soup_tag(node, name, **attrs):
 
 
 # ---------------------------------------------------------------- כלים + פס מספרים
-TOOLS = [("Claude", "guide-3.html", "claude"), ("Claude Code", "guide-4.html", "claude"), ("GitHub", "guide-5.html", "github"), ("4CODE", "guide-18.html", "4code"),
-         ("Connectors", "guide-13.html", "claude"), ("Skills", "guide-14.html", "claude"), ("Plugins", "guide-15.html", "claude"), ("Supabase", "guide-13.html", "supabase")]
+# כל כלי: שם, קישור, והלוגו האמיתי (סימן + שם כמו שהחברה מציירת אותו). לסקילים, לקונקטורים ולפלאגינים אין לוגו משלהם, אז הם מקבלים את הסימן של קלוד.
+TOOLS = [("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
+         ("Claude Code", "guide-4.html", ["claudecode-mark.svg", "claudecode-text.svg"]),
+         ("Skills", "guide-14.html", ["claude-mark.svg", None]),
+         ("Connectors", "guide-13.html", ["claude-mark.svg", None]),
+         ("Plugins", "guide-15.html", ["claude-mark.svg", None]),
+         ("GitHub", "guide-5.html", ["github-mark.svg", "github-text.svg"]),
+         ("4CODE", "guide-18.html", ["4code-logo.png"]),
+         ("Supabase", "guide-13.html", ["supabase-logo.svg"])]
 
 
 def do_tools(sec, n_ch, n_art):
@@ -123,7 +139,8 @@ def do_tools(sec, n_ch, n_art):
     cards = sec.find_all("div", class_="group/card")
     for card, (name, href, ic) in zip(cards, TOOLS):
         logo = card.find_all("span", recursive=False)[1]
-        put(logo, f'<span class="tool-logo" dir="ltr"><img src="assets/images/brands/{ic}.svg" alt="" width="26" height="26">{name}</span>')
+        parts = "".join(f'<img class="{("tl-mark" if k == 0 and len(ic) > 1 else "tl-word")}" src="assets/images/brands/{f}" alt="">' if f else f'<span class="tl-name">{name}</span>' for k, f in enumerate(ic))
+        put(logo, f'<span class="tool-logo" dir="ltr" data-tool="{name}">{parts}</span>')
         for x in card.find_all("span", class_="sr-only", recursive=False): x.decompose()
         link = card.find("a", recursive=False)
         arrow = '<span class="pointer-events-none absolute bottom-3 left-3 opacity-0 transition-opacity duration-150 ease-out group-hover/card:opacity-100">' + icon("chev-l", "text-text-sub size-4") + '</span>'
