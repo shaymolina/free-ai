@@ -117,7 +117,7 @@ def do_hero(sec, n_ch):
         '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
         'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
         'fit();addEventListener("resize",fit);'
-        'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";'
+        'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";d.documentElement.classList.remove("dark");'
         'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>', "html.parser")
     imgs[0].replace_with(live)
     imgs[1].decompose()
