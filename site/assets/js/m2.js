@@ -5,7 +5,7 @@
   /* ---------- סרט חוטים (כמו בפתיחה של Mintlify): 24 חוטים, סיבוב, הבזקי צבע ---------- */
   var RIB = {
     hero: { W: 1720, H: 1080, count: 24, res: 81, spacing: 4.9, amp: 163, freq: .75, phase: .14, twist: .41, bulge: .66, morph: .5,
-      speed: .66, from: '#1e6bff', to: '#38d6ff', pColors: ['#d87cff', '#ffa723', '#44aeff', '#ffa3d3'], pSize: 3, pLen: 88,
+      speed: .66, from: '#b8532f', to: '#f0a27f', pColors: ['#d87cff', '#ffa723', '#44aeff', '#ffa3d3'], pSize: 3, pLen: 88,
       pSpeed: .84, pSparse: .32, seed: 2025, rotate: -28, edge: .25 }
   };
   RIB.wave = Object.assign({}, RIB.hero, { pSpeed: 1.15, rotate: 0 });
