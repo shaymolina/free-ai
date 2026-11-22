@@ -299,7 +299,7 @@ def do_starts(sec, n_ch):
         c = copy.copy(tpl)
         a = c.find("a"); a["href"] = href; a["data-occlude"] = ""
         imgs = a.find_all("img")
-        imgs[0]["src"] = f"assets/images/home2/card-{k}{'-w' if k in (1, 2, 4) else ''}.webp"; imgs[0]["alt"] = ""
+        imgs[0]["src"] = f"assets/images/home2/card-{k}{'-w' if k in (2, 4) else ''}.webp"; imgs[0]["alt"] = ""
         for x in ("srcset", "sizes"): imgs[0].attrs.pop(x, None)
         imgs[1].decompose()
         put(a.find("p"), f'<span class="font-medium text-text-main">{t}</span> {d.format(n=n_ch)}')
