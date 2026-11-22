@@ -103,7 +103,7 @@ def do_hero(sec, n_ch):
     p = h1.find_next("p")
     put(p, 'קורס Claude Code למתחילים, בלי ידע בתכנות. <span class="font-medium text-text-main">שיעורי וידאו</span>, <span class="font-medium text-text-main">מדריך כתוב</span> ו<span class="font-medium text-text-main">סקילים</span>.')
     a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
-    a1.contents[0].replace_with("התחל ללמוד")
+    a1.contents[0].replace_with("להתחיל ללמוד בחינם")
     a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = "guide-1.html"
     put(a2, icon("book", "size-4 text-brand") + "למדריך הכתוב")
     a2.find_parent("div").find_next_sibling("div").decompose()  # בלי "מה צריך כדי להתחיל"
@@ -135,7 +135,7 @@ TOOLS = [("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
 
 
 def do_tools(sec, n_ch, n_art):
-    h2 = sec.find("h2"); put(h2, f'כל <strong class="font-medium text-text-main">{len(TOOLS)} הכלים</strong> שתפגשו בדרך, בעברית ובחינם.')
+    h2 = sec.find("h2"); put(h2, f'<strong class="font-medium text-text-main">{len(TOOLS)} הכלים</strong> שהופכים אדם אחד לצוות שלם.')
     a = h2.find_next("a"); a["href"] = "guide-1.html"; a.contents[0].replace_with("למדריך המלא")
     cards = sec.find_all("div", class_="group/card")
     cards[0].parent["class"] = cards[0].parent["class"] + ["m2-tools"]
@@ -236,7 +236,7 @@ RIVES = [("agent-native-platform-warm2", "agent-native-platform-mobile-warm2"), 
 
 BENTO_TITLES = ["כותבים בעברית, קלוד קוד בונה",
                 "מתחילים מאפס, בלי ידע ובחינם",
-                "אתם מחליטים, קלוד מבצע",
+                "אתם מחליטים, קלוד עושה את העבודה",
                 "מתחברים לשירותים",
                 "עובדים כבר על קורס סוכנים. כן, גם בחינם.",
                 "רעיון בבוקר, אתר באוויר בערב"]
@@ -270,9 +270,9 @@ def mock_css():
 
 # ---------------------------------------------------------------- גל + מספרים
 def do_scale(sec, n_ch):
-    do_head(sec, "מאפס לאתר באוויר.", "בלי לכתוב קוד, בלי לשלם, ובעברית.", "guide-1.html", "לפרק הראשון")
+    do_head(sec, "קלוד קוד כבר משנה את הדרך שבה אנשים עובדים.", "הגיע הזמן שגם אתם.", "guide-1.html", "לפרק הראשון")
     cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
-    stats = [("0", "שורות קוד שתצטרכו לכתוב"), ("1", "אתר אמיתי באוויר בסוף הקורס"), ("100%", "בעברית, מהשיעור הראשון")]
+    stats = [("₪0", "לקורס. למדריכים. לכל הידע"), ("∞", "דברים שתוכלו לבנות"), ("1", "אדם, היכולת של צוות")]
     grid = sec.find_all("div", class_="gap-6")[0].parent  # בעברית הריפוד צריך להיות בצד של הקו המפריד
     grid["class"] = grid["class"] + ["m2-stats"]
     for blk, (n, lab) in zip(sec.find_all("div", class_="gap-6"), stats):
