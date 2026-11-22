@@ -130,13 +130,17 @@ TOOLS = [("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
          ("Plugins", "guide-15.html", ["claude-mark.svg", None]),
          ("GitHub", "guide-5.html", ["github-mark.svg", "github-text.svg"]),
          ("4CODE", "guide-18.html", ["4code-logo.png"]),
-         ("Supabase", "guide-13.html", ["supabase-logo.svg"])]
+         ("Supabase", "guide-13.html", ["supabase-logo.svg"]),
+         ("Cloudflare", "guide-18.html", ["cloudflare-mark.svg", "cloudflare-text.svg"])]
 
 
 def do_tools(sec, n_ch, n_art):
     h2 = sec.find("h2"); put(h2, f'כל <strong class="font-medium text-text-main">{len(TOOLS)} הכלים</strong> שתפגשו בדרך, בעברית ובחינם.')
     a = h2.find_next("a"); a["href"] = "guide-1.html"; a.contents[0].replace_with("למדריך המלא")
     cards = sec.find_all("div", class_="group/card")
+    cards[0].parent["class"] = cards[0].parent["class"] + ["m2-tools"]
+    while len(cards) < len(TOOLS):  # שורה עליונה: 5 כלים של קלוד, שורה תחתונה: 4 כלים חיצוניים
+        c = copy.copy(cards[-1]); cards[-1].insert_after(c); cards.append(c)
     for card, (name, href, ic) in zip(cards, TOOLS):
         logo = card.find_all("span", recursive=False)[1]
         parts = "".join(f'<img class="{("tl-mark" if k == 0 and len(ic) > 1 else "tl-word")}" src="assets/images/brands/{f}" alt="">' if f else f'<span class="tl-name">{name}</span>' for k, f in enumerate(ic))
@@ -235,7 +239,7 @@ BENTO_TITLES = ["כותבים בעברית, קלוד קוד בונה",
                 "אתם מחליטים, קלוד מבצע",
                 "מתחברים לשירותים",
                 "עובדים כבר על קורס סוכנים. כן, גם בחינם.",
-                "מהרעיון לאתר שעובד באוויר"]
+                "רעיון בבוקר, אתר באוויר בערב"]
 
 
 def do_bento(sec):
