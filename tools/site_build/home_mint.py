@@ -152,7 +152,7 @@ def hero_preview(chapters):
 
 
 def sec_tools(n_chapters, n_minutes, n_articles):
-    tools = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-19.html", "cloud"),
+    tools = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-18.html", "cloud"),
              ("Connectors", "guide-13.html", "plug"), ("Skills", "guide-14.html", "box"), ("Plugins", "guide-15.html", "layers"), ("Google Drive", "article-github-backup.html", "drive")]
     tiles = "".join(f'<li><a class="tool" href="{h}"><b dir="ltr">{icon(i)}{a}</b><span class="tool-go">{icon("chev-l")}</span></a></li>' for a, h, i in tools)
     items = [("פרקים במדריך", n_chapters), ("שיעורי וידאו", 8), ("דקות קריאה", n_minutes), ("מאמרים", n_articles),
