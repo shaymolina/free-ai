@@ -415,5 +415,22 @@
 
   initRive();
   initMenu(); initFlow(); initRotate(); initFaq();
-  initRibbons(); initRollers(); initTicker(); initCardDots(); initSectionDots(); initCarousels();
+  /* ---------- מתג בהיר / כהה / לפי המערכת, כמו בתבנית ---------- */
+  function initTheme() {
+    var sw = document.querySelector('[data-theme-switch]'); if (!sw) return;
+    var btns = sw.querySelectorAll('button'), mq = matchMedia('(prefers-color-scheme: dark)'), KEY = 'm2-theme';
+    var mode = 'light'; try { mode = localStorage.getItem(KEY) || 'light'; } catch (e) {}
+    function apply() {
+      var dark = mode === 'dark' || (mode === 'system' && mq.matches);
+      document.documentElement.classList.toggle('dark', dark);
+      btns.forEach(function (b) {
+        var on = b.getAttribute('aria-label').toLowerCase() === mode;
+        b.setAttribute('aria-checked', on ? 'true' : 'false');
+        b.classList.toggle('border-border-primary', on); b.classList.toggle('border-transparent', !on);
+      });
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { mode = b.getAttribute('aria-label').toLowerCase(); try { localStorage.setItem(KEY, mode); } catch (e) {} apply(); }); });
+    mq.addEventListener && mq.addEventListener('change', apply); apply();
+  }
+  initTheme(); initRibbons(); initRollers(); initTicker(); initCardDots(); initSectionDots(); initCarousels();
 })();

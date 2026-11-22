@@ -19,3 +19,6 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 /* מקטעים שנשארו בכיוון המקורי: הטקסט העברי עצמו נכתב נכון, אבל מיושר כמו בתבנית */
 [data-ltr] :is(h2,h3,p,blockquote,figcaption,li,span,a) { unicode-bidi: plaintext; }
 [data-ltr] :is(h2,h3,p,blockquote,figcaption,li) { text-align: left; }
+/* ארבעת המקטעים שנלקחו כמו שהם: הפונט המקורי שלהם (Inter), ועברית בקובי */
+@font-face { font-family: 'InterM2'; src: url(../fonts/inter/InterVariable.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0000-04FF, U+2000-206F, U+20A0-20CF, U+2100-214F; }
+[data-ltr] { --font-inter: 'InterM2', 'Kobi', system-ui, sans-serif; font-family: var(--font-inter); }
