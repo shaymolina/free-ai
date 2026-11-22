@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "43"
+CSS_VERSION = "44"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -310,7 +310,7 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
             <header class="ds-top has-head">
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
                 <span class="ds-vsep"></span>
-                <div class="page-head"><span class="eyebrow">פרק {n} · {mins} דקות</span><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
+                <div class="page-head"><h1>{name}</h1>{f'<p class="lead">{lead}</p>' if lead else ''}</div>
                 <div class="ds-actions"><button type="button" class="icon-btn theme-btn" id="theme-btn" aria-label="מצב כהה או בהיר">{_ico(ICO["moon"], "i-moon")}{_ico(ICO["sun"], "i-sun")}</button></div>
             </header>
             <main class="ds-content">

@@ -110,10 +110,10 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 .dark .ds-top { background: color-mix(in oklch, var(--background) 85%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .ds-top .ds-burger, .ds-top .ds-vsep { display: none; }
 /* הכותרת של הפרק יושבת בהדר */
-.ds-top.has-head { position: static; height: auto; align-items: flex-start; padding: 16px var(--card-gap); }
-.ds-top .page-head { flex: 1; min-width: 0; max-width: 980px; margin-inline: auto; }
-.ds-top h1 { font-size: 26px; font-weight: 600; line-height: 1.3; }
-.ds-top .lead { font-size: 15px; color: var(--muted-foreground); max-width: 72ch; }
+.ds-top.has-head { height: 56px; padding: 0 var(--card-gap); }
+.ds-top .page-head { flex: 1; min-width: 0; max-width: 980px; margin-inline: auto; gap: 1px; }
+.ds-top h1 { font-size: 17px; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ds-top .lead { font-size: 13px; line-height: 1.35; color: var(--muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ds-vsep { width: 1px; height: 16px; background: var(--border); }
 .crumbs { display: flex; align-items: center; min-width: 0; font-size: 14px; }
 .crumbs a { color: var(--muted-foreground); border-radius: var(--radius-item); transition: color .12s; }
@@ -288,4 +288,8 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 @media print {
   .ds-side, .ds-top, .ds-overlay { display: none; }
   .ds-main { margin: 0; }
+}
+@media (max-width: 991.98px) {
+  .ds-top.has-head { height: auto; min-height: 56px; padding-block: 8px; }
+  .ds-top .lead, .ds-top h1 { white-space: normal; }
 }
