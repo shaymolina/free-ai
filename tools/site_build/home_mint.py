@@ -351,7 +351,7 @@ def footer(chapters, articles, ready):
             <nav class="f-cols" aria-label="קישורים בפוטר">{c}</nav>
         </div>
         <div class="m-in f-bot">
-            <span>© 2026 Free AI. כל הזכויות שמורות.</span>
+            <span>© 2026 Free AI. כל הזכויות שמורות. <a href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></span>
             <a href="#top" class="f-top">חזרה למעלה {icon("up")}</a>
         </div>
     </footer>"""

@@ -431,7 +431,7 @@ def do_footer(soup, arts):
         for href, t in links:
             ul.append(frag(f'<li><a class="{" ".join(cls)}" href="{href}">{t}</a></li>'))
     bottom = f.find(attrs={"aria-label": "Theme switcher"}).find_parent("div", class_="justify-between")
-    put(bottom, '<span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#top" data-totop>חזרה למעלה ↑</a>')
+    put(bottom, '<div class="flex items-center gap-4"><span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></div><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#top" data-totop>חזרה למעלה ↑</a>')
 
 
 
