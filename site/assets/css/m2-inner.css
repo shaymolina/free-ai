@@ -26,3 +26,8 @@ body.m2-inner { zoom: 1; }
 .toc-it em { margin-inline-start: auto; font-style: normal; font-size: 12px; font-weight: 600; color: #D97757; background: #FBEDE6; border-radius: 4px; padding: 4px 8px; white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .toc-track { animation: none; } }
 @media (max-width: 63.99rem) { .toc { width: 100%; max-width: 520px; height: 300px; } }
+/* פתיחה בעמודים הפנימיים: כותרת קרובה יותר להדר, והאיור רחוק יותר מהטקסט */
+@media (min-width: 64rem) {
+  .m2-top section > .grid-layout { padding-top: 2.5rem; }
+  .m2-top section .grid-layout > .isolate { transform: translateX(-120px); }
+}
