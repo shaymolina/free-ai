@@ -262,13 +262,26 @@
   function initCarousels() {
     document.querySelectorAll('[data-track]').forEach(function (track) {
       var sec = track.closest('section'), btns = sec.querySelectorAll('[data-car]');
+      var rtl = getComputedStyle(track).direction === 'rtl', sgn = rtl ? -1 : 1;
+      var orig = [].slice.call(track.children), n = orig.length;
+      // לולאה: עותק של הכרטיסים לפני ואחרי, וכשמגיעים לעותק קופצים בשקט למקור
+      function clone(c) { var k = c.cloneNode(true); k.setAttribute('aria-hidden', 'true'); k.setAttribute('data-clone', ''); k.querySelectorAll('a,button').forEach(function (a) { a.tabIndex = -1; }); return k; }
+      if (n > 1) { orig.forEach(function (c) { track.appendChild(clone(c)); }); orig.slice().reverse().forEach(function (c) { track.insertBefore(clone(c), track.firstChild); }); }
       function card() { var c = track.firstElementChild; return c ? c.getBoundingClientRect().width + 16 : 400; }
-      function edges() {
-        var max = track.scrollWidth - track.clientWidth, x = Math.abs(track.scrollLeft);
-        btns.forEach(function (b) { b.disabled = b.dataset.car === '-1' ? x < 4 : x > max - 4; });
-      }
-      btns.forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: (getComputedStyle(track).direction === 'rtl' ? -1 : 1) * (+b.dataset.car) * card(), behavior: reduce ? 'auto' : 'smooth' }); }); });
-      track.addEventListener('scroll', edges, { passive: true }); edges();
+      function setW() { return n > 1 ? Math.abs(track.children[2 * n].offsetLeft - track.children[n].offsetLeft) : 0; }
+      function pos() { return Math.abs(track.scrollLeft); }
+      function jump(x) { track.style.scrollSnapType = 'none'; track.style.scrollBehavior = 'auto'; track.scrollLeft = sgn * x; track.offsetWidth; track.style.scrollSnapType = ''; track.style.scrollBehavior = ''; }
+      function wrap() { var w = setW(); if (!w || dragging) return; var x = pos(); if (x < w * .5) jump(x + w); else if (x >= w * 1.5) jump(x - w); }
+      if (n > 1) { jump(setW()); addEventListener('resize', function () { jump(setW() + (pos() % setW())); }); }
+      btns.forEach(function (b) { b.disabled = false; b.addEventListener('click', function () { track.scrollBy({ left: sgn * (+b.dataset.car) * card(), behavior: reduce ? 'auto' : 'smooth' }); }); });
+      var idle; track.addEventListener('scroll', function () { clearTimeout(idle); idle = setTimeout(wrap, 140); }, { passive: true });
+      // גרירה עם העכבר
+      var dragging = false, moved = false, sx = 0, sl = 0;
+      track.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse' || e.button !== 0) return; dragging = true; moved = false; sx = e.clientX; sl = track.scrollLeft; track.style.scrollSnapType = 'none'; track.style.scrollBehavior = 'auto'; });
+      addEventListener('pointermove', function (e) { if (!dragging) return; var dx = e.clientX - sx; if (Math.abs(dx) > 5) { moved = true; track.classList.add('is-drag'); } track.scrollLeft = sl - dx; });
+      addEventListener('pointerup', function () { if (!dragging) return; dragging = false; track.classList.remove('is-drag'); track.style.scrollBehavior = ''; track.style.scrollSnapType = ''; setTimeout(wrap, 400); });
+      track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
       var dims = track.querySelectorAll('.carousel-card-dim');
       if (dims.length && 'IntersectionObserver' in window) {
         var io = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target.classList.toggle('is-on', e.intersectionRatio > .7); }); }, { root: track, threshold: [0, .7, 1] });
