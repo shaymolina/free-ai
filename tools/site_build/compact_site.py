@@ -809,12 +809,9 @@ def build_articles_index():
         f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
         for n, t, d, m in ARTICLES)
     import home2
-    main = f'''<main class="wrap stack art-index">
-        <div class="art-list">{cards}</div>
-    </main>'''
     (SITE / "articles.html").write_text(home2.inner_page(
         "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.",
-        f"{len(ARTICLES)} מאמרים", "מאמרים", "מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.", ILL_BUILD, main,
+        "", "מאמרים", "מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.", home2.articles_visual(ARTICLES), home2.articles_main(ARTICLES),
         btn2=("guide-1.html", "למדריך הכתוב", "book"), legacy_v=CSS_VERSION))
     print("articles.html done")
 

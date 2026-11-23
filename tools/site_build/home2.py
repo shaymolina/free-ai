@@ -513,7 +513,7 @@ INNER_HEAD = """<!DOCTYPE html>
 """
 
 
-def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1"):
+def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None):
     """עמוד פנימי: כותרת עליונה, פתיחה (חוטים מונפשים, כותרת עבה, כפתורים, איור במסגרת) ופוטר כמו בדף הבית.
     main_html: התוכן שמתחת לפתיחה (תגית <main> שלמה)."""
     _, arts = counts()
@@ -527,7 +527,10 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
         x.decompose()
     cv = sec.find("canvas"); cv["data-rib"] = "hero"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
     tag = sec.find("a", href="/data")
-    tag.replace_with(frag(f'<span class="m2-chip inline-flex w-fit items-center gap-2 rounded-[2px] border border-border-sub bg-background-main px-2.5 py-1 text-xs/4 font-medium tracking-[0.02em] text-text-sub"><i></i>{chip}</span>'))
+    if not chip:
+        tag.decompose()
+    else:
+        tag.replace_with(frag(f'<span class="m2-chip inline-flex w-fit items-center gap-2 rounded-[2px] border border-border-sub bg-background-main px-2.5 py-1 text-xs/4 font-medium tracking-[0.02em] text-text-sub"><i></i>{chip}</span>'))
     h = sec.find("h1"); put(h, h1); h["class"] = h.get("class", []) + ["m2-h1", "m2-h1-wrap"]
     put(h.find_next("p"), lead)
     a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
@@ -541,7 +544,18 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     box["aria-label"] = h1; box["class"] = [c for c in box["class"] if not c.startswith("aspect-")] + ["m2-vis-box"]
     for img in box.find_all("img")[1:]:
         img.decompose()
-    box.find("img").replace_with(frag(f'<div class="m2-vis">{visual}</div>'))
+    if live:  # תצוגה חיה של עמוד באתר, כמו המדריך בדף הבית
+        box["class"] = [c for c in box["class"] if c != "m2-vis-box"] + ["aspect-[1080/656]"]
+        box.find("img").replace_with(frag(
+            f'<iframe class="m2-live" src="{live}" title="{h1}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
+            '<span class="m2-live-fade" aria-hidden="true"></span>'
+            '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
+            'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
+            'fit();addEventListener("resize",fit);'
+            'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";d.documentElement.classList.remove("dark");'
+            'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>'))
+    else:
+        box.find("img").replace_with(frag(f'<div class="m2-vis">{visual}</div>'))
     m.name = "div"; m["class"] = ["overflow-x-clip", "m2-top"]
     m.insert_after(frag(main_html))
     do_footer(soup, arts)
@@ -551,3 +565,51 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
            + f'\n<script src="assets/js/m2.js?v={V}" defer></script>\n{script}\n</body>\n</html>\n')
     from clean_urls import clean
     return clean(out)
+
+
+# ---------------------------------------------------------------- רשימת המאמרים: הכרטיסים הצבעוניים של "סיפורים" מדף הבית
+# לכל מאמר: צבע, כותרת (החלק החשוב בלבן), שני מספרים, תמונה
+ARTICLE_CARDS = {
+    "article-what-is-claude-code.html": ("#5C1E0F", 'מה זה <span class="text-white">קלוד קוד</span>, ואיך הודעה בעברית הופכת לאתר',
+                                         [("1", "הודעה בעברית"), ("0", "שורות קוד שאתם כותבים")], "assets/images/claude/build-site.jpg"),
+    "article-github-backup.html": ("#4763D6", '<span class="text-white">גיבוי אוטומטי</span> של כל הפרויקטים מ-GitHub לגוגל דרייב',
+                                   [("03:00", "כל לילה"), ("₪0", "עלות")], "assets/images/guide/backup-1.png"),
+}
+CARD_COLORS = ["#5C1E0F", "#4763D6", "#C8553A", "#7A3FC4"]
+
+
+POST_IMGS = ["post-0-w.webp", "post-1-w.webp", "post-2.webp", "post-0.webp", "post-1.webp"]
+
+
+def articles_main(articles):
+    """articles: [(קובץ, כותרת, תיאור, דקות)]. התבנית של "מאמרים אחרונים" מדף הבית, עם כל המאמרים."""
+    soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
+    sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][7]
+    do_head(sec, "כל המאמרים.", "קצרים, ואפשר לעשות אותם היום.")
+    sec.find("header").find("div", class_="shrink-0").decompose()
+    grid = sec.find("div", class_="grid-cols-3")
+    tpl = grid.find("a")
+    sec.find(attrs={"aria-label": "Latest blog posts"}).decompose()  # הקרוסלה לנייד: במקומה אותה רשת, בעמודה אחת
+    grid["class"] = ["grid", "grid-cols-1", "gap-4", "sm:grid-cols-2", "lg:grid-cols-3"]
+    grid.clear()
+    for k, (href, title, desc, mins) in enumerate(articles):
+        a = copy.copy(tpl); a["href"] = href
+        img = a.find("img"); img["src"] = "assets/images/home2/" + POST_IMGS[k % len(POST_IMGS)]; img["alt"] = ""
+        for x in ("srcset", "sizes"): img.attrs.pop(x, None)
+        spans = a.find("div", class_="items-center").find_all("span", recursive=False)
+        put(spans[0], "מאמר"); put(spans[1], f"{mins} דקות קריאה")
+        p = a.find("p"); p.name = "h2"; put(p, title)
+        p.insert_after(frag(f'<p class="text-pretty text-sm/5 text-text-sub">{desc}</p>'))
+        grid.append(a)
+    pad = sec.find("div", class_="pb-30")
+    if pad: pad["class"] = ["grid-layout", "relative", "pb-12", "lg:pb-16"]
+    return f'<main class="m2-arts-main">{sec}</main>'
+
+
+def articles_visual(articles):
+    """האיור בפתיחה של עמוד המאמרים: רשימת המאמרים שעולה לאט בלולאה (כל מאמר עם תמונת השער שלו)."""
+    items = [(POST_IMGS[k % len(POST_IMGS)], "מאמר", title, f"{mins} דקות") for k, (href, title, desc, mins) in enumerate(articles)]
+    items.append(("post-2.webp", "מהאתר", "המדריך הכתוב, פרק אחרי פרק", "מדריך"))
+    one = "".join(f'<div class="toc-it"><img src="assets/images/home2/{i}" alt=""><div><small>{t}</small><b>{h}</b></div><em>{m}</em></div>' for i, t, h, m in items)
+    reps = max(2, 6 // len(items))
+    return f'<div class="toc"><div class="toc-track">{one * reps}{one * reps}</div></div>'

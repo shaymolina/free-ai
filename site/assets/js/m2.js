@@ -463,12 +463,3 @@
   initToTop();
   initTheme(); initRibbons(); initRollers(); initTicker(); initCardDots(); initSectionDots(); initCarousels();
 })();
-
-/* הדר נדבק: בגלילה מתכווץ לגלולה באמצע */
-(function () {
-  var h = document.getElementById('top');
-  if (!h) return;
-  function u() { h.classList.toggle('is-pill', window.scrollY > 30); }
-  addEventListener('scroll', u, { passive: true });
-  u();
-})();
