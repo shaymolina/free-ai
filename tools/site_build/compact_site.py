@@ -802,6 +802,8 @@ ILL_PRICE = """<div class="ill ill-pr" aria-hidden="true">
 def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual="", date=""):
     """מאמר: חלק פתיחה גרפי (כמו בדף הבית), ואחריו כל <h2> הופך למקטע מעוצב משלו."""
     ARTICLES.append((name, title, desc, mins))
+    import home2
+    if date: home2.ARTICLE_DATES[name] = date
     chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
     secs = "".join(f'<section class="card art-sec">{c}</section>' for c in chunks)
     dt = f" · עודכן {date}" if date else ""
