@@ -25,8 +25,8 @@ HEAD = """<!DOCTYPE html>
     <title>קורס קלוד קוד בחינם בעברית | Free AI</title>
     <meta name="description" content="קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
     <link rel="stylesheet" href="assets/css/m2.css?v={v}">
@@ -421,6 +421,11 @@ def do_footer(soup, arts):
         st["href"] = "mailto:hello@free-ai.co.il"; st.attrs.pop("target", None); st.attrs.pop("rel", None)
         st.find_all("span", recursive=False)[0].decompose()
         st.find("span").string = "hello@free-ai.co.il"
+        if "lg:hidden" in st["class"]:
+            st.decompose()
+        else:
+            st["class"] = [c for c in st["class"] if c not in ("hidden", "lg:mt-auto", "lg:inline-flex")] + ["inline-flex"]
+    logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">קלוד קוד בחינם</p><p class="f-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div>'))
     cols = [("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-18.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
@@ -498,8 +503,8 @@ INNER_HEAD = """<!DOCTYPE html>
     <meta name="author" content="Free AI">
     <meta name="description" content="{desc}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <style>@layer properties, theme, base, legacy, components, utilities;</style>
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">

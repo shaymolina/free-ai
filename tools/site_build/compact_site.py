@@ -84,9 +84,9 @@ def _page(title, desc, body, script="", cls="", css=""):
     <meta name="author" content="Free AI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{desc}">
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/tokens.css?v={CSS_VERSION}">
