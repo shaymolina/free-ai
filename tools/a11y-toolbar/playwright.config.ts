@@ -9,7 +9,7 @@ export default defineConfig({
   use: { baseURL: `http://127.0.0.1:${PORT}`, trace: 'off' },
   webServer: {
     command: `node ../../server.js`,
-    env: { PORT: String(PORT), DATA_DIR: '../../node_modules/.cache/a11y-toolbar-e2e-data' },
+    env: { PORT: String(PORT), DATA_DIR: 'node_modules/.cache/e2e-data' },
     url: `http://127.0.0.1:${PORT}/privacy`,
     reuseExistingServer: false,
     timeout: 30_000,
