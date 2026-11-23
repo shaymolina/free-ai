@@ -877,6 +877,10 @@ def _share(name, title):
     return f'<div class="a2-card a2-share"><b>שתפו את המאמר</b><div class="a2-sh-row">{out}</div></div>'
 
 
+# ניסוי: כותרות במשקל הכי עבה, וטקסט משני קטן ב-5px ובמשקל הכי דק (site/assets/css/m2-inner.css, .a2-exp)
+_ART_EXP = {"article-what-is-claude-code.html"}
+
+
 def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date):
     import home2
     chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
@@ -905,7 +909,7 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
                 f'<div class="m2-arts">{cards}</div></div></section>')
     dt = f" · עודכן {date}" if date else ""
     main = f'''<div class="a2-progress" aria-hidden="true"><i></i></div>
-    <main class="a2">
+    <main class="a2{' a2-exp' if name in _ART_EXP else ''}">
         <div class="a2-wrap a2-grid">
             <div class="a2-body">
                 <details class="a2-card a2-mtoc"><summary>בעמוד הזה</summary>{toc_ol}</details>
