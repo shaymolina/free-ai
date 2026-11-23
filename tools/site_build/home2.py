@@ -606,7 +606,7 @@ def articles_main(articles):
         for x in ("srcset", "sizes"): img.attrs.pop(x, None)
         a.find("div", class_="items-center").decompose()  # בלי שורת "מאמר · דקות קריאה"
         p = a.find("p"); p.name = "h2"; put(p, title); p["class"] = ["ac-t"]
-        p.insert_after(frag(f'<p class="ac-d">{desc}</p><span class="ac-go">לקריאה{icon("arrow", "ac-ar")}</span>'))
+        p.insert_after(frag(f'<p class="ac-d">{desc}</p><span class="ac-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></span>'))
         a["class"] = ["ac", "group"]
         a.find("div", class_="relative")["class"] = ["ac-img"]
         a.find_all("div", recursive=False)[1]["class"] = ["ac-b"]
