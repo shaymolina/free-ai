@@ -53,7 +53,8 @@ def header_html(slug):
 
 
 def auth_html(slug):
-    locked = "false" if slug in OPEN else "true"
+    # מאמרים (עמוד המאמרים וכל מאמר בודד) פתוחים לקריאה בלי התחברות
+    locked = "false" if slug in OPEN or slug.startswith("article") else "true"
     v = _v(("css/auth-gate.css", "js/auth-gate.js"))
     ref = SUPABASE_URL.split("//")[1].split(".")[0]
     # הסקריפט הקטן נועל את העמוד מיד (בלי הבהוב) כשאין חיבור שמור בדפדפן
@@ -78,17 +79,9 @@ def apply_a11y(path):
     open(path, "w").write(s)
 
 
-FOOTER_TERMS = re.compile(r'(<li[^>]*>\s*)?<a([^>]*?)href="terms(?:\.html)?"([^>]*)>תנאי שימוש</a>(\s*</li>)?')
-
-
-def apply_footer_a11y(path):
-    """קישור להצהרת הנגישות ליד "תנאי שימוש" בפוטר של כל עמוד, וזום שלא חסום (בלי maximum-scale)."""
+def apply_viewport(path):
+    """זום שלא חסום (בלי maximum-scale). הקישור לנגישות נמצא בפוטר האחיד (site_footer.py)."""
     s = open(path).read()
-    if 'href="accessibility"' not in s:
-        def add(m):
-            clone = m.group(0).replace('href="terms.html"', 'href="accessibility"').replace('href="terms"', 'href="accessibility"')
-            return m.group(0) + clone.replace("תנאי שימוש", "נגישות")
-        s = FOOTER_TERMS.sub(add, s, count=1)
     s = re.sub(r'(<meta name="viewport" content="[^"]*?),\s*(?:maximum-scale=[\d.]+|user-scalable=(?:no|0))', r"\1", s)
     s = re.sub(r'(<meta name="viewport" content="[^"]*?),\s*(?:maximum-scale=[\d.]+|user-scalable=(?:no|0))', r"\1", s)
     open(path, "w").write(s)
@@ -128,7 +121,7 @@ def apply_all():
     n = sum(apply(p) for p in pages)
     for p in pages: apply_auth(p)
     for p in pages: apply_a11y(p)
-    for p in pages: apply_footer_a11y(p)
+    for p in pages: apply_viewport(p)
     print(f"site header: {n} pages")
 
 

@@ -320,7 +320,7 @@ html = re.sub(r'<form class="form-contact effectFade fadeUp">.*?</form>', '''<fo
                                     <input type="email" name="email" dir="ltr" placeholder="name@example.com" required>
                                 </fieldset>
                                 <button type="submit" class="tf-btn w-100">שלחו לי קוד כניסה</button>
-                                <p class="text-body-3 text-secondary mt-3 mb-0">בהרשמה אתם מסכימים ל<a href="terms.html" class="link-underline">תנאי השימוש</a> ול<a href="privacy.html" class="link-underline">מדיניות הפרטיות</a>.</p>
+                                <p class="text-body-3 text-secondary mt-3 mb-0">מסירת השם והמייל היא מרצון, ובלעדיהם אי אפשר לפתוח חשבון. Free AI (hello@free-ai.co.il) משתמשת בהם כדי לפתוח לכם חשבון ולשמור התקדמות. המידע נשמר אצל ספקי התשתית שלנו ולא נמכר, ואפשר לבקש לעיין בו, לתקן או למחוק. בהרשמה אתם מסכימים ל<a href="terms.html" class="link-underline">תנאי השימוש</a> ול<a href="privacy.html" class="link-underline">מדיניות הפרטיות</a>.</p>
                             </form>''', html, count=1, flags=re.S)
 
 html = html.replace('<img src="assets/images/section/quotes-1.jpg" alt="">', '<img src="assets/images/logo/logo-1.svg" alt="Free AI" style="object-fit:contain;background:#09090B;padding:16px">')

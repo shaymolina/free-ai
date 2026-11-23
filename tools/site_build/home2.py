@@ -436,8 +436,6 @@ def do_footer(soup, arts):
         ul = div.find("ul"); tpl = ul.find("a"); cls = tpl["class"]; ul.clear()
         for href, t in links:
             ul.append(frag(f'<li><a class="{" ".join(cls)}" href="{href}">{t}</a></li>'))
-    # הכיתוב Free AI הגדול ברקע (מהפוטר הישן), דקורטיבי בלבד
-    f.insert(0, frag('<div class="f-bigword" aria-hidden="true"><img src="assets/images/logo/logo-footer.png" alt="" loading="lazy" width="1280" height="399"></div>'))
     bottom = f.find(attrs={"aria-label": "Theme switcher"}).find_parent("div", class_="justify-between")
     put(bottom, '<span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#top" data-totop>חזרה למעלה ↑</a>')
 
@@ -521,7 +519,7 @@ INNER_HEAD = """<!DOCTYPE html>
 """
 
 
-def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None):
+def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None, buttons=True):
     """עמוד פנימי: כותרת עליונה, פתיחה (חוטים מונפשים, כותרת עבה, כפתורים, איור במסגרת) ופוטר כמו בדף הבית.
     main_html: התוכן שמתחת לפתיחה (תגית <main> שלמה)."""
     _, arts = counts()
@@ -548,6 +546,8 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     for k in ("target", "rel", "referrerpolicy"): a2.attrs.pop(k, None)
     put(a2, icon(btn2[2], "size-4 text-brand") + btn2[1])
     a2.find_parent("div").find_next_sibling("div").decompose()
+    if not buttons:  # עמודים בלי כפתורי פעולה (למשל העמודים המשפטיים)
+        a1.find_parent("div").decompose()
     box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
     box["aria-label"] = h1; box["class"] = [c for c in box["class"] if not c.startswith("aspect-")] + ["m2-vis-box"]
     for img in box.find_all("img")[1:]:

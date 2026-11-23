@@ -1,12 +1,12 @@
 /* חלון ההתחברות: מי שלא מחובר רואה את העמוד מטושטש ואת החלון מעליו. */
 html.ag-lock { overflow: hidden; }
 html.ag-lock body { overflow: hidden; }
-html.ag-lock body > *:not(#ag) { filter: blur(4px); -webkit-filter: blur(4px); pointer-events: none; user-select: none; }
+html.ag-lock body > *:not(#ag) { filter: blur(2px); -webkit-filter: blur(2px); pointer-events: none; user-select: none; }
 
 /* חלון ההתחברות: מינימלי, הכול באמצע */
 #ag { --ag-fg: #08090A; --ag-muted: #66686C; --ag-border: #E6E5E3;
   position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto;
-  background: rgba(255,255,255,.28); direction: rtl; font-family: 'Kobi', 'Noto Sans Hebrew', system-ui, sans-serif; color: var(--ag-fg);
+  background: rgba(255,255,255,.22); direction: rtl; font-family: 'Kobi', 'Noto Sans Hebrew', system-ui, sans-serif; color: var(--ag-fg);
   opacity: 0; transition: opacity .3s ease; }
 #ag.is-in { opacity: 1; }
 #ag *, #ag *::before, #ag *::after { box-sizing: border-box; }
@@ -19,7 +19,7 @@ html.ag-lock body > *:not(#ag) { filter: blur(4px); -webkit-filter: blur(4px); p
 #ag.is-in .ag-card { transform: none; }
 .ag-logo { display: block; width: 56px; height: 56px; margin: 0 0 24px; }
 .ag-title { margin: 0 0 10px; font-size: 26px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; color: var(--ag-fg); }
-.ag-desc { margin: 0 0 32px; font-size: 15px; line-height: 1.55; color: var(--ag-muted); }
+.ag-desc { margin: 0 0 28px; font-size: 15px; line-height: 1.55; color: var(--ag-muted); }
 
 .ag-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; padding: 0 20px;
   border-radius: 12px; font: 500 15px/20px 'Kobi', 'Noto Sans Hebrew', system-ui, sans-serif; white-space: nowrap; cursor: pointer;
@@ -35,9 +35,30 @@ html.ag-lock body > *:not(#ag) { filter: blur(4px); -webkit-filter: blur(4px); p
 @keyframes ag-spin { to { transform: rotate(360deg); } }
 .ag-err { margin: 14px 0 0; font-size: 13px; line-height: 18px; color: #dc2626; }
 .ag-err[hidden] { display: none; }
-.ag-fine { margin: 28px 0 0; font-size: 12px; line-height: 1.5; color: #9B9C9E; }
+.ag-fine { margin: 28px 0 0; font-size: 12px; line-height: 1.55; color: #5F6064; }
 .ag-fine a { color: var(--ag-muted); text-decoration: underline; text-underline-offset: 2px; }
 .ag-fine a:hover { color: var(--ag-fg); }
+.ag-primary { border: 0; background: var(--ag-fg); color: #fff; }
+.ag-primary:hover { background: #2A2C2F; }
+.ag-primary.is-busy::after { border-color: rgba(255,255,255,.3); border-top-color: #fff; }
+.ag-or { position: relative; display: flex; justify-content: center; width: 100%; margin: 22px 0; font-size: 12px; color: #9B9C9E; }
+.ag-or::before { content: ""; position: absolute; inset: 50% 0 auto; border-top: 1px solid #EEECE9; }
+.ag-or span { position: relative; padding: 0 12px; background: #fff; }
+.ag-form { display: flex; flex-direction: column; gap: 10px; width: 100%; margin: 0; }
+.ag-input { width: 100%; height: 48px; padding: 0 16px; border: 1px solid #DCDAD7; border-radius: 12px; background: #fff;
+  font: 400 15px 'Kobi', 'Noto Sans Hebrew', system-ui, sans-serif; color: var(--ag-fg); text-align: right; outline: none; transition: border-color .15s, box-shadow .15s; }
+.ag-input::placeholder { color: #9B9C9E; }
+.ag-input:focus { border-color: #D97757; box-shadow: 0 0 0 3px rgba(217,119,87,.15); }
+.ag-pass { position: relative; }
+.ag-pass .ag-input { padding-left: 48px; }
+.ag-eye { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0;
+  border: 0; border-radius: 8px; background: transparent; color: #9B9C9E; cursor: pointer; }
+.ag-eye:hover { color: var(--ag-fg); background: #F4F3F1; }
+.ag-eye svg { width: 17px; height: 17px; }
+.ag-forgot { align-self: flex-start; margin: 2px 2px 4px; font-size: 13px; color: var(--ag-muted); text-decoration: none; }
+.ag-forgot:hover { color: var(--ag-fg); text-decoration: underline; }
+.ag-form .ag-err { margin: 0; text-align: right; }
+.ag-err.is-info { color: #15803d; }
 @media (max-width: 480px) { .ag-card { padding: 40px 24px 28px; } .ag-title { font-size: 23px; } }
 
 /* תמונת המשתמש בהדר, אחרי התחברות */
