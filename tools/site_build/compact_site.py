@@ -221,7 +221,7 @@ ICO = {  # Lucide
 }
 SITE_LINKS = [("index.html", "דף הבית", "home"), ("service.html", "הקורס", "play"), ("guide-1.html", "המדריך", "book"), ("work.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
 
-THEME_HEAD = """<script>(function(){var m='system';try{m=localStorage.getItem('theme')||'system'}catch(e){}
+THEME_HEAD = """<script>(function(){var m='light';try{m=localStorage.getItem('theme')||'light'}catch(e){}if(window.self!==window.top)m='light';
 var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>"""
 
 
