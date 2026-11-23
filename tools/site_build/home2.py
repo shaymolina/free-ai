@@ -304,7 +304,8 @@ STARTS = [("הקורס", "8 שיעורי וידאו, לפי הסדר.", "service
 
 
 def do_starts(sec, n_ch):
-    do_head(sec, "מאיפה מתחילים.", "חמש דרכים להיכנס לחומר.", "service.html", "התחל ללמוד")
+    do_head(sec, "כל הדרכים ללמוד, במקום אחד.", "וכולן בחינם.")
+    sec.find("header").find("a").decompose()  # בלי כפתור "התחל ללמוד" ליד החצים
     carousel_buttons(sec, "דרך להתחיל")
     track = sec.find(attrs={"aria-label": "Startup customer stories"})
     track["aria-label"] = "מאיפה מתחילים"; track["data-track"] = ""
