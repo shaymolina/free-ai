@@ -600,7 +600,7 @@ def _meta(href, mins):
 
 def articles_main(articles):
     """articles: [(קובץ, כותרת, תיאור, דקות)].
-    המאמר הראשון בכרטיס רחב ("מתחילים כאן"), השאר ברשת של 3, וכרטיס של המדריך משלים שורה חסרה."""
+    רשת של 3 כרטיסים, וכרטיס של המדריך משלים שורה חסרה."""
     soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
     sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][7]
     do_head(sec, "כל המאמרים.", f"{len(articles)} מאמרים קצרים, ואפשר לעשות כל אחד היום.")
@@ -613,14 +613,9 @@ def articles_main(articles):
     out = []
     for k, (href, title, desc, mins) in enumerate(articles):
         img = f'<div class="ac-img"><img src="{_cover(href, k)}" alt="" loading="{"eager" if k == 0 else "lazy"}" decoding="async"></div>'
-        if k == 0:
-            out.append(f'<a class="ac ac-hero" href="{href}">{img}<div class="ac-b">'
-                       f'<span class="ac-tag"><i></i>מתחילים כאן</span><h2 class="ac-t">{title}</h2><p class="ac-d">{desc}</p>'
-                       f'{_meta(href, mins)}{go("לקריאת המאמר")}</div></a>')
-        else:
-            out.append(f'<a class="ac" href="{href}">{img}<div class="ac-b">{_meta(href, mins)}'
-                       f'<h2 class="ac-t">{title}</h2><p class="ac-d">{desc}</p>{go("לקריאת המאמר")}</div></a>')
-    rest = len(articles) - 1
+        out.append(f'<a class="ac" href="{href}">{img}<div class="ac-b">{_meta(href, mins)}'
+                   f'<h2 class="ac-t">{title}</h2><p class="ac-d">{desc}</p>{go("לקריאת המאמר")}</div></a>')
+    rest = len(articles)
     if rest % 3:  # משלימים את השורה בכרטיס של המדריך, שלא יישאר חור
         out.append('<a class="ac ac-more" href="guide-1.html"><div class="ac-b">'
                    f'<span class="ac-ico" aria-hidden="true">{icon("book", "size-5")}</span>'

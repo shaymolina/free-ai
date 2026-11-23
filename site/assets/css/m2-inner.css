@@ -33,10 +33,10 @@ body.m2-inner { zoom: 1; }
   .m2-top section > .grid-layout { padding-top: 2.5rem; }
   .m2-top section .grid-layout > .isolate { transform: translateX(-120px); }
 }
-/* כרטיסי המאמרים (docs/design-system.md 7.1 כרטיס, 7.3 כפתור חץ): הראשון רחב, השאר עד 3 בשורה */
+/* כרטיסי המאמרים (docs/design-system.md 7.1 כרטיס, 7.3 כפתור חץ): עד 3 בשורה */
 .m2-arts { --card-gap: 1.5rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--card-gap); align-items: stretch; }
 @media (max-width: 991.98px) { .m2-arts { --card-gap: 1rem; } }
-@media (min-width: 40rem) { .m2-arts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ac-hero { grid-column: 1 / -1; } }
+@media (min-width: 40rem) { .m2-arts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 64rem) { .m2-arts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .ac { position: relative; display: flex; flex-direction: column; height: 100%; padding: 8px; border: 0; border-radius: var(--r-md, 12px); background: #fff;
   box-shadow: 0 1px 2px 0 #1a1f2c0a, 0 0 0 1px #e6e6e6; transition: box-shadow var(--dur-2, .2s) var(--ease), transform var(--dur-3, .35s) var(--ease-out-expo); }
@@ -58,20 +58,6 @@ body.m2-inner { zoom: 1; }
 .ac-go svg { width: 16px; height: 16px; transform: scaleX(-1); transition: transform .2s var(--ease-out-expo); }
 .ac:hover .ac-go b { background: var(--brand, #B5583A); color: #fff; }
 .ac:hover .ac-go svg { transform: scaleX(-1) translate(2px, -2px); }
-/* המאמר הראשון: תמונה גדולה מצד אחד וטקסט מהצד השני */
-.ac-tag { display: inline-flex; width: fit-content; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 2px; font-size: 12px; font-weight: 600;
-  color: var(--brand, #B5583A); background: var(--brand-soft, #F8EFEC); border: 1px solid var(--brand-line, #EBD1C6); }
-.ac-tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-strong, #D97757); }
-.ac-hero .ac-t { font-size: 24px; font-weight: 900; letter-spacing: -.02em; }
-.ac-hero .ac-d { -webkit-line-clamp: 3; font-size: 15px; margin-bottom: 4px; }
-.ac-hero .ac-m { margin-bottom: 18px; }
-@media (min-width: 64rem) {
-  .ac-hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 8px; }
-  .ac-hero .ac-img { aspect-ratio: auto; min-height: 340px; }
-  .ac-hero .ac-b { padding: 28px 32px 0; justify-content: center; gap: 12px; }
-  .ac-hero .ac-t { font-size: 34px; line-height: 1.12; }
-  .ac-hero .ac-go { margin-inline: -32px -8px; padding-inline: 32px 16px; }
-}
 /* כרטיס המדריך שמשלים שורה */
 .ac-more { background: radial-gradient(120% 80% at 0% 100%, var(--brand-soft, #F8EFEC), transparent 60%), var(--card, #F9F8F7); box-shadow: 0 0 0 1px var(--line-2, #E6E5E3); }
 .ac-more .ac-b { padding-top: 24px; }
