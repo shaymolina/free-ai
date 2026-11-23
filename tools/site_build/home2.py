@@ -12,7 +12,7 @@ def _asset_version():
     """גרסה לפי התוכן של קבצי העיצוב והקוד, כדי שהדפדפן ייקח את החדשים אחרי כל שינוי."""
     import hashlib
     h = hashlib.md5()
-    for f in ("css/m2.css", "css/m2-he.css", "css/tokens.css", "js/m2.js"):
+    for f in ("css/m2.css", "css/m2-he.css", "css/m2-inner.css", "css/tokens.css", "js/m2.js"):
         h.update(open(os.path.join(os.path.dirname(__file__), "..", "..", "site", "assets", f), "rb").read())
     return h.hexdigest()[:8]
 
@@ -472,3 +472,68 @@ def build():
 
 if __name__ == "__main__":
     build()
+
+
+# ---------------------------------------------------------------- עמודים פנימיים (מאמרים) עם הפתיחה של דף הבית
+INNER_HEAD = """<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>{title}</title>
+    <meta name="author" content="Free AI">
+    <meta name="description" content="{desc}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
+    <style>@layer properties, theme, base, legacy, components, utilities;</style>
+    <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
+    <link rel="stylesheet" href="assets/css/m2.css?v={v}">
+    <link rel="stylesheet" href="assets/css/m2-mock.css?v={v}">
+    <link rel="stylesheet" href="assets/css/m2-he.css?v={v}">
+    <style>@import url("assets/css/compact.css?v={lv}") layer(legacy); @import url("assets/css/home.css?v={lv}") layer(legacy);</style>
+    <link rel="stylesheet" href="assets/css/m2-inner.css?v={v}">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
+</head>
+<body class="overflow-x-hidden m2-inner">
+"""
+
+
+def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1"):
+    """עמוד פנימי: כותרת עליונה, פתיחה (חוטים מונפשים, כותרת עבה, כפתורים, איור במסגרת) ופוטר כמו בדף הבית.
+    main_html: התוכן שמתחת לפתיחה (תגית <main> שלמה)."""
+    _, arts = counts()
+    soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
+    do_header(soup)
+    do_mobile_header(soup)
+    m = soup.find("main")
+    secs = [x for x in m.find_all("section") if x.find_parent("section") is None]
+    sec = secs[0]
+    for x in secs[1:]:
+        x.decompose()
+    cv = sec.find("canvas"); cv["data-rib"] = "hero"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
+    tag = sec.find("a", href="/data")
+    tag.replace_with(frag(f'<span class="m2-chip inline-flex w-fit items-center gap-2 rounded-[2px] border border-border-sub bg-background-main px-2.5 py-1 text-xs/4 font-medium tracking-[0.02em] text-text-sub"><i></i>{chip}</span>'))
+    h = sec.find("h1"); put(h, h1); h["class"] = h.get("class", []) + ["m2-h1", "m2-h1-wrap"]
+    put(h.find_next("p"), lead)
+    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
+    a1.contents[0].replace_with("להתחיל ללמוד בחינם")
+    for k in ("target", "rel"): a1.attrs.pop(k, None)
+    a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = btn2[0]
+    for k in ("target", "rel", "referrerpolicy"): a2.attrs.pop(k, None)
+    put(a2, icon(btn2[2], "size-4 text-brand") + btn2[1])
+    a2.find_parent("div").find_next_sibling("div").decompose()
+    box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
+    box["aria-label"] = h1; box["class"] = [c for c in box["class"] if not c.startswith("aspect-")] + ["m2-vis-box"]
+    for img in box.find_all("img")[1:]:
+        img.decompose()
+    box.find("img").replace_with(frag(f'<div class="m2-vis">{visual}</div>'))
+    m.name = "div"; m["class"] = ["overflow-x-clip", "m2-top"]
+    m.insert_after(frag(main_html))
+    do_footer(soup, arts)
+    soup.find("header")["id"] = "top"
+    soup.find_all("header")[1]["id"] = "top-m"
+    out = (INNER_HEAD.format(title=title, desc=desc, v=V, lv=legacy_v) + str(soup)
+           + f'\n<script src="assets/js/m2.js?v={V}" defer></script>\n{script}\n</body>\n</html>\n')
+    from clean_urls import clean
+    return clean(out)

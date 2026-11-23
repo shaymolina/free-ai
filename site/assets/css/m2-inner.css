@@ -1,0 +1,18 @@
+/* עמודים פנימיים (מאמרים) עם הפתיחה של דף הבית. נטען אחרי m2.css; העיצוב הישן (compact/home) נטען בשכבה legacy. */
+.m2-inner { background: var(--color-background-main, #fff); }
+html { overflow-x: visible; }  /* אחרת הגוף נגלל לבד והעמוד זז הצידה */
+.m2-chip i { width: 6px; height: 6px; border-radius: 50%; background: #D97757; }
+.m2-h1-wrap { white-space: normal !important; text-wrap: balance; }
+@media (min-width: 48rem) { .m2-h1-wrap { font-size: min(3.4rem, calc((100vw - 4rem) * .06)) !important; line-height: 1.08 !important; } }
+@media (min-width: 64rem) { .m2-top section .grid-layout > :first-child { grid-column-end: 15; } .m2-top section .grid-layout > :first-child p { max-width: 30rem; } }
+/* המסגרת של האיור: כמו התצוגה של המדריך בדף הבית, רק נמוכה יותר */
+.m2-vis-box { aspect-ratio: 1080 / 520; }
+.m2-vis { position: absolute; inset: 0; display: flex; align-items: flex-start; justify-content: flex-start; padding: 48px 56px; background: #FBFAF8; }
+.m2-vis > .ill { width: 560px; max-width: 100%; zoom: 1.08; }
+@media (max-width: 63.99rem) { .m2-vis { padding: 28px; } .m2-vis > .ill { zoom: .9; } }
+/* התוכן שמתחת לפתיחה */
+.m2-top + main.wrap.stack { margin-top: 0 !important; border-top: 1px solid var(--line); }
+main.art-index { padding-bottom: 64px !important; }
+/* העיצוב הישן מגדיל את כל העמוד ב-1.25; כאן רק את התוכן שמתחת לפתיחה */
+body.m2-inner { zoom: 1; }
+@media (min-width: 1100px) { body.m2-inner > main.wrap { zoom: 1.25; } }
