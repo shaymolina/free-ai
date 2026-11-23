@@ -42,7 +42,7 @@
 - ההדר נבנה רק ב-`tools/site_build/site_header.py` (עיצוב: `site/assets/css/site-header.css`, התנהגות: `site/assets/js/site-header.js`).
 - הוא מוחלף אוטומטית בכל העמודים כש-`tools/seo/seo_build.py` רץ. לא בונים הדר נפרד בעמוד.
 
-## כלל קבוע: פוטר אחד לכל האתר
+## כלל קבוע: פוטר אחד לכל האתר (לא במדריך)
 - הפוטר נבנה רק ב-`tools/site_build/site_footer.py` (עיצוב: `site/assets/css/site-footer.css`), כולל הכיתוב Free AI ברקע, צמוד לתחתית.
 - הוא מחליף אוטומטית כל פוטר בכל העמודים כש-`tools/seo/seo_build.py` רץ. לא בונים פוטר נפרד בעמוד.
 

@@ -1,4 +1,4 @@
-"""פוטר אחד לכל האתר. מקור יחיד: כאן. העיצוב ב-site/assets/css/site-footer.css.
+"""פוטר אחד לכל האתר (חוץ מעמודי המדריך guide-*, שבהם אין פוטר). מקור יחיד: כאן. העיצוב ב-site/assets/css/site-footer.css.
 apply_all() מחליף כל פוטר שיש בעמוד (ישן או חדש) בפוטר הזה, בכל העמודים. רץ אוטומטית מתוך seo_build.py,
 כך שגם עמוד שנבנה מתבנית ישנה יקבל תמיד את הפוטר המעודכן."""
 import glob
@@ -55,6 +55,10 @@ FOOTER_RE = re.compile(r"<footer\b[^>]*>.*?</footer>", re.S)
 
 def apply(path, html=None):
     s = open(path).read()
+    if os.path.basename(path).startswith("guide-"):  # במדריך אין פוטר
+        s = re.sub(re.escape(START) + ".*?" + re.escape(END), "", s, flags=re.S)
+        open(path, "w").write(FOOTER_RE.sub("", s))
+        return
     s = re.sub(re.escape(START) + ".*?" + re.escape(END), "<!--sf-slot-->", s, flags=re.S)
     if "<!--sf-slot-->" not in s:
         s, n = FOOTER_RE.subn("<!--sf-slot-->", s, count=1)
