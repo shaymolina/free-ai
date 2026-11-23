@@ -88,6 +88,22 @@ COVERS = {
 </div>
 <div class="glass chip" style="bottom:46px;right:44px"><span class="dot"></span>גיבוי הושלם</div>
 """),
+    # מחיר: חשבון חודשי של Pro
+    "article-claude-code-price": page("#9A3B22", "#E08A63", "#4A170A", """
+<div class="blob" style="width:260px;height:260px;background:#F4B08F;top:30px;right:50px"></div>
+<div class="blob" style="width:200px;height:200px;background:#E6BB35;bottom:30px;left:60px;opacity:.35"></div>
+<div class="glass" style="top:60px;right:48px;width:330px">
+  <div class="lab">החשבון החודשי</div>
+  <div class="row" style="justify-content:space-between"><span>מנוי Claude Pro</span><span style="direction:ltr">$20</span></div>
+  <div class="row" style="justify-content:space-between"><span>קלוד קוד</span><span>כלול ✓</span></div>
+  <div class="row" style="justify-content:space-between"><span>הקורס של Free AI</span><span style="direction:ltr">$0</span></div>
+</div>
+<div class="glass" style="top:290px;left:44px;width:250px">
+  <div class="lab">סה״כ לחודש</div>
+  <div style="font-size:54px;font-weight:900;line-height:1;direction:ltr;text-align:end">$20</div>
+</div>
+<div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>Max ‏$100 · Ultra ‏$200</div>
+"""),
 }
 
 SHOT = """
