@@ -886,25 +886,23 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
         sid = f"s{k}"
         if m:
             h = re.sub(r'<[^>]+>', '', m.group(1)).strip()
-            c = c.replace(m.group(0), f'<div class="a2-head"><span class="a2-num" aria-hidden="true">{k:02d}</span><h2>{m.group(1)}</h2></div>', 1)
+            c = c.replace(m.group(0), f'<div class="a2-head"><span class="a2-num">{k:02d}</span><h2>{m.group(1)}</h2></div>', 1)
             toc.append(f'<li><a href="#{sid}"><span>{k}</span>{h}</a></li>')
         secs.append(f'<section class="a2-sec" id="{sid}">{c}</section>')
     toc_ol = f'<ol>{"".join(toc)}</ol>'
-    idx = [n for n, *_ in ARTICLES].index(name)
     others = [(i, n, t, mn) for i, (n, t, d, mn) in enumerate(ARTICLES) if n != name][:4]
-    more = ""
+    side_more = band = ""
     if others:
-        more = '<div class="a2-card a2-more"><b>מאמרים נוספים</b><ul>' + "".join(
+        side_more = '<div class="a2-card a2-smore"><b>מאמרים נוספים</b><ul>' + "".join(
             f'<li><a href="{n}"><img src="{home2._cover(n, i)}" alt="" loading="lazy" decoding="async"><span>{t}<small>{mn} דקות קריאה</small></span></a></li>'
             for i, n, t, mn in others) + '</ul><a href="articles.html" class="a2-all">לכל המאמרים ←</a></div>'
-    pn = []
-    for j, lab, cls in ((idx - 1, "המאמר הקודם", "prev"), (idx + 1, "המאמר הבא", "next")):
-        if 0 <= j < len(ARTICLES):
-            n, t, d, mn = ARTICLES[j]
-            pn.append(f'<a class="a2-pn-c {cls}" href="{n}"><img src="{home2._cover(n, j)}" alt="" loading="lazy" decoding="async">'
-                      f'<span><small>{lab}</small><b>{t}</b><em>{mn} דקות קריאה</em></span></a>')
-        else:
-            pn.append('<span></span>')
+        cards = "".join(
+            f'<a class="ac" href="{n}"><img src="{home2._cover(n, i)}" alt="" loading="lazy" decoding="async">'
+            f'<span class="ac-b"><h3 class="ac-t">{t}</h3>{home2._meta(n, mn)}</span></a>'
+            for i, n, t, mn in others[:3])
+        band = ('<section class="a2-band a2-more"><div class="a2-wrap a2-pad">'
+                '<div class="a2-band-head"><h2>עוד מאמרים</h2><a href="articles.html" class="a2-link">לכל המאמרים ←</a></div>'
+                f'<div class="m2-arts">{cards}</div></div></section>')
     dt = f" · עודכן {date}" if date else ""
     main = f'''<div class="a2-progress" aria-hidden="true"><i></i></div>
     <main class="a2">
@@ -912,19 +910,19 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
             <div class="a2-body">
                 <details class="a2-card a2-mtoc"><summary>בעמוד הזה</summary>{toc_ol}</details>
                 {"".join(secs)}
-                <section class="a2-cta">
-                    <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
-                    <h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p>
-                    <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
-                </section>
             </div>
             <aside class="a2-side" aria-label="שיתוף ומאמרים נוספים"><div class="a2-stick">
                 {_share(name, title)}
                 <nav class="a2-card a2-toc" aria-label="תוכן העניינים"><b>בעמוד הזה</b>{toc_ol}</nav>
-                {more}
+                {side_more}
             </div></aside>
         </div>
-        <nav class="a2-wrap a2-pn" aria-label="מאמרים סמוכים">{"".join(pn)}</nav>
+        {band}
+        <section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
+            <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
+            <div><h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p></div>
+            <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
+        </div></section>
     </main>'''
     (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, f"מאמר · {mins} דקות קריאה{dt}", title, lead, visual, main,
                                               script=ARTICLE_JS + ARTICLE2_JS, legacy_v=CSS_VERSION))
