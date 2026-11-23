@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "51"
+CSS_VERSION = "53"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -927,7 +927,6 @@ build_article(
                 ["איפה לוחצים", "הלשונית Chat", "הלשונית Code"],
             ])}
             <div class="fshot"><img src="assets/images/guide/claude-install-5.png" alt="איך נראה קלוד קוד: באפליקציה של קלוד בוחרים בלשונית Code" loading="lazy"></div>
-            <p class="more-link">לעומק: <a href="guide-2.html">מתי בוחרים בכל אחד</a>.</p>
 
             <h2>איפה עובדים עם קלוד קוד</h2>
             {rows_html([
@@ -936,7 +935,7 @@ build_article(
                 ("בטלפון", "האפליקציה של קלוד ל-iPhone ול-Android"),
                 ("בטרמינל", "חלון פקודות שחור, למתכנתים"),
             ])}
-            <div class="note-box"><b>מה אנחנו בוחרים:</b> האפליקציה במחשב, כי הכול בלחיצות. <a href="guide-4.html">איך מתקינים</a>.</div>
+            <div class="note-box"><b>מה אנחנו בוחרים:</b> האפליקציה במחשב, כי הכול בלחיצות.</div>
 
             <h2>כמה עולה קלוד קוד</h2>
             {plans([
@@ -945,21 +944,21 @@ build_article(
                 ("Max", "100$", "לחודש, הרבה יותר שימוש", True),
                 ("Ultra", "200$", "לחודש, הכי הרבה שימוש", True),
             ])}
-            <p class="art-src">נכון ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>. למתחילים מספיק Pro (<a href="guide-11.html">כמה נשאר מהמנוי</a>).</p>
+            <p class="art-src">נכון ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>. למתחילים מספיק Pro.</p>
             <p class="more-link">כל המנויים וההבדלים ביניהם: <a href="article-claude-code-price.html">כמה עולה קלוד קוד</a>.</p>
 
             <h2>האם צריך לדעת לתכנת?</h2>
             {duo([
                 ("לא צריך", "לדעת קוד", "מסבירים במילים מה בונים ובשביל מי."),
-                ("מספיק", "עברית רגילה", 'אפשר גם לדבר במיקרופון. <a href="guide-16.html">איך מנסחים בקשה</a>'),
+                ("מספיק", "עברית רגילה", 'אפשר גם לדבר במיקרופון.'),
             ])}
 
             <h2>איך מתחילים לעבוד עם קלוד קוד</h2>
             {rows_html([
-                ("פותחים חשבון קלוד", '<a href="guide-3.html">פתיחת חשבון</a> ומנוי Pro'),
-                ("מתקינים את האפליקציה", '<a href="guide-4.html">הורדה והתקנה</a>'),
-                ("פותחים חשבון GitHub", '<a href="guide-5.html">כאן נשמרים הפרויקטים</a>'),
-                ("בונים פרויקט ראשון", '<a href="guide-17.html">כותבים בקשה ורואים אותו בונה</a>'),
+                ("פותחים חשבון קלוד", 'ונרשמים למנוי Pro'),
+                ("מתקינים את האפליקציה", 'מ-claude.com/download'),
+                ("פותחים חשבון GitHub", 'כאן נשמרים הפרויקטים'),
+                ("בונים פרויקט ראשון", 'כותבים בקשה ורואים אותו בונה'),
             ])}
             <p class="more-link">מעדיפים וידאו? <a href="service.html">קורס קלוד קוד בעברית, בחינם</a>.</p>
 
@@ -1192,6 +1191,10 @@ import home_mint as _hm
 for _n, *_ in ARTICLES:
     _f = SITE / _n
     _f.write_text(_f.read_text().replace("<!--big-footer-->", ""))
+
+# העמודים המשפטיים (פרטיות, תנאים, נגישות) בעיצוב החדש
+import legal_pages as _lp
+_lp.build()
 
 # שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
 import runpy as _runpy

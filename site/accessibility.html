@@ -1,72 +1,29 @@
 <!DOCTYPE html>
-
-<!--[if IE 8]><html lang="he" dir="rtl"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="he" dir="rtl">
-<!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
-    <title>הצהרת נגישות – Free AI</title>
+    <title>הצהרת נגישות – Free AI ותפריט הנגישות</title>
     <meta name="author" content="Free AI">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="מה עשינו כדי שאפשר יהיה להשתמש ב-Free AI עם מוגבלות, איך עובד תפריט הנגישות, מה עוד לא מושלם ואיך פונים אלינו.">
-
-    <!-- font -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
-    <link rel="stylesheet" href="assets/icon/icomoon/style.css">
-    <!-- css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/slick.theme.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css?v=2">
-    <link rel="stylesheet" type="text/css" href="assets/css/rtl.css?v=2">
-    <link rel="stylesheet" type="text/css" href="assets/css/tokens.css?v=40">
-    <link rel="stylesheet" type="text/css" href="assets/css/mint.css?v=2">
-
-    <!-- Favicon and Touch Icons  -->
+    <style>@layer properties, theme, base, legacy, components, utilities;</style>
+    <link rel="stylesheet" href="assets/css/tokens.css?v=03041782">
+    <link rel="stylesheet" href="assets/css/m2.css?v=03041782">
+    <link rel="stylesheet" href="assets/css/m2-mock.css?v=03041782">
+    <link rel="stylesheet" href="assets/css/m2-he.css?v=03041782">
+    <style>@import url("assets/css/compact.css?v=53") layer(legacy); @import url("assets/css/home.css?v=53") layer(legacy);</style>
+    <link rel="stylesheet" href="assets/css/m2-inner.css?v=03041782">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
-    <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">
-    <style>
-        /* blog – RTL */
-        .article-blog .infor_name { -webkit-line-clamp: 2; }
-        .article-blog .infor_excerpt { margin-top: 10px; -webkit-line-clamp: 3; -webkit-box-orient: vertical; display: -webkit-box; overflow: hidden; }
-        .article-blog .tf-btn-2 .icon { transform: scaleX(-1); }
-        .sidebar-cta .text { margin-bottom: 20px; }
-        @media (min-width: 426px) { .article-blog.style-horizontal .blog-image { flex: 0 0 300px; } }
-        .blog-single-wrap .article-body { display: flex; flex-direction: column; gap: 8px; } .blog-single-wrap .article-body h2 + *, .blog-single-wrap .article-body p + ul, .blog-single-wrap .article-body p + ol { margin-top: 0; }
-        .blog-single-wrap .article-body h2 { font-size: 28px; line-height: 1.3; margin: 16px 0 0; }
-        .blog-single-wrap .article-body ol, .blog-single-wrap .article-body ul { padding-right: 22px; padding-left: 0; display: flex; flex-direction: column; gap: 4px; }
-        .blog-single-wrap .article-body ol { list-style: decimal; }
-        .blog-single-wrap .article-body ul { list-style: disc; }
-        .blog-single-wrap .article-body li { display: list-item; list-style: inherit; }
-        .blog-single-wrap .article-body li::marker { color: var(--primary); font-weight: 600; }
-        .blog-single-wrap .article-body a:not(.tf-btn) { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
-        .blog-single-wrap .path { direction: rtl; unicode-bidi: isolate; font-weight: 600; }
-        .blockquote-wrap { padding: 56px 56px 64px 39px; }
-        .blockquote-wrap svg { right: auto; left: 40px; }
-        .blockquote-wrap .tf-btn-2 { margin-top: 24px; position: relative; z-index: 1; }
-        .blockquote-wrap p { position: relative; z-index: 1; }
-        .entry-footer .tags-links { max-width: none; }
-        .legal-wrap .updated { color: var(--neutral-400); }
-        @media (max-width: 767px) {
-            .blockquote-wrap { padding: 36px 24px 76px; }
-            .blog-single-wrap .article-body h2 { font-size: 23px; }
-        }
-    </style>
-<!-- auth-gate --><link rel="stylesheet" href="assets/css/auth-gate.css?v=19303c55"><script>window.FA_AUTH={url:"https://utkbzapqkucetphugmul.supabase.co",key:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2J6YXBxa3VjZXRwaHVnbXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTQ2MjksImV4cCI6MjExMDk5MDYyOX0.VbAtIlS9kxXrTkrezkE3JlzZMsGH2QRG3OlqCQY018o",locked:false};(function(a,u){try{u=localStorage.getItem("sb-utkbzapqkucetphugmul-auth-token")}catch(e){}var f=0;try{f=self!==top&&top.location.host===location.host}catch(e){}if(a.locked&&!f&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script><script src="assets/js/vendor/supabase-2.45.4.js" defer></script><script src="assets/js/auth-gate.js?v=19303c55" defer></script><!-- /auth-gate --><!-- a11y-toolbar --><script src="assets/js/a11y-toolbar.js?v=8fcfb2a6" data-language="he" data-position="bottom-right" data-z-index="100010" async></script><!-- /a11y-toolbar -->    <!-- seo -->
+<!-- auth-gate --><link rel="stylesheet" href="assets/css/auth-gate.css?v=19303c55"><script>window.FA_AUTH={url:"https://utkbzapqkucetphugmul.supabase.co",key:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2J6YXBxa3VjZXRwaHVnbXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTQ2MjksImV4cCI6MjExMDk5MDYyOX0.VbAtIlS9kxXrTkrezkE3JlzZMsGH2QRG3OlqCQY018o",locked:false};(function(a,u){try{u=localStorage.getItem("sb-utkbzapqkucetphugmul-auth-token")}catch(e){}var f=0;try{f=self!==top&&top.location.host===location.host}catch(e){}if(a.locked&&!f&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script><script src="assets/js/vendor/supabase-2.45.4.js" defer></script><script src="assets/js/auth-gate.js?v=19303c55" defer></script><!-- /auth-gate --><!-- a11y-toolbar --><script src="assets/js/a11y-toolbar.js?v=8fcfb2a6" data-language="he" data-position="bottom-left" data-z-index="100010" async></script><!-- /a11y-toolbar -->    <!-- seo -->
     <link rel="canonical" href="https://free-ai.co.il/accessibility">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Free AI">
     <meta property="og:locale" content="he_IL">
-    <meta property="og:title" content="הצהרת נגישות – Free AI">
+    <meta property="og:title" content="הצהרת נגישות – Free AI ותפריט הנגישות">
     <meta property="og:description" content="מה עשינו כדי שאפשר יהיה להשתמש ב-Free AI עם מוגבלות, איך עובד תפריט הנגישות, מה עוד לא מושלם ואיך פונים אלינו.">
     <meta property="og:url" content="https://free-ai.co.il/accessibility">
     <meta property="og:image" content="https://free-ai.co.il/assets/images/og.png">
@@ -75,167 +32,38 @@
     <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "דף הבית", "item": "https://free-ai.co.il/"}, {"@type": "ListItem", "position": 2, "name": "הצהרת נגישות"}]}]}</script>
     <!-- /seo -->
 </head>
+<body class="overflow-x-hidden m2-inner"><!-- site-header --><link rel="stylesheet" href="assets/css/site-header.css?v=ae0b1c41"><header class="gh" id="gh"><div class="gh-in"><a class="gh-logo" href="/" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/logo.svg" alt="Free AI"></a><nav class="gh-nav" aria-label="ניווט ראשי"><a class="gh-link" href="service">הקורס</a><a class="gh-link" href="guide-1">המדריך</a><a class="gh-link" href="work">סקילים</a><a class="gh-link" href="articles">מאמרים</a></nav><a class="gh-btn" href="service">התחל ללמוד</a><button class="gh-burger" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="gh-m"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden><a class="gh-mlink" href="/">דף הבית</a><a class="gh-mlink" href="service">הקורס</a><a class="gh-mlink" href="guide-1">המדריך</a><a class="gh-mlink" href="work">סקילים</a><a class="gh-mlink" href="articles">מאמרים</a><a class="gh-btn" href="service">התחל ללמוד</a></nav></header><script src="assets/js/site-header.js?v=ae0b1c41" defer></script><!-- /site-header -->
 
-<body class=""><!-- site-header --><link rel="stylesheet" href="assets/css/site-header.css?v=ae0b1c41"><header class="gh" id="gh"><div class="gh-in"><a class="gh-logo" href="/" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/logo.svg" alt="Free AI"></a><nav class="gh-nav" aria-label="ניווט ראשי"><a class="gh-link" href="service">הקורס</a><a class="gh-link" href="guide-1">המדריך</a><a class="gh-link" href="work">סקילים</a><a class="gh-link" href="articles">מאמרים</a></nav><a class="gh-btn" href="service">התחל ללמוד</a><button class="gh-burger" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="gh-m"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden><a class="gh-mlink" href="/">דף הבית</a><a class="gh-mlink" href="service">הקורס</a><a class="gh-mlink" href="guide-1">המדריך</a><a class="gh-mlink" href="work">סקילים</a><a class="gh-mlink" href="articles">מאמרים</a><a class="gh-btn" href="service">התחל ללמוד</a></nav></header><script src="assets/js/site-header.js?v=ae0b1c41" defer></script><!-- /site-header -->
-    <canvas class="cursor-trail" id="trail" style="display: none;"></canvas>
 
-    <!-- Scroll Top -->
-    <button id="goTop">
-        <span class="border-progress"></span>
-        <span class="ic-wrap">
-            <span class="icon icon-long-arrow-alt-up-solid"></span>
-        </span>
-    </button>
-    <!-- /Scroll Top -->
+<div class="overflow-x-clip m2-top"><section class="relative overflow-x-clip bg-background-main"><canvas aria-hidden="true" class="block size-full pointer-events-none absolute inset-y-0 left-1/2 z-0 w-full max-w-[1920px] -translate-x-1/2" data-flip="1" data-rib="hero"></canvas><div class="relative z-10 grid-layout items-start gap-y-8 pt-6 lg:gap-y-0 lg:pb-0 lg:pt-20"><div class="col-span-full flex flex-col gap-4 lg:col-start-1 lg:col-end-9 lg:row-start-1"><h1 class="font-serif text-[2.5rem]/[2.75rem] tracking-[-0.8px] text-text-main lg:text-[3.125rem]/[3.25rem] lg:tracking-[-2px] m2-h1 m2-h1-wrap">הצהרת נגישות</h1><p class="text-lg/6 text-text-sub">מה עשינו כדי שכל אחד יוכל ללמוד כאן, מה עוד לא מושלם, ואיך פונים אלינו.</p></div><div class="col-span-full flex w-fit max-w-full flex-col gap-2 lg:col-start-1 lg:col-end-10 lg:row-start-2 lg:mt-8"><div class="flex flex-wrap items-start gap-2"><a class="group inline-flex shrink-0 cursor-pointer items-center justify-center gap-1 whitespace-nowrap rounded-[4px] border border-transparent pl-4 pr-3 font-medium text-sm/4 outline-offset-2 transition-[color,background-color,border-color] duration-100 focus-visible:outline-2 focus-visible:outline-brand [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 bg-background-invert text-text-invert hover:bg-background-invert/90 py-3" data-slot="button" href="service">להתחיל ללמוד בחינם<svg aria-hidden="true" class="size-4 opacity-50 transition-opacity duration-150 ease-out group-hover:opacity-100 motion-reduce:transition-none" fill="none" viewbox="0 0 16 16"><g class="transition-[transform,translate] duration-150 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none"><path class="opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 motion-reduce:transition-none" d="M2.5 8H10.5" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path><path d="M7 4.5L10.5 8 7 11.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></g></svg></a><a class="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[4px] border border-border-sub bg-background-main py-3 pl-3 pr-4 text-sm/4 font-medium text-text-main outline-offset-2 transition-colors duration-100 hover:bg-background-soft focus-visible:outline-2 focus-visible:outline-brand" href="guide-1"><svg aria-hidden="true" class="size-4 text-brand" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20"></path></svg>למדריך הכתוב</a></div></div><div class="relative isolate col-span-full mt-16 w-[587px] max-w-none sm:mt-12 sm:w-[120%] lg:col-start-10 lg:col-end-[25] lg:row-start-2 lg:mt-0 lg:w-[1057px] lg:self-start"><div aria-label="הצהרת נגישות" class="@container relative isolate w-full m2-vis-box" role="img"><div aria-hidden="true" class="pointer-events-none absolute inset-[15px] bottom-[72px] -z-10 rounded-t-xl blur-[24px] dark:hidden" style="background:linear-gradient(106deg, rgba(68,174,255,0.5) 0%, rgba(224,70,28,0.5) 35%, rgba(255,198,46,0.5) 65%, rgba(224,70,28,0.5) 100%)"></div><div class="absolute inset-0 overflow-hidden rounded-t-[2.22cqw] border-l border-r border-t border-[rgba(31,167,122,0.08)]"><div class="m2-vis"><div aria-hidden="true" class="ill lg-ill">
+<div class="lg-panel">
+<div class="lg-head"><span class="lg-wheel"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></svg></span><b>תפריט נגישות</b><i>✕</i></div>
+<div class="lg-step"><span>גודל טקסט</span><em>−</em><b>120%</b><em>+</em></div>
+<div class="lg-tiles">
+<div class="lg-tile on"><b>ניגודיות גבוהה</b><small>✓ פעיל</small></div>
+<div class="lg-tile"><b>גופן קריא</b><small>לא פעיל</small></div>
+<div class="lg-tile on"><b>הדגשת קישורים</b><small>✓ פעיל</small></div>
+<div class="lg-tile"><b>סרגל קריאה</b><small>לא פעיל</small></div>
+</div>
+</div>
+<span class="lg-fab"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></svg></span>
+</div></div></div></div><div aria-hidden="true" class="pointer-events-none absolute inset-0 z-20" style="background:linear-gradient(to bottom, transparent 55%, var(--color-background-main) 96%)"></div></div></div></section></div><main class="wrap stack art-main article legal">
+<p class="legal-date">עודכן לאחרונה: 23 בנובמבר 2026</p>
+<section class="card art-sec"><h2>מה עשינו באתר</h2>
+<ul><li>כל העמודים מוגדרים בעברית ומימין לשמאל, כך שקוראי מסך מקריאים אותם נכון.</li><li>אפשר לעבור על כל האתר עם המקלדת בלבד: Tab כדי לזוז, Enter כדי ללחוץ, Esc כדי לסגור חלון. מה שנבחר מקבל מסגרת שרואים.</li><li>הכותרות בכל עמוד מסודרות לפי רמות, ואפשר לדלג ביניהן עם קורא מסך.</li><li>לתמונות יש תיאור בטקסט. תמונות שהן רק קישוט מוסתרות מקוראי מסך.</li><li>האתר מתאים את עצמו לטלפון, לטאבלט ולמחשב, ואפשר להגדיל את התצוגה עם הזום של הדפדפן.</li><li>אין באתר תוכן מהבהב.</li></ul></section><section class="card art-sec"><h2>תפריט הנגישות</h2>
+<p>בפינה של כל עמוד יש כפתור כחול עגול עם סמל של כיסא גלגלים. הוא פותח תפריט שבו אפשר:</p>
+<ul><li>להגדיל את הטקסט עד 160%, ולהגדיל ריווח בין אותיות, בין מילים ובין שורות.</li><li>לעבור לגופן פשוט וקריא.</li><li>לבחור ניגודיות גבוהה, כהה או בהירה, להפוך צבעים או להציג בגווני אפור.</li><li>לעצור אנימציות ולהפחית תנועה.</li><li>להדגיש קישורים וכותרות, להוסיף סרגל קריאה או מסכת קריאה, להגדיל את סמן העכבר ולהדגיש את המקום שבו נמצא המיקוד.</li><li>להסתיר תמונות.</li></ul>
+<p>ההגדרות נשמרות רק בדפדפן שלכם, ו"איפוס כל ההגדרות" מחזיר הכול למצב הרגיל. התפריט משנה את התצוגה אצלכם בלבד. הוא לא מחליף את העבודה על הנגישות של האתר עצמו.</p></section><section class="card art-sec"><h2>רמת הנגישות</h2>
+<p>אנחנו עובדים כדי שהאתר יעמוד בתקנה 35 לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013, ובתקן הישראלי ת"י 5568, שמבוסס על הנחיות WCAG 2.0 ברמה AA.</p>
+<p>בדקנו את העמודים המרכזיים בכלי בדיקה אוטומטי ובשימוש במקלדת בלבד. האתר עוד לא עבר בדיקה של מורשה נגישות.</p></section><section class="card art-sec"><h2>מה עוד לא מושלם</h2>
+<ul><li>בכמה מקומות טקסט אפור בהיר לא בולט מספיק על הרקע. אנחנו מתקנים את זה.</li><li>ייתכן שלחלק מהסרטונים עדיין אין כתוביות.</li><li>סרטוני YouTube, ההתחברות עם Google ותכנים אחרים של חברות חיצוניות לא בשליטה שלנו.</li><li>הסקילים להורדה הם קבצי טקסט וקוד, לא מסמכים מונגשים.</li></ul>
+<p>מצאתם משהו שלא כתוב כאן? נשמח לדעת.</p></section><section class="card art-sec"><h2>נתקלתם בבעיה?</h2>
+<p>כתבו לרכז הנגישות של Free AI: <a href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></p>
+<p>כדי שנוכל לתקן מהר, ציינו באיזה עמוד זה קרה, מה ניסיתם לעשות, ובאיזה מכשיר, דפדפן וטכנולוגיה מסייעת השתמשתם (למשל NVDA, VoiceOver או הגדלת מסך). נחזור אליכם בהקדם.</p></section><section class="card art-sec"><h2>הסדרי נגישות פיזיים</h2>
+<p>Free AI פועל באינטרנט בלבד. אין לנו משרד או מקום לקבלת קהל.</p></section>
+</main>
+<footer class="relative w-full pt-18 lg:pt-[104px]"><div aria-hidden="true" class="f-bigword"><img alt="" height="399" loading="lazy" src="assets/images/logo/logo-footer.png" width="1280"/></div><div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 border-t border-border-line bg-background-main"></div><div class="relative isolate grid-layout px-4 pb-18 lg:px-0 lg:pb-16"><canvas aria-hidden="true" class="pointer-events-none absolute left-0 top-0 -z-10" data-clip="" data-feather=".06" data-sectiondots=""></canvas><div class="col-span-full mb-10 flex flex-col gap-6 lg:col-span-5 lg:mb-0"><a aria-label="Free AI, לדף הבית" class="w-fit" href="/"><img alt="Free AI" src="assets/images/logo/logo.svg" style="height:34px;width:auto"/></a><div class="f-tag"><p class="f-tag-h">קלוד קוד בחינם</p><p class="f-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div><a class="w-fit items-center gap-1.5 rounded border border-black/[0.04] bg-neutral-0 py-1 pl-1.5 pr-2 transition-colors duration-200 hover:border-black/[0.06] hover:bg-neutral-100 dark:border-white/[0.05] dark:bg-[#0a0b0f] dark:hover:border-white/[0.1] dark:hover:bg-neutral-800 inline-flex" href="mailto:hello@free-ai.co.il"><span class="text-sm/5 text-neutral-700 dark:text-neutral-300">hello@free-ai.co.il</span></a></div><div class="col-span-full grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:col-span-19 lg:grid-cols-5"><div class="flex flex-col gap-10 lg:gap-6"><h3 class="text-sm/5 font-normal text-neutral-400">לומדים</h3><ul class="flex flex-col gap-5"><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="service">הקורס</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-1">המדריך</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="work">סקילים</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="articles">מאמרים</a></li></ul></div><div class="flex flex-col gap-10 lg:gap-6"><h3 class="text-sm/5 font-normal text-neutral-400">המדריך</h3><ul class="flex flex-col gap-5"><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-1">לפני שמתחילים</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-3">פותחים חשבון קלוד</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-5">פותחים GitHub</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-7">היכרות ראשונה עם קלוד</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-18">מעלים לאוויר</a></li></ul></div><div class="flex flex-col gap-10 lg:gap-6"><h3 class="text-sm/5 font-normal text-neutral-400">מאמרים</h3><ul class="flex flex-col gap-5"><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="article-github-backup">גיבוי אוטומטי</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="article-claude-code-price">קלוד קוד מחיר: כמה עולה Claude Code ומה בחינם</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="article-what-is-claude-code">מה זה קלוד קוד?</a></li></ul></div><div class="flex flex-col gap-10 lg:gap-6"><h3 class="text-sm/5 font-normal text-neutral-400">כלים</h3><ul class="flex flex-col gap-5"><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-4">Claude Code</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-13">Connectors</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-14">Skills</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="guide-18">4CODE</a></li></ul></div><div class="flex flex-col gap-10 lg:gap-6"><h3 class="text-sm/5 font-normal text-neutral-400">מידע</h3><ul class="flex flex-col gap-5"><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="privacy">פרטיות</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="terms">תנאי שימוש</a></li><li><a class="relative inline-block text-sm/4 font-medium text-text-main transition-colors duration-200 hover:text-brand before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-['']" href="accessibility">נגישות</a></li></ul></div></div><div class="col-span-full mt-10 border-t border-border-line lg:mt-16"></div><div class="col-span-full mt-10 flex items-center justify-between gap-4"><span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" data-totop="" href="#top">חזרה למעלה ↑</a></div></div></footer>
+<script src="assets/js/m2.js?v=03041782" defer></script>
 
-    <!-- #wrapper -->
-    <main id="wrapper">
-
-        <!-- Header -->
-        
-        <!-- /Header -->
-        <!-- page-title -->
-        <div class="section-page-title">
-            <div class="container text-center">
-                <h1 class="page-title fw-semibold effectFade fadeZoom">הצהרת נגישות</h1>
-                <div class="breadcrumbs effectFade fadeUp">
-                    <a href="/" class="link1">דף הבית</a>
-                    <div>/</div>
-                    <div>הצהרת נגישות</div>
-                </div>
-            </div>
-        </div>
-        <!-- /page-title -->
-        <!-- Blog With Sidebar -->
-        <section class="section-blog flat-spacing">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="blog-single-wrap legal-wrap">
-                            <div class="article-body text-body-2">
-                                <p class="updated">עודכן לאחרונה: 23 בנובמבר 2026</p>
-                                <h2 class="fw-semibold">מה עשינו באתר</h2>
-                                <ul>
-                                    <li>כל העמודים מוגדרים בעברית ומימין לשמאל, כך שקוראי מסך מקריאים אותם נכון.</li>
-                                    <li>אפשר לעבור על כל האתר עם המקלדת בלבד: Tab כדי לזוז, Enter כדי ללחוץ, Esc כדי לסגור חלון. מה שנבחר מקבל מסגרת שרואים.</li>
-                                    <li>הכותרות בכל עמוד מסודרות לפי רמות, ואפשר לדלג ביניהן עם קורא מסך.</li>
-                                    <li>לתמונות יש תיאור בטקסט. תמונות שהן רק קישוט מוסתרות מקוראי מסך.</li>
-                                    <li>האתר מתאים את עצמו לטלפון, לטאבלט ולמחשב, ואפשר להגדיל את התצוגה עם הזום של הדפדפן.</li>
-                                    <li>אין באתר תוכן מהבהב.</li>
-                                </ul>
-                                <h2 class="fw-semibold">תפריט הנגישות</h2>
-                                <p>בפינה של כל עמוד יש כפתור כחול עגול עם סמל של כיסא גלגלים. הוא פותח תפריט שבו אפשר:</p>
-                                <ul>
-                                    <li>להגדיל את הטקסט עד 160%, ולהגדיל ריווח בין אותיות, בין מילים ובין שורות.</li>
-                                    <li>לעבור לגופן פשוט וקריא.</li>
-                                    <li>לבחור ניגודיות גבוהה, כהה או בהירה, להפוך צבעים או להציג בגווני אפור.</li>
-                                    <li>לעצור אנימציות ולהפחית תנועה.</li>
-                                    <li>להדגיש קישורים וכותרות, להוסיף סרגל קריאה או מסכת קריאה, להגדיל את סמן העכבר ולהדגיש את המקום שבו נמצא המיקוד.</li>
-                                    <li>להסתיר תמונות.</li>
-                                </ul>
-                                <p>ההגדרות נשמרות רק בדפדפן שלכם, ו"איפוס כל ההגדרות" מחזיר הכול למצב הרגיל. התפריט משנה את התצוגה אצלכם בלבד. הוא לא מחליף את העבודה על הנגישות של האתר עצמו.</p>
-                                <h2 class="fw-semibold">רמת הנגישות</h2>
-                                <p>אנחנו עובדים כדי שהאתר יעמוד בתקנה 35 לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013, ובתקן הישראלי ת"י 5568, שמבוסס על הנחיות WCAG 2.0 ברמה AA.</p>
-                                <p>בדקנו את העמודים המרכזיים בכלי בדיקה אוטומטי ובשימוש במקלדת בלבד. האתר עוד לא עבר בדיקה של מורשה נגישות.</p>
-                                <h2 class="fw-semibold">מה עוד לא מושלם</h2>
-                                <ul>
-                                    <li>בכמה מקומות טקסט אפור בהיר לא בולט מספיק על הרקע. אנחנו מתקנים את זה.</li>
-                                    <li>ייתכן שלחלק מהסרטונים עדיין אין כתוביות.</li>
-                                    <li>סרטוני YouTube, ההתחברות עם Google ותכנים אחרים של חברות חיצוניות לא בשליטה שלנו.</li>
-                                    <li>הסקילים להורדה הם קבצי טקסט וקוד, לא מסמכים מונגשים.</li>
-                                </ul>
-                                <p>מצאתם משהו שלא כתוב כאן? נשמח לדעת.</p>
-                                <h2 class="fw-semibold">נתקלתם בבעיה?</h2>
-                                <p>כתבו לרכז הנגישות של Free AI: <a href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></p>
-                                <p>כדי שנוכל לתקן מהר, ציינו באיזה עמוד זה קרה, מה ניסיתם לעשות, ובאיזה מכשיר, דפדפן וטכנולוגיה מסייעת השתמשתם (למשל NVDA, VoiceOver או הגדלת מסך). נחזור אליכם בהקדם.</p>
-                                <h2 class="fw-semibold">הסדרי נגישות פיזיים</h2>
-                                <p>Free AI פועל באינטרנט בלבד. אין לנו משרד או מקום לקבלת קהל.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- /Blog With Sidebar -->
-        <!-- footer -->
-        <footer>
-            <div class="footer-image">
-                <img class="effectFade fadeUp" src="assets/images/logo/logo-footer.png" alt="">
-            </div>
-            <div class="container">
-                <div class="footer-content">
-                    <a href="/" class="footer-logo">
-                        <img src="assets/images/logo/logo-2.svg" alt="Free AI">
-                    </a>
-                    <div class="title h6 fw-semibold">קורס Claude המלא. <br> פתוח לכולם, בחינם.</div>
-                    <div class="text">בעברית, צעד אחרי צעד.</div>
-                    <div class="tf-social-1 justify-content-center">
-                        <a href="service" class="text-body-1 fw-semibold">
-                            הקורס
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
-                        <a href="guide-1" class="text-body-1 fw-semibold">
-                            המדריך
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
-                        <a href="work" class="text-body-1 fw-semibold">
-                            סקילים
-                            <div class="social-item">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <ul class="footer-links d-flex gap-24 align-items-center">
-                        <li>
-                            <a href="privacy" class="fw-semibold link-underline link1">פרטיות</a>
-                        </li>
-                        <li>
-                            <a href="terms" class="fw-semibold link-underline link1">תנאי שימוש</a>
-                        </li><li>
-                            <a href="accessibility" class="fw-semibold link-underline link1">נגישות</a>
-                        </li>
-                        <li>
-                            <a href="mailto:hello@free-ai.co.il" class="fw-semibold link-underline link1">hello@free-ai.co.il</a>
-                        </li>
-                    </ul>
-                    <p class="text-secondary coppy-rights text-center">© 2026 Free AI. כל הזכויות שמורות.</p>
-                    <a href="#" class="action-go-top d-flex gap-8 align-items-center justify-content-end link1">
-                        <span class="fw-semibold">חזרה למעלה</span>
-                        <i class="icon icon-long-arrow-alt-up-solid fs-20"></i>
-                    </a>
-                </div>
-            </div>
-        </footer>
-        <!-- /footer -->
-    </main>
-
-    <!-- Javascript -->
-    <script src="assets/js/jquery.min.js"></script>
-
-    <script src="assets/js/bootstrap.min.js"></script>
-
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/slick.min.js"></script>
-    
-    <script src="assets/js/carousel.js"></script>
-    <script src="assets/js/infinityslide.js"></script>
-    <script src="assets/js/ScrollSmooth.js"></script>
-    <script src="assets/js/gsap.min.js"></script>
-    
-    <script src="assets/js/ScrollTrigger.min.js"></script>
-    <script src="assets/js/ScrollToPlugin.min.js"></script>
-    <script src="assets/js/gsapAnimation.js"></script>
-
-    <script src="assets/js/main.js"></script>
-
-<script src="assets/js/header.js?v=1" defer></script>
 </body>
-
 </html>
