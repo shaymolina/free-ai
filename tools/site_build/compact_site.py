@@ -791,28 +791,14 @@ def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual
     ARTICLES.append((name, title, desc, mins))
     chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
     secs = "".join(f'<section class="card art-sec">{c}</section>' for c in chunks)
-    dt = f'<span class="a-date">עודכן: {date}</span>' if date else ""
-    page_body = f'''    <div class="wrap full">
-        <section class="c-hero a-hero">
-        {STRINGS}
-        {header("articles.html")}
-            <div class="hero-in">
-                <div class="hero-text">
-                    <span class="chip">מאמר · {mins} דקות קריאה</span>
-                    <h1 class="hero-title"><span class="grad">{title}</span></h1>
-                    <p>{lead}</p>
-                    {dt}
-                </div>
-                <div class="a-visual">{visual}</div>
-            </div>
-        </section>
-    </div>
-    <main class="wrap stack art-main article">
+    dt = f" · עודכן {date}" if date else ""
+    main = f'''<main class="wrap stack art-main article">
 {secs}
         <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
-    </main>
-<!--big-footer-->'''
-    (SITE / name).write_text(page(f"{seo_title or title} | Free AI", desc, page_body, ARTICLE_JS, css="home.css"))
+    </main>'''
+    import home2
+    (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, f"מאמר · {mins} דקות קריאה{dt}", title, lead, visual, main,
+                                              script=ARTICLE_JS, legacy_v=CSS_VERSION))
     print(f"{name} done")
 
 
@@ -822,26 +808,14 @@ def build_articles_index():
     cards = "".join(
         f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
         for n, t, d, m in ARTICLES)
-    body = f'''    <div class="wrap full">
-        <section class="c-hero a-hero">
-        {STRINGS}
-        {header("articles.html")}
-            <div class="hero-in">
-                <div class="hero-text">
-                    <span class="chip">{len(ARTICLES)} מאמרים</span>
-                    <h1 class="hero-title"><span class="grad">מאמרים</span></h1>
-                    <p>מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.</p>
-                </div>
-                <div class="a-visual">{ILL_BUILD}</div>
-            </div>
-        </section>
-    </div>
-    <main class="wrap stack" style="margin-top:16px">
+    import home2
+    main = f'''<main class="wrap stack art-index">
         <div class="art-list">{cards}</div>
-    </main>
-{home_mint.footer(CHAPTERS, ARTICLES, READY)}'''
-    (SITE / "articles.html").write_text(page(
-        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.", body, css="home.css"))
+    </main>'''
+    (SITE / "articles.html").write_text(home2.inner_page(
+        "מאמרים על בינה מלאכותית ואוטומציה בעברית – Free AI", "מדריכים קצרים בעברית לבנייה ואוטומציה עם בינה מלאכותית, בלי לדעת לתכנת.",
+        f"{len(ARTICLES)} מאמרים", "מאמרים", "מדריכים קצרים שאפשר לעשות היום, בלי לדעת לתכנת.", ILL_BUILD, main,
+        btn2=("guide-1.html", "למדריך הכתוב", "book"), legacy_v=CSS_VERSION))
     print("articles.html done")
 
 
@@ -1059,7 +1033,7 @@ _h2.build()  # עמוד הבית הראשי (המבנה של Mintlify), נכתב
 import home_mint as _hm
 for _n, *_ in ARTICLES:
     _f = SITE / _n
-    _f.write_text(_f.read_text().replace("<!--big-footer-->", clean(_hm.footer(CHAPTERS, ARTICLES, READY))))
+    _f.write_text(_f.read_text().replace("<!--big-footer-->", ""))
 
 # שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
 import runpy as _runpy
