@@ -1,0 +1,14 @@
+{
+  "name": "@free-ai/accessibility-toolbar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "User-controlled accessibility display preferences toolbar (Hebrew/RTL and English/LTR).",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "sideEffects": ["./src/auto.ts", "*.css"],
+  "exports": {
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/styles.css"
+  }
+}
