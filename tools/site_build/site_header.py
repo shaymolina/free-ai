@@ -6,10 +6,16 @@ SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sit
 LINKS = [("service", "הקורס"), ("guide-1", "המדריך"), ("work", "סקילים"), ("articles", "מאמרים")]
 START, END = "<!-- site-header -->", "<!-- /site-header -->"
 
+# התחברות עם גוגל: מזהה הלקוח מ-Google Cloud Console (OAuth Client ID). כל עוד הוא ריק, אף עמוד לא ננעל
+# (אפשר לראות את החלון עם ?login בכתובת). העמודים ב-OPEN פתוחים לכולם, כל השאר דורשים התחברות.
+GOOGLE_CLIENT_ID = ""
+OPEN = {"index", "privacy", "terms", "articles", "work"}
+A_START, A_END = "<!-- auth-gate -->", "<!-- /auth-gate -->"
 
-def _v():
+
+def _v(files=("css/site-header.css", "js/site-header.js")):
     h = hashlib.md5()
-    for f in ("css/site-header.css", "js/site-header.js"):
+    for f in files:
         h.update(open(os.path.join(SITE, "assets", f), "rb").read())
     return h.hexdigest()[:8]
 
@@ -41,6 +47,24 @@ def header_html(slug):
             f'<script src="assets/js/site-header.js?v={v}" defer></script>{END}')
 
 
+def auth_html(slug):
+    locked = "false" if slug in OPEN else "true"
+    v = _v(("css/auth-gate.css", "js/auth-gate.js"))
+    return (f'{A_START}<link rel="stylesheet" href="assets/css/auth-gate.css?v={v}">'
+            f'<script>window.FA_AUTH={{clientId:"{GOOGLE_CLIENT_ID}",locked:{locked}}};'
+            '(function(a,u){try{u=localStorage.getItem("fa_user")}catch(e){}'
+            'if(a.locked&&(a.clientId||/[?&]login\\b/.test(location.search))&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script>'
+            f'<script src="assets/js/auth-gate.js?v={v}" defer></script>{A_END}')
+
+
+def apply_auth(path):
+    slug = os.path.basename(path)[:-5]
+    s = open(path).read()
+    s = re.sub(re.escape(A_START) + ".*?" + re.escape(A_END), "", s, flags=re.S)
+    s = s.replace("</head>", auth_html(slug) + "</head>", 1)
+    open(path, "w").write(s)
+
+
 def _cut(s, open_re):
     """מוחק תגית header שמתחילה בביטוי, עד הסגירה שלה."""
     m = re.search(open_re, s)
@@ -63,7 +87,9 @@ def apply(path):
 
 
 def apply_all():
-    n = sum(apply(os.path.join(SITE, f)) for f in sorted(os.listdir(SITE)) if f.endswith(".html"))
+    pages = [os.path.join(SITE, f) for f in sorted(os.listdir(SITE)) if f.endswith(".html")]
+    n = sum(apply(p) for p in pages)
+    for p in pages: apply_auth(p)
     print(f"site header: {n} pages")
 
 

@@ -1,0 +1,82 @@
+/* חלון ההתחברות: מי שלא מחובר רואה את העמוד מטושטש ואת החלון מעליו. */
+html.ag-lock { overflow: hidden; }
+html.ag-lock body { overflow: hidden; }
+html.ag-lock body > *:not(#ag) { filter: blur(9px); -webkit-filter: blur(9px); pointer-events: none; user-select: none; }
+
+#ag { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto;
+  background: rgba(250,248,246,.55); direction: rtl; font-family: 'Kobi', 'Noto Sans Hebrew', system-ui, sans-serif; color: #08090A;
+  opacity: 0; transition: opacity .4s cubic-bezier(.16,1,.3,1); }
+#ag.is-in { opacity: 1; }
+#ag *, #ag *::before, #ag *::after { box-sizing: border-box; }
+
+.ag-card { display: grid; grid-template-columns: 1fr 1fr; width: 100%; max-width: 880px; min-height: 540px; margin: auto; overflow: hidden;
+  background: #fff; border: 1px solid #E6E5E3; border-radius: 24px;
+  box-shadow: 0 1px 2px rgba(8,9,10,.04), 0 40px 100px -30px rgba(40,22,16,.35);
+  transform: translateY(18px) scale(.985); transition: transform .6s cubic-bezier(.16,1,.3,1); }
+#ag.is-in .ag-card { transform: none; }
+
+/* צד הטופס */
+.ag-form { display: flex; flex-direction: column; justify-content: center; padding: 48px 52px 36px; }
+.ag-logo { display: block; height: 32px; width: auto; margin: 0 0 32px; align-self: flex-start; }
+.ag-title { margin: 0 0 10px; font-size: 32px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; color: #08090A; }
+.ag-sub { margin: 0 0 28px; font-size: 15px; line-height: 1.55; color: #66686C; }
+
+.ag-google { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 52px; padding: 0 20px;
+  border: 1px solid #DCDAD7; border-radius: 12px; background: #fff; cursor: pointer;
+  font: 600 16px 'Kobi', 'Noto Sans Hebrew', system-ui, sans-serif; color: #08090A;
+  box-shadow: 0 1px 2px rgba(8,9,10,.05); transition: background-color .15s, border-color .15s, box-shadow .2s, transform .1s; }
+.ag-google svg { width: 22px; height: 22px; flex: none; }
+.ag-google:hover { background: #FBFAF9; border-color: #C9C6C2; box-shadow: 0 4px 14px -6px rgba(40,22,16,.18); }
+.ag-google:active { transform: scale(.99); }
+.ag-google:focus-visible { outline: 3px solid rgba(217,119,87,.35); outline-offset: 2px; }
+.ag-google:disabled { opacity: .55; cursor: not-allowed; }
+.ag-google.is-busy { color: transparent; pointer-events: none; }
+.ag-google.is-busy svg { opacity: 0; }
+.ag-google.is-busy::after { content: ""; position: absolute; width: 20px; height: 20px; border: 2px solid #E6E5E3; border-top-color: #D97757; border-radius: 50%; animation: ag-spin .7s linear infinite; }
+@keyframes ag-spin { to { transform: rotate(360deg); } }
+
+.ag-err { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: #F8EFEC; font-size: 13px; line-height: 1.45; color: #B5583A; }
+.ag-err[hidden] { display: none; }
+.ag-or { display: flex; align-items: center; gap: 12px; margin: 28px 0 10px; font-size: 12px; color: #9B9C9E; }
+.ag-or::before, .ag-or::after { content: ""; flex: 1; height: 1px; background: #EEECE9; }
+.ag-note { margin: 0; font-size: 14px; line-height: 1.55; color: #3D3F42; text-align: center; }
+.ag-fine { margin: 28px 0 0; font-size: 12px; line-height: 1.5; color: #9B9C9E; }
+.ag-fine a { color: #66686C; text-decoration: underline; text-underline-offset: 2px; }
+.ag-home { align-self: flex-start; margin-top: 10px; font-size: 13px; color: #66686C; text-decoration: none; }
+.ag-home:hover { color: #08090A; }
+
+/* צד המותג */
+.ag-side { position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 44px;
+  background: radial-gradient(120% 80% at 100% 0%, #F3D2C3 0%, transparent 60%), linear-gradient(160deg, #FBF1EC 0%, #F4DDD2 100%);
+  border-inline-start: 1px solid #F1E3DC; }
+.ag-strings { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ag-strings path { fill: none; stroke: #D97757; stroke-width: 1; opacity: .42; }
+.ag-side-in { position: relative; padding: 24px; border-radius: 18px; background: rgba(255,255,255,.78); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.9); box-shadow: 0 18px 40px -18px rgba(120,55,30,.3); }
+.ag-kicker { display: inline-block; margin-bottom: 10px; padding: 3px 10px; border-radius: 999px; background: #F8EFEC; color: #B5583A; font-size: 12px; font-weight: 600; }
+.ag-side-t { margin-bottom: 16px; font-size: 21px; line-height: 1.25; font-weight: 800; letter-spacing: -.01em; color: #08090A; }
+.ag-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ag-list li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #3D3F42; }
+.ag-list svg { width: 20px; height: 20px; flex: none; padding: 2px; border-radius: 50%; background: #D97757; color: #fff; }
+
+@media (max-width: 760px) {
+  .ag-card { grid-template-columns: 1fr; min-height: 0; max-width: 440px; border-radius: 20px; }
+  .ag-side { display: none; }
+  .ag-form { padding: 36px 24px 26px; }
+  .ag-logo { margin-bottom: 24px; }
+  .ag-title { font-size: 27px; }
+}
+
+/* תמונת המשתמש בהדר, אחרי התחברות */
+.ag-me { position: relative; flex: none; }
+.ag-av { display: block; width: 32px; height: 32px; padding: 0; border: 1px solid rgba(0,0,0,.1); border-radius: 999px; overflow: hidden; background: #F8EFEC; color: #B5583A; font: 600 14px/30px 'Kobi', system-ui, sans-serif; cursor: pointer; }
+.ag-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ag-menu { position: absolute; top: calc(100% + 8px); left: 0; min-width: 220px; padding: 12px; background: #fff; border-radius: 12px; box-shadow: 0 12px 32px -8px rgba(8,9,10,.16), 0 0 0 1px #E6E5E3; text-align: right; direction: rtl; z-index: 1001; }
+.ag-menu[hidden] { display: none; }
+.ag-name { font-size: 14px; font-weight: 600; color: #08090A; }
+.ag-mail { margin-top: 2px; font-size: 12px; color: #66686C; word-break: break-all; }
+.ag-out { display: block; width: 100%; margin-top: 10px; padding: 8px 10px; border: 1px solid #E6E5E3; border-radius: 8px; background: #fff; font: 500 13px 'Kobi', system-ui, sans-serif; color: #08090A; cursor: pointer; }
+.ag-out:hover { background: #F9F8F7; }
+.gh-in .ag-me { margin-inline-start: auto; }
+
+@media (prefers-reduced-motion: reduce) { #ag, .ag-card { transition: none; } .ag-google.is-busy::after { animation-duration: 2s; } }
