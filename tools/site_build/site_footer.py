@@ -16,8 +16,8 @@ LEARN = [("service", "הקורס"), ("guide-1", "המדריך"), ("work", "סק�
 INFO = [("privacy", "פרטיות"), ("terms", "תנאי שימוש"), ("accessibility", "נגישות")]
 
 
-def _v():
-    return hashlib.md5(open(os.path.join(SITE, "assets", "css", "site-footer.css"), "rb").read()).hexdigest()[:8]
+def _v(name="css/site-footer.css"):
+    return hashlib.md5(open(os.path.join(SITE, "assets", name), "rb").read()).hexdigest()[:8]
 
 
 def _articles():
@@ -38,6 +38,7 @@ def footer_html():
         for h, links in cols if links)
     return (f'{START}<link rel="stylesheet" href="assets/css/site-footer.css?v={_v()}">'
             '<footer class="sf" id="site-footer">'
+            '<canvas class="sf-dots" aria-hidden="true"></canvas>'
             '<div class="sf-word" aria-hidden="true"><img src="assets/images/logo/logo-footer.png" alt="" width="1280" height="399" loading="lazy"></div>'
             '<div class="sf-in">'
             '<div class="sf-brand"><a class="sf-logo" href="/" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>'
@@ -47,7 +48,7 @@ def footer_html():
             '</div>'
             '<div class="sf-bot"><span class="sf-copy">© 2026 Free AI. כל הזכויות שמורות.</span>'
             '<a class="sf-top" href="#">חזרה למעלה ↑</a></div>'
-            f'</footer>{END}')
+            f'</footer><script src="assets/js/site-footer.js?v={_v("js/site-footer.js")}" defer></script>{END}')
 
 
 FOOTER_RE = re.compile(r"<footer\b[^>]*>.*?</footer>", re.S)

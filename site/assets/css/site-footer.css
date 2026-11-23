@@ -41,6 +41,9 @@ footer.sf .sf-word {
   pointer-events: none;
   user-select: none;
 }
+/* נקודות בצדדים, בחלק העליון (site-footer.js) */
+footer.sf .sf-dots { position: absolute; z-index: -1; top: 0; left: 0; pointer-events: none; }
+
 footer.sf .sf-word img { display: block; width: 100%; height: auto; max-width: none; }
 
 footer.sf .sf-in {
@@ -104,4 +107,4 @@ footer.sf .sf-top:hover { color: var(--sf-brand); }
 /* במדריך הפוטר יושב בתחתית עמודת התוכן */
 .ds-content > footer.sf { margin-top: auto; }
 
-@media print { footer.sf .sf-word { display: none; } }
+@media print { footer.sf .sf-word, footer.sf .sf-dots { display: none; } }
