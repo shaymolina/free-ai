@@ -422,3 +422,21 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
   .end-btns { flex-direction: column-reverse; }
   .end-btns .btn { width: 100%; }
 }
+
+/* משפט הסיום של הפרק: בולט, שחור בבהיר ולבן בכהה */
+.lesson-end span { font-size: 15px; font-weight: 700; color: #000; }
+.dark .lesson-end span { color: #fff; }
+/* כותרת פתיחה בראש הפרק */
+.lesson-intro { font-size: 22px; font-weight: 700; line-height: 1.4; color: var(--foreground); margin: 0; }
+/* חלון "הכי חשוב" */
+.key-box { border-color: var(--primary); border-width: 2px; font-size: 15px; }
+.key-box b { flex: none; color: var(--primary); }
+.key-box a { color: var(--primary); font-weight: 600; text-decoration: underline; }
+/* כפתור לקורס בסוף המדריך */
+.btn-course { align-self: flex-start; justify-self: start; width: fit-content; min-height: 44px; padding: 10px 22px; font-size: 16px; }
+/* טבלה במדריך */
+.gtbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--card); }
+.gtbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.gtbl th, .gtbl td { padding: 10px 16px; text-align: right; border-bottom: 1px solid var(--border); }
+.gtbl th { font-weight: 600; background: var(--muted); }
+.gtbl tr:last-child td { border-bottom: 0; }
