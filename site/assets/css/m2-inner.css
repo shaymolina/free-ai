@@ -69,7 +69,7 @@ body.m2-inner { zoom: 1; }
 .a2 .a2-sec:first-child::before { top: 72px; }
 .a2-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
 .a2-num { font-family: var(--font-display); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--brand); }
-.a2 .a2-head h2 { margin: 0; font-family: var(--font-display); font-size: 32px; line-height: 1.15; font-weight: 800; letter-spacing: -.015em; text-wrap: balance; display: block; }
+.a2 .a2-head h2 { margin: 0; font-family: var(--font-display); font-size: 36px; line-height: 1.15; font-weight: 800; letter-spacing: -.015em; text-wrap: balance; display: block; }
 .a2 .a2-head h2::before { content: none; }
 .a2 .a2-sec > p { font-size: 17px; line-height: 1.75; color: var(--ink-2); max-width: 46rem; margin: 0; }
 .a2 .a2-sec > p + p { margin-top: -6px; }
@@ -114,8 +114,8 @@ body.m2-inner { zoom: 1; }
 .a2 .tbl td:last-child { color: var(--ink); }
 
 /* צילום מסך: במסגרת כמו התצוגה בדף הבית */
-.a2 .a2-sec > .fshot, .a2 .fshot { max-width: 640px; width: 100%; margin: 8px auto; padding: 10px; background: var(--card); border: 1px solid var(--line-2); border-radius: var(--r-lg); box-shadow: var(--shadow-float); }
-.a2 .fshot img { border-radius: var(--r-sm); }
+.a2 .a2-sec > .fshot, .a2 .fshot { max-width: none; width: 100%; margin: 8px 0; padding: 0; background: var(--card); border: 1px solid var(--line-2); border-radius: var(--r-md); box-shadow: none; overflow: hidden; }
+.a2 .fshot img { border-radius: 0; }
 .a2 .fstep .fshot { margin: 0; box-shadow: none; max-width: none; }
 
 /* "מה אנחנו בוחרים": שורת מסקנה. כותרת קטנה, ואחריה המסקנה בגדול, בלי קופסה */
@@ -153,7 +153,7 @@ body.m2-inner { zoom: 1; }
 .a2 .faq details { padding: 0; margin: 0; background: none; border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; box-shadow: none; }
 .a2 .faq summary { padding: 20px 4px; font-size: 17px; font-weight: 600; align-items: center; transition: color var(--dur-2) var(--ease); }
 .a2 .faq summary:hover { color: var(--brand); }
-.a2 .faq summary::after { content: "+"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; color: var(--brand); background: var(--brand-soft); transition: transform .45s var(--ease-out-expo), background var(--dur-2) var(--ease); }
+.a2 .faq summary::after { content: "+"; flex: none; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 300; color: var(--brand); background: none; transition: transform .45s var(--ease-out-expo), background var(--dur-2) var(--ease); }
 .a2 .faq details summary::after { transform: none; border: 0; margin: 0; }
 .a2 .faq details[open] summary::after { content: "+"; transform: rotate(45deg); }
 .a2 .faq .faq-a { overflow: hidden; }
@@ -369,3 +369,13 @@ body:has(.a2-exp) .m2-h1 + p { font-size: 17px !important; line-height: 1.6 !imp
 .a2-exp .tbl td:not(:first-child) { font-size: 14px; font-weight: 200; }
 .a2-exp .plan small { font-size: 12px; font-weight: 200; }
 .a2-exp .a2-cta p { font-size: 16px; font-weight: 200; }
+
+/* שורת הפרטים מתחת לכפתורים בפתיחה (זמן קריאה, תאריך) */
+.m2-meta { display: flex; flex-wrap: wrap; align-items: center; margin-top: 18px; }
+.m2-meta-i { display: inline-flex; align-items: center; gap: 7px; padding: 0 14px; font-size: 14px; color: var(--muted, #66686C); border-inline-start: 1px solid var(--line-2, #E6E5E3); }
+.m2-meta-i:first-child { padding-inline-start: 0; border: 0; }
+.m2-meta svg { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--brand-strong, #D97757); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* מספר המקטע: מספר וקו קצר אחריו */
+.a2-num { display: inline-flex; align-items: center; gap: 10px; }
+.a2-num::after { content: ""; width: 28px; height: 1px; background: var(--brand-line); }

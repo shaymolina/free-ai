@@ -519,7 +519,7 @@ INNER_HEAD = """<!DOCTYPE html>
 """
 
 
-def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None, buttons=True):
+def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None, buttons=True, meta=None):
     """עמוד פנימי: כותרת עליונה, פתיחה (חוטים מונפשים, כותרת עבה, כפתורים, איור במסגרת) ופוטר כמו בדף הבית.
     main_html: התוכן שמתחת לפתיחה (תגית <main> שלמה)."""
     _, arts = counts()
@@ -548,6 +548,11 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     a2.find_parent("div").find_next_sibling("div").decompose()
     if not buttons:  # עמודים בלי כפתורי פעולה (למשל העמודים המשפטיים)
         a1.find_parent("div").decompose()
+    elif meta:  # שורת פרטים מתחת לכפתורים: [(אייקון, טקסט)], אייקונים בכתום וקו דק ביניהם
+        ic = {"clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+              "cal": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'}
+        items = "".join(f'<span class="m2-meta-i"><svg viewBox="0 0 24 24" aria-hidden="true">{ic[k]}</svg>{t}</span>' for k, t in meta)
+        a1.find_parent("div").insert_after(frag(f'<div class="m2-meta">{items}</div>'))
     box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
     box["aria-label"] = h1; box["class"] = [c for c in box["class"] if not c.startswith("aspect-")] + ["m2-vis-box"]
     for img in box.find_all("img")[1:]:

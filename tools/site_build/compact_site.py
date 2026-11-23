@@ -930,7 +930,6 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
         band = ('<section class="a2-band a2-more"><div class="a2-wrap a2-pad">'
                 '<div class="a2-band-head"><h2>עוד מאמרים</h2><a href="articles.html" class="a2-link">לכל המאמרים ←</a></div>'
                 f'<div class="m2-arts">{cards}</div></div></section>')
-    dt = f" · עודכן {date}" if date else ""
     main = f'''<div class="a2-progress" aria-hidden="true"><i></i></div>
     <main class="a2{' a2-exp' if name in _ART_EXP else ''}">
         <div class="a2-wrap a2-grid">
@@ -951,7 +950,8 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
             <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
         </div></section>
     </main>'''
-    (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, f"מאמר · {mins} דקות קריאה{dt}", title, lead, visual, main,
+    (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, "", title, lead, visual, main,
+                                              meta=[("clock", f"{mins} דקות קריאה")] + ([("cal", date)] if date else []),
                                               script=ARTICLE_JS + ARTICLE2_JS, legacy_v=CSS_VERSION))
     print(f"{name} done")
 
