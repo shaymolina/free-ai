@@ -807,26 +807,85 @@ ILL_PRICE = """<div class="ill ill-pr" aria-hidden="true">
 </div>"""
 
 
+_ART_PENDING = []  # המאמרים נכתבים רק אחרי שכולם ידועים, בשביל "עוד מאמרים"
+
+
 def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual="", date=""):
-    """מאמר: חלק פתיחה גרפי (כמו בדף הבית), ואחריו כל <h2> הופך למקטע מעוצב משלו."""
+    """מאמר: חלק פתיחה גרפי (כמו בדף הבית), ואחריו כל <h2> הופך למקטע ממוספר משלו, עם תוכן עניינים צדדי."""
     ARTICLES.append((name, title, desc, mins))
     import home2
     if date: home2.ARTICLE_DATES[name] = date
-    chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
-    secs = "".join(f'<section class="card art-sec">{c}</section>' for c in chunks)
-    dt = f" · עודכן {date}" if date else ""
-    main = f'''<main class="wrap stack art-main article">
-{secs}
-        <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
-    </main>'''
+    _ART_PENDING.append((name, title, desc, mins, body, seo_title, lead, visual, date))
+
+
+# קווי החוטים בפס הסיום (כמו בפס "קורס קלוד קוד, בחינם ובעברית" בדף הבית)
+_CTA_LINES = "".join(
+    f'<path d="M{-40 + i * 9} 300 C {120 + i * 14} {210 - i * 6}, {200 + i * 10} {60 + i * 4}, {460 + i * 6} {-20 + i * 3}" stroke="{c}" />'
+    for i, c in enumerate(["#D97757", "#E6BB35", "#D43B2D", "#D97757", "#E6BB35", "#C2603F", "#D97757", "#E6BB35", "#D43B2D", "#D97757"]))
+
+ARTICLE2_JS = '''<script>
+(function () {
+    var bar = document.querySelector('.a2-progress i'), body = document.querySelector('.a2-body');
+    var links = [].slice.call(document.querySelectorAll('.a2-toc a[href^="#"]'));
+    function onScroll() {
+        if (body && bar) {
+            var r = body.getBoundingClientRect(), h = r.height - innerHeight * .6;
+            bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, -r.top / (h > 0 ? h : 1))) + ')';
+        }
+        var cur = null;
+        links.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s && s.getBoundingClientRect().top < innerHeight * .35) cur = a; });
+        links.forEach(function (a) { a.classList.toggle('on', a === cur); });
+    }
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+</script>'''
+
+
+def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date):
     import home2
+    chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
+    secs, toc = [], []
+    for k, c in enumerate(chunks, 1):
+        m = re.match(r'<h2>(.*?)</h2>', c, re.S)
+        sid = f"s{k}"
+        if m:
+            h = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+            c = c.replace(m.group(0), f'<div class="a2-head"><span class="a2-num">{k:02d}</span><h2>{m.group(1)}</h2></div>', 1)
+            toc.append(f'<li><a href="#{sid}"><span>{k:02d}</span>{h}</a></li>')
+        secs.append(f'<section class="a2-sec" id="{sid}">{c}</section>')
+    others = [(n, t, mn) for n, t, d, mn in ARTICLES if n != name][:3]
+    more = ""
+    if others:
+        cards = "".join(
+            f'<a class="ac" href="{n}"><img src="{home2._cover(n, i)}" alt="" loading="lazy" decoding="async">'
+            f'<span class="ac-b"><h3 class="ac-t">{t}</h3>{home2._meta(n, mn)}</span></a>'
+            for i, (n, t, mn) in enumerate(others))
+        more = ('<section class="a2-band a2-more"><div class="a2-wrap a2-pad">'
+                '<div class="a2-band-head"><h2>עוד מאמרים</h2><a href="articles.html" class="a2-link">לכל המאמרים ←</a></div>'
+                f'<div class="m2-arts">{cards}</div></div></section>')
+    dt = f" · עודכן {date}" if date else ""
+    main = f'''<div class="a2-progress" aria-hidden="true"><i></i></div>
+    <main class="a2">
+        <div class="a2-wrap a2-grid">
+            <div class="a2-body">{"".join(secs)}</div>
+            <aside class="a2-toc" aria-label="תוכן העניינים"><nav><b>בעמוד הזה</b><ol>{"".join(toc)}</ol>
+                <a href="service.html" class="a2-toc-cta"><small>הקורס החינמי</small>לומדים לבנות לבד ←</a></nav></aside>
+        </div>
+        {more}
+        <section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
+            <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
+            <div><h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p></div>
+            <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
+        </div></section>
+    </main>'''
     (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, f"מאמר · {mins} דקות קריאה{dt}", title, lead, visual, main,
-                                              script=ARTICLE_JS, legacy_v=CSS_VERSION))
+                                              script=ARTICLE_JS + ARTICLE2_JS, legacy_v=CSS_VERSION))
     print(f"{name} done")
 
 
-
 def build_articles_index():
+    for _a in _ART_PENDING:
+        _write_article(*_a)
     import home_mint
     cards = "".join(
         f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
