@@ -57,7 +57,7 @@ def auth_html(slug):
     return (f'{A_START}<link rel="stylesheet" href="assets/css/auth-gate.css?v={v}">'
             f'<script>window.FA_AUTH={{url:"{SUPABASE_URL}",key:"{SUPABASE_KEY}",locked:{locked}}};'
             f'(function(a,u){{try{{u=localStorage.getItem("sb-{ref}-auth-token")}}catch(e){{}}'
-            'if(a.locked&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script>'
+            'var f=0;try{f=self!==top&&top.location.host===location.host}catch(e){}if(a.locked&&!f&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script>'
             f'<script src="{SUPABASE_JS}" defer></script>'
             f'<script src="assets/js/auth-gate.js?v={v}" defer></script>{A_END}')
 

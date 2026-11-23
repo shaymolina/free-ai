@@ -421,6 +421,11 @@ def do_footer(soup, arts):
         st["href"] = "mailto:hello@free-ai.co.il"; st.attrs.pop("target", None); st.attrs.pop("rel", None)
         st.find_all("span", recursive=False)[0].decompose()
         st.find("span").string = "hello@free-ai.co.il"
+        if "lg:hidden" in st["class"]:
+            st.decompose()
+        else:
+            st["class"] = [c for c in st["class"] if c not in ("hidden", "lg:mt-auto", "lg:inline-flex")] + ["inline-flex"]
+    logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">קלוד קוד בחינם</p><p class="f-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div>'))
     cols = [("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-18.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
@@ -600,7 +605,7 @@ def _meta(href, mins):
 
 def articles_main(articles):
     """articles: [(קובץ, כותרת, תיאור, דקות)].
-    רשת של עד 3 כרטיסים בשורה: התמונה ממלאת את הכרטיס, מספר גדול בפינה, והכותרת בלבן על מעבר כהה בתחתית."""
+    רשת של עד 3 כרטיסים מרובעים בשורה: התמונה ממלאת את הכרטיס, והכותרת בלבן על מעבר כהה בתחתית."""
     soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
     sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][7]
     do_head(sec, "כל המאמרים.", f"{len(articles)} מאמרים קצרים, ואפשר לעשות כל אחד היום.")
@@ -613,7 +618,6 @@ def articles_main(articles):
     for k, (href, title, desc, mins) in enumerate(articles):
         out.append(f'<a class="ac" href="{href}">'
                    f'<img src="{_cover(href, k)}" alt="" loading="{"eager" if k < 3 else "lazy"}" decoding="async">'
-                   f'<span class="ac-n" aria-hidden="true">{k + 1:02d}</span>'
                    f'<span class="ac-b"><h2 class="ac-t">{title}</h2>{_meta(href, mins)}</span></a>')
     grid.append(frag("".join(out)))
     pad = sec.find("div", class_="pb-30")

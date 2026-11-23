@@ -215,7 +215,9 @@
       var s = r.data && r.data.session;
       if (recovering) return;
       if (s) { user = s.user; unlock(); return; }
-      if (CFG.locked) showGate('signin');
+      // תצוגה מקדימה של העמוד בתוך דף הבית (iframe מאותו אתר) לא ננעלת
+      var framed = false; try { framed = self !== top && top.location.host === location.host; } catch (e) {}
+      if (CFG.locked && !framed) showGate('signin');
       else document.documentElement.classList.remove('ag-lock');
     });
   }
