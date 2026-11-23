@@ -35,7 +35,7 @@ html.ag-lock body > *:not(#ag) { filter: blur(4px); -webkit-filter: blur(4px); p
 @keyframes ag-spin { to { transform: rotate(360deg); } }
 .ag-err { margin: 14px 0 0; font-size: 13px; line-height: 18px; color: #dc2626; }
 .ag-err[hidden] { display: none; }
-.ag-fine { margin: 28px 0 0; font-size: 12px; line-height: 1.5; color: #9B9C9E; }
+.ag-fine { margin: 28px 0 0; font-size: 12px; line-height: 1.55; color: #5F6064; }
 .ag-fine a { color: var(--ag-muted); text-decoration: underline; text-underline-offset: 2px; }
 .ag-fine a:hover { color: var(--ag-fg); }
 @media (max-width: 480px) { .ag-card { padding: 40px 24px 28px; } .ag-title { font-size: 23px; } }

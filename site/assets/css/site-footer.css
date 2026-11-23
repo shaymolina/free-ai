@@ -1,0 +1,107 @@
+/* הפוטר האחיד של האתר. נבנה רק ב-tools/site_build/site_footer.py ומוחלף בכל העמודים כש-seo_build.py רץ.
+   לא תלוי בעיצוב של העמוד (Tailwind, Bootstrap או המדריך), ולכן כל הכללים כאן מתחילים ב-footer.sf. */
+
+footer.sf {
+  --sf-ink: #0F0F0F;
+  --sf-muted: #5C5C66;
+  --sf-head: #8F8F99;
+  --sf-line: #EAE7E3;
+  --sf-brand: #B5583A;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 72px 0 0;
+  border: 0;
+  border-top: 1px solid var(--sf-line);
+  background: #fff;
+  color: var(--sf-ink);
+  font-family: 'Kobi', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: start;
+  direction: rtl;
+}
+footer.sf *, footer.sf *::before, footer.sf *::after { box-sizing: border-box; }
+footer.sf :is(h2, h3, p, ul, li) { margin: 0; padding: 0; list-style: none; font: inherit; color: inherit; letter-spacing: normal; }
+footer.sf a { color: inherit; text-decoration: none; }
+footer.sf a:focus-visible { outline: 2px solid var(--sf-brand); outline-offset: 3px; border-radius: 3px; }
+
+/* הכיתוב Free AI הגדול: ברקע, מאחורי התוכן, צמוד לתחתית */
+footer.sf .sf-word {
+  position: absolute;
+  z-index: -1;
+  inset-inline: 0;
+  bottom: 0;
+  width: min(1296px, calc(100% - 24px));
+  height: calc(min(1296px, calc(100vw - 24px)) * 0.232);
+  margin: 0 auto;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+footer.sf .sf-word img { display: block; width: 100%; height: auto; max-width: none; }
+
+footer.sf .sf-in {
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 19fr);
+  gap: 40px 24px;
+  padding-bottom: calc(min(1296px, calc(100vw - 24px)) * 0.11);
+}
+footer.sf .sf-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+footer.sf .sf-logo img { display: block; height: 34px; width: auto; }
+footer.sf .sf-tag-h { font-size: 18px; font-weight: 900; line-height: 1; }
+footer.sf .sf-tag-p { margin-top: 6px; font-size: 12.5px; line-height: 1.5; color: var(--sf-muted); max-width: 280px; }
+footer.sf .sf-mail {
+  display: inline-flex;
+  padding: 4px 8px;
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 4px;
+  background: #fff;
+  color: #3F3F46;
+  font-size: 14px;
+  line-height: 20px;
+  direction: ltr;
+}
+footer.sf .sf-mail:hover { background: #F5F5F4; }
+footer.sf .sf-cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px 16px; }
+footer.sf .sf-col h2 { font-size: 14px; line-height: 20px; font-weight: 400; color: var(--sf-head); margin-bottom: 24px; }
+footer.sf .sf-col ul { display: flex; flex-direction: column; gap: 20px; }
+footer.sf .sf-col a { font-size: 14px; line-height: 16px; font-weight: 500; color: var(--sf-ink); transition: color .2s; }
+footer.sf .sf-col a:hover { color: var(--sf-brand); }
+
+footer.sf .sf-bot {
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 20px 0 28px;
+  border-top: 1px solid var(--sf-line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  font-size: 14px;
+  line-height: 20px;
+}
+footer.sf .sf-copy { color: #71717A; }
+footer.sf .sf-top { font-weight: 500; margin-inline-end: 72px; } /* לא מתחת לכפתור הנגישות שבפינה השמאלית */
+footer.sf .sf-top:hover { color: var(--sf-brand); }
+
+@media (max-width: 1023px) {
+  footer.sf { padding-top: 56px; }
+  footer.sf .sf-in { grid-template-columns: minmax(0, 1fr); }
+  footer.sf .sf-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  footer.sf .sf-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  footer.sf .sf-col h2 { margin-bottom: 16px; }
+  footer.sf .sf-col ul { gap: 16px; }
+}
+
+/* במדריך הפוטר יושב בתחתית עמודת התוכן */
+.ds-content > footer.sf { margin-top: auto; }
+
+@media print { footer.sf .sf-word { display: none; } }

@@ -129,6 +129,7 @@ def block(s, html, mod):
 def main():
     import sys as _s; _s.path.insert(0, str(Path(__file__).resolve().parents[1] / "site_build"))
     import site_header; site_header.apply_all()  # הדר אחד לכל האתר
+    import site_footer; site_footer.apply_all()  # פוטר אחד לכל האתר
     pages, llms = [], []
     for f in sorted(SITE.glob("*.html")):
         s, html = slug(f), f.read_text()

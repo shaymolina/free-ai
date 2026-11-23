@@ -35,7 +35,8 @@
       '<p class="ag-desc">מתחברים בלחיצה אחת, וממשיכים מאיפה שעצרתם.</p>' +
       '<button class="ag-btn ag-outline ag-google" type="button">' + G + '<span>המשך עם Google</span></button>' +
       '<p class="ag-err" role="alert" hidden></p>' +
-      '<p class="ag-fine">בהתחברות אתם מסכימים ל<a href="terms">תנאי השימוש</a> ול<a href="privacy">מדיניות הפרטיות</a></p>' +
+      '<p class="ag-fine">ההתחברות מרצון, ובלעדיה אי אפשר לפתוח את התכנים הנעולים. Free AI (hello@free-ai.co.il) מקבלת מ-Google את השם והמייל כדי לפתוח לכם חשבון ולשמור התקדמות. ' +
+      'המידע נשמר אצל Supabase ולא נמכר, ואפשר לבקש לעיין בו, לתקן או למחוק. בהתחברות אתם מסכימים ל<a href="terms">תנאי השימוש</a> ול<a href="privacy">מדיניות הפרטיות</a>.</p>' +
     '</div>';
   }
 
