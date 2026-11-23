@@ -49,8 +49,7 @@
         '<p class="ag-err" role="alert" hidden></p>' +
         '<button class="ag-btn ag-primary ag-submit" type="submit">התחברות</button>' +
       '</form>' +
-      '<p class="ag-fine">ההתחברות מרצון, ובלעדיה אי אפשר לפתוח את התכנים הנעולים. Free AI (hello@free-ai.co.il) שומרת את המייל (ובכניסה עם Google גם את השם) כדי לפתוח לכם חשבון ולשמור התקדמות. ' +
-      'המידע נשמר אצל Supabase ולא נמכר, ואפשר לבקש לעיין בו, לתקן או למחוק. בהתחברות אתם מסכימים ל<a href="terms">תנאי השימוש</a> ול<a href="privacy">מדיניות הפרטיות</a>.</p>' +
+      '<p class="ag-fine">עצם ההתחברות מהווה הסכמה ל<a href="terms">תנאי השימוש</a> ול<a href="privacy">מדיניות הפרטיות</a> שלנו.</p>' +
     '</div>';
   }
   function cardReset() {
