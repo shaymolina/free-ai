@@ -17,7 +17,7 @@ NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-
 CHAPTERS = [
     ("לפני שמתחילים", 2), ("קלוד מול קלוד קוד", 3), ("פותחים חשבון קלוד", 4),
     ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("היכרות ראשונה עם קלוד", 3), ("מיקום הפרויקט: מחשב או ענן", 3), ("בחירת המודל", 3), ("הרשאות: כמה קלוד עושה לבד", 3), ("כמה נשאר מהמנוי", 2), ("תוספות: איפה מוסיפים יכולות", 3), ("חיבור לשירותים (Connectors)", 3), ("מיומנויות (Skills)", 3), ("חבילות (Plugins)", 3), ("איך מדברים עם קלוד קוד", 4), ("חיבור GitHub לקלוד ובנייה ראשונה", 8), ("מעלים לאוויר", 5),
-     ("Supabase, כן או לא", 3),
+     ("Supabase הוא בעצם דאטה בייס (מסד נתונים)", 3),
     ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
 READY = set(range(1, 23))  # פרקים שכבר כתובים
@@ -326,6 +326,9 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     name, mins = CHAPTERS[n - 1]
     rows_block = rows_html(rows)
     nxt = f' data-next="guide-{n + 1}"' if (n + 1) in READY else ""
+    last = n == len(CHAPTERS)
+    if last:
+        nxt = ' data-next="service.html"'
     body = f'''<div class="ds-app">
         {sidebar(n)}
         <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
@@ -340,7 +343,7 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
             <main class="ds-content">
                 <article class="lesson">
                     {top}{rows_block}{flow}{extra}
-                    <div class="lesson-end"><span>{note}</span><div class="end-btns">{f'<a href="guide-{n - 1}.html" class="btn btn-2">→ הפרק הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לפרק הבא ←" if nxt or n < len(CHAPTERS) else "סיימתי את המדריך ✓"}</button></div></div>
+                    <div class="lesson-end"><span>{note}</span><div class="end-btns">{f'<a href="guide-{n - 1}.html" class="btn btn-2">→ הפרק הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"מעבר לקורס הפרקטי ←" if last else "סיימתי, לפרק הבא ←"}</button></div></div>
                 </article>
                 {FOOTER}
             </main>
@@ -651,17 +654,17 @@ build_chapter(
                 <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>{COUPON}</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="{COUPON}">העתקה</button></div>''',
     flow=flow([
         ("בוחרים מסלול", 'ב-<a href="https://4code.co.il/pricing" target="_blank" rel="noopener">4code.co.il</a> לוחצים על מסלולים ובוחרים מסלול.', "4code-1.mp4"),
-        ("ממלאים את הפרטים שלכם", "שם, מייל וטלפון, ומסיימים את ההזמנה.", "4code-details.mp4"),
-        ("נכנסים לפלטפורמה", "לוחצים \"התחברות לחשבון\" ואז \"אשר\". מגיעים ללוח הבקרה.", "4code-2.mp4"),
-        ("יוצרים פרויקט", "בצד לוחצים על פרויקטים, ואז \"יצירת פרויקט\". נותנים שם ונכנסים אליו.", "4code-3.mp4"),
-        ("בוחרים את פרויקט ה-GitHub שלכם", 'לוחצים על GitHub, בוחרים את הריפו מפרק 17 ומאשרים.<small class="fnote">אחרי דקה-שתיים האתר באוויר.</small>', "4code-4.mp4"),
+        ("ממלאים את הפרטים שלכם", "ממלאים את הטופס, מאשרים, ונכנסים ללוח הבקרה של 4CODE.", "4code-details.mp4"),
+        ("יוצרים פרויקט", "בתפריט הצד בוחרים בפרויקטים, ואז \"יצירת פרויקט חדש\". נותנים שם ונכנסים אליו.", "4code-3.mp4"),
+        ("בוחרים את פרויקט ה-GitHub שלכם", 'לוחצים על GitHub, בוחרים את הריפו מפרק 17 ומאשרים.<small class="fnote">מחברים את הפרויקט פעם אחת ל-4CODE, וזהו. הכול מתעדכן לבד.</small>', "4code-4.mp4"),
+        ("מקבלים כתובת בחינם", 'אחרי דקה-שתיים האתר באוויר, בכתובת חינמית ש-4CODE נותן (סאב-דומיין).<small class="fnote">ככה לא חייבים לקנות דומיין בהתחלה.</small>', "4code-domain.png"),
     ]),
 )
 
 
 build_chapter(
     19, "דאטה בייס (מסד נתונים) הוא כמו מחברת שהאתר כותב בה: מי נרשם, מי הזמין ומה נכתב בטופס. Supabase הוא שירות שנותן לאתר מחברת כזאת.",
-    [("דאטה בייס", "מקום שבו האתר שומר מידע שאנשים משאירים, כדי לזכור אותו גם מחר"),
+    [("דאטה בייס", "המקום שבו האתר שומר מידע. אם המערכת שלכם צריכה לנהל משתמשים, הזמנות, תורים, תשלומים או הודעות מטפסים, צריך דאטה בייס"),
      ("Supabase", "החברה שמחזיקה את הדאטה בייס בשבילכם. קלוד יודע לחבר אותו לאתר"),
      ("מה אנחנו בוחרים", "מתחילים בלי. כשצריך, מבקשים מקלוד לחבר Supabase והוא מסביר מה לעשות")],
     "Supabase חינמי להתחלה",
@@ -710,8 +713,7 @@ build_chapter(
      ("עמוד חדש", "\"תוסיף עמוד גלריה עם 12 תמונות של עבודות, וקישור אליו בתפריט\""),
      ("גוגל", "\"תסדר את האתר כך שיופיע בגוגל כשמחפשים נגר בחיפה\"")],
     "נתקעתם? חוזרים לפרק 21",
-    extra='\n                <p class="more-link">רוצים עוד? <a href="articles.html">כל המאמרים</a></p>'
-          '\n                <a href="service.html" class="btn btn-primary btn-course">מעבר לקורס הפרקטי ←</a>',
+    extra='\n                <p class="more-link">רוצים עוד? <a href="articles.html">כל המאמרים</a></p>',
 )
 
 
