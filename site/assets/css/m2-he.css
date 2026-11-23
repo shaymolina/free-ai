@@ -86,3 +86,8 @@ main section h2 .m2-hs { margin-top: .5rem; font-weight: 400 !important; font-si
 .m2-card-ic{position:absolute;right:14px;bottom:14px;width:40px;height:40px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;color:#141414;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .3s ease}
 .m2-card-ic svg{width:22px;height:22px}
 a:hover .m2-card-ic{transform:translateY(-2px)}
+/* קרוסלת הלמידה: כרטיסים קצת יותר קטנים, וגרירה עם העכבר */
+@media (min-width:64rem){[data-track]>[data-slot="carousel-item"]{width:calc((100% - 48px)/3.6)!important}}
+[data-track]{cursor:grab;user-select:none}
+[data-track].is-drag{cursor:grabbing}
+[data-track] img{-webkit-user-drag:none}
