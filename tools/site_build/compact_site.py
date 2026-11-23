@@ -1250,6 +1250,10 @@ for _n, *_ in ARTICLES:
 import legal_pages as _lp
 _lp.build()
 
+# עמודי הסקילים בעיצוב החדש
+import skills_mint as _sk
+_sk.build()
+
 # שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
 import runpy as _runpy
 _runpy.run_path(str(Path(__file__).resolve().parents[1] / "seo" / "seo_build.py"), run_name="__main__")

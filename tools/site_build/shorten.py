@@ -1,5 +1,5 @@
 """מקצר את הטקסטים בכל האתר: משפט קצר אחד במקום פסקה.
-רץ אחרון, אחרי כל שאר הבונים (index_page, courses_pages, skills_pages, blog_pages, about_contact_pages).
+רץ אחרון, אחרי כל שאר הבונים (index_page, courses_pages, blog_pages, about_contact_pages).
 """
 from clean_urls import clean
 import re
