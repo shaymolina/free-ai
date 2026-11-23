@@ -605,7 +605,7 @@ def _meta(href, mins):
 
 def articles_main(articles):
     """articles: [(קובץ, כותרת, תיאור, דקות)].
-    רשת של עד 3 כרטיסים בשורה: התמונה ממלאת את הכרטיס, מספר גדול בפינה, והכותרת בלבן על מעבר כהה בתחתית."""
+    רשת של עד 3 כרטיסים מרובעים בשורה: התמונה ממלאת את הכרטיס, והכותרת בלבן על מעבר כהה בתחתית."""
     soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
     sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][7]
     do_head(sec, "כל המאמרים.", f"{len(articles)} מאמרים קצרים, ואפשר לעשות כל אחד היום.")
@@ -618,7 +618,6 @@ def articles_main(articles):
     for k, (href, title, desc, mins) in enumerate(articles):
         out.append(f'<a class="ac" href="{href}">'
                    f'<img src="{_cover(href, k)}" alt="" loading="{"eager" if k < 3 else "lazy"}" decoding="async">'
-                   f'<span class="ac-n" aria-hidden="true">{k + 1:02d}</span>'
                    f'<span class="ac-b"><h2 class="ac-t">{title}</h2>{_meta(href, mins)}</span></a>')
     grid.append(frag("".join(out)))
     pad = sec.find("div", class_="pb-30")
