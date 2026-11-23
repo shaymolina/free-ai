@@ -837,8 +837,44 @@ ARTICLE2_JS = '''<script>
         links.forEach(function (a) { a.classList.toggle('on', a === cur); });
     }
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    document.querySelectorAll('.a2-sh-copy').forEach(function (b) {
+        b.addEventListener('click', function () {
+            navigator.clipboard.writeText(b.dataset.url); b.classList.add('done');
+            setTimeout(function () { b.classList.remove('done'); }, 1800);
+        });
+    });
+    document.querySelectorAll('.a2-mtoc a').forEach(function (a) { a.addEventListener('click', function () { a.closest('details').open = false; }); });
 })();
 </script>'''
+
+
+_SHARE_ICONS = {
+    "whatsapp": '<path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43a9.4 9.4 0 0 1 9.43 9.44c0 5.2-4.24 9.43-9.45 9.43m8.03-17.46A11.3 11.3 0 0 0 12.05.72C5.79.72.7 5.8.7 12.06c0 2 .52 3.95 1.52 5.67L.6 23.6l6.02-1.58a11.3 11.3 0 0 0 5.42 1.38h.01c6.26 0 11.35-5.09 11.35-11.34 0-3.03-1.18-5.88-3.32-8.02"/>',
+    "facebook": '<path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07"/>',
+    "x": '<path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.63 7.58H.48l8.6-9.83L0 1.15h7.59l5.24 6.93zm-1.29 19.5h2.04L6.48 3.24H4.3z"/>',
+    "linkedin": '<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0"/>',
+    "telegram": '<path d="M11.94 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm4.96 7.22c.1 0 .32.02.46.14.12.1.15.23.17.33.01.06.03.24.02.38-.18 1.9-.96 6.5-1.36 8.63-.17.9-.5 1.2-.82 1.23-.7.06-1.23-.46-1.9-.9-1.06-.7-1.65-1.13-2.68-1.8-1.19-.79-.42-1.22.26-1.92.18-.19 3.25-2.98 3.31-3.23.01-.03.01-.15-.06-.21-.07-.06-.17-.04-.25-.02-.1.02-1.79 1.14-5.06 3.35-.48.33-.91.49-1.3.48-.43-.01-1.25-.24-1.86-.44-.75-.24-1.35-.37-1.3-.79.03-.22.33-.44.89-.66 3.5-1.52 5.83-2.53 6.99-3.01 3.33-1.39 4.02-1.63 4.47-1.64"/>',
+    "mail": '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 5h18v14H3zM3 6l9 7 9-7"/>',
+    "copy": '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 9h11v11H9zM5 15H4V4h11v1"/>',
+}
+
+
+def _share(name, title):
+    from urllib.parse import quote
+    url = "https://free-ai.co.il/" + name.removesuffix(".html")
+    u, t = quote(url, safe=""), quote(title, safe="")
+    links = [
+        ("whatsapp", "וואטסאפ", f"https://wa.me/?text={t}%20{u}"),
+        ("facebook", "פייסבוק", f"https://www.facebook.com/sharer/sharer.php?u={u}"),
+        ("x", "X", f"https://twitter.com/intent/tweet?url={u}&text={t}"),
+        ("linkedin", "לינקדאין", f"https://www.linkedin.com/sharing/share-offsite/?url={u}"),
+        ("telegram", "טלגרם", f"https://t.me/share/url?url={u}&text={t}"),
+        ("mail", "מייל", f"mailto:?subject={t}&body={u}"),
+    ]
+    ico = lambda k: f'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{_SHARE_ICONS[k]}</svg>'
+    out = "".join(f'<a class="a2-sh a2-sh-{k}" href="{h}" target="_blank" rel="noopener" aria-label="שיתוף ב{lab}" title="{lab}">{ico(k)}</a>' for k, lab, h in links)
+    out += f'<button type="button" class="a2-sh a2-sh-copy" data-url="{url}" aria-label="העתקת הקישור" title="העתקת הקישור">{ico("copy")}</button>'
+    return f'<div class="a2-card a2-share"><b>שתפו את המאמר</b><div class="a2-sh-row">{out}</div></div>'
 
 
 def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date):
@@ -850,33 +886,45 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
         sid = f"s{k}"
         if m:
             h = re.sub(r'<[^>]+>', '', m.group(1)).strip()
-            c = c.replace(m.group(0), f'<div class="a2-head"><span class="a2-num">{k:02d}</span><h2>{m.group(1)}</h2></div>', 1)
-            toc.append(f'<li><a href="#{sid}"><span>{k:02d}</span>{h}</a></li>')
+            c = c.replace(m.group(0), f'<div class="a2-head"><span class="a2-num" aria-hidden="true">{k:02d}</span><h2>{m.group(1)}</h2></div>', 1)
+            toc.append(f'<li><a href="#{sid}"><span>{k}</span>{h}</a></li>')
         secs.append(f'<section class="a2-sec" id="{sid}">{c}</section>')
-    others = [(n, t, mn) for n, t, d, mn in ARTICLES if n != name][:3]
+    toc_ol = f'<ol>{"".join(toc)}</ol>'
+    idx = [n for n, *_ in ARTICLES].index(name)
+    others = [(i, n, t, mn) for i, (n, t, d, mn) in enumerate(ARTICLES) if n != name][:4]
     more = ""
     if others:
-        cards = "".join(
-            f'<a class="ac" href="{n}"><img src="{home2._cover(n, i)}" alt="" loading="lazy" decoding="async">'
-            f'<span class="ac-b"><h3 class="ac-t">{t}</h3>{home2._meta(n, mn)}</span></a>'
-            for i, (n, t, mn) in enumerate(others))
-        more = ('<section class="a2-band a2-more"><div class="a2-wrap a2-pad">'
-                '<div class="a2-band-head"><h2>עוד מאמרים</h2><a href="articles.html" class="a2-link">לכל המאמרים ←</a></div>'
-                f'<div class="m2-arts">{cards}</div></div></section>')
+        more = '<div class="a2-card a2-more"><b>מאמרים נוספים</b><ul>' + "".join(
+            f'<li><a href="{n}"><img src="{home2._cover(n, i)}" alt="" loading="lazy" decoding="async"><span>{t}<small>{mn} דקות קריאה</small></span></a></li>'
+            for i, n, t, mn in others) + '</ul><a href="articles.html" class="a2-all">לכל המאמרים ←</a></div>'
+    pn = []
+    for j, lab, cls in ((idx - 1, "המאמר הקודם", "prev"), (idx + 1, "המאמר הבא", "next")):
+        if 0 <= j < len(ARTICLES):
+            n, t, d, mn = ARTICLES[j]
+            pn.append(f'<a class="a2-pn-c {cls}" href="{n}"><img src="{home2._cover(n, j)}" alt="" loading="lazy" decoding="async">'
+                      f'<span><small>{lab}</small><b>{t}</b><em>{mn} דקות קריאה</em></span></a>')
+        else:
+            pn.append('<span></span>')
     dt = f" · עודכן {date}" if date else ""
     main = f'''<div class="a2-progress" aria-hidden="true"><i></i></div>
     <main class="a2">
         <div class="a2-wrap a2-grid">
-            <div class="a2-body">{"".join(secs)}</div>
-            <aside class="a2-toc" aria-label="תוכן העניינים"><nav><b>בעמוד הזה</b><ol>{"".join(toc)}</ol>
-                <a href="service.html" class="a2-toc-cta"><small>הקורס החינמי</small>לומדים לבנות לבד ←</a></nav></aside>
+            <div class="a2-body">
+                <details class="a2-card a2-mtoc"><summary>בעמוד הזה</summary>{toc_ol}</details>
+                {"".join(secs)}
+                <section class="a2-cta">
+                    <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
+                    <h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p>
+                    <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
+                </section>
+            </div>
+            <aside class="a2-side" aria-label="שיתוף ומאמרים נוספים"><div class="a2-stick">
+                {_share(name, title)}
+                <nav class="a2-card a2-toc" aria-label="תוכן העניינים"><b>בעמוד הזה</b>{toc_ol}</nav>
+                {more}
+            </div></aside>
         </div>
-        {more}
-        <section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
-            <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
-            <div><h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p></div>
-            <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
-        </div></section>
+        <nav class="a2-wrap a2-pn" aria-label="מאמרים סמוכים">{"".join(pn)}</nav>
     </main>'''
     (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, f"מאמר · {mins} דקות קריאה{dt}", title, lead, visual, main,
                                               script=ARTICLE_JS + ARTICLE2_JS, legacy_v=CSS_VERSION))
