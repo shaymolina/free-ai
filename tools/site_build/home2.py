@@ -500,7 +500,7 @@ INNER_HEAD = """<!DOCTYPE html>
 """
 
 
-def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1"):
+def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None):
     """עמוד פנימי: כותרת עליונה, פתיחה (חוטים מונפשים, כותרת עבה, כפתורים, איור במסגרת) ופוטר כמו בדף הבית.
     main_html: התוכן שמתחת לפתיחה (תגית <main> שלמה)."""
     _, arts = counts()
@@ -514,7 +514,10 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
         x.decompose()
     cv = sec.find("canvas"); cv["data-rib"] = "hero"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
     tag = sec.find("a", href="/data")
-    tag.replace_with(frag(f'<span class="m2-chip inline-flex w-fit items-center gap-2 rounded-[2px] border border-border-sub bg-background-main px-2.5 py-1 text-xs/4 font-medium tracking-[0.02em] text-text-sub"><i></i>{chip}</span>'))
+    if not chip:
+        tag.decompose()
+    else:
+        tag.replace_with(frag(f'<span class="m2-chip inline-flex w-fit items-center gap-2 rounded-[2px] border border-border-sub bg-background-main px-2.5 py-1 text-xs/4 font-medium tracking-[0.02em] text-text-sub"><i></i>{chip}</span>'))
     h = sec.find("h1"); put(h, h1); h["class"] = h.get("class", []) + ["m2-h1", "m2-h1-wrap"]
     put(h.find_next("p"), lead)
     a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
@@ -528,7 +531,18 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     box["aria-label"] = h1; box["class"] = [c for c in box["class"] if not c.startswith("aspect-")] + ["m2-vis-box"]
     for img in box.find_all("img")[1:]:
         img.decompose()
-    box.find("img").replace_with(frag(f'<div class="m2-vis">{visual}</div>'))
+    if live:  # תצוגה חיה של עמוד באתר, כמו המדריך בדף הבית
+        box["class"] = [c for c in box["class"] if c != "m2-vis-box"] + ["aspect-[1080/656]"]
+        box.find("img").replace_with(frag(
+            f'<iframe class="m2-live" src="{live}" title="{h1}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
+            '<span class="m2-live-fade" aria-hidden="true"></span>'
+            '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
+            'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
+            'fit();addEventListener("resize",fit);'
+            'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";d.documentElement.classList.remove("dark");'
+            'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>'))
+    else:
+        box.find("img").replace_with(frag(f'<div class="m2-vis">{visual}</div>'))
     m.name = "div"; m["class"] = ["overflow-x-clip", "m2-top"]
     m.insert_after(frag(main_html))
     do_footer(soup, arts)
@@ -538,3 +552,65 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
            + f'\n<script src="assets/js/m2.js?v={V}" defer></script>\n{script}\n</body>\n</html>\n')
     from clean_urls import clean
     return clean(out)
+
+
+# ---------------------------------------------------------------- רשימת המאמרים: הכרטיסים הצבעוניים של "סיפורים" מדף הבית
+# לכל מאמר: צבע, כותרת (החלק החשוב בלבן), שני מספרים, תמונה
+ARTICLE_CARDS = {
+    "article-what-is-claude-code.html": ("#5C1E0F", 'מה זה <span class="text-white">קלוד קוד</span>, ואיך הודעה בעברית הופכת לאתר',
+                                         [("1", "הודעה בעברית"), ("0", "שורות קוד שאתם כותבים")], "assets/images/claude/build-site.jpg"),
+    "article-github-backup.html": ("#4763D6", '<span class="text-white">גיבוי אוטומטי</span> של כל הפרויקטים מ-GitHub לגוגל דרייב',
+                                   [("03:00", "כל לילה"), ("₪0", "עלות")], "assets/images/guide/backup-1.png"),
+}
+CARD_COLORS = ["#5C1E0F", "#4763D6", "#C8553A", "#7A3FC4"]
+
+
+def articles_main(articles):
+    """articles: [(קובץ, כותרת, תיאור, דקות)]. מחזיר <main> עם כותרת מקטע וכרטיס גדול לכל מאמר."""
+    soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
+    sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][3]
+    h2 = sec.find("h2")
+    put(h2, f'<span class="m2-ht">כל המאמרים.</span><span class="m2-hs block text-foreground-tertiary">קצרים, ואפשר לעשות אותם היום.</span>')
+    sec.find("header").find("div", class_="shrink-0").decompose()
+    track = sec.find(attrs={"aria-label": "Enterprise customer stories"})
+    cards = track.find_all("div", class_="carousel-card-dim", recursive=False)
+    tpl = cards[0]
+    for c in cards: c.extract()
+    lst = frag('<ul class="m2-arts flex flex-col gap-4" aria-label="מאמרים"></ul>').ul
+    for i, (href, title, desc, mins) in enumerate(articles):
+        color, htitle, nums, img = ARTICLE_CARDS.get(href, (CARD_COLORS[i % 4], f'<span class="text-white">{title}</span>', [], ""))
+        c = copy.copy(tpl).find("a")
+        c["href"] = href
+        left = c.find("div")
+        left["class"] = [k for k in left["class"] if not k.startswith("bg-[") and not k.startswith("dark:")]; left["style"] = f"background-color:{color}"
+        left.find("canvas")["data-carddots"] = ""
+        inner = left.find("div")
+        inner.find("svg").replace_with(frag(f'<span class="self-start text-[15px]/5 font-semibold tracking-[0.02em] text-white">מאמר · {mins} דקות קריאה</span>'))
+        h3 = inner.find("h3"); h3.name = "h2"; put(h3, f'<span class="text-white/70">{htitle}</span>')
+        stats = inner.find("div", class_="mt-8")
+        if nums:
+            for blk, (n, lab) in zip(stats.find_all("div", recursive=False), nums):
+                ps = blk.find_all("p"); put(ps[0], f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
+        else:
+            put(stats, f'<p class="text-base/6 text-white/80">{desc}</p>')
+        btn = inner.find("span", class_="group"); btn.contents[0].replace_with("לקריאת המאמר")
+        right = c.find_all("div", recursive=False)[1]
+        bg = right.find_all("div", recursive=False)
+        bg[0]["style"] = f"background-image:url({img})" if img else ""
+        bg[1]["class"] = [k for k in bg[1]["class"] if not k.startswith("bg-[") and not k.startswith("dark:")]; bg[1]["style"] = f"background-color:{color}"
+        li = soup.new_tag("li"); li.append(c); lst.append(li)
+    track.replace_with(lst)
+    sec.find("canvas", class_="-z-10")["data-sectiondots"] = ""
+    pad = sec.find("div", class_="pb-30")
+    if pad: pad["class"] = ["grid-layout", "relative", "pb-12", "lg:pb-16"]
+    return f'<main class="m2-arts-main">{sec}</main>'
+
+
+def articles_visual(articles):
+    """האיור בפתיחה של עמוד המאמרים: כרטיסונים של המאמרים עצמם (תמונה + כותרת בצבע של הכרטיס)."""
+    out = []
+    for i, (href, title, desc, mins) in enumerate(articles[:3]):
+        color, htitle, nums, img = ARTICLE_CARDS.get(href, (CARD_COLORS[i % 4], title, [], ""))
+        out.append(f'<a class="av-card" href="{href}" tabindex="-1" style="--c:{color}"><span class="av-img" style="background-image:url({img})"></span>'
+                   f'<span class="av-body"><small>מאמר · {mins} דקות</small><b>{title}</b></span></a>')
+    return f'<div class="av">{"".join(out)}</div>'
