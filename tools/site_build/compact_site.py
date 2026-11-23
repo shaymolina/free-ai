@@ -145,11 +145,13 @@ GUIDE_JS = '''<script>
     if (btn) btn.addEventListener('click', function () {
         var done = load();
         if (done.indexOf(CURRENT) < 0) { done.push(CURRENT); save(done); }
+        if (window.faMark) window.faMark('guide-' + CURRENT);  // שומר גם בחשבון המשתמש (auth-gate.js)
         if (btn.dataset.next) location.href = btn.dataset.next; else paint();
     });
     var copy = document.getElementById('guide-copy');
     if (copy) copy.addEventListener('click', function () { navigator.clipboard.writeText(copy.dataset.code); copy.textContent = 'הועתק ✓'; });
     paint();
+    window.addEventListener('fa-progress', paint);  // ההתקדמות מהחשבון הגיעה
     // תפריט הצד נשאר באותו מקום כשעוברים פרק
     var sc = document.querySelector('.ds-scroll');
     if (sc) {

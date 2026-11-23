@@ -170,7 +170,57 @@
     document.documentElement.classList.remove('ag-lock');
     if (box) { var b = box; box = null; b.classList.remove('is-in'); setTimeout(function () { b.remove(); }, 400); }
     renderMe();
+    renderSide();
     touch();
+    syncProgress();
+  }
+
+  // ---- התקדמות במדריך: נשמרת בדפדפן (freeai-guide-done) ובטבלת progress, ומתמזגת בכל כניסה ----
+  var GKEY = 'freeai-guide-done';
+  function localDone() { try { return JSON.parse(localStorage.getItem(GKEY)) || []; } catch (e) { return []; } }
+  var synced = false;
+  function syncProgress() {
+    if (!user || synced) return;
+    synced = true;
+    SB.from('progress').select('item').then(function (r) {
+      if (r.error) return;
+      var server = {}, local = localDone(), all = local.slice(), missing = [];
+      r.data.forEach(function (x) { var m = /^guide-(\d+)$/.exec(x.item); if (m) server[+m[1]] = 1; });
+      Object.keys(server).forEach(function (n) { if (all.indexOf(+n) < 0) all.push(+n); });
+      local.forEach(function (n) { if (!server[n]) missing.push({ item: 'guide-' + n }); });
+      all.sort(function (a, b) { return a - b; });
+      try { localStorage.setItem(GKEY, JSON.stringify(all)); } catch (e) {}
+      if (missing.length) SB.from('progress').upsert(missing, { onConflict: 'user_id,item', ignoreDuplicates: true }).then(function () {});
+      window.dispatchEvent(new Event('fa-progress'));
+    });
+  }
+  // המדריך קורא לזה כשלוחצים "סיימתי". אם הדף עובר לפרק הבא לפני שזה נשמר, הסנכרון בדף הבא משלים.
+  window.faMark = function (item) {
+    if (user) SB.from('progress').upsert({ item: item }, { onConflict: 'user_id,item', ignoreDuplicates: true }).then(function () {});
+  };
+
+  // ---- כרטיס המשתמש בתפריט הצד של המדריך ----
+  function renderSide() {
+    var card = document.querySelector('.ds-profile');
+    if (!card || !user || card.dataset.me) return;
+    card.dataset.me = '1';
+    var md = user.user_metadata || {};
+    var name = md.full_name || md.name || (user.email || '').split('@')[0], pic = md.avatar_url || md.picture || '';
+    var av = card.querySelector('.avatar'), b = card.querySelector('.who b');
+    if (b) b.textContent = name;
+    if (av && pic) {
+      var img = el('img'); img.src = pic; img.alt = ''; img.referrerPolicy = 'no-referrer';
+      img.onerror = function () { av.textContent = (name || '?').charAt(0); };
+      av.textContent = ''; av.appendChild(img); av.classList.add('has-pic');
+    }
+    var out = el('button', 'ds-out', ic('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>'));
+    out.type = 'button'; out.title = 'התנתקות'; out.setAttribute('aria-label', 'התנתקות');
+    out.addEventListener('click', signOut);
+    card.appendChild(out);
+  }
+  function signOut() {
+    try { localStorage.removeItem(GKEY); } catch (e) {}
+    SB.auth.signOut().finally(function () { location.reload(); });
   }
 
   // מעדכן בטבלת profiles מתי המשתמש נכנס לאחרונה (פעם ביום לכל היותר)
@@ -199,9 +249,7 @@
     var img = av.querySelector('img'); if (img) img.onerror = function () { av.textContent = first; };
     av.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden = !menu.hidden; av.setAttribute('aria-expanded', menu.hidden ? 'false' : 'true'); });
     document.addEventListener('click', function (e) { if (!me.contains(e.target)) { menu.hidden = true; av.setAttribute('aria-expanded', 'false'); } });
-    me.querySelector('.ag-out').addEventListener('click', function () {
-      SB.auth.signOut().finally(function () { location.reload(); });
-    });
+    me.querySelector('.ag-out').addEventListener('click', signOut);
   }
 
   SB.auth.onAuthStateChange(function (event, session) {

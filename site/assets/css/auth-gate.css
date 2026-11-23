@@ -86,3 +86,11 @@ html.ag-lock body > *:not(#ag) { filter: blur(9px); -webkit-filter: blur(9px); p
 .gh-in .ag-me { margin-inline-start: auto; }
 
 @media (prefers-reduced-motion: reduce) { #ag, .ag-card { transition: none; } .ag-btn.is-busy::after { animation-duration: 2s; } }
+
+/* כרטיס המשתמש בתפריט הצד של המדריך */
+.ds-profile .avatar.has-pic { overflow: hidden; padding: 0; }
+.ds-profile .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
+.ds-profile .who { flex: 1; }
+.ds-out { flex: none; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; margin-inline-start: auto; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--muted-foreground, #64748b); cursor: pointer; }
+.ds-out svg { width: 16px; height: 16px; transform: scaleX(-1); }
+.ds-out:hover { color: var(--foreground, #08090A); background: var(--accent, #f1f5f9); }
