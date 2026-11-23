@@ -25,8 +25,8 @@ HEAD = """<!DOCTYPE html>
     <title>קורס קלוד קוד בחינם בעברית | Free AI</title>
     <meta name="description" content="קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
     <link rel="stylesheet" href="assets/css/m2.css?v={v}">
@@ -503,8 +503,8 @@ INNER_HEAD = """<!DOCTYPE html>
     <meta name="author" content="Free AI">
     <meta name="description" content="{desc}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261117" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <style>@layer properties, theme, base, legacy, components, utilities;</style>
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
@@ -596,7 +596,6 @@ def _cover(href, k):
 
 
 ARTICLE_DATES = {}  # קובץ -> "עודכן ב..." (ממלא build_article)
-ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg>'
 
 
 def _meta(href, mins):
@@ -606,7 +605,7 @@ def _meta(href, mins):
 
 def articles_main(articles):
     """articles: [(קובץ, כותרת, תיאור, דקות)].
-    רשת של 3 כרטיסים, וכרטיס של המדריך משלים שורה חסרה."""
+    רשת של עד 3 כרטיסים בשורה: התמונה ממלאת את הכרטיס, מספר גדול בפינה, והכותרת בלבן על מעבר כהה בתחתית."""
     soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
     sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][7]
     do_head(sec, "כל המאמרים.", f"{len(articles)} מאמרים קצרים, ואפשר לעשות כל אחד היום.")
@@ -615,19 +614,12 @@ def articles_main(articles):
     sec.find(attrs={"aria-label": "Latest blog posts"}).decompose()
     grid["class"] = ["m2-arts"]
     grid.clear()
-    go = lambda txt: f'<span class="ac-go">{txt}<b aria-hidden="true">{ARROW}</b></span>'
     out = []
     for k, (href, title, desc, mins) in enumerate(articles):
-        img = f'<div class="ac-img"><img src="{_cover(href, k)}" alt="" loading="{"eager" if k == 0 else "lazy"}" decoding="async"></div>'
-        out.append(f'<a class="ac" href="{href}">{img}<div class="ac-b">{_meta(href, mins)}'
-                   f'<h2 class="ac-t">{title}</h2><p class="ac-d">{desc}</p>{go("לקריאת המאמר")}</div></a>')
-    rest = len(articles)
-    if rest % 3:  # משלימים את השורה בכרטיס של המדריך, שלא יישאר חור
-        out.append('<a class="ac ac-more" href="guide-1.html"><div class="ac-b">'
-                   f'<span class="ac-ico" aria-hidden="true">{icon("book", "size-5")}</span>'
-                   '<h2 class="ac-t">רוצים את כל הדרך, צעד אחרי צעד?</h2>'
-                   '<p class="ac-d">המדריך הכתוב לוקח אתכם מההתקנה ועד אתר שעולה לאוויר, פרק אחרי פרק.</p>'
-                   f'{go("למדריך הכתוב")}</div></a>')
+        out.append(f'<a class="ac" href="{href}">'
+                   f'<img src="{_cover(href, k)}" alt="" loading="{"eager" if k < 3 else "lazy"}" decoding="async">'
+                   f'<span class="ac-n" aria-hidden="true">{k + 1:02d}</span>'
+                   f'<span class="ac-b"><h2 class="ac-t">{title}</h2>{_meta(href, mins)}</span></a>')
     grid.append(frag("".join(out)))
     pad = sec.find("div", class_="pb-30")
     if pad: pad["class"] = ["grid-layout", "relative", "pb-12", "lg:pb-16"]
