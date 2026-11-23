@@ -65,6 +65,7 @@ html.ag-lock body > *:not(#ag) { filter: blur(9px); -webkit-filter: blur(9px); p
 .ag-eye:hover { background: var(--ag-accent); color: var(--ag-fg); }
 .ag-eye svg { width: 16px; height: 16px; }
 .ag-err { margin: 0; font-size: 13px; line-height: 18px; color: #dc2626; }
+.ag-err.is-info { color: #15803d; }
 .ag-err[hidden] { display: none; }
 
 .ag-footer { padding: 0 24px 24px; }

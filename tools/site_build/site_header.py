@@ -6,9 +6,11 @@ SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sit
 LINKS = [("service", "הקורס"), ("guide-1", "המדריך"), ("work", "סקילים"), ("articles", "מאמרים")]
 START, END = "<!-- site-header -->", "<!-- /site-header -->"
 
-# התחברות עם גוגל: מזהה הלקוח מ-Google Cloud Console (OAuth Client ID). כל עוד הוא ריק, אף עמוד לא ננעל
-# (אפשר לראות את החלון עם ?login בכתובת). העמודים ב-OPEN פתוחים לכולם, כל השאר דורשים התחברות.
-GOOGLE_CLIENT_ID = "1069546576651-mhklmm1fr050bj37nua4qjrn0l5pjnmh.apps.googleusercontent.com"
+# אזור משתמשים (Supabase): כתובת הפרויקט והמפתח הציבורי שלו (publishable, לא סודי). ההתחברות עם גוגל מוגדרת בתוך Supabase.
+# העמודים ב-OPEN פתוחים לכולם, כל השאר דורשים התחברות.
+SUPABASE_URL = "https://utkbzapqkucetphugmul.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2J6YXBxa3VjZXRwaHVnbXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTQ2MjksImV4cCI6MjExMDk5MDYyOX0.VbAtIlS9kxXrTkrezkE3JlzZMsGH2QRG3OlqCQY018o"  # anon (ציבורי)
+SUPABASE_JS = "assets/js/vendor/supabase-2.45.4.js"
 OPEN = {"index", "privacy", "terms", "articles", "work"}
 A_START, A_END = "<!-- auth-gate -->", "<!-- /auth-gate -->"
 
@@ -50,10 +52,13 @@ def header_html(slug):
 def auth_html(slug):
     locked = "false" if slug in OPEN else "true"
     v = _v(("css/auth-gate.css", "js/auth-gate.js"))
+    ref = SUPABASE_URL.split("//")[1].split(".")[0]
+    # הסקריפט הקטן נועל את העמוד מיד (בלי הבהוב) כשאין חיבור שמור בדפדפן
     return (f'{A_START}<link rel="stylesheet" href="assets/css/auth-gate.css?v={v}">'
-            f'<script>window.FA_AUTH={{clientId:"{GOOGLE_CLIENT_ID}",locked:{locked}}};'
-            '(function(a,u){try{u=localStorage.getItem("fa_user")}catch(e){}'
-            'if(a.locked&&(a.clientId||/[?&]login\\b/.test(location.search))&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script>'
+            f'<script>window.FA_AUTH={{url:"{SUPABASE_URL}",key:"{SUPABASE_KEY}",locked:{locked}}};'
+            f'(function(a,u){{try{{u=localStorage.getItem("sb-{ref}-auth-token")}}catch(e){{}}'
+            'var f=0;try{f=self!==top&&top.location.host===location.host}catch(e){}if(a.locked&&!f&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script>'
+            f'<script src="{SUPABASE_JS}" defer></script>'
             f'<script src="assets/js/auth-gate.js?v={v}" defer></script>{A_END}')
 
 
