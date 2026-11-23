@@ -9,7 +9,7 @@ START, END = "<!-- site-header -->", "<!-- /site-header -->"
 # התחברות עם גוגל: מזהה הלקוח מ-Google Cloud Console (OAuth Client ID). כל עוד הוא ריק, אף עמוד לא ננעל
 # (אפשר לראות את החלון עם ?login בכתובת). העמודים ב-OPEN פתוחים לכולם, כל השאר דורשים התחברות.
 GOOGLE_CLIENT_ID = ""
-OPEN = {"index", "privacy", "terms"}
+OPEN = {"index", "privacy", "terms", "articles", "work"}
 A_START, A_END = "<!-- auth-gate -->", "<!-- /auth-gate -->"
 
 
