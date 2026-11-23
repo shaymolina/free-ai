@@ -589,28 +589,45 @@ def _cover(href, k):
     return covers.cover(href) or "assets/images/home2/" + POST_IMGS[k % len(POST_IMGS)]
 
 
+ARTICLE_DATES = {}  # קובץ -> "עודכן ב..." (ממלא build_article)
+ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg>'
+
+
+def _meta(href, mins):
+    d = ARTICLE_DATES.get(href)
+    return f'<span class="ac-m"><span>{mins} דקות קריאה</span>' + (f'<i aria-hidden="true"></i><span>{d}</span>' if d else "") + '</span>'
+
+
 def articles_main(articles):
-    """articles: [(קובץ, כותרת, תיאור, דקות)]. התבנית של "מאמרים אחרונים" מדף הבית, עם כל המאמרים."""
+    """articles: [(קובץ, כותרת, תיאור, דקות)].
+    המאמר הראשון בכרטיס רחב ("מתחילים כאן"), השאר ברשת של 3, וכרטיס של המדריך משלים שורה חסרה."""
     soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
     sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][7]
-    do_head(sec, "כל המאמרים.", "קצרים, ואפשר לעשות אותם היום.")
+    do_head(sec, "כל המאמרים.", f"{len(articles)} מאמרים קצרים, ואפשר לעשות כל אחד היום.")
     sec.find("header").find("div", class_="shrink-0").decompose()
     grid = sec.find("div", class_="grid-cols-3")
-    tpl = grid.find("a")
-    sec.find(attrs={"aria-label": "Latest blog posts"}).decompose()  # הקרוסלה לנייד: במקומה אותה רשת, בעמודה אחת
-    grid["class"] = ["grid", "grid-cols-1", "gap-4", "sm:grid-cols-2", "lg:grid-cols-4", "m2-arts"]
+    sec.find(attrs={"aria-label": "Latest blog posts"}).decompose()
+    grid["class"] = ["m2-arts"]
     grid.clear()
+    go = lambda txt: f'<span class="ac-go">{txt}<b aria-hidden="true">{ARROW}</b></span>'
+    out = []
     for k, (href, title, desc, mins) in enumerate(articles):
-        a = copy.copy(tpl); a["href"] = href
-        img = a.find("img"); img["src"] = _cover(href, k); img["alt"] = ""
-        for x in ("srcset", "sizes"): img.attrs.pop(x, None)
-        a.find("div", class_="items-center").decompose()  # בלי שורת "מאמר · דקות קריאה"
-        p = a.find("p"); p.name = "h2"; put(p, title); p["class"] = ["ac-t"]
-        p.insert_after(frag(f'<p class="ac-d">{desc}</p><span class="ac-go">לקריאת המאמר<b aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></b></span>'))
-        a["class"] = ["ac", "group"]
-        a.find("div", class_="relative")["class"] = ["ac-img"]
-        a.find_all("div", recursive=False)[1]["class"] = ["ac-b"]
-        grid.append(a)
+        img = f'<div class="ac-img"><img src="{_cover(href, k)}" alt="" loading="{"eager" if k == 0 else "lazy"}" decoding="async"></div>'
+        if k == 0:
+            out.append(f'<a class="ac ac-hero" href="{href}">{img}<div class="ac-b">'
+                       f'<span class="ac-tag"><i></i>מתחילים כאן</span><h2 class="ac-t">{title}</h2><p class="ac-d">{desc}</p>'
+                       f'{_meta(href, mins)}{go("לקריאת המאמר")}</div></a>')
+        else:
+            out.append(f'<a class="ac" href="{href}">{img}<div class="ac-b">{_meta(href, mins)}'
+                       f'<h2 class="ac-t">{title}</h2><p class="ac-d">{desc}</p>{go("לקריאת המאמר")}</div></a>')
+    rest = len(articles) - 1
+    if rest % 3:  # משלימים את השורה בכרטיס של המדריך, שלא יישאר חור
+        out.append('<a class="ac ac-more" href="guide-1.html"><div class="ac-b">'
+                   f'<span class="ac-ico" aria-hidden="true">{icon("book", "size-5")}</span>'
+                   '<h2 class="ac-t">רוצים את כל הדרך, צעד אחרי צעד?</h2>'
+                   '<p class="ac-d">המדריך הכתוב לוקח אתכם מההתקנה ועד אתר שעולה לאוויר, פרק אחרי פרק.</p>'
+                   f'{go("למדריך הכתוב")}</div></a>')
+    grid.append(frag("".join(out)))
     pad = sec.find("div", class_="pb-30")
     if pad: pad["class"] = ["grid-layout", "relative", "pb-12", "lg:pb-16"]
     return f'<main class="m2-arts-main">{sec}</main>'
