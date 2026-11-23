@@ -113,7 +113,8 @@
 
   function start() {
     var preview = /[?&]login\b/.test(location.search);
-    if (CFG.locked && (CFG.clientId || preview) && !get()) {
+    var framed = false; try { framed = self !== top && top.location.host === location.host; } catch (e) {}
+    if (CFG.locked && !framed && (CFG.clientId || preview) && !get()) {
       document.documentElement.classList.add('ag-lock');
       showGate();
     } else {

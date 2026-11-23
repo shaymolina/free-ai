@@ -53,7 +53,7 @@ def auth_html(slug):
     return (f'{A_START}<link rel="stylesheet" href="assets/css/auth-gate.css?v={v}">'
             f'<script>window.FA_AUTH={{clientId:"{GOOGLE_CLIENT_ID}",locked:{locked}}};'
             '(function(a,u){try{u=localStorage.getItem("fa_user")}catch(e){}'
-            'if(a.locked&&(a.clientId||/[?&]login\\b/.test(location.search))&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script>'
+            'var f=0;try{f=self!==top&&top.location.host===location.host}catch(e){}if(a.locked&&!f&&(a.clientId||/[?&]login\\b/.test(location.search))&&!u)document.documentElement.classList.add("ag-lock")})(window.FA_AUTH)</script>'
             f'<script src="assets/js/auth-gate.js?v={v}" defer></script>{A_END}')
 
 
