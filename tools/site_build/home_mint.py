@@ -339,7 +339,7 @@ def footer(chapters, articles, ready):
         ("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
         ("המדריך", [(f"guide-{i}.html", chapters[i - 1][0]) for i in (1, 3, 5, 16, 18) if i in ready]),
         ("מאמרים", [(n, t.split("?")[0] + ("?" if "?" in t else "")) for n, t, d, m in articles]),
-        ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש")]),
+        ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש"), ("accessibility", "נגישות")]),
     ]
     c = "".join(f'<div class="f-col"><h3>{h}</h3><ul>{"".join(f"<li><a href=\"{a}\">{b}</a></li>" for a, b in links)}</ul></div>' for h, links in cols)
     return f"""

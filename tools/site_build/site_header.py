@@ -11,7 +11,7 @@ START, END = "<!-- site-header -->", "<!-- /site-header -->"
 SUPABASE_URL = "https://utkbzapqkucetphugmul.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2J6YXBxa3VjZXRwaHVnbXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTQ2MjksImV4cCI6MjExMDk5MDYyOX0.VbAtIlS9kxXrTkrezkE3JlzZMsGH2QRG3OlqCQY018o"  # anon (ציבורי)
 SUPABASE_JS = "assets/js/vendor/supabase-2.45.4.js"
-OPEN = {"index", "privacy", "terms", "articles", "work"}
+OPEN = {"index", "privacy", "terms", "accessibility", "articles", "work"}
 A_START, A_END = "<!-- auth-gate -->", "<!-- /auth-gate -->"
 # סרגל הנגישות (נבנה מ-tools/a11y-toolbar עם npm run build:a11y). מעל מסך ההתחברות, כדי שיעבוד גם שם.
 X_START, X_END = "<!-- a11y-toolbar -->", "<!-- /a11y-toolbar -->"
@@ -78,6 +78,22 @@ def apply_a11y(path):
     open(path, "w").write(s)
 
 
+FOOTER_TERMS = re.compile(r'(<li[^>]*>\s*)?<a([^>]*?)href="terms(?:\.html)?"([^>]*)>תנאי שימוש</a>(\s*</li>)?')
+
+
+def apply_footer_a11y(path):
+    """קישור להצהרת הנגישות ליד "תנאי שימוש" בפוטר של כל עמוד, וזום שלא חסום (בלי maximum-scale)."""
+    s = open(path).read()
+    if 'href="accessibility"' not in s:
+        def add(m):
+            clone = m.group(0).replace('href="terms.html"', 'href="accessibility"').replace('href="terms"', 'href="accessibility"')
+            return m.group(0) + clone.replace("תנאי שימוש", "נגישות")
+        s = FOOTER_TERMS.sub(add, s, count=1)
+    s = re.sub(r'(<meta name="viewport" content="[^"]*?),\s*(?:maximum-scale=[\d.]+|user-scalable=(?:no|0))', r"\1", s)
+    s = re.sub(r'(<meta name="viewport" content="[^"]*?),\s*(?:maximum-scale=[\d.]+|user-scalable=(?:no|0))', r"\1", s)
+    open(path, "w").write(s)
+
+
 def apply_auth(path):
     slug = os.path.basename(path)[:-5]
     s = open(path).read()
@@ -112,6 +128,7 @@ def apply_all():
     n = sum(apply(p) for p in pages)
     for p in pages: apply_auth(p)
     for p in pages: apply_a11y(p)
+    for p in pages: apply_footer_a11y(p)
     print(f"site header: {n} pages")
 
 

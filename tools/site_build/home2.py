@@ -430,7 +430,7 @@ def do_footer(soup, arts):
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-18.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
             ("כלים", [("guide-4.html", "Claude Code"), ("guide-13.html", "Connectors"), ("guide-14.html", "Skills"), ("guide-18.html", "4CODE")]),
-            ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש")])]
+            ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש"), ("accessibility", "נגישות")])]
     for div, (h, links) in zip(f.find("div", class_="lg:grid-cols-5").find_all("div", recursive=False), cols):
         div.find("h3").string = h
         ul = div.find("ul"); tpl = ul.find("a"); cls = tpl["class"]; ul.clear()
