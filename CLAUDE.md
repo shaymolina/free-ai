@@ -37,3 +37,7 @@
 ## SEO
 - אחרי כל בנייה של עמודים רץ `tools/seo/seo_build.py` (אוטומטית בסוף `compact_site.py`; עם בונה אחר מריצים ידנית).
 - בדיקה: `python3 tools/seo/seo_audit.py`. סוכן ה-SEO נמצא ב-`.claude/agents/seo.md` (השיטה: `docs/seo/playbook.md`, זנב ארוך: `tools/seo/longtail.py`), ואת המחקר ותור המאמרים שומרים ב-`docs/seo/research.md`.
+
+## כלל קבוע: הדר אחד לכל האתר
+- ההדר נבנה רק ב-`tools/site_build/site_header.py` (עיצוב: `site/assets/css/site-header.css`, התנהגות: `site/assets/js/site-header.js`).
+- הוא מוחלף אוטומטית בכל העמודים כש-`tools/seo/seo_build.py` רץ. לא בונים הדר נפרד בעמוד.
