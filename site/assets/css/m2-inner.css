@@ -31,3 +31,11 @@ body.m2-inner { zoom: 1; }
   .m2-top section > .grid-layout { padding-top: 2.5rem; }
   .m2-top section .grid-layout > .isolate { transform: translateX(-120px); }
 }
+/* כרטיסי המאמרים: קטנים, עד 4 בשורה */
+.m2-arts > a > div:last-child { gap: 10px; padding: 12px 4px; }
+.m2-arts h2 { font-size: 15.5px; line-height: 1.35; font-weight: 600; }
+.m2-arts p { font-size: 13px; line-height: 1.45; }
+.m2-arts .rounded-xl { border-radius: 10px; }
+.m2-arts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (min-width: 40rem) { .m2-arts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 64rem) { .m2-arts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
