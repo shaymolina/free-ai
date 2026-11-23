@@ -173,7 +173,7 @@ def do_tools(sec, n_ch, n_art):
 # ---------------------------------------------------------------- כותרת מקטע (קו ירוק + שתי שורות + כפתור)
 def do_head(sec, title, sub, href=None, label=None):
     h2 = sec.find("h2")
-    put(h2, f'{title}<span class="block text-foreground-tertiary">{sub}</span>')
+    put(h2, f'<span class="m2-ht">{title}</span><span class="m2-hs block text-foreground-tertiary">{sub}</span>')
     if href:
         a = sec.find("header").find("a")
         a["href"] = href; a.contents[0].replace_with(label)

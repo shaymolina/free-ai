@@ -70,7 +70,14 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 .tk-item::after { content: ""; align-self: center; width: 4px; height: 4px; border-radius: 50%; background: #d97757; opacity: .55; margin-inline: 22px; }
 .tk-item b { font-weight: 600; font-size: 17px; letter-spacing: -.01em; }
 /* כל הכותרות הראשיות בבולד הכי עבה */
-main section h2, main section h2 strong, main section h2 > span { font-weight: 900 !important; }
+main section h2, main section h2 strong { font-weight: 900 !important; }
+/* כותרת מקטע: שורה ראשונה גדולה ועבה, שורה שנייה קטנה ורכה יותר */
+main section h2 .m2-ht { display: block; font-weight: 900; font-size: 2.1rem; line-height: 1.08; letter-spacing: -.02em; color: var(--color-foreground-primary, #111); }
+main section h2 .m2-hs { margin-top: .55rem; font-weight: 500 !important; font-size: 1.3rem; line-height: 1.35; letter-spacing: -.005em; }
+@media (min-width: 64rem) {
+  main section h2 .m2-ht { font-size: 2.9rem; }
+  main section h2 .m2-hs { font-size: 1.6rem; }
+}
 
 /* התצוגה החיה של המדריך בפתיחה של דף הבית */
 .m2-live { position: absolute; top: 0; left: 0; width: 1200px; height: 729px; border: 0; transform-origin: 0 0; pointer-events: none; background: #fff; }
