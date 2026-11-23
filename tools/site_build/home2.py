@@ -602,10 +602,12 @@ def articles_main(articles):
         a = copy.copy(tpl); a["href"] = href
         img = a.find("img"); img["src"] = _cover(href, k); img["alt"] = ""
         for x in ("srcset", "sizes"): img.attrs.pop(x, None)
-        spans = a.find("div", class_="items-center").find_all("span", recursive=False)
-        put(spans[0], "מאמר"); put(spans[1], f"{mins} דקות קריאה")
-        p = a.find("p"); p.name = "h2"; put(p, title)
-        p.insert_after(frag(f'<p class="text-pretty text-sm/5 text-text-sub">{desc}</p>'))
+        a.find("div", class_="items-center").decompose()  # בלי שורת "מאמר · דקות קריאה"
+        p = a.find("p"); p.name = "h2"; put(p, title); p["class"] = ["ac-t"]
+        p.insert_after(frag(f'<p class="ac-d">{desc}</p><span class="ac-go">לקריאה{icon("arrow", "ac-ar")}</span>'))
+        a["class"] = ["ac", "group"]
+        a.find("div", class_="relative")["class"] = ["ac-img"]
+        a.find_all("div", recursive=False)[1]["class"] = ["ac-b"]
         grid.append(a)
     pad = sec.find("div", class_="pb-30")
     if pad: pad["class"] = ["grid-layout", "relative", "pb-12", "lg:pb-16"]
