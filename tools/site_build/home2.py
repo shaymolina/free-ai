@@ -581,6 +581,12 @@ CARD_COLORS = ["#5C1E0F", "#4763D6", "#C8553A", "#7A3FC4"]
 POST_IMGS = ["post-0-w.webp", "post-1-w.webp", "post-2.webp", "post-0.webp", "post-1.webp"]
 
 
+def _cover(href, k):
+    """תמונת השער של המאמר (tools/site_build/covers.py), ואם אין: אחת מתמונות הרקע של דף הבית."""
+    import covers
+    return covers.cover(href) or "assets/images/home2/" + POST_IMGS[k % len(POST_IMGS)]
+
+
 def articles_main(articles):
     """articles: [(קובץ, כותרת, תיאור, דקות)]. התבנית של "מאמרים אחרונים" מדף הבית, עם כל המאמרים."""
     soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
@@ -590,11 +596,11 @@ def articles_main(articles):
     grid = sec.find("div", class_="grid-cols-3")
     tpl = grid.find("a")
     sec.find(attrs={"aria-label": "Latest blog posts"}).decompose()  # הקרוסלה לנייד: במקומה אותה רשת, בעמודה אחת
-    grid["class"] = ["grid", "grid-cols-1", "gap-4", "sm:grid-cols-2", "lg:grid-cols-3"]
+    grid["class"] = ["grid", "grid-cols-1", "gap-4", "sm:grid-cols-2", "lg:grid-cols-4", "m2-arts"]
     grid.clear()
     for k, (href, title, desc, mins) in enumerate(articles):
         a = copy.copy(tpl); a["href"] = href
-        img = a.find("img"); img["src"] = "assets/images/home2/" + POST_IMGS[k % len(POST_IMGS)]; img["alt"] = ""
+        img = a.find("img"); img["src"] = _cover(href, k); img["alt"] = ""
         for x in ("srcset", "sizes"): img.attrs.pop(x, None)
         spans = a.find("div", class_="items-center").find_all("span", recursive=False)
         put(spans[0], "מאמר"); put(spans[1], f"{mins} דקות קריאה")
@@ -608,8 +614,8 @@ def articles_main(articles):
 
 def articles_visual(articles):
     """האיור בפתיחה של עמוד המאמרים: רשימת המאמרים שעולה לאט בלולאה (כל מאמר עם תמונת השער שלו)."""
-    items = [(POST_IMGS[k % len(POST_IMGS)], "מאמר", title, f"{mins} דקות") for k, (href, title, desc, mins) in enumerate(articles)]
-    items.append(("post-2.webp", "מהאתר", "המדריך הכתוב, פרק אחרי פרק", "מדריך"))
-    one = "".join(f'<div class="toc-it"><img src="assets/images/home2/{i}" alt=""><div><small>{t}</small><b>{h}</b></div><em>{m}</em></div>' for i, t, h, m in items)
+    items = [(_cover(href, k), "מאמר", title, f"{mins} דקות") for k, (href, title, desc, mins) in enumerate(articles)]
+    items.append(("assets/images/home2/post-2.webp", "מהאתר", "המדריך הכתוב, פרק אחרי פרק", "מדריך"))
+    one = "".join(f'<div class="toc-it"><img src="{i}" alt=""><div><small>{t}</small><b>{h}</b></div><em>{m}</em></div>' for i, t, h, m in items)
     reps = max(2, 6 // len(items))
     return f'<div class="toc"><div class="toc-track">{one * reps}{one * reps}</div></div>'
