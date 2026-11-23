@@ -274,7 +274,10 @@
       function wrap() { var w = setW(); if (!w || dragging) return; var x = pos(); if (x < w * .5) jump(x + w); else if (x >= w * 1.5) jump(x - w); }
       // בצד שבו הקרוסלה מתחילה לא רואים כרטיסים מעבר לקו התוכן
       function clip() { if (n < 2) return; var tr = track.getBoundingClientRect(), c = track.children[n], x0 = pos(); jump(setW()); var cr = c.getBoundingClientRect(); var g = rtl ? tr.right - cr.right : cr.left - tr.left; jump(x0); g = Math.max(0, Math.round(g)); track.style.clipPath = rtl ? 'inset(-40px ' + g + 'px -40px -100vw)' : 'inset(-40px -100vw -40px ' + g + 'px)'; }
-      if (n > 1) { jump(setW()); clip(); addEventListener('resize', function () { jump(setW() + (pos() % setW())); clip(); }); }
+      // ברגע שמתחילים לגלול, הקרוסלה נפתחת לכל הרוחב
+      var opened = false;
+      function open() { if (opened || n < 2) return; opened = true; track.style.transition = 'clip-path .45s cubic-bezier(.4,0,.2,1)'; track.style.clipPath = 'inset(-40px -100vw -40px -100vw)'; }
+      if (n > 1) { jump(setW()); clip(); var start = pos(); track.addEventListener('scroll', function () { if (Math.abs(pos() - start) > 2) open(); }, { passive: true }); addEventListener('resize', function () { jump(setW() + (pos() % setW())); if (!opened) clip(); }); }
       btns.forEach(function (b) { b.disabled = false; b.addEventListener('click', function () { track.scrollBy({ left: sgn * (+b.dataset.car) * card(), behavior: reduce ? 'auto' : 'smooth' }); }); });
       var idle; track.addEventListener('scroll', function () { clearTimeout(idle); idle = setTimeout(wrap, 140); }, { passive: true });
       // גרירה עם העכבר
