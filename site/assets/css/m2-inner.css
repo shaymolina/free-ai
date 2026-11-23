@@ -32,10 +32,21 @@ body.m2-inner { zoom: 1; }
   .m2-top section .grid-layout > .isolate { transform: translateX(-120px); }
 }
 /* כרטיסי המאמרים: קטנים, עד 4 בשורה */
-.m2-arts > a > div:last-child { gap: 10px; padding: 12px 4px; }
-.m2-arts h2 { font-size: 15.5px; line-height: 1.35; font-weight: 600; }
-.m2-arts p { font-size: 13px; line-height: 1.45; }
-.m2-arts .rounded-xl { border-radius: 10px; }
+.ac { display: flex; flex-direction: column; height: 100%; padding: 6px; border-radius: 16px; background: #fff; border: 1px solid #EEEAE4;
+  box-shadow: 0 1px 2px rgba(20,20,19,.04); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1), border-color .2s; }
+.ac:hover { transform: translateY(-3px); border-color: #E6D5CB; box-shadow: 0 2px 4px rgba(20,20,19,.04), 0 18px 36px -18px rgba(92,30,15,.28); }
+.ac:focus-visible { outline: 2px solid #D97757; outline-offset: 2px; }
+.ac-img { position: relative; aspect-ratio: 680 / 590; border-radius: 11px; overflow: hidden; }
+.ac-img img { transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.ac:hover .ac-img img { transform: scale(1.04); }
+.ac-b { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 14px 10px 10px; }
+.ac-t { font-size: 16px; line-height: 1.35; font-weight: 700; color: #141413; letter-spacing: -.005em; text-wrap: balance; transition: color .2s; }
+.ac:hover .ac-t { color: #B5583A; }
+.ac-d { font-size: 13.5px; line-height: 1.5; color: #6B6862; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ac-go { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: #B5583A; }
+.ac-ar { width: 15px; height: 15px; transition: transform .3s cubic-bezier(.16,1,.3,1); }
+.ac:hover .ac-ar { transform: translateX(-4px); }
+@media (prefers-reduced-motion: reduce) { .ac, .ac-img img, .ac-ar { transition: none; } .ac:hover { transform: none; } }
 .m2-arts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 @media (min-width: 40rem) { .m2-arts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 64rem) { .m2-arts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
