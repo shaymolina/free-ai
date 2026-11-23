@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "53"
+CSS_VERSION = "54"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -385,6 +385,12 @@ def fullvid(src, alt):
     return f'\n                <div class="fvid"><span>ככה זה נראה, מההתחלה ועד הסוף. לחיצה עוצרת, לחיצה נוספת ממשיכה.</span><video src="{src}" muted loop playsinline autoplay preload="metadata" aria-label="{alt}"></video></div>'
 
 
+def gtable(head, rows):
+    th = "".join(f"<th>{h}</th>" for h in head)
+    tr = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows)
+    return f'\n                <div class="gtbl-wrap"><table class="gtbl"><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
+
+
 def when(left, right):
     def col(title, items):
         li = "".join(f"<li>{x}</li>" for x in items)
@@ -433,10 +439,11 @@ build_chapter(
 
 build_chapter(
     5, "",
-    [("מה זה GitHub", "כמו Google Drive, אבל לפרויקטים של קוד: שם שמורים כל הקבצים והתיקיות"),
+    [("מה זה GitHub", "כמו Google Drive, רק לפרויקטים של קוד: שם שמורים כל הקבצים, התיקיות ובקיצור כל הקוד של האתר"),
      ("למה צריך אותו", "קלוד קוד לוקח משם את הפרויקט, עובד עליו ושומר בחזרה"),
      ("מחיר", "חשבון חינמי מספיק")],
-    "אם משהו נראה אחרת אצלכם, זה בסדר",
+    "בשיעור הבא נלמד איך פותחים פרויקט חדש (ריפו)",
+    top='<h2 class="lesson-intro">עד עכשיו הבנו ופתחנו משתמש בקלוד. עכשיו פותחים משתמש ב-GitHub</h2>',
     flow=flow([
         ("נכנסים ולוחצים על Sign up", 'בדפדפן נכנסים ל-<a href="https://github.com" target="_blank" rel="noopener">github.com</a> ולוחצים למעלה על Sign up.', "github-1.mp4"),
         ("ממשיכים עם Google (מומלץ)", 'לוחצים על Continue with Google. כך לא צריך סיסמה חדשה.', "github-2.mp4"),
@@ -449,13 +456,13 @@ build_chapter(
 
 build_chapter(
     6, "",
-    [("ריפו (Repo) ב-GitHub", "תיקייה אחת שבה שמור כל הפרויקט"),
+    [("ריפו (Repo) ב-GitHub", "אפשר פשוט לקרוא לזה פרויקט. זאת בעצם תיקייה אחת ששמור בה כל הקוד של האתר"),
      ("היסטוריה", "הריפו זוכר כל שינוי, אז תמיד אפשר לחזור אחורה"),
      ("ריפו אחד לכל פרויקט", "לא מערבבים פרויקטים באותו ריפו"),
      (None, "דוגמאות"),
      ("אתר תדמית לנגר", "ריפו 1, בשם: carpenter-website"),
      ("מערכת ניהול לקוחות לסלון לק ג'ל", "ריפו 2, בשם: nail-salon-crm")],
-    "השם באנגלית, ואפשר לשנות אותו אחר כך",
+    "זה הכול ב-GitHub. חוזרים לקלוד, ובהמשך נחבר את קלוד ו-GitHub ביחד",
     flow=flow([
         ("לוחצים על New repository", 'ב-<a href="https://github.com/new" target="_blank" rel="noopener">GitHub</a> לוחצים על הכפתור הירוק New repository.', "github-repo-1.mp4"),
         ("נותנים שם לריפו", "שם באנגלית, בלי רווחים. למשל new-website-carpenter.", "github-repo-2.mp4"),
@@ -567,15 +574,15 @@ build_chapter(
      ("Facebook", "קלוד מנהל ובודק את הקמפיינים הממומנים שלכם")],
     "אפשר לנתק חיבור בכל רגע",
     flow=flow([
-        ("איפה רואים ומוסיפים", 'בלשונית Connectors, תחת Yours, רואים מה כבר מחובר.<small class="fnote">כתוב Reconnect? החיבור התנתק. לוחצים ומתחברים שוב.</small>', "settings-connectors.png"),
+        ("איפה רואים ומוסיפים", 'בלשונית Connectors, תחת Yours, רואים מה כבר מחובר. בלשונית Discover מוסיפים קונקטורים חדשים.<small class="fnote">כתוב Reconnect? החיבור התנתק. לוחצים ומתחברים שוב.</small>', "settings-connectors.png"),
     ]),
 )
 
 
 build_chapter(
-    14, "מיומנות היא כמו חוברת הוראות: קלוד קורא אותה כשמגיעה משימה מתאימה, ועושה אותה בדרך הנכונה.",
-    [("מה זה נותן", "תוצאה טובה ואחידה יותר במשימות שחוזרות על עצמן"),
-     ("איך זה מופעל", "קלוד משתמש בה לבד כשהיא מתאימה"),
+    14, "מיומנות (Skill) היא כמו מדריך עבודה של מומחה: הוראות כתובות שמלמדות את קלוד לעשות משימה מסוימת בדיוק כמו שמומחה היה עושה אותה.",
+    [("מה זה נותן", "קלוד עובד בשיטה קבועה ומוכחת, ולא צריך להסביר לו מחדש כל פעם איך עושים את זה"),
+     ("איך זה מופעל", "קלוד משתמש בה לבד כשהיא מתאימה, או שכותבים / ובוחרים את המיומנות המתאימה"),
      ("במה זה שונה מחיבור", "מיומנות היא רק ידע. היא לא נכנסת לשום חשבון שלכם"),
      ("מיומנויות של Anthropic", "מוכנות בלשונית Discover. לוחצים + והן נוספות"),
      ("מיומנויות מאתרים אחרים", "הורדתם מיומנות מאתר אחר? לוחצים על הכפתור הלבן Add ומעלים אותה"),
@@ -596,8 +603,8 @@ build_chapter(
     [("מה זה נותן", "תחום שלם מוכן לעבודה, בלי להרכיב לבד חלק אחרי חלק"),
      ("על מה לשים לב", "מתקינים רק ממקור מוכר. ליד כל חבילה כתוב מי יצר אותה, כמו by Anthropic"),
      (None, "דוגמאות"),
-     ("Data", "שאלות על נתונים, טבלאות וגרפים"),
-     ("google-workspace", "עבודה עם Google Drive, Docs ו-Sheets")],
+     ("Marketing", "כותב פוסטים ומיילים ללקוחות, ומתכנן קמפיין לפי העסק שלכם"),
+     ("Customer Support", "עונה לפניות של לקוחות ומסדר שאלות נפוצות לאתר")],
     "אפשר להסיר חבילה בכל רגע",
     flow=flow([
         ("איפה מוסיפים", "בלשונית Plugins, תחת Discover, לוחצים על + או על Add.", "settings-plugins.png"),
@@ -626,10 +633,11 @@ build_chapter(
      ("בחירת הריפו", "בכל משימה בוחרים על איזה פרויקט עובדים"),
      ("הבנייה", "קלוד בונה את האתר ושומר אותו בריפו")],
     "בפרק הבא מעלים את האתר לאוויר",
+    extra=tip("רוצים ריפו חדש? אומרים לקלוד: \"תפתח ריפו חדש לפרויקט חדש\"."),
     flow=flow([
-        ("מחברים את GitHub", "בהגדרות מחפשים GitHub, לוחצים Connect ומאשרים.", "first-1.mp4"),
+        ("מחברים את GitHub כקונקטור", "בהגדרות: Customize ← Connectors ← Discover ← מחפשים GitHub. לוחצים Connect ומאשרים בדפדפן.", "first-1.mp4"),
         ("נותנים לקלוד גישה לריפו", 'לוחצים Fix ומאשרים בכל חלון שקופץ.<small class="fnote">אם מבקשים קוד, הוא נשלח למייל שלכם.</small>', "first-2.mp4"),
-        ("בוחרים את הריפו", "לוחצים Repo ובוחרים את הריפו שלכם.", "first-3.mp4"),
+        ("בוחרים את הריפו", 'לוחצים Repo ובוחרים את הריפו שלכם. וזהו. מעכשיו ה-GitHub שלכם מחובר לקלוד.<small class="fnote">מעכשיו לא צריך לעשות יותר כלום באתר של GitHub, קלוד עושה הכול בשבילכם. בכל פרויקט שבונים, בוחרים את הריפו שלו.</small>', "first-3.mp4"),
         ("מבקשים מה לבנות", "כותבים מה רוצים ושולחים. קלוד בונה.", "first-4.mp4"),
     ]),
 )
@@ -637,36 +645,33 @@ build_chapter(
 
 build_chapter(
     18, "כדי שכל אחד יוכל להיכנס לאתר, מחברים את הפרויקט ל-4CODE.",
-    [("מה זה 4CODE", "כמו חנות ברחוב: מחשב שדלוק תמיד ומציג את האתר לכל מי שנכנס"),
-     ("מסלול חינם", "אתר אחד באוויר, בלי לשלם"),
-     ("מסלול Pro", "עד 3 אתרים, גיבויים ותמיכה. 9 דולר בחודש"),
-     ("עדכונים", "כל שינוי שקלוד שומר בריפו עולה לאתר לבד"),
-     ("מה אנחנו בוחרים", "מתחילים בחינם. עוברים ל-Pro כשיש יותר מאתר אחד"),
-     (None, "דוגמאות"),
-     ("כתובת חינמית", "שם-האתר.il.4code.site, מוכנה מיד ובלי לשלם"),
-     ("כתובת פרטית", "carpenter.co.il, קונים דרך 4CODE ומחברים לאתר")],
+    [("מה זה 4CODE", "שרת. כדי שכולם יוכלו להיכנס למערכת שבניתם, מעלים אותה לשרת מאובטח באינטרנט")],
     "מעכשיו האתר באוויר, וכל שינוי עולה לבד",
     extra=f'''
                 <div class="coupon">קופון לחודש ראשון בחינם ב-4CODE: <code>{COUPON}</code><button type="button" class="btn-2 sm" id="guide-copy" data-code="{COUPON}">העתקה</button></div>''',
     flow=flow([
-        ("בוחרים מסלול", 'ב-<a href="https://4code.co.il/pricing" target="_blank" rel="noopener">4code.co.il</a> לוחצים על מסלולים, ובחינם לוחצים "מתחילים בחינם".<small class="fnote">אחר כך ממלאים שם, מייל וטלפון, ומסיימים את ההזמנה.</small>', "4code-1.mp4"),
-        ("נכנסים לפלטפורמה", "לוחצים \"התחברות לחשבון\" ואז \"אשר\".", "4code-2.mp4"),
-        ("יוצרים פרויקט", "בפרויקטים לוחצים \"יצירת פרויקט\", נותנים שם ונכנסים אליו.", "4code-3.mp4"),
-        ("מחברים את הריפו", 'לוחצים על GitHub, בוחרים את הריפו מפרק 17 ומאשרים.<small class="fnote">אחרי דקה-שתיים האתר באוויר בכתובת החינמית.</small>', "4code-4.mp4"),
+        ("בוחרים מסלול", 'ב-<a href="https://4code.co.il/pricing" target="_blank" rel="noopener">4code.co.il</a> לוחצים על מסלולים ובוחרים מסלול.', "4code-1.mp4"),
+        ("ממלאים את הפרטים שלכם", "שם, מייל וטלפון, ומסיימים את ההזמנה.", "4code-details.mp4"),
+        ("נכנסים לפלטפורמה", "לוחצים \"התחברות לחשבון\" ואז \"אשר\". מגיעים ללוח הבקרה.", "4code-2.mp4"),
+        ("יוצרים פרויקט", "בצד לוחצים על פרויקטים, ואז \"יצירת פרויקט\". נותנים שם ונכנסים אליו.", "4code-3.mp4"),
+        ("בוחרים את פרויקט ה-GitHub שלכם", 'לוחצים על GitHub, בוחרים את הריפו מפרק 17 ומאשרים.<small class="fnote">אחרי דקה-שתיים האתר באוויר.</small>', "4code-4.mp4"),
     ]),
 )
 
 
 build_chapter(
-    19, "Supabase הוא כמו ארון תיוק לאתר: מקום ששומר מידע שאנשים משאירים, כמו הזמנות, משתמשים והודעות.",
-    [("בלי Supabase", "האתר מציג דברים קבועים: טקסט, תמונות, טלפון. מספיק לרוב העסקים"),
-     ("עם Supabase", "האתר זוכר דברים: מי נרשם, מי הזמין, מה נכתב בטופס"),
-     ("מה אנחנו בוחרים", "מתחילים בלי. כשצריך, מבקשים מקלוד לחבר Supabase והוא מסביר מה לעשות"),
-     (None, "דוגמאות"),
-     ("דף נחיתה לנגר", "לא צריך. הטופס יכול לשלוח מייל"),
-     ("יומן תורים", "צריך. האתר זוכר אילו שעות כבר תפוסות"),
-     ("אזור אישי ללקוחות", "צריך. כל לקוח נכנס עם שם משתמש וסיסמה")],
+    19, "דאטה בייס (מסד נתונים) הוא כמו מחברת שהאתר כותב בה: מי נרשם, מי הזמין ומה נכתב בטופס. Supabase הוא שירות שנותן לאתר מחברת כזאת.",
+    [("דאטה בייס", "מקום שבו האתר שומר מידע שאנשים משאירים, כדי לזכור אותו גם מחר"),
+     ("Supabase", "החברה שמחזיקה את הדאטה בייס בשבילכם. קלוד יודע לחבר אותו לאתר"),
+     ("מה אנחנו בוחרים", "מתחילים בלי. כשצריך, מבקשים מקלוד לחבר Supabase והוא מסביר מה לעשות")],
     "Supabase חינמי להתחלה",
+    extra=gtable(["מה בונים", "צריך דאטה בייס?"], [
+        ("דף נחיתה או אתר תדמית", "לא. הטופס יכול פשוט לשלוח מייל"),
+        ("גלריה, מחירון, פרטי קשר", "לא. אלה דברים קבועים שלא משתנים"),
+        ("יומן תורים", "כן. האתר צריך לזכור אילו שעות תפוסות"),
+        ("הרשמה ואזור אישי", "כן. כל משתמש נכנס עם שם וסיסמה"),
+        ("חנות עם הזמנות", "כן. צריך לשמור מי הזמין מה"),
+        ("מערכת ניהול לקוחות", "כן. כל המידע על הלקוחות נשמר שם")]),
 )
 
 
@@ -676,9 +681,9 @@ build_chapter(
      ("בודקים את הריפו לפני ששולחים", "למטה בתיבת הכתיבה רואים על איזה ריפו קלוד עובד"),
      ("ריפו פרטי", "בוחרים Private, ככה רק אתם רואים את הקוד"),
      ("סיסמאות לא נכנסות לאתר", "מבקשים מקלוד לשמור אותן בצד, ולא בתוך הקוד"),
-     ("לא מאשרים מה שלא מבינים", "שואלים את קלוד \"מה זה עושה?\" לפני שלוחצים אישור"),
-     ("הכול נשמר", "GitHub זוכר כל שינוי, אז תמיד אפשר לחזור אחורה")],
+     ],
     "אלה ההרגלים. השאר קלוד עושה",
+    extra='\n                <div class="note-box key-box"><b>הכי חשוב:</b><span>לפני שהאתר עולה לאוויר, מריצים עליו את <a href="work-single.html">סקיל בדיקת האבטחה</a> שלנו. הוא מוצא פרצות ומסביר בעברית פשוטה מה לתקן.</span></div>',
 )
 
 
@@ -705,7 +710,8 @@ build_chapter(
      ("עמוד חדש", "\"תוסיף עמוד גלריה עם 12 תמונות של עבודות, וקישור אליו בתפריט\""),
      ("גוגל", "\"תסדר את האתר כך שיופיע בגוגל כשמחפשים נגר בחיפה\"")],
     "נתקעתם? חוזרים לפרק 21",
-    extra='\n                <p class="more-link">רוצים עוד? <a href="articles.html">כל המאמרים</a></p>',
+    extra='\n                <p class="more-link">רוצים עוד? <a href="articles.html">כל המאמרים</a></p>'
+          '\n                <a href="service.html" class="btn btn-primary btn-course">מעבר לקורס הפרקטי ←</a>',
 )
 
 
@@ -801,26 +807,85 @@ ILL_PRICE = """<div class="ill ill-pr" aria-hidden="true">
 </div>"""
 
 
+_ART_PENDING = []  # המאמרים נכתבים רק אחרי שכולם ידועים, בשביל "עוד מאמרים"
+
+
 def build_article(name, title, desc, mins, body, seo_title=None, lead="", visual="", date=""):
-    """מאמר: חלק פתיחה גרפי (כמו בדף הבית), ואחריו כל <h2> הופך למקטע מעוצב משלו."""
+    """מאמר: חלק פתיחה גרפי (כמו בדף הבית), ואחריו כל <h2> הופך למקטע ממוספר משלו, עם תוכן עניינים צדדי."""
     ARTICLES.append((name, title, desc, mins))
     import home2
     if date: home2.ARTICLE_DATES[name] = date
-    chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
-    secs = "".join(f'<section class="card art-sec">{c}</section>' for c in chunks)
-    dt = f" · עודכן {date}" if date else ""
-    main = f'''<main class="wrap stack art-main article">
-{secs}
-        <div class="card art-cta"><span>רוצים ללמוד לבנות דברים כאלה בעצמכם? הקורס חינמי.</span><a href="service.html" class="btn">התחל ללמוד</a></div>
-    </main>'''
+    _ART_PENDING.append((name, title, desc, mins, body, seo_title, lead, visual, date))
+
+
+# קווי החוטים בפס הסיום (כמו בפס "קורס קלוד קוד, בחינם ובעברית" בדף הבית)
+_CTA_LINES = "".join(
+    f'<path d="M{-40 + i * 9} 300 C {120 + i * 14} {210 - i * 6}, {200 + i * 10} {60 + i * 4}, {460 + i * 6} {-20 + i * 3}" stroke="{c}" />'
+    for i, c in enumerate(["#D97757", "#E6BB35", "#D43B2D", "#D97757", "#E6BB35", "#C2603F", "#D97757", "#E6BB35", "#D43B2D", "#D97757"]))
+
+ARTICLE2_JS = '''<script>
+(function () {
+    var bar = document.querySelector('.a2-progress i'), body = document.querySelector('.a2-body');
+    var links = [].slice.call(document.querySelectorAll('.a2-toc a[href^="#"]'));
+    function onScroll() {
+        if (body && bar) {
+            var r = body.getBoundingClientRect(), h = r.height - innerHeight * .6;
+            bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, -r.top / (h > 0 ? h : 1))) + ')';
+        }
+        var cur = null;
+        links.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s && s.getBoundingClientRect().top < innerHeight * .35) cur = a; });
+        links.forEach(function (a) { a.classList.toggle('on', a === cur); });
+    }
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+</script>'''
+
+
+def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date):
     import home2
+    chunks = [c.strip() for c in re.split(r'(?=<h2>)', body) if c.strip()]
+    secs, toc = [], []
+    for k, c in enumerate(chunks, 1):
+        m = re.match(r'<h2>(.*?)</h2>', c, re.S)
+        sid = f"s{k}"
+        if m:
+            h = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+            c = c.replace(m.group(0), f'<div class="a2-head"><span class="a2-num">{k:02d}</span><h2>{m.group(1)}</h2></div>', 1)
+            toc.append(f'<li><a href="#{sid}"><span>{k:02d}</span>{h}</a></li>')
+        secs.append(f'<section class="a2-sec" id="{sid}">{c}</section>')
+    others = [(n, t, mn) for n, t, d, mn in ARTICLES if n != name][:3]
+    more = ""
+    if others:
+        cards = "".join(
+            f'<a class="ac" href="{n}"><img src="{home2._cover(n, i)}" alt="" loading="lazy" decoding="async">'
+            f'<span class="ac-b"><h3 class="ac-t">{t}</h3>{home2._meta(n, mn)}</span></a>'
+            for i, (n, t, mn) in enumerate(others))
+        more = ('<section class="a2-band a2-more"><div class="a2-wrap a2-pad">'
+                '<div class="a2-band-head"><h2>עוד מאמרים</h2><a href="articles.html" class="a2-link">לכל המאמרים ←</a></div>'
+                f'<div class="m2-arts">{cards}</div></div></section>')
+    dt = f" · עודכן {date}" if date else ""
+    main = f'''<div class="a2-progress" aria-hidden="true"><i></i></div>
+    <main class="a2">
+        <div class="a2-wrap a2-grid">
+            <div class="a2-body">{"".join(secs)}</div>
+            <aside class="a2-toc" aria-label="תוכן העניינים"><nav><b>בעמוד הזה</b><ol>{"".join(toc)}</ol>
+                <a href="service.html" class="a2-toc-cta"><small>הקורס החינמי</small>לומדים לבנות לבד ←</a></nav></aside>
+        </div>
+        {more}
+        <section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
+            <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
+            <div><h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p></div>
+            <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
+        </div></section>
+    </main>'''
     (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, f"מאמר · {mins} דקות קריאה{dt}", title, lead, visual, main,
-                                              script=ARTICLE_JS, legacy_v=CSS_VERSION))
+                                              script=ARTICLE_JS + ARTICLE2_JS, legacy_v=CSS_VERSION))
     print(f"{name} done")
 
 
-
 def build_articles_index():
+    for _a in _ART_PENDING:
+        _write_article(*_a)
     import home_mint
     cards = "".join(
         f'<a href="{n}" class="card art-card"><h2>{t}</h2><p class="muted">{d}</p><span class="go">לקריאה ←</span></a>'
@@ -868,7 +933,6 @@ build_article(
                 ["איפה לוחצים", "הלשונית Chat", "הלשונית Code"],
             ])}
             <div class="fshot"><img src="assets/images/guide/claude-install-5.png" alt="איך נראה קלוד קוד: באפליקציה של קלוד בוחרים בלשונית Code" loading="lazy"></div>
-            <p class="more-link">לעומק: <a href="guide-2.html">מתי בוחרים בכל אחד</a>.</p>
 
             <h2>איפה עובדים עם קלוד קוד</h2>
             {rows_html([
@@ -877,7 +941,7 @@ build_article(
                 ("בטלפון", "האפליקציה של קלוד ל-iPhone ול-Android"),
                 ("בטרמינל", "חלון פקודות שחור, למתכנתים"),
             ])}
-            <div class="note-box"><b>מה אנחנו בוחרים:</b> האפליקציה במחשב, כי הכול בלחיצות. <a href="guide-4.html">איך מתקינים</a>.</div>
+            <div class="note-box"><b>מה אנחנו בוחרים:</b> האפליקציה במחשב, כי הכול בלחיצות.</div>
 
             <h2>כמה עולה קלוד קוד</h2>
             {plans([
@@ -886,21 +950,21 @@ build_article(
                 ("Max", "100$", "לחודש, הרבה יותר שימוש", True),
                 ("Ultra", "200$", "לחודש, הכי הרבה שימוש", True),
             ])}
-            <p class="art-src">נכון ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>. למתחילים מספיק Pro (<a href="guide-11.html">כמה נשאר מהמנוי</a>).</p>
+            <p class="art-src">נכון ל-18 בנובמבר 2026, לפי <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>. למתחילים מספיק Pro.</p>
             <p class="more-link">כל המנויים וההבדלים ביניהם: <a href="article-claude-code-price.html">כמה עולה קלוד קוד</a>.</p>
 
             <h2>האם צריך לדעת לתכנת?</h2>
             {duo([
                 ("לא צריך", "לדעת קוד", "מסבירים במילים מה בונים ובשביל מי."),
-                ("מספיק", "עברית רגילה", 'אפשר גם לדבר במיקרופון. <a href="guide-16.html">איך מנסחים בקשה</a>'),
+                ("מספיק", "עברית רגילה", 'אפשר גם לדבר במיקרופון.'),
             ])}
 
             <h2>איך מתחילים לעבוד עם קלוד קוד</h2>
             {rows_html([
-                ("פותחים חשבון קלוד", '<a href="guide-3.html">פתיחת חשבון</a> ומנוי Pro'),
-                ("מתקינים את האפליקציה", '<a href="guide-4.html">הורדה והתקנה</a>'),
-                ("פותחים חשבון GitHub", '<a href="guide-5.html">כאן נשמרים הפרויקטים</a>'),
-                ("בונים פרויקט ראשון", '<a href="guide-17.html">כותבים בקשה ורואים אותו בונה</a>'),
+                ("פותחים חשבון קלוד", 'ונרשמים למנוי Pro'),
+                ("מתקינים את האפליקציה", 'מ-claude.com/download'),
+                ("פותחים חשבון GitHub", 'כאן נשמרים הפרויקטים'),
+                ("בונים פרויקט ראשון", 'כותבים בקשה ורואים אותו בונה'),
             ])}
             <p class="more-link">מעדיפים וידאו? <a href="service.html">קורס קלוד קוד בעברית, בחינם</a>.</p>
 
