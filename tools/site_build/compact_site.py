@@ -879,7 +879,7 @@ def _share(name, title):
     return f'<div class="a2-card a2-share"><b>שתפו את המאמר</b><div class="a2-sh-row">{out}</div></div>'
 
 
-# ניסוי: כותרות במשקל הכי עבה, וטקסט משני קטן ב-5px ובמשקל הכי דק (site/assets/css/m2-inner.css, .a2-exp)
+# ניסוי: כותרות במשקל הכי עבה, וטקסט משני קטן ב-1px ובמשקל 200 (site/assets/css/m2-inner.css, .a2-exp)
 _ART_EXP = {"article-what-is-claude-code.html"}
 
 
