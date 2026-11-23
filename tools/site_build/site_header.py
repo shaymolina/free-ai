@@ -72,6 +72,18 @@ def a11y_html():
             f'data-position="bottom-left" data-z-index="{A11Y_Z}" async></script>{X_END}')
 
 
+B_START, B_END = "<!-- site-buttons -->", "<!-- /site-buttons -->"
+
+
+def apply_buttons(path):
+    """כפתורים אחידים בכל האתר (site/assets/css/site-buttons.css), אחרון ב-<head> כדי לגבור על עיצוב העמוד."""
+    s = open(path).read()
+    s = re.sub(re.escape(B_START) + ".*?" + re.escape(B_END), "", s, flags=re.S)
+    v = _v(("css/site-buttons.css",))
+    s = s.replace("</head>", f'{B_START}<link rel="stylesheet" href="assets/css/site-buttons.css?v={v}">{B_END}</head>', 1)
+    open(path, "w").write(s)
+
+
 def apply_a11y(path):
     s = open(path).read()
     s = re.sub(re.escape(X_START) + ".*?" + re.escape(X_END), "", s, flags=re.S)
@@ -121,6 +133,7 @@ def apply_all():
     n = sum(apply(p) for p in pages)
     for p in pages: apply_auth(p)
     for p in pages: apply_a11y(p)
+    for p in pages: apply_buttons(p)
     for p in pages: apply_viewport(p)
     print(f"site header: {n} pages")
 
