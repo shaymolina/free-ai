@@ -347,7 +347,7 @@ def footer(chapters, articles, ready):
         {dots(7, 160, 420, 90, "dither f-d1")}{dots(11, 160, 420, 90, "dither f-d2")}{dots(5, 160, 420, 50, "dither f-d3")}
         <div class="m-in foot-in">
             <div class="f-brand"><a href="index.html" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
-                <span class="f-ok"><i></i>{len(ready)} פרקים זמינים לקריאה</span></div>
+                <a class="f-ok" href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></div>
             <nav class="f-cols" aria-label="קישורים בפוטר">{c}</nav>
         </div>
         <div class="m-in f-bot">
