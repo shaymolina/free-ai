@@ -436,6 +436,8 @@ def do_footer(soup, arts):
         ul = div.find("ul"); tpl = ul.find("a"); cls = tpl["class"]; ul.clear()
         for href, t in links:
             ul.append(frag(f'<li><a class="{" ".join(cls)}" href="{href}">{t}</a></li>'))
+    # הכיתוב Free AI הגדול ברקע (מהפוטר הישן), דקורטיבי בלבד
+    f.insert(0, frag('<div class="f-bigword" aria-hidden="true"><img src="assets/images/logo/logo-footer.png" alt="" loading="lazy" width="1280" height="399"></div>'))
     bottom = f.find(attrs={"aria-label": "Theme switcher"}).find_parent("div", class_="justify-between")
     put(bottom, '<span class="text-sm/5 text-neutral-500">© 2026 Free AI. כל הזכויות שמורות.</span><a class="text-sm/5 font-medium text-text-main hover:text-brand" href="#top" data-totop>חזרה למעלה ↑</a>')
 

@@ -68,7 +68,7 @@ def auth_html(slug):
 def a11y_html():
     v = _v(("js/a11y-toolbar.js",))
     return (f'{X_START}<script src="assets/js/a11y-toolbar.js?v={v}" data-language="he" '
-            f'data-position="bottom-right" data-z-index="{A11Y_Z}" async></script>{X_END}')
+            f'data-position="bottom-left" data-z-index="{A11Y_Z}" async></script>{X_END}')
 
 
 def apply_a11y(path):

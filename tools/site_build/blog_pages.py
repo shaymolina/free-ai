@@ -1,4 +1,4 @@
-"""מדיניות פרטיות ותנאי שימוש – נבנים מתוך blog-single.html של התבנית."""
+"""ישן: מקור התוכן של עמודי הבלוג מהתבנית. פרטיות, תנאים ונגישות נבנים ב-legal_pages.py."""
 from clean_urls import clean
 import re
 from pathlib import Path
@@ -279,10 +279,7 @@ terms = blocks([
     ]),
 ])
 
-legal("privacy.html", "מדיניות פרטיות",
-      "איזה מידע Free AI אוסף, למה, עם מי הוא משותף ומה הזכויות שלכם.", privacy)
-legal("terms.html", "תנאי שימוש",
-      "תנאי השימוש באתר Free AI – שירות חינמי, חשבון אישי, רישיונות סקילים ושימוש בתכנים.", terms)
+# פרטיות, תנאי שימוש ונגישות נבנים עכשיו ב-legal_pages.py, בעיצוב החדש ועם הפוטר המעודכן.
 
 for f in ("blog-two-columns.html", "blog-three-columns.html", "index-v2.html"):
     (OUT / f).unlink(missing_ok=True)
