@@ -272,6 +272,14 @@
       function pos() { return Math.abs(track.scrollLeft); }
       function jump(x) { track.style.scrollSnapType = 'none'; track.style.scrollBehavior = 'auto'; track.scrollLeft = sgn * x; track.offsetWidth; track.style.scrollSnapType = ''; track.style.scrollBehavior = ''; }
       function wrap() { var w = setW(); if (!w || dragging) return; var x = pos(); if (x < w * .5) jump(x + w); else if (x >= w * 1.5) jump(x - w); }
+      // המסילה נמתחת עד קצה המסך בצד ההתחלה, כדי שהכרטיסים יגיעו עד הסוף
+      var cs0 = getComputedStyle(track), m0 = parseFloat(rtl ? cs0.marginRight : cs0.marginLeft) || 0, p0 = parseFloat(rtl ? cs0.paddingRight : cs0.paddingLeft) || 0, sp0 = parseFloat(rtl ? cs0.scrollPaddingRight : cs0.scrollPaddingLeft) || 0;
+      function bleed() {
+        var side = rtl ? 'Right' : 'Left'; track.style['margin' + side] = m0 + 'px'; track.style['padding' + side] = p0 + 'px'; track.style['scrollPadding' + side] = sp0 + 'px';
+        var r = track.getBoundingClientRect(), d = rtl ? document.documentElement.clientWidth - r.right : r.left; if (d <= 0) return;
+        track.style['margin' + side] = (m0 - d) + 'px'; track.style['padding' + side] = (p0 + d) + 'px'; track.style['scrollPadding' + side] = (sp0 + d) + 'px';
+      }
+      bleed(); addEventListener('resize', bleed);
       // בצד שבו הקרוסלה מתחילה לא רואים כרטיסים מעבר לקו התוכן
       function clip() { if (n < 2) return; var tr = track.getBoundingClientRect(), c = track.children[n], x0 = pos(); jump(setW()); var cr = c.getBoundingClientRect(); var g = rtl ? tr.right - cr.right : cr.left - tr.left; jump(x0); g = Math.max(0, Math.round(g)); track.style.clipPath = rtl ? 'inset(-40px ' + g + 'px -40px -100vw)' : 'inset(-40px -100vw -40px ' + g + 'px)'; }
       // ברגע שמתחילים לגלול, הקרוסלה נפתחת לכל הרוחב
