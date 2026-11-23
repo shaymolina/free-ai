@@ -845,6 +845,25 @@ ARTICLE2_JS = '''<script>
             setTimeout(function () { b.classList.remove('done'); }, 1800);
         });
     });
+    // שאלות נפוצות: נפתחות ונסגרות בתנועה רכה (גובה + שקיפות), במקום קפיצה
+    var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.a2 .faq details').forEach(function (d) {
+        var sum = d.querySelector('summary'), busy = null;
+        sum.addEventListener('click', function (e) {
+            if (calm || !d.animate) return;
+            e.preventDefault();
+            if (busy) busy.cancel();
+            var from = d.offsetHeight, opening = !d.open;
+            if (opening) d.open = true;
+            var to = opening ? d.scrollHeight : sum.offsetHeight + 1;
+            var ans = d.querySelector('p');
+            if (ans) ans.animate(opening ? [{ opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'none' }]
+                                         : [{ opacity: 1 }, { opacity: 0 }], { duration: opening ? 420 : 200, easing: 'cubic-bezier(.16,1,.3,1)' });
+            d.style.overflow = 'hidden';
+            busy = d.animate([{ height: from + 'px' }, { height: to + 'px' }], { duration: opening ? 420 : 320, easing: 'cubic-bezier(.16,1,.3,1)' });
+            busy.onfinish = function () { if (!opening) d.open = false; d.style.overflow = ''; busy = null; };
+        });
+    });
     document.querySelectorAll('.a2-mtoc a').forEach(function (a) { a.addEventListener('click', function () { a.closest('details').open = false; }); });
 })();
 </script>'''
@@ -894,6 +913,7 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
             h = re.sub(r'<[^>]+>', '', m.group(1)).strip()
             c = c.replace(m.group(0), f'<div class="a2-head"><span class="a2-num">{k:02d}</span><h2>{m.group(1)}</h2></div>', 1)
             toc.append(f'<li><a href="#{sid}"><span>{k}</span>{h}</a></li>')
+        c = re.sub(r'(<div class="note-box"><b>[^<]*?):</b>', r'\1</b>', c)
         secs.append(f'<section class="a2-sec" id="{sid}">{c}</section>')
     toc_ol = f'<ol>{"".join(toc)}</ol>'
     others = [(i, n, t, mn) for i, (n, t, d, mn) in enumerate(ARTICLES) if n != name][:4]
