@@ -94,7 +94,7 @@ a:hover .m2-card-ic{transform:translateY(-2px)}
 
 /* פוטר: שורת תיאור מתחת ללוגו */
 .f-tag { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
-.f-tag-h { margin: 0; font-size: 18px; font-weight: 700; color: var(--ink); }
-.f-tag-p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--muted); }
+.f-tag-h { margin: 0; font-size: 18px; font-weight: 900; color: var(--ink); }
+.f-tag-p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
 .grid-layout .f-tag { margin-top: -12px; }
 .grid-layout .f-tag-h { line-height: 1; }

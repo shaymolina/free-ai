@@ -1,0 +1,190 @@
+/* a11y-toolbar: page preferences. Every rule is keyed on a namespaced attribute on <html>,
+   so removing the attribute restores the page. The toolbar and its overlays are always excluded. */
+
+/* ---------- Readable font ---------- */
+html[data-a11y-toolbar-readable-font] body :not(.a11y-toolbar-root, .a11y-toolbar-root *, [data-a11y-toolbar-overlay], [data-a11y-toolbar-overlay] *, svg, svg *, i, code, pre, kbd, samp, pre *, code *, [class^="icon-"], [class*=" icon-"], [class*="fa-"], .fa, .material-icons, .material-symbols-outlined, .material-symbols-rounded) {
+  font-family: Arial, Helvetica, Verdana, system-ui, sans-serif !important;
+}
+
+/* ---------- Letter and word spacing ---------- */
+html[data-a11y-toolbar-letter-spacing] body :not(.a11y-toolbar-root, .a11y-toolbar-root *, [data-a11y-toolbar-overlay], svg, svg *, i, [class^="icon-"], [class*=" icon-"], [class*="fa-"], .material-icons, .material-symbols-outlined) {
+  letter-spacing: var(--a11y-toolbar-letter-spacing) !important;
+}
+html[data-a11y-toolbar-word-spacing] body :not(.a11y-toolbar-root, .a11y-toolbar-root *, [data-a11y-toolbar-overlay], svg, svg *, i, [class^="icon-"], [class*=" icon-"], [class*="fa-"], .material-icons, .material-symbols-outlined) {
+  word-spacing: var(--a11y-toolbar-word-spacing) !important;
+}
+
+/* ---------- Line height: text blocks only, never controls, SVG or canvas ---------- */
+html[data-a11y-toolbar-line-height] body :is(p, li, dd, dt, blockquote, figcaption, caption, td, th, h1, h2, h3, h4, h5, h6, label, summary, address, article, main, section):not(.a11y-toolbar-root, .a11y-toolbar-root *) {
+  line-height: var(--a11y-toolbar-line-height) !important;
+}
+
+/* ---------- Motion ---------- */
+html[data-a11y-toolbar-reduce-motion] :not(.a11y-toolbar-root, .a11y-toolbar-root *, [data-a11y-toolbar-essential-animation], [data-a11y-toolbar-essential-animation] *),
+html[data-a11y-toolbar-reduce-motion] :not(.a11y-toolbar-root *, [data-a11y-toolbar-essential-animation] *)::before,
+html[data-a11y-toolbar-reduce-motion] :not(.a11y-toolbar-root *, [data-a11y-toolbar-essential-animation] *)::after {
+  animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+html[data-a11y-toolbar-pause-animations] :not(.a11y-toolbar-root, .a11y-toolbar-root *, [data-a11y-toolbar-essential-animation], [data-a11y-toolbar-essential-animation] *),
+html[data-a11y-toolbar-pause-animations] :not(.a11y-toolbar-root *, [data-a11y-toolbar-essential-animation] *)::before,
+html[data-a11y-toolbar-pause-animations] :not(.a11y-toolbar-root *, [data-a11y-toolbar-essential-animation] *)::after {
+  animation-play-state: paused !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+html[data-a11y-toolbar-pause-animations],
+html[data-a11y-toolbar-reduce-motion] { scroll-behavior: auto !important; }
+
+/* ---------- Grayscale ---------- */
+#a11y-toolbar-grayscale-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  -webkit-backdrop-filter: grayscale(1);
+  backdrop-filter: grayscale(1);
+}
+html[data-a11y-toolbar-grayscale]:not([data-a11y-toolbar-backdrop]) body > :not(.a11y-toolbar-root, [data-a11y-toolbar-overlay]) {
+  filter: grayscale(1);
+}
+
+/* ---------- Invert colors: page inverted, media and the toolbar inverted back ---------- */
+html[data-a11y-toolbar-invert-colors] {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #fff;
+}
+html[data-a11y-toolbar-invert-colors] :is(img, picture, video, canvas, iframe, embed, object, svg image, [style*="background-image"]):not(picture img),
+html[data-a11y-toolbar-invert-colors] .a11y-toolbar-root,
+html[data-a11y-toolbar-invert-colors] #a11y-toolbar-overlays {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ---------- Contrast modes ---------- */
+html[data-a11y-toolbar-high-contrast],
+html[data-a11y-toolbar-dark-contrast],
+html[data-a11y-toolbar-light-contrast] {
+  --a11y-toolbar-c-bg: #000;
+  --a11y-toolbar-c-fg: #fff;
+  --a11y-toolbar-c-link: #ffeb3b;
+  --a11y-toolbar-c-border: #fff;
+  --a11y-toolbar-c-field: #000;
+  --a11y-toolbar-c-focus: #ffeb3b;
+}
+html[data-a11y-toolbar-dark-contrast] {
+  --a11y-toolbar-c-bg: #121212;
+  --a11y-toolbar-c-fg: #f2f2f2;
+  --a11y-toolbar-c-link: #8cc8ff;
+  --a11y-toolbar-c-border: #9a9a9a;
+  --a11y-toolbar-c-field: #1e1e1e;
+  --a11y-toolbar-c-focus: #8cc8ff;
+}
+html[data-a11y-toolbar-light-contrast] {
+  --a11y-toolbar-c-bg: #fff;
+  --a11y-toolbar-c-fg: #000;
+  --a11y-toolbar-c-link: #0033aa;
+  --a11y-toolbar-c-border: #000;
+  --a11y-toolbar-c-field: #fff;
+  --a11y-toolbar-c-focus: #0033aa;
+}
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]),
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]) body {
+  background-color: var(--a11y-toolbar-c-bg) !important;
+  color: var(--a11y-toolbar-c-fg) !important;
+}
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]) body :not(.a11y-toolbar-root, .a11y-toolbar-root *, [data-a11y-toolbar-overlay], [data-a11y-toolbar-overlay] *, img, picture, video, canvas, iframe, embed, object, svg, svg *) {
+  background-color: var(--a11y-toolbar-c-bg) !important;
+  color: var(--a11y-toolbar-c-fg) !important;
+  border-color: var(--a11y-toolbar-c-border) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]) body :is(a[href], a[href] *):not(.a11y-toolbar-root *) {
+  color: var(--a11y-toolbar-c-link) !important;
+  text-decoration: underline !important;
+}
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]) body :is(button, input, select, textarea, [role="button"]):not(.a11y-toolbar-root *) {
+  background-color: var(--a11y-toolbar-c-field) !important;
+  border: 1px solid var(--a11y-toolbar-c-border) !important;
+}
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]) body :focus-visible:not(.a11y-toolbar-root *) {
+  outline: 3px solid var(--a11y-toolbar-c-focus) !important;
+  outline-offset: 2px !important;
+}
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]) body svg:not(.a11y-toolbar-root *) {
+  color: var(--a11y-toolbar-c-fg) !important;
+}
+html:is([data-a11y-toolbar-high-contrast], [data-a11y-toolbar-dark-contrast], [data-a11y-toolbar-light-contrast]) body ::placeholder {
+  color: var(--a11y-toolbar-c-fg) !important;
+  opacity: 0.8 !important;
+}
+
+/* ---------- Highlight links ---------- */
+html[data-a11y-toolbar-highlight-links] body a[href]:not(.a11y-toolbar-root *) {
+  text-decoration-line: underline !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 4px !important;
+  text-decoration-skip-ink: auto;
+  background-color: rgba(11, 127, 179, 0.14) !important;
+  border-radius: 2px;
+}
+
+/* ---------- Highlight headings ---------- */
+html[data-a11y-toolbar-highlight-headings] body :is(h1, h2, h3, h4, h5, h6, [role="heading"]):not(.a11y-toolbar-root *) {
+  outline: 2px dashed #0b7fb3 !important;
+  outline-offset: 4px !important;
+  background-color: rgba(11, 127, 179, 0.08) !important;
+  border-radius: 2px;
+}
+
+/* ---------- Large cursor (embedded SVG, no remote files). Text fields keep the normal text caret. ---------- */
+html[data-a11y-toolbar-large-cursor],
+html[data-a11y-toolbar-large-cursor] body :not(input, textarea, select, [contenteditable=""], [contenteditable="true"], [contenteditable="plaintext-only"], [contenteditable="true"] *, a[href], a[href] *, button, button *, [role="button"], [role="button"] *, label, summary, .a11y-toolbar-root *) {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M6 3l30 15-13 3.5-6.5 12z' fill='%23000' stroke='%23fff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") 6 3, auto !important;
+}
+html[data-a11y-toolbar-large-cursor] body :is(a[href], a[href] *, button, button *, [role="button"], [role="button"] *, label, summary, select):not([disabled]) {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M17 22V8a3.5 3.5 0 0 1 7 0v12l2-.5a3.5 3.5 0 0 1 4 2l.5.3a3.5 3.5 0 0 1 4.5 2.2 3.5 3.5 0 0 1 4.5 3V36c0 5-4 9-9 9h-5c-3 0-5.5-1.5-7-4l-7-10a3.4 3.4 0 0 1 5.5-4z' fill='%23000' stroke='%23fff' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E") 18 4, pointer !important;
+}
+
+/* ---------- Focus highlight: adds to the site's own focus styles ---------- */
+html[data-a11y-toolbar-focus-highlight] body :focus-visible:not(.a11y-toolbar-root *) {
+  outline: 3px solid #0b7fb3 !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px #fff, 0 0 0 9px #111 !important;
+}
+
+/* ---------- Hide images: visually hidden, layout and alt text kept ---------- */
+html[data-a11y-toolbar-hide-images] body :is(img, picture, svg[role="img"], [role="img"]:not(svg *)):not(.a11y-toolbar-root *, button *, a *, label *, form *, [role="button"] *, [data-a11y-toolbar-essential-image], [data-a11y-toolbar-essential-image] *, [class*="captcha" i] *, [id*="captcha" i] *, [class*="payment" i] *, [class*="stripe" i] *, [class*="paypal" i] *, .leaflet-container *, .gm-style *, [class*="mapbox" i] *) {
+  visibility: hidden !important;
+}
+
+/* ---------- Reading guide and mask overlays ---------- */
+#a11y-toolbar-overlays {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.a11y-toolbar-reading-guide {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: var(--a11y-toolbar-guide-thickness, 4px);
+  background: var(--a11y-toolbar-guide-color, #0b7fb3);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  will-change: transform;
+}
+.a11y-toolbar-reading-mask {
+  position: absolute;
+  inset-inline: 0;
+  background: rgba(0, 0, 0, var(--a11y-toolbar-mask-opacity, 0.55));
+  pointer-events: none;
+}
+.a11y-toolbar-reading-mask-top { top: 0; height: 0; }
+.a11y-toolbar-reading-mask-bottom { top: 100%; bottom: 0; }

@@ -67,7 +67,7 @@ def burger(active):
 
 FOOTER = '''<footer class="c-foot">
             <span>© 2026 Free AI. כל הזכויות שמורות.</span>
-            <nav><a href="privacy.html">פרטיות</a><a href="terms.html">תנאי שימוש</a><a href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></nav>
+            <nav><a href="privacy.html">פרטיות</a><a href="terms.html">תנאי שימוש</a><a href="accessibility">נגישות</a><a href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></nav>
         </footer>'''
 
 

@@ -1,2 +1,5 @@
 node_modules
 __pycache__
+tools/a11y-toolbar/dist/
+tools/a11y-toolbar/test-results/
+playwright-report/

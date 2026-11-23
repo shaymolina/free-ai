@@ -132,6 +132,9 @@ FOOTER = '''<!-- footer -->
                             <a href="terms.html" class="fw-semibold link-underline link1">תנאי שימוש</a>
                         </li>
                         <li>
+                            <a href="accessibility" class="fw-semibold link-underline link1">נגישות</a>
+                        </li>
+                        <li>
                             <a href="mailto:hello@free-ai.co.il" class="fw-semibold link-underline link1">hello@free-ai.co.il</a>
                         </li>
                     </ul>
