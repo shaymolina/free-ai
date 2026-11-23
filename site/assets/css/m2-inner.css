@@ -68,7 +68,7 @@ body.m2-inner { zoom: 1; }
 .a2 .a2-sec::before { content: ""; position: absolute; inset-inline-start: -1px; top: 64px; width: 2px; height: 26px; background: var(--brand-strong); }
 .a2 .a2-sec:first-child::before { top: 72px; }
 .a2-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
-.a2-num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; color: var(--brand); }
+.a2-num { font-family: var(--font-display); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--brand); }
 .a2 .a2-head h2 { margin: 0; font-family: var(--font-display); font-size: 32px; line-height: 1.15; font-weight: 800; letter-spacing: -.015em; text-wrap: balance; display: block; }
 .a2 .a2-head h2::before { content: none; }
 .a2 .a2-sec > p { font-size: 17px; line-height: 1.75; color: var(--ink-2); max-width: 46rem; margin: 0; }
@@ -78,29 +78,29 @@ body.m2-inner { zoom: 1; }
 .a2 .more-link { font-size: 15px; color: var(--muted); }
 .a2 .a2-sec > p.art-src { font-size: 13px; color: var(--soft); margin: 0; }
 
-/* שורות ממוספרות: רשימה אחת במסגרת, קו דק בין שורה לשורה */
-.a2 .rows-stack { display: grid; gap: 20px; }
-.a2 .rows { display: block; margin: 0; padding: 0; list-style: none; border: 1px solid var(--line-2); border-radius: var(--r-md); background: #fff; overflow: hidden; }
-.a2 .row { display: flex; align-items: center; gap: 14px; padding: 15px 20px; border-radius: 0; background: none; box-shadow: none; border-bottom: 1px solid var(--line); font-size: 16px; font-weight: 600; color: var(--ink); transition: background var(--dur-2) var(--ease); }
-.a2 .row:last-child { border-bottom: 0; }
-.a2 .row:hover { background: var(--card); }
-.a2 .row small { margin-inline-start: auto; font-size: 14.5px; font-weight: 400; color: var(--muted); text-align: end; }
-.a2 .tile { width: 28px; height: 28px; flex: none; border-radius: 50%; font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; color: var(--brand); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand-line); display: flex; align-items: center; justify-content: center; }
+/* רשימות: גיליון פשוט – מונח מימין, הסבר משמאל, קו דק בין שורות. בלי מספרים ובלי קופסה */
+.a2 .rows-stack { display: grid; gap: 28px; }
+.a2 .rows { display: block; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+.a2 .row { display: grid; grid-template-columns: minmax(150px, 34%) minmax(0, 1fr); gap: 24px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--line-2); border-radius: 0; background: none; box-shadow: none; font-size: 17px; font-weight: 700; color: var(--ink); }
+.a2 .row .tile { display: none; }
+.a2 .row small { margin: 0; font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--ink-2); text-align: start; }
 .a2 .rows-stack > .sec { display: grid; gap: 10px; background: none; padding: 0; border: 0; box-shadow: none; }
 .a2 .rows-stack .card-head { margin: 0; padding: 0; border: 0; }
-.a2 .rows-stack .card-head h3 { display: flex; align-items: center; gap: 12px; margin: 0; font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; color: var(--brand); }
-.a2 .rows-stack .card-head h3::after { content: ""; flex: 1; height: 1px; background: var(--line-2); }
-.a2 .rows-stack .card-head h3::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-strong); }
+.a2 .rows-stack .card-head h3 { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -.01em; color: var(--ink); }
+.a2 .rows-stack .card-head h3::before, .a2 .rows-stack .card-head h3::after { content: none; }
 
-/* כרטיסי השוואה */
-.a2 .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.a2 .duo-c { position: relative; padding: 24px; display: grid; gap: 6px; align-content: start; background: var(--card); border: 1px solid var(--line-2); border-radius: var(--r-md); }
-.a2 .duo-c.hl { background: #fff; border-color: var(--brand-line); box-shadow: var(--shadow-float); }
-.a2 .duo-c.hl::before { content: ""; position: absolute; inset: -1px -1px auto; height: 3px; border-radius: var(--r-md) var(--r-md) 0 0; background: linear-gradient(90deg, #D97757, #E6BB35); }
-.a2 .duo-tag { justify-self: start; font-size: 12px; font-weight: 600; color: var(--muted); background: #fff; border: 1px solid var(--line-2); border-radius: var(--r-xs); padding: 3px 8px; }
-.a2 .duo-c.hl .duo-tag { color: var(--brand); background: var(--brand-soft); border-color: var(--brand-line); }
-.a2 .duo-c h3 { margin: 8px 0 0; font-family: var(--font-display); font-size: 24px; font-weight: 800; line-height: 1.2; }
-.a2 .duo-c p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+/* השוואה: שני טורים שמופרדים בקו, כמו עמוד בעיתון. הטור המודגש מסומן בצבע המותג */
+.a2 .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line-2); }
+.a2 .duo-c { position: static; display: grid; gap: 8px; align-content: start; padding: 22px 0 26px; background: none; border: 0; border-radius: 0; box-shadow: none; }
+.a2 .duo-c:first-child { padding-inline-end: 32px; }
+.a2 .duo-c + .duo-c { padding-inline-start: 32px; border-inline-start: 1px solid var(--line-2); }
+.a2 .duo-c.hl { background: none; box-shadow: none; border-color: var(--line-2); }
+.a2 .duo-c.hl::before { content: none; }
+.a2 .duo-tag { justify-self: start; padding: 0; font-size: 15px; font-weight: 600; color: var(--muted); background: none; border: 0; border-radius: 0; }
+.a2 .duo-c.hl .duo-tag { color: var(--brand); background: none; }
+.a2 .duo-c h3 { margin: 0; font-family: var(--font-display); font-size: 34px; font-weight: 800; line-height: 1.1; letter-spacing: -.02em; color: var(--ink); }
+.a2 .duo-c.hl h3 { color: var(--brand); }
+.a2 .duo-c p { margin: 4px 0 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); max-width: 22rem; }
 
 /* טבלה */
 .a2 .tbl-wrap { border: 1px solid var(--line-2); border-radius: var(--r-md); background: #fff; overflow-x: auto; }
@@ -174,7 +174,7 @@ body.m2-inner { zoom: 1; }
 .a2-sh-copy.done::after { content: "הקישור הועתק"; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; font-weight: 600; color: #fff; background: var(--ink); border-radius: var(--r-xs); padding: 4px 8px; }
 .a2-toc ol, .a2-mtoc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
 .a2-toc ol a, .a2-mtoc ol a { display: flex; gap: 10px; padding: 7px 8px; border-radius: var(--r-sm); font-size: 14px; line-height: 1.4; color: var(--muted); transition: color var(--dur-2) var(--ease), background var(--dur-2) var(--ease); }
-.a2-toc ol a span, .a2-mtoc ol a span { flex: none; min-width: 14px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; padding-top: 2px; color: var(--brand); }
+.a2-toc ol a span, .a2-mtoc ol a span { flex: none; min-width: 14px; font-family: var(--font-display); font-variant-numeric: tabular-nums; font-size: 12px; font-weight: 600; padding-top: 2px; color: var(--brand); }
 .a2-toc ol a:hover, .a2-mtoc ol a:hover { color: var(--ink); background: var(--card); }
 .a2-toc ol a.on { color: var(--ink); font-weight: 600; background: var(--brand-soft); }
 .a2-smore ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
@@ -228,13 +228,15 @@ body.m2-inner { zoom: 1; }
   .a2 .a2-sec::before { display: none; }
   .a2 .a2-head h2 { font-size: 26px; }
   .a2 .a2-sec > p { font-size: 16px; }
-  .a2 .duo { grid-template-columns: 1fr; gap: 12px; }
-  .a2 .duo-c { padding: 20px; }
+  .a2 .duo { grid-template-columns: 1fr; }
+  .a2 .duo-c:first-child { padding: 18px 0 20px; }
+  .a2 .duo-c + .duo-c { padding: 18px 0 22px; border-inline-start: 0; border-top: 1px solid var(--line-2); }
+  .a2 .duo-c h3 { font-size: 28px; }
   .a2 .plans { grid-template-columns: 1fr 1fr; gap: 10px; row-gap: 18px; }
   .a2 .plan { padding: 16px; }
   .a2 .plan strong { font-size: 30px; }
-  .a2 .row { flex-wrap: wrap; padding: 13px 16px; gap: 4px 12px; font-size: 15.5px; }
-  .a2 .row small { flex-basis: 100%; margin: 0; padding-inline-start: 40px; text-align: start; font-size: 14px; }
+  .a2 .row { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 14px 0; font-size: 16px; }
+  .a2 .row small { font-size: 15px; }
   .a2 .tbl th, .a2 .tbl td { padding: 12px 14px; }
   .a2-pad { padding: 48px var(--a2-pad); }
   .a2-band h2 { font-size: 28px; }
