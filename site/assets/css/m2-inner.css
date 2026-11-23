@@ -54,3 +54,44 @@ body.m2-inner { zoom: 1; }
   .m2-arts > * { animation: ac-in linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
 }
 @media (prefers-reduced-motion: reduce) { .ac, .ac > img { transition: none; } .m2-arts > * { animation: none; } }
+
+/* העמודים המשפטיים: איורי הפתיחה ותאריך העדכון */
+.lg-ill { position: relative; }
+.m2-vis > .lg-ill { width: 430px; }
+@media (max-width: 40rem) { .m2-vis > .lg-ill { width: calc((100vw - 90px) / .9); } }
+.lg-panel { background: #fff; border: 1px solid #E7E2DC; border-radius: 16px; box-shadow: 0 18px 40px rgba(40, 20, 10, .10); padding: 14px; display: grid; gap: 10px; }
+.lg-head { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid #EFEAE4; font-size: 16px; }
+.lg-head i { margin-inline-start: auto; font-style: normal; color: #8a8178; }
+.lg-wheel, .lg-fab { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: #0B7FB3; color: #fff; flex: none; }
+.lg-wheel { width: 30px; height: 30px; }
+.lg-wheel svg { width: 18px; height: 18px; }
+.lg-fab { position: absolute; inset-inline-end: -14px; bottom: -18px; width: 52px; height: 52px; box-shadow: 0 10px 18px rgba(11, 127, 179, .3); }
+.lg-fab svg { width: 26px; height: 26px; }
+.lg-step { display: flex; align-items: center; gap: 8px; border: 2px solid #0B7FB3; background: #E3F1F8; border-radius: 10px; padding: 8px 10px; font-weight: 600; font-size: 14px; }
+.lg-step span { margin-inline-end: auto; }
+.lg-step em { font-style: normal; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #C9D3DB; border-radius: 8px; background: #fff; }
+.lg-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lg-tile { border: 2px solid #E1DBD4; border-radius: 10px; padding: 8px 10px; display: grid; gap: 2px; background: #fff; }
+.lg-tile b { font-size: 14px; }
+.lg-tile small { font-size: 12px; color: #6b625a; }
+.lg-tile.on { border-color: #0B7FB3; background: #E3F1F8; }
+.lg-tile.on small { color: #085E85; font-weight: 700; }
+.lg-tiles-big .lg-tile { padding: 16px; box-shadow: 0 10px 24px rgba(40, 20, 10, .06); }
+.lg-tiles-big .lg-tile b { font-size: 22px; }
+.lg-tiles-big .lg-tile small { font-size: 13px; }
+.lg-tiles-big .lg-tile.on { border-color: var(--brand, #D97757); background: #FBEFEA; }
+.lg-tiles-big .lg-tile.on small { color: #7C2D12; }
+.lg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 4px; border-bottom: 1px dashed #EFEAE4; font-size: 14px; }
+.lg-row:last-child { border-bottom: 0; }
+.lg-row .ok { color: #2F7A3E; }
+.lg-row .no { color: #B23A1E; }
+.legal .legal-date { color: #6b625a; font-size: 14px; margin: 0; }
+.legal .art-sec ul { padding-inline-start: 22px; list-style: disc; display: grid; gap: 6px; }
+.legal .art-sec li { font-size: 15.5px; display: list-item; }
+.legal .art-sec li::marker { color: var(--brand, #D97757); }
+.legal .art-sec p a, .legal .art-sec li a { color: var(--brand, #D97757); text-decoration: underline; font-weight: 600; }
+
+/* הכיתוב Free AI הגדול ברקע הפוטר */
+.f-bigword { position: relative; display: block; width: min(1296px, calc(100vw - 24px)); margin: 0 auto calc(min(1296px, calc(100vw - 24px)) * -0.11); pointer-events: none; user-select: none; z-index: 0; }
+.f-bigword img { display: block; width: 100%; height: auto; }
+footer:has(> .f-bigword) > :not(.f-bigword) { position: relative; z-index: 1; }

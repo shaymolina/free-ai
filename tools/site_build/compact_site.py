@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "51"
+CSS_VERSION = "53"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -1131,6 +1131,10 @@ import home_mint as _hm
 for _n, *_ in ARTICLES:
     _f = SITE / _n
     _f.write_text(_f.read_text().replace("<!--big-footer-->", ""))
+
+# העמודים המשפטיים (פרטיות, תנאים, נגישות) בעיצוב החדש
+import legal_pages as _lp
+_lp.build()
 
 # שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
 import runpy as _runpy
