@@ -565,52 +565,38 @@ ARTICLE_CARDS = {
 CARD_COLORS = ["#5C1E0F", "#4763D6", "#C8553A", "#7A3FC4"]
 
 
+POST_IMGS = ["post-0-w.webp", "post-1-w.webp", "post-2.webp", "post-0.webp", "post-1.webp"]
+
+
 def articles_main(articles):
-    """articles: [(קובץ, כותרת, תיאור, דקות)]. מחזיר <main> עם כותרת מקטע וכרטיס גדול לכל מאמר."""
+    """articles: [(קובץ, כותרת, תיאור, דקות)]. התבנית של "מאמרים אחרונים" מדף הבית, עם כל המאמרים."""
     soup = BeautifulSoup(open(os.path.join(HERE, "mint_ref", "page.html")).read(), "html.parser")
-    sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][3]
-    h2 = sec.find("h2")
-    put(h2, f'<span class="m2-ht">כל המאמרים.</span><span class="m2-hs block text-foreground-tertiary">קצרים, ואפשר לעשות אותם היום.</span>')
+    sec = [x for x in soup.find("main").find_all("section") if x.find_parent("section") is None][7]
+    do_head(sec, "כל המאמרים.", "קצרים, ואפשר לעשות אותם היום.")
     sec.find("header").find("div", class_="shrink-0").decompose()
-    track = sec.find(attrs={"aria-label": "Enterprise customer stories"})
-    cards = track.find_all("div", class_="carousel-card-dim", recursive=False)
-    tpl = cards[0]
-    for c in cards: c.extract()
-    lst = frag('<ul class="m2-arts flex flex-col gap-4" aria-label="מאמרים"></ul>').ul
-    for i, (href, title, desc, mins) in enumerate(articles):
-        color, htitle, nums, img = ARTICLE_CARDS.get(href, (CARD_COLORS[i % 4], f'<span class="text-white">{title}</span>', [], ""))
-        c = copy.copy(tpl).find("a")
-        c["href"] = href
-        left = c.find("div")
-        left["class"] = [k for k in left["class"] if not k.startswith("bg-[") and not k.startswith("dark:")]; left["style"] = f"background-color:{color}"
-        left.find("canvas")["data-carddots"] = ""
-        inner = left.find("div")
-        inner.find("svg").replace_with(frag(f'<span class="self-start text-[15px]/5 font-semibold tracking-[0.02em] text-white">מאמר · {mins} דקות קריאה</span>'))
-        h3 = inner.find("h3"); h3.name = "h2"; put(h3, f'<span class="text-white/70">{htitle}</span>')
-        stats = inner.find("div", class_="mt-8")
-        if nums:
-            for blk, (n, lab) in zip(stats.find_all("div", recursive=False), nums):
-                ps = blk.find_all("p"); put(ps[0], f'<span dir="ltr">{n}</span>'); put(ps[1], lab)
-        else:
-            put(stats, f'<p class="text-base/6 text-white/80">{desc}</p>')
-        btn = inner.find("span", class_="group"); btn.contents[0].replace_with("לקריאת המאמר")
-        right = c.find_all("div", recursive=False)[1]
-        bg = right.find_all("div", recursive=False)
-        bg[0]["style"] = f"background-image:url({img})" if img else ""
-        bg[1]["class"] = [k for k in bg[1]["class"] if not k.startswith("bg-[") and not k.startswith("dark:")]; bg[1]["style"] = f"background-color:{color}"
-        li = soup.new_tag("li"); li.append(c); lst.append(li)
-    track.replace_with(lst)
-    sec.find("canvas", class_="-z-10")["data-sectiondots"] = ""
+    grid = sec.find("div", class_="grid-cols-3")
+    tpl = grid.find("a")
+    sec.find(attrs={"aria-label": "Latest blog posts"}).decompose()  # הקרוסלה לנייד: במקומה אותה רשת, בעמודה אחת
+    grid["class"] = ["grid", "grid-cols-1", "gap-4", "sm:grid-cols-2", "lg:grid-cols-3"]
+    grid.clear()
+    for k, (href, title, desc, mins) in enumerate(articles):
+        a = copy.copy(tpl); a["href"] = href
+        img = a.find("img"); img["src"] = "assets/images/home2/" + POST_IMGS[k % len(POST_IMGS)]; img["alt"] = ""
+        for x in ("srcset", "sizes"): img.attrs.pop(x, None)
+        spans = a.find("div", class_="items-center").find_all("span", recursive=False)
+        put(spans[0], "מאמר"); put(spans[1], f"{mins} דקות קריאה")
+        p = a.find("p"); p.name = "h2"; put(p, title)
+        p.insert_after(frag(f'<p class="text-pretty text-sm/5 text-text-sub">{desc}</p>'))
+        grid.append(a)
     pad = sec.find("div", class_="pb-30")
     if pad: pad["class"] = ["grid-layout", "relative", "pb-12", "lg:pb-16"]
     return f'<main class="m2-arts-main">{sec}</main>'
 
 
 def articles_visual(articles):
-    """האיור בפתיחה של עמוד המאמרים: כרטיסונים של המאמרים עצמם (תמונה + כותרת בצבע של הכרטיס)."""
-    out = []
-    for i, (href, title, desc, mins) in enumerate(articles[:3]):
-        color, htitle, nums, img = ARTICLE_CARDS.get(href, (CARD_COLORS[i % 4], title, [], ""))
-        out.append(f'<a class="av-card" href="{href}" tabindex="-1" style="--c:{color}"><span class="av-img" style="background-image:url({img})"></span>'
-                   f'<span class="av-body"><small>מאמר · {mins} דקות</small><b>{title}</b></span></a>')
-    return f'<div class="av">{"".join(out)}</div>'
+    """האיור בפתיחה של עמוד המאמרים: רשימת המאמרים שעולה לאט בלולאה (כל מאמר עם תמונת השער שלו)."""
+    items = [(POST_IMGS[k % len(POST_IMGS)], "מאמר", title, f"{mins} דקות") for k, (href, title, desc, mins) in enumerate(articles)]
+    items.append(("post-2.webp", "מהאתר", "המדריך הכתוב, פרק אחרי פרק", "מדריך"))
+    one = "".join(f'<div class="toc-it"><img src="assets/images/home2/{i}" alt=""><div><small>{t}</small><b>{h}</b></div><em>{m}</em></div>' for i, t, h, m in items)
+    reps = max(2, 6 // len(items))
+    return f'<div class="toc"><div class="toc-track">{one * reps}{one * reps}</div></div>'
