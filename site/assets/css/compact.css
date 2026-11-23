@@ -684,3 +684,18 @@ body { font-size: 14.5px; }
 .art-sec h2 { font-size: 22px; }
 .art-card h2, .pick h2 { font-size: 16.5px; }
 @media (max-width: 860px) { .lesson h1 { font-size: 26px; } .a-hero h1, .a-hero .hero-title { font-size: 26px; } }
+
+/* איור המחיר (מאמר "כמה עולה קלוד קוד"): חשבון חודשי + תגיות של המנויים */
+.ill-pr { gap: 12px; }
+.pr-bill { background: var(--bg); border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); padding: 16px 18px; display: grid; gap: 8px; animation: ill-up .7s cubic-bezier(.2,.8,.2,1) both .2s; }
+.pr-bill small { font-size: 11.5px; color: var(--soft); }
+.pr-row { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; padding-bottom: 8px; border-bottom: 1px dashed var(--line-2); animation: ill-up .5s both; }
+.pr-row:nth-of-type(2) { animation-delay: .5s; } .pr-row:nth-of-type(3) { animation-delay: .7s; } .pr-row:nth-of-type(4) { animation-delay: .9s; }
+.pr-row b { font-weight: 700; white-space: nowrap; }
+.pr-row b.ok { color: var(--brand); }
+.pr-sum { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-weight: 700; }
+.pr-sum strong { font-size: 30px; line-height: 1; color: var(--ink); }
+.pr-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.pr-tags span { font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: var(--r-xs); background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--soft); white-space: nowrap; }
+.pr-tags span.hl { color: var(--brand); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand-line); }
+@media (max-width: 520px) { .pr-tags { flex-wrap: nowrap; gap: 5px; } .pr-tags span { font-size: 11px; padding: 4px 8px; } .pr-tags span:first-child { display: none; } }

@@ -10,6 +10,7 @@ html { overflow-x: visible; }  /* אחרת הגוף נגלל לבד והעמוד
 .m2-vis { position: absolute; inset: 0; display: flex; align-items: flex-start; justify-content: flex-start; padding: 48px 56px; background: #FBFAF8; }
 .m2-vis > .ill { width: 560px; max-width: 100%; zoom: 1.08; }
 @media (max-width: 63.99rem) { .m2-vis { padding: 28px; } .m2-vis > .ill { zoom: .9; } }
+@media (max-width: 40rem) { .m2-vis > .ill { width: calc((100vw - 90px) / .9); } }
 /* התוכן שמתחת לפתיחה */
 .m2-top + main.wrap.stack { margin-top: 0 !important; border-top: 1px solid var(--line); }
 main.art-index { padding-bottom: 64px !important; }
