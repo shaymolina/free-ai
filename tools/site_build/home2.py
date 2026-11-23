@@ -421,6 +421,11 @@ def do_footer(soup, arts):
         st["href"] = "mailto:hello@free-ai.co.il"; st.attrs.pop("target", None); st.attrs.pop("rel", None)
         st.find_all("span", recursive=False)[0].decompose()
         st.find("span").string = "hello@free-ai.co.il"
+        if "lg:hidden" in st["class"]:
+            st.decompose()
+        else:
+            st["class"] = [c for c in st["class"] if c not in ("hidden", "lg:mt-auto", "lg:inline-flex")] + ["inline-flex"]
+    logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">קלוד קוד בחינם</p><p class="f-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div>'))
     cols = [("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-18.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
