@@ -127,10 +127,10 @@ COVERS = {
 <div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>Max ‏$100 · Ultra ‏$200</div>
 """),
     # סקילים: כמו שערי המאמרים, בצבעי המותג
-    "work-single": skill_page("#5C1E0F", "#C8553A", "#2A0C05", "תבדוק לי את האבטחה של האתר", SEC_ROWS),
-    "work-site-speed": skill_page("#9A3B22", "#E08A63", "#4A170A", "האתר שלי איטי, תבדוק", SPEED_ROWS),
-    "work-single-wide": skill_page("#5C1E0F", "#C8553A", "#2A0C05", "תבדוק לי את האבטחה של האתר", SEC_ROWS, wide=True),
-    "work-site-speed-wide": skill_page("#9A3B22", "#E08A63", "#4A170A", "האתר שלי איטי, תבדוק", SPEED_ROWS, wide=True),
+    "skill-security": skill_page("#5C1E0F", "#C8553A", "#2A0C05", "תבדוק לי את האבטחה של האתר", SEC_ROWS),
+    "skill-site-speed": skill_page("#9A3B22", "#E08A63", "#4A170A", "האתר שלי איטי, תבדוק", SPEED_ROWS),
+    "skill-security-wide": skill_page("#5C1E0F", "#C8553A", "#2A0C05", "תבדוק לי את האבטחה של האתר", SEC_ROWS, wide=True),
+    "skill-site-speed-wide": skill_page("#9A3B22", "#E08A63", "#4A170A", "האתר שלי איטי, תבדוק", SPEED_ROWS, wide=True),
 }
 
 SHOT = """

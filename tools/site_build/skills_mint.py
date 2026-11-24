@@ -72,7 +72,7 @@ def sec(k, title, body, sid=None, sub=""):
 
 
 def cover(s):
-    return "assets/images/articles/" + s["page"].removesuffix(".html") + ".webp"
+    return "assets/images/articles/" + s["page"].removesuffix(".html") + ".webp?v=2"
 
 
 def card(s, k=0):
@@ -182,7 +182,7 @@ def build_skill(s):
         {CTA}
     </main>"""
     title, desc = s["seo"]
-    vis = f'<img class="sk-full" src="{cover(s).replace(".webp", "-wide.webp")}" alt="" decoding="async">'
+    vis = f'<img class="sk-full" src="{cover(s).replace(".webp?", "-wide.webp?")}" alt="" decoding="async">'
     html = home2.inner_page(title, desc, "", s["name"], s["desc"], vis, main,
                             btn2=("skills.html", "לכל הסקילים", "box"), legacy_v=CSS_VERSION)
     html, n = re.subn(r'href="course"([^>]*>\s*)להתחיל ללמוד בחינם', r'href="#download"\1הורדה חינם', html, count=1)
