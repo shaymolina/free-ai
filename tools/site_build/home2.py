@@ -27,6 +27,7 @@ HEAD = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Black.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
     <link rel="stylesheet" href="assets/css/m2.css?v={v}">
@@ -112,11 +113,12 @@ def do_hero(sec, n_ch):
     imgs = box.find_all("img")
     # תצוגה חיה של העמוד הראשון במדריך (לא צילום), כך שכל שינוי במדריך מופיע כאן לבד
     live = BeautifulSoup(
-        '<iframe class="m2-live" src="guide-1.html" title="המדריך הכתוב: פרק 1" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
+        '<iframe class="m2-live" data-src="guide-1.html" title="המדריך הכתוב: פרק 1" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
         '<span class="m2-live-fade" aria-hidden="true"></span>'
         '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
         'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
         'fit();addEventListener("resize",fit);'
+        'function go(){f.src=f.dataset.src}if(document.readyState==="complete")setTimeout(go,300);else addEventListener("load",function(){setTimeout(go,300)});'
         'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";d.documentElement.classList.remove("dark");'
         'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>', "html.parser")
     imgs[0].replace_with(live)
@@ -505,6 +507,7 @@ INNER_HEAD = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/files/kobi/Kobi-Black.woff2?v=20261123" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261119">
     <style>@layer properties, theme, base, legacy, components, utilities;</style>
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
@@ -557,11 +560,12 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     if live:  # תצוגה חיה של עמוד באתר, כמו המדריך בדף הבית
         box["class"] = [c for c in box["class"] if c != "m2-vis-box"] + ["aspect-[1080/656]"]
         box.find("img").replace_with(frag(
-            f'<iframe class="m2-live" src="{live}" title="{h1}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
+            f'<iframe class="m2-live" data-src="{live}" title="{h1}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
             '<span class="m2-live-fade" aria-hidden="true"></span>'
             '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
             'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
             'fit();addEventListener("resize",fit);'
+        'function go(){f.src=f.dataset.src}if(document.readyState==="complete")setTimeout(go,300);else addEventListener("load",function(){setTimeout(go,300)});'
             'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";d.documentElement.classList.remove("dark");'
             'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>'))
     else:
