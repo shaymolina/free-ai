@@ -104,6 +104,38 @@ COVERS = {
 </div>
 <div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>Max ‏$100 · Ultra ‏$200</div>
 """),
+    # סקיל: בדיקת אבטחה – דוח אדום/כתום/ירוק
+    "work-single": page("#0F4A3A", "#2E9B78", "#06261D", """
+<div class="blob" style="width:260px;height:260px;background:#5FD3A8;top:40px;right:50px"></div>
+<div class="blob" style="width:200px;height:200px;background:#E6BB35;bottom:30px;left:60px;opacity:.3"></div>
+<div class="glass" style="top:60px;right:48px;width:340px">
+  <div class="lab">אתם כותבים</div>
+  <div class="big">תבדוק לי את האבטחה של האתר</div>
+</div>
+<div class="glass" style="top:220px;left:44px;width:360px">
+  <div class="lab">הדוח</div>
+  <div class="row"><i style="background:#FF8A8A"></i>מפתח סודי חשוף בקוד</div>
+  <div class="row"><i style="background:#FFC872"></i>אין הגבלה על ניסיונות כניסה</div>
+  <div class="row"><i style="background:#9EF0B0"></i>חיבור מוצפן</div>
+</div>
+<div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>34 בדיקות</div>
+"""),
+    # סקיל: בדיקת מהירות – שניות שנחסכות
+    "work-site-speed": page("#2B2A8C", "#6D63E8", "#121150", """
+<div class="blob" style="width:260px;height:260px;background:#8F86FF;top:30px;right:40px"></div>
+<div class="blob" style="width:220px;height:220px;background:#F0A27F;bottom:20px;left:50px;opacity:.3"></div>
+<div class="glass" style="top:60px;right:48px;width:300px">
+  <div class="lab">חוסכים בזמן טעינה</div>
+  <div style="font-size:60px;font-weight:900;line-height:1;direction:ltr;text-align:end">-3.6s</div>
+</div>
+<div class="glass" style="top:230px;left:44px;width:360px">
+  <div class="lab">מה לתקן קודם</div>
+  <div class="row" style="justify-content:space-between"><span>תמונות כבדות</span><span style="direction:ltr">-2.4s</span></div>
+  <div class="row" style="justify-content:space-between"><span>השרת רחוק מישראל</span><span style="direction:ltr">-0.8s</span></div>
+  <div class="row" style="justify-content:space-between"><span>פונט נטען לאט</span><span style="direction:ltr">-0.4s</span></div>
+</div>
+<div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>69 בדיקות</div>
+"""),
 }
 
 SHOT = """

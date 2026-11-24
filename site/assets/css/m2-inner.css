@@ -294,103 +294,26 @@ body.m2-inner { zoom: 1; }
 .f-bigword img { display: block; width: 100%; height: auto; }
 footer:has(> .f-bigword) > :not(.f-bigword) { position: relative; z-index: 1; }
 
-/* ---------- סקילים (tools/site_build/skills_mint.py): השפה של דף הבית – משטחי בז', חלונות לבנים, אייקונים בריבוע לבן ---------- */
-.sk-i { width: 20px; height: 20px; flex: none; }
-/* חלון לבן (איור הפתיחה, הדוח בכרטיס) */
-.sk-win { background: #fff; border: 1px solid var(--line-2); border-radius: var(--r-md); box-shadow: var(--shadow-float); overflow: hidden; display: grid; }
-.sk-bar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: var(--card); font-size: 14px; }
-.sk-bar b { font-weight: 700; color: var(--ink); }
-.sk-bar em { margin-inline-start: auto; font-style: normal; font-size: 12px; color: var(--soft); }
-.sk-dots { display: inline-flex; gap: 5px; } .sk-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
-.sk-ic { width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 7px; color: var(--brand-strong); background: #fff; box-shadow: 0 0 0 1px var(--line-2), 0 1px 2px rgba(8, 9, 10, .05); }
-.sk-ic .sk-i { width: 16px; height: 16px; }
-.sk-row { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 600; color: var(--ink-2); }
-.sk-row:last-child { border-bottom: 0; }
-.sk-row i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-.sk-row span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sk-row em { margin-inline-start: auto; font-style: normal; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: var(--r-xs); white-space: nowrap; }
-.sk-row.r i { background: #D64545; } .sk-row.r em { color: #A12C2C; background: #FBEAEA; }
-.sk-row.o i { background: #E0952B; } .sk-row.o em { color: #8E5A0E; background: #FBF1E1; }
-.sk-row.g i { background: #3E9B5F; } .sk-row.g em { color: #276B3F; background: #E6F4EB; }
-.sk-ask { display: grid; gap: 4px; padding: 14px 16px; background: #fff; border: 1px solid var(--line-2); border-radius: var(--r-md); font-size: 16px; font-weight: 700; color: var(--ink); box-shadow: var(--card-shadow); }
-.sk-ask small, .sk-msg small { font-size: 12px; font-weight: 500; color: var(--soft); }
-/* איור הפתיחה */
-.m2-vis > .sk-hero { width: 520px; display: grid; gap: 12px; }
-@media (max-width: 40rem) { .m2-vis > .sk-hero { width: calc((100vw - 90px) / .9); } }
-.sk-hero .sk-win { gap: 0; }
-.sk-msg { display: grid; gap: 6px; margin: 14px 14px 0; padding: 14px 16px; border-radius: var(--r-md); }
-.sk-msg p { margin: 0; font-size: 14px; line-height: 1.6; }
-.sk-msg.old { background: var(--card); border: 1px solid var(--line); }
-.sk-msg.old p { color: var(--soft); text-decoration: line-through; text-decoration-color: rgba(181, 88, 58, .45); }
-.sk-msg.new { background: var(--brand-soft); border: 1px solid var(--brand-line); animation: sk-in .7s .3s both var(--ease-out-expo); }
-.sk-msg.new p { font-size: 17px; font-weight: 700; color: var(--ink); }
-.sk-on { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--brand); }
-.sk-on .sk-i { width: 15px; height: 15px; }
-.sk-ok { display: flex; align-items: center; gap: 8px; margin: 12px 14px 14px; font-size: 13.5px; font-weight: 600; color: #276B3F; animation: sk-in .6s .8s both var(--ease-out-expo); }
-.sk-ok .sk-i { width: 16px; height: 16px; }
-.sk-hero > .sk-win { animation: sk-in .7s .25s both var(--ease-out-expo); }
-@keyframes sk-in { from { opacity: 0; transform: translateY(8px); } }
-@media (prefers-reduced-motion: reduce) { .sk-hero *, .sk-hero > * { animation: none !important; } }
-
-/* כותרת משנה של מקטע (כמו "בלי לכתוב שורת קוד." בדף הבית) */
+/* ---------- סקילים (tools/site_build/skills_mint.py): כרטיסים כמו המאמרים, צילומי מסך אמיתיים ---------- */
+.m2-vis > .sk-shot { display: block; width: 560px; max-width: 100%; height: auto; border-radius: var(--r-md); box-shadow: var(--shadow-float); }
+.sk-i { width: 18px; height: 18px; flex: none; }
 .sk .a2-head .sk-sub { margin: 0; font-size: 19px; color: var(--soft); }
-
-/* חיפוש */
-.sk .sk-find { position: relative; display: flex; align-items: center; max-width: 520px; }
-.sk .sk-find .sk-i { position: absolute; inset-inline-start: 16px; color: var(--soft); pointer-events: none; transition: color var(--dur-2) var(--ease); }
-.sk .sk-search { width: 100%; height: 52px; padding-inline: 48px 16px; font: inherit; font-size: 16px; color: var(--ink); background: var(--card-2); border: 1px solid var(--line-2); border-radius: var(--r-md); outline: none; transition: border-color var(--dur-2) var(--ease), background var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
+.sk .sk-list .a2-band-head { align-items: center; flex-wrap: wrap; }
+.sk .sk-find { position: relative; display: flex; align-items: center; width: 320px; max-width: 100%; }
+.sk .sk-find .sk-i { position: absolute; inset-inline-start: 14px; color: var(--soft); pointer-events: none; }
+.sk .sk-search { width: 100%; height: 44px; padding-inline: 42px 14px; font: inherit; font-size: 15px; color: var(--ink); background: #fff; border: 1px solid var(--line-2); border-radius: var(--r-sm); outline: none; transition: border-color var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
 .sk .sk-search::placeholder { color: var(--soft); }
-.sk .sk-search:hover { border-color: var(--brand-line); }
-.sk .sk-search:focus { background: #fff; border-color: var(--brand-strong); box-shadow: 0 0 0 4px var(--brand-soft); }
-.sk .sk-find:focus-within .sk-i { color: var(--brand-strong); }
-.sk .sk-empty { margin: 0; color: var(--muted); font-size: 15px; }
-
-/* כרטיסי סקילים: משטח בז' עם איור למעלה וכיתוב למטה, כמו כרטיסי "כל מה שצריך" בדף הבית */
-.sk .sk-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
-.sk .a2-sec a.sk-card { display: flex; flex-direction: column; color: var(--ink) !important; text-decoration: none !important; font-weight: 400; background: var(--card-2); border: 1px solid var(--line-2); border-radius: var(--r-md); overflow: hidden; transition: border-color var(--dur-2) var(--ease), box-shadow var(--dur-3) var(--ease); }
-.sk .a2-sec a.sk-card:hover { border-color: var(--brand-line); box-shadow: var(--shadow-float); }
-.sk .sk-card[hidden] { display: none; }
-.sk .sk-art { display: block; padding: 28px 28px 0; }
-.sk .sk-card .sk-art { height: 200px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
-.sk .sk-card .sk-win { transition: transform var(--dur-3) var(--ease-out-expo); }
-.sk .sk-card:hover .sk-win { transform: translateY(-4px); }
-.sk .sk-cap { display: grid; gap: 6px; padding: 8px 28px 26px; }
-.sk .sk-card h3 { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 700; line-height: 1.25; }
-.sk .sk-desc { font-size: 15px; line-height: 1.6; color: var(--muted); }
-.sk .sk-go { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font-size: 15px; font-weight: 600; color: var(--brand); }
-.sk .sk-go .sk-i { width: 16px; height: 16px; transition: transform var(--dur-2) var(--ease); }
-.sk .sk-card:hover .sk-go .sk-i { transform: translateX(-3px); }
-
-/* שורת עמודות עם אייקון בריבוע לבן, כמו "קורס. מדריך. סקילים." בדף הבית */
-.sk .sk-feats { display: grid; margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
-.sk .sk-feats.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.sk .sk-feats.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.sk .sk-feats li { display: grid; gap: 14px; align-content: start; padding: 28px 24px; border-inline-start: 1px dashed var(--line-2); }
-.sk .sk-feats li:first-child { border-inline-start: 0; padding-inline-start: 0; }
-.sk .sk-sq { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-sm); color: var(--ink); background: #fff; box-shadow: 0 0 0 1px var(--line-2), 0 2px 6px rgba(8, 9, 10, .06); }
-.sk .sk-n { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--brand-strong); }
-.sk .sk-feats p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
-.sk .sk-feats b { color: var(--ink); font-weight: 700; }
-
-/* דוגמה בעמוד סקיל: שני משטחים זה לצד זה */
-.sk .sk-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.sk .sk-duo > .sk-art { padding: 28px; background: var(--card-2); border: 1px solid var(--line-2); border-radius: var(--r-md); display: grid; align-content: center; }
-.sk .sk-duo.cap p { margin: 0; font-size: 15px; color: var(--muted); } .sk .sk-duo.cap b { color: var(--ink); }
+.sk .sk-search:focus { border-color: var(--brand-strong); box-shadow: 0 0 0 3px var(--brand-soft); }
+.sk .sk-list .ac[hidden] { display: none; }
+.sk .sk-empty { margin: 16px 0 0; color: var(--muted); font-size: 15px; }
 .sk .sk-btns { display: flex; flex-wrap: wrap; gap: 10px; }
 .sk .a2-sec .sk-btns a.a2-btn { text-decoration: none; }
 .sk .a2-sec .sk-btns a.a2-btn.ghost { color: var(--ink); }
 .sk .a2-sec .sk-btns a.a2-btn:not(.ghost) { color: #fff; }
-
-@media (max-width: 860px) {
-  .sk .sk-grid, .sk .sk-duo { grid-template-columns: minmax(0, 1fr); }
-  .sk .sk-feats.c3, .sk .sk-feats.c4 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .sk .sk-feats li { padding: 22px 16px; border-bottom: 1px dashed var(--line-2); }
-  .sk .sk-feats li:nth-child(odd) { border-inline-start: 0; padding-inline-start: 0; }
-}
-@media (max-width: 540px) {
-  .sk .sk-feats.c3, .sk .sk-feats.c4 { grid-template-columns: minmax(0, 1fr); }
-  .sk .sk-feats li { border-inline-start: 0; padding-inline: 0; }
-  .sk .sk-feats li:last-child { border-bottom: 0; }
-  .sk .sk-art, .sk .sk-cap { padding-inline: 20px; }
-  .sk .sk-btns .a2-btn { width: auto; flex: 1; }
-}
+.sk .tbl td:first-child { width: 180px; white-space: nowrap; }
+@media (max-width: 540px) { .sk .sk-find { width: 100%; } .sk .sk-btns .a2-btn { width: auto; flex: 1; } }
+.sk .sk-list .a2-band-head h2 { font-size: 48px; font-weight: 800; letter-spacing: -.02em; }
+.sk .fstep .fshot { padding: 0; background: none; border: 0; box-shadow: none; }
+.sk .fstep .fshot img { display: block; width: 100%; border-radius: var(--r-md); border: 1px solid var(--line-2); }
+@media (max-width: 640px) { .sk .sk-list .a2-band-head h2 { font-size: 34px; } }
+@media (max-width: 40rem) { .m2-vis > .sk-shot { width: calc((100vw - 90px) / .9); } }

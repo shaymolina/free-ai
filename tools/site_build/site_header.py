@@ -54,7 +54,7 @@ def header_html(slug):
 
 def auth_html(slug):
     # מאמרים (עמוד המאמרים וכל מאמר בודד) פתוחים לקריאה בלי התחברות
-    locked = "false" if slug in OPEN or slug.startswith("article") else "true"
+    locked = "false" if slug in OPEN or slug.startswith(("article", "work")) else "true"
     v = _v(("css/auth-gate.css", "js/auth-gate.js"))
     ref = SUPABASE_URL.split("//")[1].split(".")[0]
     # הסקריפט הקטן נועל את העמוד מיד (בלי הבהוב) כשאין חיבור שמור בדפדפן
