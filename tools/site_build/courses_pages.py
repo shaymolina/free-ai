@@ -1,4 +1,4 @@
-"""עמודי הקורס של Free AI: service.html (פרקי קורס Claude) ו-service-single.html (רשימת השיעורים)."""
+"""עמודי הקורס של Free AI: course.html (פרקי קורס Claude) ו-service-single.html (רשימת השיעורים)."""
 from clean_urls import clean
 import re
 from pathlib import Path
@@ -138,11 +138,11 @@ COMMON_CSS = '''        .accordion-faq_item.style-1 .accordion-title { gap: 16px
 
 
 # =====================================================================
-# service.html – פרקי הקורס
+# course.html – פרקי הקורס
 # =====================================================================
 def build_service():
     html = (ROOT / "aigocy-about/service.html").read_text()
-    html = apply_common(html, "service.html", "קורס קלוד קוד (Claude Code) מאפס – בחינם ובעברית | Free AI",
+    html = apply_common(html, "course.html", "קורס קלוד קוד (Claude Code) מאפס – בחינם ובעברית | Free AI",
                         "קורס קלוד קוד (Claude Code) בעברית ובחינם, למי שלא יודע לתכנת: 8 שיעורי וידאו קצרים, מהשאלה הראשונה ועד אתר שבניתם בעצמכם.")
 
     html = hero(html, "קורס Claude", "המלא, בחינם",
@@ -175,7 +175,7 @@ def build_service():
     items = []
     for i, (title, img, text, tags) in enumerate(tracks, 1):
         first = i == 1
-        href = "service-single.html"
+        href = "course-lessons.html"
         tag_html = "\n".join(f'                                        <a href="{href}" class="tags-item fw-semibold">{t}</a>' for t in tags)
         items.append(f'''                    <div class="accordion-faq_item style-1 effectFade fadeRotateX" role="presentation">
                         <div class="accordion-action{'' if first else ' collapsed'}" data-bs-target="#faq-{i}" role="button"
@@ -225,16 +225,16 @@ def build_service():
     html = signup(html, "מתחילים מהשיעור <br> הראשון")
 
     html = add_style(html, COMMON_CSS)
-    (ROOT / "site/service.html").write_text(clean(html))
-    check_english("service.html", html)
+    (ROOT / "site/course.html").write_text(clean(html))
+    check_english("course.html", html)
 
 
 # =====================================================================
-# service-single.html – רשימת השיעורים
+# course-lessons.html – רשימת השיעורים
 # =====================================================================
 def build_single():
     html = (ROOT / "aigocy-about/service-single.html").read_text()
-    html = apply_common(html, "service.html", "Claude מאפס – הקורס המלא | Free AI",
+    html = apply_common(html, "course.html", "Claude מאפס – הקורס המלא | Free AI",
                         "קורס Claude מאפס בעברית ובחינם: 8 שיעורים קצרים, מהשאלה הראשונה ועד אתר שבניתם עם Claude Code ועובד באוויר.")
 
     html = hero(html, "Claude", "מאפס",
@@ -344,8 +344,8 @@ def build_single():
             .lesson-status { margin-inline-start: 50px; }
             .lesson-title { font-size: 17px; }
         }''')
-    (ROOT / "site/service-single.html").write_text(clean(html))
-    check_english("service-single.html", html)
+    (ROOT / "site/course-lessons.html").write_text(clean(html))
+    check_english("course-lessons.html", html)
 
 
 build_service()

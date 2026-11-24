@@ -151,10 +151,10 @@ T = {
 DROP = {
     "index.html": ["section-about-us", "section-partner", "section-featured-works", "section-features",
                    "section-tools", "section-statistic"],
-    "service.html": ["section-partner", "section-process"],
-    "service-single.html": ["section-process"],
+    "course.html": ["section-partner", "section-process"],
+    "course-lessons.html": ["section-process"],
     "about.html": ["section-partner", "section-features", "section-tools", "section-statistic", "section-awards"],
-    "work.html": ["section-pricing"],
+    "skills.html": ["section-pricing"],
 }
 
 
@@ -182,7 +182,7 @@ def run():
             # שלושה צעדים – כולם על המסך, בלי חיצים
             html = html.replace('data-preview="1.78" data-tablet="2"', 'data-preview="3" data-tablet="3"')
         # עמודי צור קשר / עליי / בלוג נמחקו – ההרשמה בטופס של אותו עמוד, או בעמוד הקורס
-        target = "#signup" if 'id="signup"' in html else "service.html#signup"
+        target = "#signup" if 'id="signup"' in html else "course.html#signup"
         html = re.sub(r'href="contact\.html(#signup)?"', f'href="{target}"', html)
         # <br> שנשאר לפני טקסט שנמחק
         html = re.sub(r"<br>\s*(?=</)", "", html)

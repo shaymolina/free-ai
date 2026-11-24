@@ -11,7 +11,7 @@ SITE = Path(__file__).resolve().parents[2] / "site"
 GUIDE = "guide-1.html"
 
 NAV_ANCHOR = '''                        <li class="menu-item">
-                            <a href="work.html" class="item-link link1'''
+                            <a href="skills.html" class="item-link link1'''
 NAV_ITEM = f'''                        <li class="menu-item">
                             <a href="{GUIDE}" class="item-link link1">המדריך</a>
                         </li>
@@ -24,7 +24,7 @@ MOBILE_ITEM = f'''                            <li>
                                 </div>
                             </li>
 '''
-FOOTER_ANCHOR = '''                        <a href="work.html" class="text-body-1 fw-semibold">
+FOOTER_ANCHOR = '''                        <a href="skills.html" class="text-body-1 fw-semibold">
                             סקילים'''
 FOOTER_ITEM = f'''                        <a href="{GUIDE}" class="text-body-1 fw-semibold">
                             המדריך
@@ -33,7 +33,7 @@ FOOTER_ITEM = f'''                        <a href="{GUIDE}" class="text-body-1 f
                             </div>
                         </a>
 '''
-HERO_ANCHOR = '''                        <a href="work.html" class="tf-btn-2">
+HERO_ANCHOR = '''                        <a href="skills.html" class="tf-btn-2">
                             סקילים ל-Claude
                         </a>'''
 HERO_BTN = f'''

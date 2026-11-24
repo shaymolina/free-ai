@@ -3,7 +3,7 @@ apply_all() מחליף את ההדר בכל העמודים (חוץ מהמדרי�
 import hashlib, os, re
 
 SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "site")
-LINKS = [("service", "הקורס"), ("guide-1", "המדריך"), ("work", "סקילים"), ("articles", "מאמרים")]
+LINKS = [("course", "הקורס"), ("guide-1", "המדריך"), ("skills", "סקילים"), ("articles", "מאמרים")]
 START, END = "<!-- site-header -->", "<!-- /site-header -->"
 
 # אזור משתמשים (Supabase): כתובת הפרויקט והמפתח הציבורי שלו (publishable, לא סודי). ההתחברות עם גוגל מוגדרת בתוך Supabase.
@@ -11,7 +11,7 @@ START, END = "<!-- site-header -->", "<!-- /site-header -->"
 SUPABASE_URL = "https://utkbzapqkucetphugmul.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2J6YXBxa3VjZXRwaHVnbXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTQ2MjksImV4cCI6MjExMDk5MDYyOX0.VbAtIlS9kxXrTkrezkE3JlzZMsGH2QRG3OlqCQY018o"  # anon (ציבורי)
 SUPABASE_JS = "assets/js/vendor/supabase-2.45.4.js"
-OPEN = {"index", "privacy", "terms", "accessibility", "articles", "work"}
+OPEN = {"index", "privacy", "terms", "accessibility", "articles", "skills"}
 A_START, A_END = "<!-- auth-gate -->", "<!-- /auth-gate -->"
 # סרגל הנגישות (נבנה מ-tools/a11y-toolbar עם npm run build:a11y). מעל מסך ההתחברות, כדי שיעבוד גם שם.
 X_START, X_END = "<!-- a11y-toolbar -->", "<!-- /a11y-toolbar -->"
@@ -26,9 +26,9 @@ def _v(files=("css/site-header.css", "js/site-header.js")):
 
 
 def _active(slug):
-    if slug.startswith("service"): return "service"
+    if slug.startswith("course"): return "course"
     if slug.startswith("guide"): return "guide-1"
-    if slug.startswith("work"): return "work"
+    if slug.startswith("skill"): return "skills"
     if slug.startswith("article"): return "articles"
     return ""
 
@@ -45,16 +45,16 @@ def header_html(slug):
             '<header class="gh" id="gh"><div class="gh-in">'
             '<a class="gh-logo" href="/" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>'
             f'<nav class="gh-nav" aria-label="ניווט ראשי">{nav}</nav>'
-            '<a class="gh-btn" href="service">התחל ללמוד</a>'
+            '<a class="gh-btn" href="course">התחל ללמוד</a>'
             '<button class="gh-burger" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="gh-m">'
             '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>'
-            f'</div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden>{mob}<a class="gh-btn" href="service">התחל ללמוד</a></nav></header>'
+            f'</div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden>{mob}<a class="gh-btn" href="course">התחל ללמוד</a></nav></header>'
             f'<script src="assets/js/site-header.js?v={v}" defer></script>{END}')
 
 
 def auth_html(slug):
     # מאמרים (עמוד המאמרים וכל מאמר בודד) פתוחים לקריאה בלי התחברות
-    locked = "false" if slug in OPEN or slug.startswith(("article", "work")) else "true"
+    locked = "false" if slug in OPEN or slug.startswith(("article", "skill")) else "true"
     v = _v(("css/auth-gate.css", "js/auth-gate.js"))
     ref = SUPABASE_URL.split("//")[1].split(".")[0]
     # הסקריפט הקטן נועל את העמוד מיד (בלי הבהוב) כשאין חיבור שמור בדפדפן

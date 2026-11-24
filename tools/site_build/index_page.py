@@ -29,16 +29,16 @@ html = html.replace(
     "בואו תבינו על מה כל הטירוף. תבנו היום את האפליקציה שאתם רוצים, <br> תלמדו לעבוד עם Claude ותכניסו AI לעסק שלכם.",
 )
 html = html.replace(
-    '''<a href="service.html" class="tf-btn">
+    '''<a href="course.html" class="tf-btn">
                             Explore Services
                         </a>
                         <a href="#pricing" class="tf-btn-2">
                             View Pricing Plans
                         </a>''',
-    '''<a href="service-single.html" class="tf-btn">
+    '''<a href="course-lessons.html" class="tf-btn">
                             מתחילים בחינם
                         </a>
-                        <a href="work.html" class="tf-btn-2">
+                        <a href="skills.html" class="tf-btn-2">
                             סקילים ל-Claude
                         </a>''',
 )
@@ -53,7 +53,7 @@ html = html.replace('<h5 class="title fw-semibold text-white">Based in <span cla
                     '<h5 class="title fw-semibold text-white">לומדים ב<span class="text-brand">עברית, מאפס</span></h5>')
 html = html.replace('''<a href="contact.html" class="tf-btn">
                                     Start a Project
-                                </a>''', '''<a href="service-single.html" class="tf-btn">
+                                </a>''', '''<a href="course-lessons.html" class="tf-btn">
                                     לשיעור הראשון
                                 </a>''')
 html = html.replace("Trusted by 120+ clients across 4 industries - <br> shipping AI from idea to production in 8–10 weeks",
@@ -128,7 +128,7 @@ for (title, desc, track, level), old in zip(projects, [
 html = html.replace('<div class="title text-secondary">DESCRIPTION</div>', '<div class="title text-secondary">מה בונים</div>')
 html = html.replace('<div class="title text-secondary">DELIVERABLES</div>', '<div class="title text-secondary">פרק</div>')
 html = html.replace('<div class="title text-secondary">INDUSTRY</div>', '<div class="title text-secondary">רמה</div>')
-html = html.replace('href="work-single.html" class="tf-mouse view-project h6">\n                                        View Project', 'href="service-single.html" class="tf-mouse view-project h6">\n                                        לקורס')
+html = html.replace('href="skill-security.html" class="tf-mouse view-project h6">\n                                        View Project', 'href="course-lessons.html" class="tf-mouse view-project h6">\n                                        לקורס')
 
 # ---------- Process → איך זה עובד ----------
 html = html.replace('<div class="heading-sub fw-semibold effectFade fadeUp">Process</div>', '<div class="heading-sub fw-semibold effectFade fadeUp">איך זה עובד</div>')
@@ -194,7 +194,7 @@ html = html.replace("We design, build, and evaluate with a modern AI stack—LLM
                     "Claude באתר, באפליקציה למחשב ובטלפון, ו-Claude Code לבניית אתרים – כל אחד בהסבר צעד אחרי צעד.")
 html = html.replace('''<a href="contact.html" class="tf-btn effectFade fadeRotateX">
                             Get Started
-                        </a>''', '''<a href="service-single.html" class="tf-btn effectFade fadeRotateX">
+                        </a>''', '''<a href="course-lessons.html" class="tf-btn effectFade fadeRotateX">
                             לקורס Claude
                         </a>''')
 
@@ -226,7 +226,7 @@ skills = [
 rows = []
 for i, (img, title, text, year) in enumerate(skills):
     delay = f' data-delay="0.{i}"' if i else ""
-    rows.append(f'''                        <a href="work.html" class="awards-item effectFade fadeUp"{delay}>
+    rows.append(f'''                        <a href="skills.html" class="awards-item effectFade fadeUp"{delay}>
                             <div class="image">
                                 <i class="icon icon-{img} skill-icon"></i>
                             </div>
@@ -330,7 +330,7 @@ for n, img in enumerate(["build-site", "security-skill", "projects-assistant", "
     assert a in html, a
     html = html.replace(a, f'src="assets/images/claude/{img}.jpg" alt=""')
 html = html.replace('<img src="assets/images/section/service-1.jpg" alt="">', '<img src="assets/images/claude/claude-start.jpg" alt="">')
-html = html.replace('href="service.html" class="tf-mouse view-project h6">\n                                        View Project', 'href="service-single.html" class="tf-mouse view-project h6">\n                                        לקורס')
+html = html.replace('href="course.html" class="tf-mouse view-project h6">\n                                        View Project', 'href="course-lessons.html" class="tf-mouse view-project h6">\n                                        לקורס')
 
 # ---------- בלי בלוק מחירים ----------
 html = re.sub(r"\s*<!-- section-pricing -->.*?<!-- /section-pricing -->", "", html, count=1, flags=re.S)

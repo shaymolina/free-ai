@@ -72,7 +72,7 @@ def schema(s, title, desc, url, mod, faqs=()):
         graph.append({"@type": "Article", "headline": title.split(" | ")[0], "description": desc,
                       "inLanguage": "he", "url": url, "dateModified": mod, "isAccessibleForFree": True,
                       "author": {"@id": BASE + "/#org"}, "publisher": org, "image": OG_IMAGE})
-    elif s == "service":
+    elif s == "course":
         graph.append({"@type": "Course", "name": "קורס קלוד קוד מאפס", "description": desc, "inLanguage": "he",
                       "url": url, "isAccessibleForFree": True, "provider": org,
                       "offers": {"@type": "Offer", "price": 0, "priceCurrency": "ILS", "category": "Free"},

@@ -14,6 +14,11 @@ const TYPES = {
   '.woff': 'font/woff', '.ttf': 'font/ttf', '.eot': 'application/vnd.ms-fontobject',
 };
 
+const OLD = {
+  '/service': '/course', '/service-single': '/course-lessons',
+  '/work': '/skills', '/work-single': '/skill-security', '/work-site-speed': '/skill-site-speed',
+};
+
 function send(res, file, status = 200) {
   fs.stat(file, (err, st) => {
     if (err || !st.isFile()) {
@@ -38,8 +43,14 @@ http.createServer((req, res) => {
     res.writeHead(301, { Location: clean + u.search });
     return res.end();
   }
+  // כתובות ישנות עוברות לחדשות (301), כדי שקישורים וגוגל לא יישברו
+  const moved = OLD[p.replace(/\/$/, '')];
+  if (moved) {
+    res.writeHead(301, { Location: moved + new URL(req.url, 'http://x').search });
+    return res.end();
+  }
   // הקורס בשיפוצים: עמודי הקורס (לא המדריך) מראים את עמוד "תכף חוזרים"
-  if (/^\/(service|service-single)\/?$/.test(p)) return send(res, path.join(ROOT, 'soon.html'));
+  if (/^\/(course|course-lessons)\/?$/.test(p)) return send(res, path.join(ROOT, 'soon.html'));
   let file = path.normalize(path.join(ROOT, p));
   if (!file.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
   if (p.endsWith('/')) file = path.join(file, 'index.html');

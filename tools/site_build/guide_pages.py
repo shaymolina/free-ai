@@ -1,6 +1,6 @@
 """המדריך המלא ל-Claude Code – בסגנון קורס: רשימת פרקים בצד, פרק קצר באמצע.
 
-עמוד לכל פרק (guide-N.html). נבנה מתוך site/service-single.html כדי לרשת תפריט, פוטר ועיצוב.
+עמוד לכל פרק (guide-N.html). נבנה מתוך site/course-lessons.html כדי לרשת תפריט, פוטר ועיצוב.
 ההתקדמות נשמרת כרגע בדפדפן של הגולש (localStorage) עד שיחובר אזור משתמשים.
 הרצה: cd tools/site_build && python3 guide_pages.py
 """
@@ -134,7 +134,7 @@ def sidebar(current):
 
 def build(n, minutes, sub, rows, note, extra=""):
     title = CHAPTERS[n - 1]
-    html = (SITE / "service-single.html").read_text()
+    html = (SITE / "course-lessons.html").read_text()
     html = sub1(html, r"<title>.*?</title>", lambda m: f"<title>{title} – המדריך ל-Claude Code | Free AI</title>")
     html = sub1(html, r'<meta name="description" content="[^"]*">',
                 lambda m: f'<meta name="description" content="פרק {n} במדריך ל-Claude Code למי שלא מתכנת: {sub}">')

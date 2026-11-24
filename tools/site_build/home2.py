@@ -80,7 +80,7 @@ def do_header(soup):
     logo = h.find("a", attrs={"aria-label": "Go to homepage"})
     logo["href"] = "index.html"; logo["aria-label"] = "Free AI, לדף הבית"
     put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:30px;width:auto">')
-    nav = [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
+    nav = [("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
     for li, (href, txt) in zip(h.find("ul").find_all("li", recursive=False), nav):
         b = li.find(["button", "a"])
         a = soup.new_tag("a", href=href); a["class"] = b["class"]; a.string = txt
@@ -90,7 +90,7 @@ def do_header(soup):
         if a.get("href") == "https://app.mintlify.com":
             a["href"] = "guide-1.html"; put(a, "למדריך הכתוב")
         elif a.get("href") == "/contact/sales":
-            a["href"] = "service.html"; put(a, "התחל ללמוד")
+            a["href"] = "course.html"; put(a, "התחל ללמוד")
     vp = h.find("div", class_="top-full")
     if vp: vp.decompose()
 
@@ -102,7 +102,7 @@ def do_hero(sec, n_ch):
     h1 = sec.find("h1"); put(h1, "קורס קלוד קוד בחינם ובעברית"); h1["class"] = h1.get("class", []) + ["m2-h1"]
     p = h1.find_next("p")
     put(p, 'קורס Claude Code למתחילים, בלי ידע בתכנות. <span class="font-medium text-text-main">שיעורי וידאו</span>, <span class="font-medium text-text-main">מדריך כתוב</span> ו<span class="font-medium text-text-main">סקילים</span>.')
-    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
+    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "course.html"
     a1.contents[0].replace_with("להתחיל ללמוד בחינם")
     a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = "guide-1.html"
     put(a2, icon("book", "size-4 text-brand") + "למדריך הכתוב")
@@ -197,7 +197,7 @@ STORIES = [
     ("#C8553A", "מעלים לאוויר", 'ככה האתר מקבל <span class="text-white">כתובת אמיתית</span> שאפשר לשלוח לכל אחד', [("1", "כתובת לשתף"), ("30", "ימים בחינם עם הקופון")],
      "guide-18.html", "assets/images/guide/claude-map.png"),
     ("#7A3FC4", "סקילים", 'ככה <span class="text-white">יכולת מוכנה</span> נכנסת לקלוד בלחיצה אחת', [("1", "לחיצה להורדה"), ("₪0", "מחיר")],
-     "work.html", "assets/images/home2/skills-w.webp"),
+     "skills.html", "assets/images/home2/skills-w.webp"),
 ]
 
 
@@ -252,7 +252,7 @@ BENTO_TITLES = ["כותבים בעברית, קלוד קוד בונה",
 
 def do_bento(sec):
     """הכרטיסים המקוריים שלהם עם אנימציות ה-Rive המקוריות, והכותרות בעברית."""
-    do_head(sec, "כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "service.html", "התחל ללמוד")
+    do_head(sec, "כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "course.html", "התחל ללמוד")
     titles = BENTO_TITLES
     for art, title, (src, mob) in zip(sec.find_all("article"), titles, RIVES):
         box = art.find("div", class_="absolute")
@@ -296,9 +296,9 @@ def do_scale(sec, n_ch):
 
 
 # ---------------------------------------------------------------- כרטיסים צבעוניים
-STARTS = [("הקורס", "8 שיעורי וידאו, לפי הסדר.", "service.html", "לקורס"),
+STARTS = [("הקורס", "8 שיעורי וידאו, לפי הסדר.", "course.html", "לקורס"),
           ("המדריך", "{n} פרקים לקריאה, צעד אחרי צעד.", "guide-1.html", "למדריך"),
-          ("סקילים", "יכולות מוכנות לקלוד, להורדה בחינם.", "work.html", "לסקילים"),
+          ("סקילים", "יכולות מוכנות לקלוד, להורדה בחינם.", "skills.html", "לסקילים"),
           ("מאמרים", "מדריכים קצרים שאפשר לעשות היום.", "articles.html", "למאמרים"),
           ("הפרק הראשון", "שלושה דברים להכין, ואפשר לצאת לדרך.", "guide-1.html", "לפרק 1")]
 
@@ -379,7 +379,7 @@ def do_cta(sec):
     h2 = sec.find("h2"); put(h2, "קורס קלוד קוד, בחינם ובעברית")
     links = h2.find_next("div").find_all("a")
     links[0]["href"] = "guide-1.html"; put(links[0], "למדריך הכתוב")
-    links[1]["href"] = "service.html"; links[1].contents[0].replace_with("התחל ללמוד")
+    links[1]["href"] = "course.html"; links[1].contents[0].replace_with("התחל ללמוד")
 
 
 # ---------------------------------------------------------------- שאלות נפוצות
@@ -391,7 +391,7 @@ FAQ = [("מה זה קלוד קוד?", "כלי של Anthropic שבונה אתרי
        ("איך מתקינים קלוד קוד על המחשב?", "מורידים את אפליקציית Claude למחשב, ל-Mac או ל-Windows, וקלוד קוד נמצא בתוכה. אפשר לעבוד איתו גם בדפדפן.", ("guide-4.html", "מדריך ההתקנה")),
        ("מה ההבדל בין קלוד לקלוד קוד?", "קלוד משוחח איתכם ועונה. קלוד קוד עובד על הקבצים שלכם ובונה בפועל.", ("guide-2.html", "ההבדל בפירוט")),
        ("צריך לדעת לתכנת?", "לא. הקורס מתחיל מאפס ומתאים לכל רמה.", ("guide-1.html", "לפרק הראשון")),
-       ("איך מתחילים ללמוד קלוד קוד?", "נכנסים לקורס: 8 שיעורי וידאו ומדריך כתוב בעברית, בקצב שלכם.", ("service.html", "לקורס"))]
+       ("איך מתחילים ללמוד קלוד קוד?", "נכנסים לקורס: 8 שיעורי וידאו ומדריך כתוב בעברית, בקצב שלכם.", ("course.html", "לקורס"))]
 
 
 def do_faq(sec):
@@ -426,7 +426,7 @@ def do_footer(soup, arts):
         else:
             st["class"] = [c for c in st["class"] if c not in ("hidden", "lg:mt-auto", "lg:inline-flex")] + ["inline-flex"]
     logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">קלוד קוד בחינם</p><p class="f-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div>'))
-    cols = [("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
+    cols = [("לומדים", [("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-18.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
             ("כלים", [("guide-4.html", "Claude Code"), ("guide-13.html", "Connectors"), ("guide-14.html", "Skills"), ("guide-18.html", "4CODE")]),
@@ -447,10 +447,10 @@ def do_mobile_header(soup):
     put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:30px;width:auto">')
     b = h.find("button"); b["aria-label"] = "תפריט"; b["aria-controls"] = "m-menu"; b["data-menu"] = ""
     b["class"] = [c if c != "-mr-1.5" else "-ml-1.5" for c in b["class"]]
-    links = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
+    links = [("index.html", "דף הבית"), ("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
     lis = "".join(f'<li><a class="flex h-12 items-center border-b border-border-line text-base/6 font-medium text-text-main" href="{a}">{t}</a></li>' for a, t in links)
     h.append(frag(f'<nav id="m-menu" hidden aria-label="תפריט ראשי" class="absolute inset-x-0 top-16 z-[105] bg-neutral-0 px-5 pb-6 shadow-[0_12px_24px_-12px_rgba(0,0,0,.15)]"><ul>{lis}</ul>'
-                  f'<a class="mt-5 flex h-11 items-center justify-center rounded-[4px] bg-neutral-900 text-sm/4 font-medium text-white" href="service.html">התחל ללמוד</a></nav>'))
+                  f'<a class="mt-5 flex h-11 items-center justify-center rounded-[4px] bg-neutral-900 text-sm/4 font-medium text-white" href="course.html">התחל ללמוד</a></nav>'))
 
 
 SHOW_PROMPTS = False  # "מה כותבים לקלוד קוד": מוסתר כרגע, נחזיר בהמשך
@@ -536,7 +536,7 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     tag.decompose()  # בלי תגית קטנה מעל הכותרת, אף פעם (בקשת בעל האתר). הפרמטר chip נשאר רק לתאימות.
     h = sec.find("h1"); put(h, h1); h["class"] = h.get("class", []) + ["m2-h1", "m2-h1-wrap"]
     put(h.find_next("p"), lead)
-    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"
+    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "course.html"
     a1.contents[0].replace_with("להתחיל ללמוד בחינם")
     for k in ("target", "rel"): a1.attrs.pop(k, None)
     a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = btn2[0]

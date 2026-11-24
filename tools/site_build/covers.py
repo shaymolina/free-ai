@@ -135,10 +135,10 @@ COVERS = {
 <div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>Max ‏$100 · Ultra ‏$200</div>
 """),
     # סקילים: עיצוב שטוח לפי חוקי docs/design-anti-slop.md – צבע מותג אחיד, חוטים לבנים, לוח לבן אחד, בלי זכוכית ובלי טשטוש
-    "work-single": skill_page("#5C1E0F", SEC_PANEL),
-    "work-site-speed": skill_page("#B5583A", SPEED_PANEL),
-    "work-single-wide": skill_page("#5C1E0F", SEC_PANEL, wide=True),
-    "work-site-speed-wide": skill_page("#B5583A", SPEED_PANEL, wide=True),
+    "skill-security": skill_page("#5C1E0F", SEC_PANEL),
+    "skill-site-speed": skill_page("#B5583A", SPEED_PANEL),
+    "skill-security-wide": skill_page("#5C1E0F", SEC_PANEL, wide=True),
+    "skill-site-speed-wide": skill_page("#B5583A", SPEED_PANEL, wide=True),
 }
 
 SHOT = """

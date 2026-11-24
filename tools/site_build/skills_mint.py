@@ -1,4 +1,4 @@
-"""עמודי הסקילים בעיצוב החדש של האתר (home2.inner_page): ספריית הסקילים (work.html) ועמוד לכל סקיל.
+"""עמודי הסקילים בעיצוב החדש של האתר (home2.inner_page): ספריית הסקילים (skills.html) ועמוד לכל סקיל.
 הרצה: python3 tools/site_build/skills_mint.py  (רץ גם בסוף compact_site.py). אחר כך seo_build.py מוסיף הדר, פוטר ו-SEO."""
 import os
 import re
@@ -13,7 +13,7 @@ CSS_VERSION = "54"
 
 SKILLS = [
     {
-        "page": "work-single.html",
+        "page": "skill-security.html",
         "name": "בדיקת אבטחה לאתר ולאפליקציה",
         "short": "בדיקת אבטחה",
         "cat": "אבטחה",
@@ -31,7 +31,7 @@ SKILLS = [
                 "סקיל חינמי ל-Claude שבודק 34 פרצות אבטחה באתר או באפליקציה שבניתם עם AI ונותן דוח אדום / כתום / ירוק בעברית."),
     },
     {
-        "page": "work-site-speed.html",
+        "page": "skill-site-speed.html",
         "name": "בדיקת מהירות לאתר",
         "short": "בדיקת מהירות",
         "cat": "ביצועים",
@@ -114,7 +114,7 @@ def faq_html():
 
 CTA = """<section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
             <div><h2>רוצים לבנות סקיל משלכם?</h2><p>במדריך יש פרק שלם על סקילים, ואיך Claude משתמש בהם.</p></div>
-            <div class="a2-cta-btns"><a href="guide-14.html" class="a2-btn">לפרק על סקילים</a><a href="service.html" class="a2-btn ghost">לקורס החינמי</a></div>
+            <div class="a2-cta-btns"><a href="guide-14.html" class="a2-btn">לפרק על סקילים</a><a href="course.html" class="a2-btn ghost">לקורס החינמי</a></div>
         </div></section>"""
 
 HERO_SHOT = '<img class="sk-full shot" src="assets/images/skills/claude-plugins.webp" alt="מסך התוספות והסקילים ב-Claude" decoding="async">'
@@ -157,8 +157,8 @@ def build_library():
         "", "סקילים",
         "סקיל מלמד את Claude לעשות עבודה של מומחה. מורידים בחינם, מעלים ל-Claude, וכותבים לו בקשה רגילה.",
         HERO_SHOT, main, btn2=("#skills", "לכל הסקילים", "box"), script=SEARCH_JS, legacy_v=CSS_VERSION)
-    open(os.path.join(SITE, "work.html"), "w").write(html)
-    print("work.html done")
+    open(os.path.join(SITE, "skills.html"), "w").write(html)
+    print("skills.html done")
 
 
 def build_skill(s):
@@ -170,7 +170,7 @@ def build_skill(s):
           f'<a href="{s["src"]}" class="a2-btn ghost" target="_blank" rel="noopener">קוד המקור ב-GitHub</a></div>' + install_html())
     others = [o for o in SKILLS if o is not s]
     more = ("""<section class="a2-band a2-more"><div class="a2-wrap a2-pad">
-            <div class="a2-band-head"><h2>עוד סקילים</h2><a href="work.html" class="a2-link">לכל הסקילים ←</a></div>"""
+            <div class="a2-band-head"><h2>עוד סקילים</h2><a href="skills.html" class="a2-link">לכל הסקילים ←</a></div>"""
             + cards(others) + "</div></section>") if others else ""
     main = f"""<main class="a2 sk">
         <div class="a2-wrap"><div class="a2-body">
@@ -184,8 +184,8 @@ def build_skill(s):
     title, desc = s["seo"]
     vis = f'<img class="sk-full" src="{cover(s).replace(".webp", "-wide.webp")}" alt="" decoding="async">'
     html = home2.inner_page(title, desc, "", s["name"], s["desc"], vis, main,
-                            btn2=("work.html", "לכל הסקילים", "box"), legacy_v=CSS_VERSION)
-    html, n = re.subn(r'href="service"([^>]*>\s*)להתחיל ללמוד בחינם', r'href="#download"\1הורדה חינם', html, count=1)
+                            btn2=("skills.html", "לכל הסקילים", "box"), legacy_v=CSS_VERSION)
+    html, n = re.subn(r'href="course"([^>]*>\s*)להתחיל ללמוד בחינם', r'href="#download"\1הורדה חינם', html, count=1)
     assert n == 1
     open(os.path.join(SITE, s["page"]), "w").write(html)
     print(f"{s['page']} done")

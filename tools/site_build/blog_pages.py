@@ -126,7 +126,7 @@ def sidebar():
                                     לומדים בחינם
                                 </h5>
                                 <p class="text text-body-2 text-secondary">קורס Claude המלא בעברית, קבצים להורדה וסקילים מוכנים. ההרשמה לוקחת פחות מדקה.</p>
-                                <a href="service.html" class="tf-btn w-100">התחל ללמוד</a>
+                                <a href="course.html" class="tf-btn w-100">התחל ללמוד</a>
                             </div>
                         </div>
                     </div>

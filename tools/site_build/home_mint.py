@@ -202,7 +202,7 @@ def sec_bento():
     return f"""
     <section class="m-sec">
         <div class="m-in">
-            {head("כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "service.html", "התחל ללמוד")}
+            {head("כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "course.html", "התחל ללמוד")}
             <ul class="bento">{html}</ul>
         </div>
     </section>"""
@@ -250,9 +250,9 @@ def sec_scale(n_chapters):
 
 
 def sec_start(n_chapters):
-    items = [("p-pink", "play", "הקורס", "8 שיעורי וידאו, לפי הסדר.", "service.html", "לקורס"),
+    items = [("p-pink", "play", "הקורס", "8 שיעורי וידאו, לפי הסדר.", "course.html", "לקורס"),
              ("p-mint", "book", "המדריך", f"{n_chapters} פרקים לקריאה, צעד אחרי צעד.", "guide-1.html", "למדריך"),
-             ("p-night", "spark", "סקילים", "יכולות מוכנות לקלוד, להורדה בחינם.", "work.html", "לסקילים"),
+             ("p-night", "spark", "סקילים", "יכולות מוכנות לקלוד, להורדה בחינם.", "skills.html", "לסקילים"),
              ("p-fire", "file", "מאמרים", "מדריכים קצרים שאפשר לעשות היום.", "articles.html", "למאמרים"),
              ("p-sky", "rocket", "הפרק הראשון", "שלושה דברים להכין, ואפשר לצאת לדרך.", "guide-1.html", "לפרק 1")]
     cards = "".join(f"""<li class="start">
@@ -261,7 +261,7 @@ def sec_start(n_chapters):
             </li>""" for n, (c, i, t, d, h, g) in enumerate(items))
     return f"""
     <section class="m-sec m-starts" data-carousel>
-        <div class="m-in">{head("מאיפה מתחילים.", "חמש דרכים להיכנס לחומר.", "service.html", "התחל ללמוד", car_nav())}</div>
+        <div class="m-in">{head("מאיפה מתחילים.", "חמש דרכים להיכנס לחומר.", "course.html", "התחל ללמוד", car_nav())}</div>
         <div class="car"><ul class="car-track starts">{cards}</ul></div>
     </section>"""
 
@@ -319,7 +319,7 @@ def sec_cta():
         <div class="m-in cta-in">
             {canvas("cta", "cta-cv", flip=True)}
             <h2>קורס קלוד קוד, בחינם ובעברית</h2>
-            <div class="btns"><a href="guide-1.html" class="btn-3">למדריך הכתוב</a><a href="service.html" class="btn">התחל ללמוד <span class="arr">‹</span></a></div>
+            <div class="btns"><a href="guide-1.html" class="btn-3">למדריך הכתוב</a><a href="course.html" class="btn">התחל ללמוד <span class="arr">‹</span></a></div>
         </div>
     </section>"""
 
@@ -336,7 +336,7 @@ def sec_faq(faq_html):
 
 def footer(chapters, articles, ready):
     cols = [
-        ("לומדים", [("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]),
+        ("לומדים", [("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]),
         ("המדריך", [(f"guide-{i}.html", chapters[i - 1][0]) for i in (1, 3, 5, 16, 18) if i in ready]),
         ("מאמרים", [(n, t.split("?")[0] + ("?" if "?" in t else "")) for n, t, d, m in articles]),
         ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש"), ("accessibility", "נגישות")]),
@@ -375,7 +375,7 @@ def body(header_html, hero_demo, strings, chapters, ready, articles, faq_html):
                     <a href="guide-1.html" class="chip">המדריך הכתוב <b><span data-roll>{n_ch}</span> פרקים</b><span class="chip-go">‹</span></a>
                     <h1 class="hero-title">קורס קלוד קוד<br>בחינם ובעברית</h1>
                     <p>קורס Claude Code למתחילים, בלי ידע בתכנות. <b>שיעורי וידאו</b>, <b>מדריך כתוב</b> ו<b>סקילים</b>.</p>
-                    <div class="btns"><a href="service.html" class="btn">התחל ללמוד <span class="arr">‹</span></a><a href="guide-1.html" class="btn-2">{icon("book")}למדריך הכתוב</a></div>
+                    <div class="btns"><a href="course.html" class="btn">התחל ללמוד <span class="arr">‹</span></a><a href="guide-1.html" class="btn-2">{icon("book")}למדריך הכתוב</a></div>
                     <details class="need"><summary><span class="need-ic">{icon("home")}{icon("chat")}{icon("spark")}</span>מה צריך כדי להתחיל{icon("chev-d")}</summary><ul>{need}</ul></details>
                 </div>
                 {hero_preview(ready)}

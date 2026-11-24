@@ -3,9 +3,9 @@ import re
 
 NAV = [
     ("index.html", "דף הבית"),
-    ("service.html", "הקורס"),
+    ("course.html", "הקורס"),
     ("guide-1.html", "המדריך"),
-    ("work.html", "סקילים"),
+    ("skills.html", "סקילים"),
     ("articles.html", "מאמרים"),
 ]
 
@@ -28,7 +28,7 @@ def header(active):
 {items}
                     </ul>
                 </div>
-                <a href="service.html" class="tf-btn d-lg-flex d-none">
+                <a href="course.html" class="tf-btn d-lg-flex d-none">
                     התחל ללמוד
                 </a>
                 <a href="#" class="tf-btn open-mb-menu mobile-menu d-lg-none d-flex">
@@ -71,13 +71,13 @@ def mobile_menu():
                     </div>
                     <div class="canvas_foot">
                         <div class="left">
-                            <a href="service.html" class="text-caption text-neutral-200">התחל ללמוד</a>
+                            <a href="course.html" class="text-caption text-neutral-200">התחל ללמוד</a>
                             <p class="text-caption text-neutral-200">
                                 ישראל <span class="clock"></span>
                             </p>
                         </div>
                         <div class="right">
-                            <a href="work.html" class="tf-link-icon text-caption text-neutral-200">
+                            <a href="skills.html" class="tf-link-icon text-caption text-neutral-200">
                                 <i class="icon icon-arrow-top-right"></i>
                                 סקילים
                             </a>
@@ -103,7 +103,7 @@ FOOTER = '''<!-- footer -->
                     <div class="title h6 fw-semibold">קורס Claude המלא. <br> פתוח לכולם, בחינם.</div>
                     <div class="text">שיעור חדש עולה כל שבוע.</div>
                     <div class="tf-social-1 justify-content-center">
-                        <a href="service.html" class="text-body-1 fw-semibold">
+                        <a href="course.html" class="text-body-1 fw-semibold">
                             הקורס
                             <div class="social-item">
                                 <i class="icon icon-arrow-top-right"></i>
@@ -115,7 +115,7 @@ FOOTER = '''<!-- footer -->
                                 <i class="icon icon-arrow-top-right"></i>
                             </div>
                         </a>
-                        <a href="work.html" class="text-body-1 fw-semibold">
+                        <a href="skills.html" class="text-body-1 fw-semibold">
                             סקילים
                             <div class="social-item">
                                 <i class="icon icon-arrow-top-right"></i>

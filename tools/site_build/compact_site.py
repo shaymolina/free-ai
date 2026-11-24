@@ -11,7 +11,7 @@ SITE = Path(__file__).resolve().parents[2] / "site"
 CSS_VERSION = "54"
 COUPON = "RVJ34jcn4j1"
 
-NAV = [("index.html", "דף הבית"), ("service.html", "הקורס"), ("guide-1.html", "המדריך"), ("work.html", "סקילים"), ("articles.html", "מאמרים")]
+NAV = [("index.html", "דף הבית"), ("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
 
 # שם הפרק, דקות קריאה
 CHAPTERS = [
@@ -52,7 +52,7 @@ def header(active):
     return f'''<header class="c-header">
             <a href="index.html" class="c-logo"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>
             <nav class="c-nav">{links}</nav>
-            <a href="service.html" class="btn sm">התחל ללמוד</a>
+            <a href="course.html" class="btn sm">התחל ללמוד</a>
             <button type="button" class="btn c-menu-btn" aria-label="תפריט" onclick="this.parentNode.classList.toggle('open')"><i class="icon icon-grip-lines-solid"></i></button>
         </header>'''
 
@@ -221,7 +221,7 @@ ICO = {  # Lucide
     "down": '<path d="M12 5v14m-6-6 6 6 6-6"/>',
     "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
 }
-SITE_LINKS = [("index.html", "דף הבית", "home"), ("service.html", "הקורס", "play"), ("guide-1.html", "המדריך", "book"), ("work.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
+SITE_LINKS = [("index.html", "דף הבית", "home"), ("course.html", "הקורס", "play"), ("guide-1.html", "המדריך", "book"), ("skills.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
 
 THEME_HEAD = """<script>(function(){var m='light';try{m=localStorage.getItem('theme')||'light'}catch(e){}if(window.self!==window.top)m='light';
 var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>"""
@@ -328,7 +328,7 @@ def build_chapter(n, lead, rows, note, extra="", flow="", top=""):
     nxt = f' data-next="guide-{n + 1}"' if (n + 1) in READY else ""
     last = n == len(CHAPTERS)
     if last:
-        nxt = ' data-next="service.html"'
+        nxt = ' data-next="course.html"'
     body = f'''<div class="ds-app">
         {sidebar(n)}
         <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
@@ -687,7 +687,7 @@ build_chapter(
      ("סיסמאות לא נכנסות לאתר", "מבקשים מקלוד לשמור אותן בצד, ולא בתוך הקוד"),
      ],
     "אלה ההרגלים. השאר קלוד עושה",
-    extra='\n                <div class="note-box key-box"><b>הכי חשוב:</b><span>לפני שהאתר עולה לאוויר, מריצים עליו את <a href="work-single.html">סקיל בדיקת האבטחה</a> שלנו. הוא מוצא פרצות ומסביר בעברית פשוטה מה לתקן.</span></div>',
+    extra='\n                <div class="note-box key-box"><b>הכי חשוב:</b><span>לפני שהאתר עולה לאוויר, מריצים עליו את <a href="skill-security.html">סקיל בדיקת האבטחה</a> שלנו. הוא מוצא פרצות ומסביר בעברית פשוטה מה לתקן.</span></div>',
 )
 
 
@@ -947,7 +947,7 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
         <section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
             <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
             <div><h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p></div>
-            <div class="a2-cta-btns"><a href="service.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
+            <div class="a2-cta-btns"><a href="course.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
         </div></section>
     </main>'''
     (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, "", title, lead, visual, main,
@@ -1039,7 +1039,7 @@ build_article(
                 ("פותחים חשבון GitHub", 'כאן נשמרים הפרויקטים'),
                 ("בונים פרויקט ראשון", 'כותבים בקשה ורואים אותו בונה'),
             ])}
-            <p class="more-link">מעדיפים וידאו? <a href="service.html">קורס קלוד קוד בעברית, בחינם</a>.</p>
+            <p class="more-link">מעדיפים וידאו? <a href="course.html">קורס קלוד קוד בעברית, בחינם</a>.</p>
 
             <h2>שאלות נפוצות</h2>
             {faq_html([
@@ -1104,7 +1104,7 @@ build_article(
             <h2>מה כן בחינם</h2>
             {rows_html([
                 ("קלוד הרגיל (הצ'אט)", "יש מסלול Free, אבל בלי קלוד קוד ועם מעט שימוש"),
-                ("הקורס והמדריך שלנו", '<a href="service.html">קורס קלוד קוד בעברית</a> ו<a href="guide-1.html">מדריך כתוב</a>, בחינם'),
+                ("הקורס והמדריך שלנו", '<a href="course.html">קורס קלוד קוד בעברית</a> ו<a href="guide-1.html">מדריך כתוב</a>, בחינם'),
                 ("GitHub", 'המקום שבו נשמרים הפרויקטים. <a href="guide-5.html">פותחים חשבון בחינם</a>'),
             ])}
             <p>קלוד קוד עצמו לא חינמי. מי שכותב "קלוד קוד בחינם" מתכוון בדרך כלל לצ'אט, ושם אי אפשר לבנות אתר שעובד.</p>
@@ -1131,7 +1131,7 @@ build_article(
                 ("מה קורה כשנגמרת המכסה?", "מחכים שהיא תתמלא מחדש, או עוברים למודל שצורך פחות, כמו Sonnet."),
                 ("משלמים בשקלים או בדולרים?", "המחירים של Anthropic בדולרים, וחברת האשראי ממירה אותם לשקלים."),
                 ("איך פותחים מנוי?", 'נרשמים ב-claude.ai ובוחרים Pro. יש מדריך צעד אחרי צעד <a href="guide-3.html">בפרק פתיחת החשבון</a>.'),
-                ("יש קורס קלוד קוד בחינם?", 'כן. <a href="service.html">הקורס שלנו</a> חינמי ובעברית. משלמים רק על המנוי של קלוד.'),
+                ("יש קורס קלוד קוד בחינם?", 'כן. <a href="course.html">הקורס שלנו</a> חינמי ובעברית. משלמים רק על המנוי של קלוד.'),
             ])}
             <p class="more-link">רוצים להבין קודם מה מקבלים? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a>.</p>
             <p class="art-src">מקורות: <a href="https://claude.com/pricing" target="_blank" rel="noopener">דף המחירים של Anthropic</a>, <a href="https://code.claude.com/docs/en/costs" target="_blank" rel="noopener">תיעוד העלויות של קלוד קוד</a>. נבדק ב-23 בנובמבר 2026.</p>'''
@@ -1239,7 +1239,7 @@ def build_soon():
     import home_mint
     body = f'''    <div class="wrap full">
         <section class="c-hero a-hero">
-        {header("service.html")}
+        {header("course.html")}
         </section>
     </div>
     <main class="soon">
