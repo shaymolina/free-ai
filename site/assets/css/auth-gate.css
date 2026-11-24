@@ -87,6 +87,10 @@ html.ag-lock body > *:not(#ag) { filter: blur(2px); -webkit-filter: blur(2px); p
 .ag-out { display: block; width: 100%; margin-top: 10px; padding: 8px 10px; border: 1px solid #E6E5E3; border-radius: 8px; background: #fff; font: 500 13px 'Kobi', system-ui, sans-serif; color: #08090A; cursor: pointer; }
 .ag-out:hover { background: #F9F8F7; }
 .gh-in .ag-me { margin-inline-start: auto; }
+/* מחובר: בלי כפתור "התחל ללמוד", והתמונה באותו גודל כמו הלוגו */
+.gh:has(.ag-me) .gh-btn { display: none !important; }
+.ag-av { transition: width .6s cubic-bezier(.2, 1.18, .32, 1), height .6s cubic-bezier(.2, 1.18, .32, 1); }
+@media (min-width: 992px) { .gh.is-pill .ag-av { width: 30px; height: 30px; line-height: 28px; } }
 
 @media (prefers-reduced-motion: reduce) { #ag, .ag-card { transition: none; } .ag-btn.is-busy::after { animation-duration: 2s; } }
 

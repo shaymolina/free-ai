@@ -45,10 +45,10 @@ def header_html(slug):
             '<header class="gh" id="gh"><div class="gh-in">'
             '<a class="gh-logo" href="/" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>'
             f'<nav class="gh-nav" aria-label="ניווט ראשי">{nav}</nav>'
-            '<a class="gh-btn" href="course">התחל ללמוד</a>'
+            '<a class="gh-btn" href="guide-1">התחל ללמוד</a>'
             '<button class="gh-burger" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="gh-m">'
             '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>'
-            f'</div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden>{mob}<a class="gh-btn" href="course">התחל ללמוד</a></nav></header>'
+            f'</div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden>{mob}<a class="gh-btn" href="guide-1">התחל ללמוד</a></nav></header>'
             f'<script src="assets/js/site-header.js?v={v}" defer></script>{END}')
 
 
