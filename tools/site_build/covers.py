@@ -50,6 +50,36 @@ def page(bg, hi, lo, inner):
             f'<body style="--bg:{bg};--hi:{hi};--lo:{lo}"><div class="bg"></div>{strings}{inner}</body></html>')
 
 
+FLAT = """
+.flat { position: absolute; background: #fff; color: #08090A; border-radius: 14px; padding: 22px 24px; width: 400px; }
+.flat .q { font-size: 14px; color: #66686C; margin-bottom: 6px; }
+.flat .p { font-size: 22px; font-weight: 700; line-height: 1.3; padding-bottom: 16px; border-bottom: 1px solid #E6E5E3; margin-bottom: 6px; }
+.flat .r { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #F1F0EE; font-size: 16px; font-weight: 600; }
+.flat .r:last-child { border-bottom: 0; padding-bottom: 0; }
+.flat .r i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.flat .r em { margin-inline-start: auto; font-style: normal; font-size: 14px; font-weight: 600; color: #66686C; direction: ltr; }
+"""
+
+SEC_PANEL = """<div class="q">אתם כותבים</div><div class="p">תבדוק לי את האבטחה של האתר</div>
+<div class="r"><i style="background:#D64545"></i>מפתח סודי חשוף בקוד<em>לתקן עכשיו</em></div>
+<div class="r"><i style="background:#E0952B"></i>אין הגבלה על ניסיונות כניסה<em>בקרוב</em></div>
+<div class="r"><i style="background:#3E9B5F"></i>חיבור מוצפן<em>תקין</em></div>"""
+
+SPEED_PANEL = """<div class="q">אתם כותבים</div><div class="p">האתר שלי איטי, תבדוק</div>
+<div class="r"><i style="background:#D64545"></i>תמונות כבדות בעמוד הבית<em>-2.4s</em></div>
+<div class="r"><i style="background:#E0952B"></i>השרת רחוק מישראל<em>-0.8s</em></div>
+<div class="r"><i style="background:#E0952B"></i>פונט נטען לפני הטקסט<em>-0.4s</em></div>"""
+
+
+def skill_page(bg, panel, wide=False):
+    w, h = (1080, 520) if wide else (680, 590)
+    pos = "top:50%;right:90px;transform:translateY(-50%)" if wide else "top:64px;right:48px"
+    strings = home_mint.art_strings("s", "#FFFFFF")
+    return (f'<!doctype html><html lang="he"><head><meta charset="utf-8"><style>{CSS}{FLAT}'
+            f'html,body{{width:{w}px;height:{h}px}} .art-str{{opacity:.35}}</style></head>'
+            f'<body style="background:{bg}" data-size="{w}x{h}">{strings}<div class="flat" style="{pos}">{panel}</div></body></html>')
+
+
 COVERS = {
     # מה זה קלוד קוד: הודעה בעברית → אתר שנבנה
     "article-what-is-claude-code": page("#5C1E0F", "#C8553A", "#2A0C05", f"""
@@ -104,44 +134,17 @@ COVERS = {
 </div>
 <div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>Max ‏$100 · Ultra ‏$200</div>
 """),
-    # סקיל: בדיקת אבטחה – דוח אדום/כתום/ירוק
-    "work-single": page("#0F4A3A", "#2E9B78", "#06261D", """
-<div class="blob" style="width:260px;height:260px;background:#5FD3A8;top:40px;right:50px"></div>
-<div class="blob" style="width:200px;height:200px;background:#E6BB35;bottom:30px;left:60px;opacity:.3"></div>
-<div class="glass" style="top:60px;right:48px;width:340px">
-  <div class="lab">אתם כותבים</div>
-  <div class="big">תבדוק לי את האבטחה של האתר</div>
-</div>
-<div class="glass" style="top:220px;left:44px;width:360px">
-  <div class="lab">הדוח</div>
-  <div class="row"><i style="background:#FF8A8A"></i>מפתח סודי חשוף בקוד</div>
-  <div class="row"><i style="background:#FFC872"></i>אין הגבלה על ניסיונות כניסה</div>
-  <div class="row"><i style="background:#9EF0B0"></i>חיבור מוצפן</div>
-</div>
-<div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>34 בדיקות</div>
-"""),
-    # סקיל: בדיקת מהירות – שניות שנחסכות
-    "work-site-speed": page("#2B2A8C", "#6D63E8", "#121150", """
-<div class="blob" style="width:260px;height:260px;background:#8F86FF;top:30px;right:40px"></div>
-<div class="blob" style="width:220px;height:220px;background:#F0A27F;bottom:20px;left:50px;opacity:.3"></div>
-<div class="glass" style="top:60px;right:48px;width:300px">
-  <div class="lab">חוסכים בזמן טעינה</div>
-  <div style="font-size:60px;font-weight:900;line-height:1;direction:ltr;text-align:end">-3.6s</div>
-</div>
-<div class="glass" style="top:230px;left:44px;width:360px">
-  <div class="lab">מה לתקן קודם</div>
-  <div class="row" style="justify-content:space-between"><span>תמונות כבדות</span><span style="direction:ltr">-2.4s</span></div>
-  <div class="row" style="justify-content:space-between"><span>השרת רחוק מישראל</span><span style="direction:ltr">-0.8s</span></div>
-  <div class="row" style="justify-content:space-between"><span>פונט נטען לאט</span><span style="direction:ltr">-0.4s</span></div>
-</div>
-<div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>69 בדיקות</div>
-"""),
+    # סקילים: עיצוב שטוח לפי חוקי docs/design-anti-slop.md – צבע מותג אחיד, חוטים לבנים, לוח לבן אחד, בלי זכוכית ובלי טשטוש
+    "work-single": skill_page("#5C1E0F", SEC_PANEL),
+    "work-site-speed": skill_page("#B5583A", SPEED_PANEL),
+    "work-single-wide": skill_page("#5C1E0F", SEC_PANEL, wide=True),
+    "work-site-speed-wide": skill_page("#B5583A", SPEED_PANEL, wide=True),
 }
 
 SHOT = """
 const {chromium}=require('playwright');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:680,height:590},deviceScaleFactor:2});
-for(const [src,dst] of JSON.parse(process.argv[2])){await p.goto('file://'+src);await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(200);await p.screenshot({path:dst});}
+for(const [src,dst,w,h] of JSON.parse(process.argv[2])){await p.setViewportSize({width:w,height:h});await p.goto('file://'+src);await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(200);await p.screenshot({path:dst});}
 await b.close();})();
 """
 
@@ -156,10 +159,11 @@ def build(only=None):
         if only and name not in only:
             continue
         (tmp / f"{name}.html").write_text(html)
-        jobs.append([str(tmp / f"{name}.html"), str(tmp / f"{name}.png")])
+        w, h = (1080, 520) if name.endswith("-wide") else (680, 590)
+        jobs.append([str(tmp / f"{name}.html"), str(tmp / f"{name}.png"), w, h])
     (tmp / "shot.js").write_text(SHOT)
     subprocess.run(["node", str(tmp / "shot.js"), json.dumps(jobs)], check=True)
-    for src, png in jobs:
+    for src, png, *_ in jobs:
         name = Path(src).stem
         Image.open(png).convert("RGB").save(OUT / f"{name}.webp", quality=86, method=6)
         print(f"cover {name}.webp")

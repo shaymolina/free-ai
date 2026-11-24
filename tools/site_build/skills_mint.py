@@ -88,7 +88,7 @@ def cards(items):
 
 
 def shot(src, alt):
-    return f'<div class="fshot"><img src="assets/images/guide/{src}" alt="{alt}" loading="lazy"></div>'
+    return f'<img class="sk-st-img" src="assets/images/guide/{src}" alt="{alt}" loading="lazy">'
 
 
 INSTALL = [
@@ -104,9 +104,8 @@ def install_html():
     out = []
     for k, (t, paras, img) in enumerate(INSTALL, 1):
         body = "".join(f"<p>{x}</p>" for x in paras)
-        out.append(f'<li class="fstep"><div class="ftext"><span class="tile">{k}</span><div><h3>{t}</h3>{body}</div></div>'
-                   f'{shot(*img) if img else ""}</li>')
-    return f'<ol class="flow">{"".join(out)}</ol>'
+        out.append(f'<li><div class="sk-st-t"><h3>{k}. {t}</h3>{body}</div>{shot(*img) if img else ""}</li>')
+    return f'<ol class="sk-steps">{"".join(out)}</ol>'
 
 
 def faq_html():
@@ -118,7 +117,7 @@ CTA = """<section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
             <div class="a2-cta-btns"><a href="guide-14.html" class="a2-btn">לפרק על סקילים</a><a href="service.html" class="a2-btn ghost">לקורס החינמי</a></div>
         </div></section>"""
 
-HERO_SHOT = '<img class="sk-shot" src="assets/images/guide/settings-skills.png" alt="מסך הסקילים בהגדרות של Claude" decoding="async">'
+HERO_SHOT = '<img class="sk-full shot" src="assets/images/skills/claude-plugins.webp" alt="מסך התוספות והסקילים ב-Claude" decoding="async">'
 
 SEARCH_JS = """<script>
 (function () {
@@ -147,7 +146,7 @@ def build_library():
             <p class="sk-empty" hidden>אין עדיין סקיל כזה. עוד סקילים בדרך.</p>
         </div></section>
         <div class="a2-band"><div class="a2-wrap"><div class="a2-body">
-            {sec(1, "איך מתקינים", install_html(), sub="שלושה צעדים, פחות מדקה.")}
+            {sec(1, "איך מתקינים", install_html())}
             {sec(2, "שאלות נפוצות", faq_html())}
         </div></div></div>
         {CTA}
@@ -163,8 +162,7 @@ def build_library():
 
 
 def build_skill(s):
-    checks = '<ul class="rows">' + "".join(f'<li class="row"><span class="tile">{i}</span>{t}<small>{x}</small></li>'
-                                           for i, (t, x) in enumerate(s["checks"], 1)) + '</ul>'
+    checks = '<dl class="sk-dl">' + "".join(f'<div><dt>{t}</dt><dd>{x}</dd></div>' for t, x in s["checks"]) + '</dl>'
     example = (f'<div class="tbl-wrap"><table class="tbl"><tbody>'
                f'<tr><td><b>כותבים ל-Claude</b></td><td>"{s["prompt"]}"</td></tr>'
                f'<tr><td><b>מקבלים</b></td><td>{s["result"]}</td></tr></tbody></table></div>')
@@ -178,13 +176,13 @@ def build_skill(s):
         <div class="a2-wrap"><div class="a2-body">
             {sec(1, "מה הסקיל בודק", checks)}
             {sec(2, "דוגמה", example)}
-            {sec(3, "הורדה והתקנה", dl, "download", sub="חינם. רוצים לראות מה יש בפנים לפני שמתקינים? כל הקוד פתוח ב-GitHub.")}
+            {sec(3, "הורדה והתקנה", dl, "download")}
         </div></div>
         {more}
         {CTA}
     </main>"""
     title, desc = s["seo"]
-    vis = f'<img class="sk-shot" src="{cover(s)}" alt="" decoding="async">'
+    vis = f'<img class="sk-full" src="{cover(s).replace(".webp", "-wide.webp")}" alt="" decoding="async">'
     html = home2.inner_page(title, desc, "", s["name"], s["desc"], vis, main,
                             btn2=("work.html", "לכל הסקילים", "box"), legacy_v=CSS_VERSION)
     html, n = re.subn(r'href="service"([^>]*>\s*)להתחיל ללמוד בחינם', r'href="#download"\1הורדה חינם', html, count=1)
