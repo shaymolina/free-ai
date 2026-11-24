@@ -373,7 +373,9 @@ def flow(steps):
     out = []
     for i, (title, text, img) in enumerate(steps, 1):
         if img.endswith(".mp4") and (SITE / "assets/images/guide" / img).exists():
-            shot = f'<div class="fshot"><video src="assets/images/guide/{img}" muted loop playsinline autoplay preload="metadata" aria-label="{title}"></video></div>'
+            import hashlib
+            ver = hashlib.md5((SITE / "assets/images/guide" / img).read_bytes()).hexdigest()[:8]
+            shot = f'<div class="fshot"><video src="assets/images/guide/{img}?v={ver}" muted loop playsinline autoplay preload="metadata" aria-label="{title}"></video></div>'
         elif (SITE / "assets/images/guide" / img).exists():
             shot = f'<div class="fshot"><img src="assets/images/guide/{img}" alt="{title}" loading="lazy"></div>'
         else:
