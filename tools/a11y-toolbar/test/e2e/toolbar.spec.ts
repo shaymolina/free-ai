@@ -50,7 +50,7 @@ const pickContrast = (page: Page, mode: string) =>
   page.locator('label.a11y-toolbar-radio', { has: control(page, `contrast-${mode}`) }).click();
 
 test.describe('floating button', () => {
-  test('is a blue circle with a white icon, 56px on desktop', async ({ page }) => {
+  test('is a blue circle with a white icon, 42px on desktop', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await openFixture(page);
     const button = page.locator('#a11y-toolbar-trigger');
@@ -59,20 +59,20 @@ test.describe('floating button', () => {
     expect(await css(page, '#a11y-toolbar-trigger svg', 'color')).toBe('rgb(255, 255, 255)');
     expect(await css(page, '#a11y-toolbar-trigger', 'border-radius')).toBe('9999px');
     const box = await button.boundingBox();
-    expect(box?.width).toBe(56);
-    expect(box?.height).toBe(56);
+    expect(box?.width).toBe(42);
+    expect(box?.height).toBe(42);
     expect(Math.round((box?.x ?? 0) + (box?.width ?? 0))).toBe(1280 - 16);
     expect(Math.round((box?.y ?? 0) + (box?.height ?? 0))).toBe(800 - 16);
     const icon = await page.locator('#a11y-toolbar-trigger svg').boundingBox();
-    expect(icon?.width).toBe(28);
+    expect(icon?.width).toBe(21);
   });
 
-  test('is 48px with a 24px icon on mobile', async ({ page }) => {
+  test('is 36px with an 18px icon on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 700 });
     await openFixture(page);
     const box = await page.locator('#a11y-toolbar-trigger').boundingBox();
-    expect(box?.width).toBe(48);
-    expect((await page.locator('#a11y-toolbar-trigger svg').boundingBox())?.width).toBe(24);
+    expect(box?.width).toBe(36);
+    expect((await page.locator('#a11y-toolbar-trigger svg').boundingBox())?.width).toBe(18);
   });
 
   test('shows a visible focus ring from the keyboard', async ({ page }) => {

@@ -90,7 +90,7 @@ footer.sf .sf-bot {
   line-height: 20px;
 }
 footer.sf .sf-copy { color: #71717A; }
-footer.sf .sf-top { font-weight: 500; margin-inline-end: 72px; } /* לא מתחת לכפתור הנגישות שבפינה השמאלית */
+footer.sf .sf-top { font-weight: 500; margin-inline-end: 56px; } /* לא מתחת לכפתור הנגישות שבפינה השמאלית */
 footer.sf .sf-top:hover { color: var(--sf-brand); }
 
 @media (max-width: 1023px) {

@@ -17,7 +17,7 @@
   --a11y-toolbar-radius: 16px;
   --a11y-toolbar-radius-sm: 10px;
   --a11y-toolbar-gap: 16px;
-  --a11y-toolbar-btn: 48px;
+  --a11y-toolbar-btn: 36px;
   --a11y-toolbar-font: system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
   position: fixed;
   inset: 0;
@@ -59,7 +59,7 @@
   }
 }
 @media (min-width: 768px) {
-  .a11y-toolbar-root { --a11y-toolbar-btn: 56px; }
+  .a11y-toolbar-root { --a11y-toolbar-btn: 42px; }
 }
 
 .a11y-toolbar-root *,
@@ -127,12 +127,12 @@
   box-shadow: 0 0 0 2px #fff;
 }
 .a11y-toolbar-root .a11y-toolbar-trigger-icon {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   display: block;
 }
 @media (min-width: 768px) {
-  .a11y-toolbar-root .a11y-toolbar-trigger-icon { width: 28px; height: 28px; }
+  .a11y-toolbar-root .a11y-toolbar-trigger-icon { width: 21px; height: 21px; }
 }
 .a11y-toolbar-root[data-a11y-toolbar-position^="bottom"] .a11y-toolbar-trigger { bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
 .a11y-toolbar-root[data-a11y-toolbar-position^="top"] .a11y-toolbar-trigger { top: calc(16px + env(safe-area-inset-top, 0px)); }
