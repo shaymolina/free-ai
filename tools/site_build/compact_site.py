@@ -990,7 +990,7 @@ def _write_article(name, title, desc, mins, body, seo_title, lead, visual, date)
         <section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
             <svg class="a2-cta-lines" viewBox="0 0 460 300" fill="none" aria-hidden="true" preserveAspectRatio="none">{_CTA_LINES}</svg>
             <div><h2>רוצים לבנות דברים כאלה בעצמכם?</h2><p>הקורס חינמי ובעברית, ולא צריך לדעת לתכנת.</p></div>
-            <div class="a2-cta-btns"><a href="course.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
+            <div class="a2-cta-btns"><a href="guide-1.html" class="a2-btn">להתחיל ללמוד בחינם</a><a href="guide-1.html" class="a2-btn ghost">למדריך הכתוב</a></div>
         </div></section>
     </main>'''
     (SITE / name).write_text(home2.inner_page(f"{seo_title or title} | Free AI", desc, "", title, lead, visual, main,

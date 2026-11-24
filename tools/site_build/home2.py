@@ -103,8 +103,9 @@ def do_hero(sec, n_ch):
     h1 = sec.find("h1"); put(h1, "קורס קלוד קוד בחינם ובעברית"); h1["class"] = h1.get("class", []) + ["m2-h1"]
     p = h1.find_next("p")
     put(p, 'קורס Claude Code למתחילים, בלי ידע בתכנות. <span class="font-medium text-text-main">שיעורי וידאו</span>, <span class="font-medium text-text-main">מדריך כתוב</span> ו<span class="font-medium text-text-main">סקילים</span>.')
-    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "course.html"
+    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "guide-1.html"
     a1.contents[0].replace_with("להתחיל ללמוד בחינם")
+    for k in ("target", "rel"): a1.attrs.pop(k, None)
     a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = "guide-1.html"
     put(a2, icon("book", "size-4 text-brand") + "למדריך הכתוב")
     a2.find_parent("div").find_next_sibling("div").decompose()  # בלי "מה צריך כדי להתחיל"
@@ -539,7 +540,7 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     tag.decompose()  # בלי תגית קטנה מעל הכותרת, אף פעם (בקשת בעל האתר). הפרמטר chip נשאר רק לתאימות.
     h = sec.find("h1"); put(h, h1); h["class"] = h.get("class", []) + ["m2-h1", "m2-h1-wrap"]
     put(h.find_next("p"), lead)
-    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "course.html"
+    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "guide-1.html"
     a1.contents[0].replace_with("להתחיל ללמוד בחינם")
     for k in ("target", "rel"): a1.attrs.pop(k, None)
     a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = btn2[0]
