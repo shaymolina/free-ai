@@ -141,16 +141,23 @@
       var rtl = getComputedStyle(view).direction === 'rtl';
       ['mouseenter', 'focusin'].forEach(function (e) { view.addEventListener(e, function () { paused = true; }); });
       ['mouseleave', 'focusout'].forEach(function (e) { view.addEventListener(e, function () { paused = false; }); });
+      /* הרוחב נמדד רק כשהגודל משתנה, והתנועה עוצרת כשהפס מחוץ למסך */
+      var w = track.firstElementChild.offsetWidth, on = false;
+      if ('ResizeObserver' in window) new ResizeObserver(function () { w = track.firstElementChild.offsetWidth || w; }).observe(track.firstElementChild);
       function step(t) {
+        if (!on) { last = 0; return; }
         var dt = last ? Math.min(t - last, 50) : 16; last = t;
-        if (!paused) {
-          var w = track.firstElementChild.offsetWidth;
+        if (!paused && w) {
           x = (x + dt * .035) % w;  /* זז משמאל לימין */
           track.style.transform = 'translate3d(' + (rtl ? x : x - w) + 'px,0,0)';
         }
         requestAnimationFrame(step);
       }
-      requestAnimationFrame(step);
+      new IntersectionObserver(function (es) {
+        var v = es[0].isIntersecting;
+        if (v && !on) { on = true; requestAnimationFrame(step); }
+        if (!v) on = false;
+      }, { rootMargin: '10% 0px' }).observe(view);
     });
   }
 
