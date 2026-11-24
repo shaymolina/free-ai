@@ -50,34 +50,26 @@ def page(bg, hi, lo, inner):
             f'<body style="--bg:{bg};--hi:{hi};--lo:{lo}"><div class="bg"></div>{strings}{inner}</body></html>')
 
 
-FLAT = """
-.flat { position: absolute; background: #fff; color: #08090A; border-radius: 14px; padding: 22px 24px; width: 400px; }
-.flat .q { font-size: 14px; color: #66686C; margin-bottom: 6px; }
-.flat .p { font-size: 22px; font-weight: 700; line-height: 1.3; padding-bottom: 16px; border-bottom: 1px solid #E6E5E3; margin-bottom: 6px; }
-.flat .r { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #F1F0EE; font-size: 16px; font-weight: 600; }
-.flat .r:last-child { border-bottom: 0; padding-bottom: 0; }
-.flat .r i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
-.flat .r em { margin-inline-start: auto; font-style: normal; font-size: 14px; font-weight: 600; color: #66686C; direction: ltr; }
-"""
-
-SEC_PANEL = """<div class="q">אתם כותבים</div><div class="p">תבדוק לי את האבטחה של האתר</div>
-<div class="r"><i style="background:#D64545"></i>מפתח סודי חשוף בקוד<em>לתקן עכשיו</em></div>
-<div class="r"><i style="background:#E0952B"></i>אין הגבלה על ניסיונות כניסה<em>בקרוב</em></div>
-<div class="r"><i style="background:#3E9B5F"></i>חיבור מוצפן<em>תקין</em></div>"""
-
-SPEED_PANEL = """<div class="q">אתם כותבים</div><div class="p">האתר שלי איטי, תבדוק</div>
-<div class="r"><i style="background:#D64545"></i>תמונות כבדות בעמוד הבית<em>-2.4s</em></div>
-<div class="r"><i style="background:#E0952B"></i>השרת רחוק מישראל<em>-0.8s</em></div>
-<div class="r"><i style="background:#E0952B"></i>פונט נטען לפני הטקסט<em>-0.4s</em></div>"""
+SEC_ROWS = [("#FF9A8A", "מפתח סודי חשוף בקוד", "לתקן עכשיו"), ("#FFD08A", "אין הגבלה על ניסיונות כניסה", "בקרוב"), ("#A8F0BE", "חיבור מוצפן", "תקין")]
+SPEED_ROWS = [("#FF9A8A", "תמונות כבדות בעמוד הבית", "-2.4s"), ("#FFD08A", "השרת רחוק מישראל", "-0.8s"), ("#FFD08A", "פונט נטען לפני הטקסט", "-0.4s")]
 
 
-def skill_page(bg, panel, wide=False):
+def skill_page(bg, hi, lo, prompt, rows, wide=False):
+    """שער של סקיל: אותו סגנון כמו שערי המאמרים (רקע בצבעי המותג, חוטים, לוחות זכוכית)."""
     w, h = (1080, 520) if wide else (680, 590)
-    pos = "top:50%;right:90px;transform:translateY(-50%)" if wide else "top:64px;right:48px"
-    strings = home_mint.art_strings("s", "#FFFFFF")
-    return (f'<!doctype html><html lang="he"><head><meta charset="utf-8"><style>{CSS}{FLAT}'
-            f'html,body{{width:{w}px;height:{h}px}} .art-str{{opacity:.35}}</style></head>'
-            f'<body style="background:{bg}" data-size="{w}x{h}">{strings}<div class="flat" style="{pos}">{panel}</div></body></html>')
+    rr = "".join(f'<div class="row" style="justify-content:space-between"><span style="display:flex;align-items:center;gap:10px">'
+                 f'<span style="width:9px;height:9px;border-radius:50%;background:{c}"></span>{t}</span>'
+                 f'<span style="opacity:.85;direction:ltr">{m}</span></div>' for c, t, m in rows)
+    if wide:
+        a = 'top:70px;right:80px;width:380px'; b = 'top:205px;right:300px;width:400px'
+    else:
+        a = 'top:60px;right:48px;width:340px'; b = 'top:230px;left:44px;width:390px'
+    inner = (f'<div class="blob" style="width:280px;height:280px;background:{hi};top:30px;right:60px"></div>'
+             f'<div class="blob" style="width:220px;height:220px;background:#E6BB35;bottom:20px;left:80px;opacity:.3"></div>'
+             f'<div class="glass" style="{a}"><div class="lab">אתם כותבים</div><div class="big">{prompt}</div></div>'
+             f'<div class="glass" style="{b}"><div class="lab">הדוח</div>{rr}</div>')
+    html = page(bg, hi, lo, inner)
+    return html.replace("<style>", f"<style>html,body{{width:{w}px!important;height:{h}px!important}}", 1)
 
 
 COVERS = {
@@ -134,11 +126,11 @@ COVERS = {
 </div>
 <div class="glass chip" style="bottom:46px;right:48px"><span class="dot"></span>Max ‏$100 · Ultra ‏$200</div>
 """),
-    # סקילים: עיצוב שטוח לפי חוקי docs/design-anti-slop.md – צבע מותג אחיד, חוטים לבנים, לוח לבן אחד, בלי זכוכית ובלי טשטוש
-    "skill-security": skill_page("#5C1E0F", SEC_PANEL),
-    "skill-site-speed": skill_page("#B5583A", SPEED_PANEL),
-    "skill-security-wide": skill_page("#5C1E0F", SEC_PANEL, wide=True),
-    "skill-site-speed-wide": skill_page("#B5583A", SPEED_PANEL, wide=True),
+    # סקילים: כמו שערי המאמרים, בצבעי המותג
+    "work-single": skill_page("#5C1E0F", "#C8553A", "#2A0C05", "תבדוק לי את האבטחה של האתר", SEC_ROWS),
+    "work-site-speed": skill_page("#9A3B22", "#E08A63", "#4A170A", "האתר שלי איטי, תבדוק", SPEED_ROWS),
+    "work-single-wide": skill_page("#5C1E0F", "#C8553A", "#2A0C05", "תבדוק לי את האבטחה של האתר", SEC_ROWS, wide=True),
+    "work-site-speed-wide": skill_page("#9A3B22", "#E08A63", "#4A170A", "האתר שלי איטי, תבדוק", SPEED_ROWS, wide=True),
 }
 
 SHOT = """
