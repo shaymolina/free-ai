@@ -72,7 +72,7 @@ def sec(k, title, body, sid=None, sub=""):
 
 
 def cover(s):
-    return "assets/images/articles/" + s["page"].removesuffix(".html") + ".webp?v=2"
+    return "assets/images/articles/" + s["page"].removesuffix(".html") + ".webp?v=3"
 
 
 def card(s, k=0):
