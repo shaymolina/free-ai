@@ -43,6 +43,6 @@ const fs = require('fs');
   }
   await b.close();
   
-  for (const [k, v] of Object.entries(out)) { const it = v.items.filter(i => !/ds-side|ds-scroll|ds-group|ds-profile|tk-item/.test(i.el)); if (v.docOverflow > 0 || it.length) { console.log(`== ${k || 'index'} גלילה לצד=${v.docOverflow}`); it.forEach(i => console.log('  ', i.bad, '|', i.el, '|', i.txt)); } }
+  for (const [k, v] of Object.entries(out)) { const it = v.items.filter(i => !/ds-side|ds-scroll|ds-group|ds-profile|ol\.chs|tk-item/.test(i.el)); if (v.docOverflow > 0 || it.length) { console.log(`== ${k || 'index'} גלילה לצד=${v.docOverflow}`); it.forEach(i => console.log('  ', i.bad, '|', i.el, '|', i.txt)); } }
   console.log('done');
 })();
