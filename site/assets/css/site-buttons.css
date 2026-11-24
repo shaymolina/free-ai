@@ -30,3 +30,5 @@ html body :is(.gh-btn, a[data-slot="button"].bg-background-invert, .a2-btn, .btn
 @media (prefers-reduced-motion: reduce) {
   html body :is(.gh-btn, a[data-slot="button"].bg-background-invert, .a2-btn, .btn, .btn-2, .btn-brand, .btn-primary, a.border-border-sub.bg-background-main) { transition: none !important; }
 }
+/* בהדר המכווץ: הפינות השמאליות של הכפתור מעוגלות כמו קצה ההדר */
+@media (min-width: 992px) { html body .gh.is-pill .gh-in > .gh-btn { border-radius: 8px 8px 8px 8px !important; border-top-left-radius: 15px !important; border-bottom-left-radius: 15px !important; } }
