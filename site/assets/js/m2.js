@@ -423,9 +423,14 @@
         rive.RuntimeLoader.setWasmUrl('assets/rive/rive.wasm');
         var mobile = matchMedia('(max-width: 767px)').matches;
         cvs.forEach(function (cv) {
-          var src = mobile && cv.dataset.riveM ? cv.dataset.riveM : cv.dataset.rive, hov = null, want = false;
+          /* בטלפון: "רעיון בבוקר" מקבל את הגרסה הרחבה, מוקטנת כך שכל ההדגמה נכנסת לכרטיס (הקווים בצדדים נחתכים) */
+          var wide = mobile && /build-on-top/.test(cv.dataset.rive);
+          if (wide) { cv.classList.remove('inset-0', 'size-full'); cv.style.cssText = 'position:absolute;top:40%;transform:translateY(-50%);width:150%;left:-25%;height:auto;aspect-ratio:1055/412;-webkit-mask-image:linear-gradient(#0000,#000 18%,#000 82%,#0000);mask-image:linear-gradient(#0000,#000 18%,#000 82%,#0000)'; }
+          /* בטלפון: בכרטיסים שההדגמה בהם יוצאת מהקצה הימני, ההדגמה נגמרת בדעיכה רכה בתוך הכרטיס */
+          if (mobile && /control-who|collaborate/.test(cv.dataset.rive)) { cv.classList.remove('inset-0', 'size-full'); cv.style.cssText = 'position:absolute;top:0;left:0;height:100%;width:88%;-webkit-mask-image:linear-gradient(to left,#0000,#000 14%);mask-image:linear-gradient(to left,#0000,#000 14%)'; }
+          var src = mobile && cv.dataset.riveM && !wide ? cv.dataset.riveM : cv.dataset.rive, hov = null, want = false;
           var r = new rive.Rive({ src: src, canvas: cv, stateMachines: 'State Machine 1', autoplay: !reduce, autoBind: true, shouldDisableRiveListeners: true,
-            layout: new rive.Layout({ fit: rive.Fit.Cover, alignment: rive.Alignment.Center }),
+            layout: new rive.Layout({ fit: wide ? rive.Fit.Contain : mobile ? rive.Fit.FitWidth : rive.Fit.Cover, alignment: rive.Alignment.Center }),
             onLoad: function () {
               r.resizeDrawingSurfaceToCanvas(); cv._rive = r; cv.dispatchEvent(new Event('riveload'));
               var vm = r.viewModelInstance;

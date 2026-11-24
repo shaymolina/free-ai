@@ -102,3 +102,7 @@ a:hover .m2-card-ic{transform:translateY(-2px)}
 @media (max-width: 380px) { .m2-tools .tool-logo, .m2-tools > :nth-child(-n+5) .tool-logo { transform: scale(.78); } }
 /* 4 כלים בשורה במסך בינוני (טאבלט/מחשב קטן): הלוגו לא נוגע בשולי הכרטיס */
 @media (min-width: 40rem) and (max-width: 79.99rem) { .m2-tools .tool-logo, .m2-tools > :nth-child(-n+5) .tool-logo { transform: scale(.84); } }
+/* טלפון: כרטיס אחד שלם בקרוסלה, בלי כרטיס חתוך בצד */
+@media (max-width: 39.99rem) { [data-track] > [data-slot="carousel-item"] { width: 100% !important; } }
+/* טלפון: התצוגה של המדריך בפתיחה נכנסת כולה לרוחב המסך */
+@media (max-width: 39.99rem) { .w-\[587px\] { width: 100% !important; } }
