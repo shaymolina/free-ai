@@ -10,8 +10,8 @@ SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sit
 START, END = "<!-- site-footer -->", "<!-- /site-footer -->"
 
 GUIDE = [("guide-1", "לפני שמתחילים"), ("guide-3", "פותחים חשבון קלוד"), ("guide-5", "פותחים GitHub"),
-         ("guide-7", "היכרות ראשונה עם קלוד"), ("guide-18", "מעלים לאוויר")]
-TOOLS = [("guide-4", "Claude Code"), ("guide-13", "Connectors"), ("guide-14", "Skills"), ("guide-18", "4CODE")]
+         ("guide-7", "היכרות ראשונה עם קלוד"), ("guide-19", "מעלים לאוויר")]
+TOOLS = [("guide-4", "Claude Code"), ("guide-13", "Connectors"), ("guide-14", "Skills"), ("guide-19", "4CODE")]
 LEARN = [("course", "הקורס"), ("guide-1", "המדריך"), ("skills", "סקילים"), ("articles", "מאמרים")]
 INFO = [("privacy", "פרטיות"), ("terms", "תנאי שימוש"), ("accessibility", "נגישות")]
 
