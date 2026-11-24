@@ -43,8 +43,8 @@
 | מה זה MCP / קונקטורים בקלוד | /guide-13 |
 | מה זה סקילים בקלוד / Claude Skills | /guide-14, /skills |
 | פלאגינים לקלוד קוד | /guide-15 |
-| איך לכתוב פרומפט לקלוד | /guide-16 |
-| לבנות אתר בלי לדעת לתכנת | /guide-17, /guide-18 |
+| איך לכתוב פרומפט לקלוד | /guide-17 |
+| לבנות אתר בלי לדעת לתכנת | /guide-18, /guide-19 |
 | גיבוי GitHub לגוגל דרייב | /article-github-backup |
 
 ## נתוני Google Keyword Planner (ישראל, 2026-11-18)
