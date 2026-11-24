@@ -133,6 +133,65 @@ COVERS = {
     "skill-site-speed-wide": skill_page("#1F2766", "#5462D8", "#0D1238", "האתר שלי איטי, תבדוק", SPEED_ROWS, wide=True),
 }
 
+
+
+# ---------------------------------------------------------------- שערים בסגנון כרטיסי "לומדים" בדף הבית:
+# כל שער צבע אחר וציור קווים אחר, בלי לוחות ובלי טקסט (הכותרת יושבת על הכרטיס עצמו).
+import math as _m
+
+
+def _poly(fn, w, h, steps=80):
+    pts = []
+    for j in range(steps + 1):
+        u = j / steps
+        x, y = fn(u)
+        pts.append(f"{x * w:.1f} {y * h:.1f}")
+    return "M " + " L ".join(pts)
+
+
+def _bundle(n, line, w, h):
+    """n קווים; line(t, u) מחזיר נקודה (x, y) בין 0 ל-1, t בין -0.5 ל-0.5."""
+    return "".join(f'<path d="{_poly(lambda u, t=i / (n - 1) - .5: line(t, u), w, h)}"/>' for i in range(n))
+
+
+PATTERNS = {
+    # מניפה: קווים שיורדים מלמעלה ומתכנסים לפינה
+    "fan": lambda t, u: (0.38 + 0.5 * t * (1 - u) ** 1.6 + 0.62 * u ** 1.4, -0.05 + 1.1 * u + 0.08 * t * (1 - u)),
+    # שדה: קווים מקבילים וגליים על כל השטח
+    "field": lambda t, u: (-0.05 + 1.1 * u, 0.5 + 1.4 * t + 0.07 * _m.sin(2 * _m.pi * (u * 1.15 + t * 0.6))),
+    # סחיפה: צרור רוחבי שמתכנס באמצע
+    "sweep": lambda t, u: (-0.05 + 1.1 * u, 0.42 + 0.18 * _m.sin(_m.pi * u * 1.3) + t * (0.55 * abs(u - 0.55) + 0.03)),
+    # אס: צרור שעולה מהפינה התחתונה לפינה העליונה
+    "s": lambda t, u: (-0.05 + 1.1 * u, 1.0 - u + 0.16 * _m.sin(2 * _m.pi * u) + t * (0.08 + 0.5 * u ** 2)),
+    # שעון חול: קווים שנפרשים למעלה ולמטה ונפגשים באמצע
+    "hourglass": lambda t, u: (0.5 + 0.06 * _m.sin(_m.pi * u * 2) + t * 1.4 * abs(u - 0.5) ** 1.2 + t * 0.02, -0.05 + 1.1 * u),
+}
+
+
+def art(bg, pattern, stroke="#FFFFFF", op=(.15, .7, .25), n=44, width=1.0, wide=False):
+    w, h = (1080, 520) if wide else (680, 590)
+    gid = "g"
+    lines = _bundle(n, PATTERNS[pattern], w, h)
+    a, b, c = op
+    return (f'<!doctype html><html><head><meta charset="utf-8"><style>*{{margin:0}}html,body{{width:{w}px;height:{h}px;overflow:hidden;background:{bg}}}</style></head><body>'
+            f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}"><defs><linearGradient id="{gid}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="{w}" y2="{h}">'
+            f'<stop offset="0" stop-color="{stroke}" stop-opacity="{a}"/><stop offset=".5" stop-color="{stroke}" stop-opacity="{b}"/>'
+            f'<stop offset="1" stop-color="{stroke}" stop-opacity="{c}"/></linearGradient></defs>'
+            f'<g fill="none" stroke="url(#{gid})" stroke-width="{width}">{lines}</g></svg></body></html>')
+
+
+ART = {
+    "article-what-is-claude-code": dict(bg="#FF4300", pattern="fan", stroke="#FFE08A"),
+    "article-github-backup": dict(bg="#4BE3AC", pattern="field", stroke="#0B5A3E", op=(.35, .45, .35), n=40, width=.9),
+    "article-claude-code-price": dict(bg="linear-gradient(160deg,#A8261C,#7E140E)", pattern="sweep", op=(.05, .5, .15)),
+    "skill-security": dict(bg="linear-gradient(160deg,#103B2C,#071E16)", pattern="s", op=(.1, .75, .2)),
+    "skill-site-speed": dict(bg="linear-gradient(150deg,#FF2D55,#E83EC2 55%,#7C6CF2)", pattern="hourglass", op=(.6, .25, .6)),
+}
+for _k, _v in ART.items():
+    COVERS[_k] = art(**_v)
+    if _k.startswith("skill-"):
+        COVERS[_k + "-wide"] = art(**_v, wide=True)
+
 SHOT = """
 const {chromium}=require('playwright');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:680,height:590},deviceScaleFactor:2});
@@ -164,7 +223,7 @@ def build(only=None):
 def cover(href):
     """הנתיב לתמונת השער של מאמר (או None אם אין)."""
     name = href.removesuffix(".html")
-    return f"assets/images/articles/{name}.webp" if (OUT / f"{name}.webp").exists() else None
+    return f"assets/images/articles/{name}.webp?v=4" if (OUT / f"{name}.webp").exists() else None
 
 
 if __name__ == "__main__":
