@@ -71,7 +71,7 @@ def zip_url(src):
 
 def sec(k, title, body, sid=None):
     return (f'<section class="a2-sec"{f" id={chr(34)}{sid}{chr(34)}" if sid else ""}>'
-            f'<div class="a2-head"><span class="a2-num" aria-hidden="true">{k:02d}</span><h2>{title}</h2></div>{body}</section>')
+            f'<div class="a2-head"><span class="a2-num" aria-hidden="true">{k:02d}</span>{f"<h2>{title}</h2>" if title else ""}</div>{body}</section>')
 
 
 def steps_html():
@@ -89,18 +89,28 @@ def example(s):
             f'<div class="sk-ex-c dark"><small>מקבלים</small><b>{s["result"]}</b></div></div>')
 
 
+ICO = {
+    "אבטחה": '<path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/>',
+    "ביצועים": '<path d="M4 15a8 8 0 1 1 16 0"/><path d="m12 15 4-5"/><circle cx="12" cy="15" r="1.2"/>',
+}
+
+
+def ico(cat):
+    return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICO[cat]}</svg>'
+
+
 def card(s):
-    return (f'<article class="sk-card" data-cat="{s["cat"]}" data-search="{s["name"]} {s["cat"]} {s["desc"]}">'
-            f'<span class="sk-tag">{s["cat"]}</span><h3><a href="{s["page"]}">{s["name"]}</a></h3><p>{s["desc"]}</p>'
-            f'<div class="sk-say"><small>כותבים ל-Claude</small>"{s["prompt"]}"</div>'
-            f'<div class="sk-btns"><a href="{s["page"]}" class="a2-btn">לפרטים והורדה</a>'
-            f'<a href="{s["src"]}" class="a2-btn ghost" target="_blank" rel="noopener">קוד המקור</a></div></article>')
+    return (f'<a class="sk-card" href="{s["page"]}" data-search="{s["name"]} {s["cat"]} {s["desc"]}">'
+            f'<span class="sk-top"><span class="sk-ico">{ico(s["cat"])}</span><span class="sk-cat">{s["cat"]}</span></span>'
+            f'<h3>{s["name"]}</h3><p>{s["desc"]}</p>'
+            f'<span class="sk-say">"{s["prompt"]}"</span>'
+            f'<span class="sk-go">לפרטים והורדה <i aria-hidden="true">←</i></span></a>')
 
 
-CTA = '''<section class="a2-cta">
-                <h2>רוצים לבנות סקיל משלכם?</h2><p>במדריך יש פרק שלם על סקילים, ואיך Claude משתמש בהם.</p>
-                <div class="a2-cta-btns"><a href="guide-14.html" class="a2-btn">לפרק על סקילים</a><a href="service.html" class="a2-btn ghost">לקורס החינמי</a></div>
-            </section>'''
+CTA = '''<section class="a2-band a2-cta"><div class="a2-wrap a2-pad">
+            <div><h2>רוצים לבנות סקיל משלכם?</h2><p>במדריך יש פרק שלם על סקילים, ואיך Claude משתמש בהם.</p></div>
+            <div class="a2-cta-btns"><a href="guide-14.html" class="a2-btn">לפרק על סקילים</a><a href="service.html" class="a2-btn ghost">לקורס החינמי</a></div>
+        </div></section>'''
 
 
 def visual_chat(s, rows):
@@ -125,60 +135,91 @@ def library_visual():
     return visual_chat(s, VIS[s["page"]])
 
 
+# ---------------------------------------------------------------- 5 אפשרויות לאיור בפתיחה של work.html (בעל האתר בוחר)
+def vis_settings():
+    """1. מסך ההגדרות של Claude: רשימת סקילים עם מתגים שנדלקים."""
+    rows = "".join(f'<div class="v1-row"><span class="sk-ico">{ico(s["cat"])}</span><span><b>{s["short"]}</b><small>{s["cat"]}</small></span><i class="v1-sw"></i></div>' for s in SKILLS)
+    rows += '<div class="v1-row ghost"><span class="sk-ico">+</span><span><b>הסקיל הבא</b><small>בקרוב</small></span><i class="v1-sw off"></i></div>'
+    return f'<div class="ill v1" aria-hidden="true"><div class="v1-bar"><span></span><span></span><span></span><em>Claude · הגדרות</em></div><div class="v1-h">Skills <small>סקילים</small></div>{rows}</div>'
+
+
+def vis_zip():
+    """2. קובץ ZIP שנפתח ומראה את דף ההוראות שבתוכו."""
+    return ('<div class="ill v2" aria-hidden="true"><div class="v2-zip"><b>ZIP</b><span>website-security.zip</span></div>'
+            '<div class="v2-doc"><div class="v2-t">SKILL.md</div><div class="v2-l"><b>שם:</b> בדיקת אבטחה</div>'
+            '<div class="v2-l"><b>מתי להשתמש:</b> כשמבקשים לבדוק אבטחה של אתר</div><div class="v2-l"><b>מה לעשות:</b></div>'
+            '<div class="v2-l i">1. לעבור על 34 הבדיקות</div><div class="v2-l i">2. לסמן אדום, כתום, ירוק</div><div class="v2-l i">3. להסביר בעברית פשוטה</div></div></div>')
+
+
+def vis_compare():
+    """3. לפני ואחרי: פרומפט ארוך מול שורה אחת."""
+    return ('<div class="ill v3" aria-hidden="true"><div class="v3-c"><small>בלי סקיל</small><p>תבדוק את האתר שלי, תסתכל על המפתחות, על הכניסה, על ההרשאות, על הטפסים, על החיבור למסד הנתונים, ותכתוב לי דוח לפי דחיפות, ותסביר בעברית פשוטה, ו...</p></div>'
+            '<div class="v3-c hl"><small>עם סקיל</small><p><b>"תבדוק לי את האבטחה של האתר"</b></p><span class="v3-ok">✓ אותן 34 בדיקות, כל פעם</span></div></div>')
+
+
+def vis_orbit():
+    """4. Claude במרכז, והסקילים מסביבו כמו כלים בחגורה."""
+    plus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
+    names = [(s["short"], ico(s["cat"])) for s in SKILLS] + [("עוד בדרך", plus)]
+    pins = "".join(f'<div class="v4-p p{i}"><span class="sk-ico">{svg}</span>{n}</div>' for i, (n, svg) in enumerate(names))
+    return f'<div class="ill v4" aria-hidden="true"><svg class="v4-ring" viewBox="0 0 400 300"><ellipse cx="200" cy="150" rx="170" ry="115"/><ellipse cx="200" cy="150" rx="105" ry="70"/></svg><div class="v4-c">✦<b>Claude</b></div>{pins}</div>'
+
+
+def vis_shelf():
+    """5. מדף של קופסאות סקילים, אחת נשלפת."""
+    boxes = "".join(f'<div class="v5-b{" out" if i == 0 else ""}"><span class="sk-ico">{ico(s["cat"])}</span><b>{s["short"]}</b><small>{s["cat"]}</small></div>' for i, s in enumerate(SKILLS))
+    boxes += '<div class="v5-b soon"><b>בקרוב</b></div><div class="v5-b soon"><b>בקרוב</b></div>'
+    return f'<div class="ill v5" aria-hidden="true"><div class="v5-shelf">{boxes}</div><div class="v5-board"></div><div class="v5-cap">הורדה חינם · ZIP אחד · מתקינים בדקה</div></div>'
+
+
+VISUALS = [vis_settings, vis_zip, vis_compare, vis_orbit, vis_shelf]
+
+
 SEARCH_JS = '''<script>
 (function () {
-    var input = document.querySelector('.sk-search'), btns = document.querySelectorAll('.sk-filter [data-filter]');
-    var items = document.querySelectorAll('.sk-card'), empty = document.querySelector('.sk-empty'), cat = 'all';
+    var input = document.querySelector('.sk-search');
+    var items = document.querySelectorAll('.sk-card'), empty = document.querySelector('.sk-empty'), count = document.querySelector('.sk-count');
     if (!input) return;
     function run() {
         var q = (input.value || '').trim(), shown = 0;
         items.forEach(function (el) {
-            var ok = (cat === 'all' || el.dataset.cat === cat) && (!q || el.dataset.search.indexOf(q) !== -1);
+            var ok = !q || el.dataset.search.indexOf(q) !== -1;
             el.hidden = !ok; if (ok) shown++;
         });
         empty.hidden = shown > 0;
+        count.textContent = shown + ' סקילים';
     }
-    btns.forEach(function (b) {
-        b.addEventListener('click', function () {
-            btns.forEach(function (x) { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false'); });
-            b.classList.add('active'); b.setAttribute('aria-pressed', 'true'); cat = b.dataset.filter; run();
-        });
-    });
     input.addEventListener('input', run);
 })();
 </script>'''
 
 
-def build_library():
-    cats = []
-    for s in SKILLS:
-        if s["cat"] not in cats:
-            cats.append(s["cat"])
-    filt = '<button type="button" class="active" aria-pressed="true" data-filter="all">הכל</button>' + "".join(
-        f'<button type="button" aria-pressed="false" data-filter="{c}">{c}</button>' for c in cats)
-    tools = (f'<div class="sk-tools"><input type="search" class="sk-search" placeholder="חיפוש סקיל, למשל: אבטחה" aria-label="חיפוש סקיל">'
-             f'<div class="sk-filter" role="group" aria-label="קטגוריות">{filt}</div></div>')
+def build_library(visual=None, out="work.html"):
+    tools = ('<div class="sk-tools"><label class="sk-find"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">'
+             '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'
+             '<input type="search" class="sk-search" placeholder="חיפוש סקיל, למשל: אבטחה" aria-label="חיפוש סקיל"></label>'
+             f'<span class="sk-count">{len(SKILLS)} סקילים</span></div>')
     grid = f'<div class="sk-grid">{"".join(card(s) for s in SKILLS)}</div><p class="sk-empty" hidden>אין עדיין סקיל כזה. עוד סקילים בדרך.</p>'
     what = ('<p>סקיל הוא כמו דף הוראות שמדביקים למומחה על השולחן. Claude קורא אותו רק כשהבקשה שלכם מתאימה, ואז עובד לפי השיטה שכתובה בו.</p>'
             '<div class="duo"><div class="duo-c"><span class="duo-tag">בלי סקיל</span><h3>פרומפט ארוך כל פעם</h3><p>צריך לזכור מה לבקש, ובכל פעם יוצא קצת אחרת.</p></div>'
             '<div class="duo-c hl"><span class="duo-tag">עם סקיל</span><h3>שורה אחת</h3><p>"תבדוק לי את האבטחה של האתר", ו-Claude עובר על אותן 34 בדיקות כל פעם.</p></div></div>')
     main = f'''<main class="a2 sk">
-        <div class="a2-wrap a2-body">
-            {sec(1, "הסקילים", tools + grid, "skills")}
+        <div class="a2-wrap"><div class="a2-body">
+            {sec(1, "", tools + grid, "skills")}
             {sec(2, "מה זה סקיל", what)}
             {sec(3, "איך מתקינים", steps_html() + '<p>ההורדה פתוחה לכל מי שיש לו חשבון באתר. ההרשמה חינם ולוקחת פחות מדקה.</p>')}
             {sec(4, "שאלות נפוצות", faq_html())}
-            {CTA}
-        </div>
+        </div></div>
+        {CTA}
     </main>'''
     html = home2.inner_page(
         "סקילים לקלוד (Claude Skills) בעברית – להורדה בחינם | Free AI",
         "סקילים מוכנים ל-Claude בעברית, להורדה בחינם: בדיקת אבטחה לאתר, בדיקת מהירות ועוד. כל סקיל עם דוגמה, קוד מקור ומדריך התקנה.",
-        f"סקילים · {len(SKILLS)} להורדה חינם", "סקילים מוכנים ל-Claude",
+        "", "סקילים",
         "סקיל מלמד את Claude לעשות עבודה של מומחה. מורידים בחינם, מתקינים בדקה, וכותבים לו בקשה רגילה.",
-        library_visual(), main, btn2=("#skills", "לכל הסקילים", "box"), script=SEARCH_JS, legacy_v=CSS_VERSION)
-    open(os.path.join(SITE, "work.html"), "w").write(html)
-    print("work.html done")
+        visual if visual is not None else library_visual(), main, btn2=("#skills", "לכל הסקילים", "box"), script=SEARCH_JS, legacy_v=CSS_VERSION)
+    open(os.path.join(SITE, out), "w").write(html)
+    print(f"{out} done")
 
 
 def build_skill(s):
@@ -191,16 +232,16 @@ def build_skill(s):
     more = sec(4, "עוד סקילים", f'<div class="sk-grid">{"".join(card(o) for o in others)}</div>'
                '<p><a href="work.html">לכל הסקילים</a></p>') if others else ""
     main = f'''<main class="a2 sk">
-        <div class="a2-wrap a2-body">
+        <div class="a2-wrap"><div class="a2-body">
             {sec(1, "מה הסקיל בודק", checks)}
             {sec(2, "דוגמה", example(s))}
             {sec(3, "הורדה והתקנה", dl, "download")}
             {more}
-            {CTA}
-        </div>
+        </div></div>
+        {CTA}
     </main>'''
     title, desc = s["seo"]
-    html = home2.inner_page(title, desc, f"סקיל · {s['cat']}", s["name"], s["desc"], visual_chat(s, VIS[s["page"]]), main,
+    html = home2.inner_page(title, desc, "", s["name"], s["desc"], visual_chat(s, VIS[s["page"]]), main,
                             btn2=("work.html", "לכל הסקילים", "box"), legacy_v=CSS_VERSION)
     html, n = re.subn(r'href="service"([^>]*>\s*)להתחיל ללמוד בחינם', r'href="#download"\1הורדה חינם', html, count=1)
     assert n == 1

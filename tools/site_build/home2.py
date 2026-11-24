@@ -533,10 +533,7 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
         x.decompose()
     cv = sec.find("canvas"); cv["data-rib"] = "hero"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
     tag = sec.find("a", href="/data")
-    if not chip:
-        tag.decompose()
-    else:
-        tag.replace_with(frag(f'<span class="m2-chip inline-flex w-fit items-center gap-2 rounded-[2px] border border-border-sub bg-background-main px-2.5 py-1 text-xs/4 font-medium tracking-[0.02em] text-text-sub"><i></i>{chip}</span>'))
+    tag.decompose()  # בלי תגית קטנה מעל הכותרת, אף פעם (בקשת בעל האתר). הפרמטר chip נשאר רק לתאימות.
     h = sec.find("h1"); put(h, h1); h["class"] = h.get("class", []) + ["m2-h1", "m2-h1-wrap"]
     put(h.find_next("p"), lead)
     a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "service.html"

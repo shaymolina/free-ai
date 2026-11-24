@@ -1243,7 +1243,6 @@ def build_soon():
         </section>
     </div>
     <main class="soon">
-        <span class="chip">תכף חוזרים</span>
         <h1 class="soon-big"><span class="grad">בשיפוצים</span></h1>
         <p class="soon-sub">משפצים את הקורס כדי שיהיה עוד יותר קל ללמוד.<br>וכמו תמיד: הוא נשאר בחינם.</p>
         <div class="btns"><a href="articles.html" class="btn">בינתיים, למאמרים <span class="arr">‹</span></a><a href="index.html" class="btn-2">לדף הבית</a></div>
