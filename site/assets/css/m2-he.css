@@ -102,7 +102,19 @@ a:hover .m2-card-ic{transform:translateY(-2px)}
 @media (max-width: 380px) { .m2-tools .tool-logo, .m2-tools > :nth-child(-n+5) .tool-logo { transform: scale(.78); } }
 /* 4 כלים בשורה במסך בינוני (טאבלט/מחשב קטן): הלוגו לא נוגע בשולי הכרטיס */
 @media (min-width: 40rem) and (max-width: 79.99rem) { .m2-tools .tool-logo, .m2-tools > :nth-child(-n+5) .tool-logo { transform: scale(.84); } }
-/* טלפון: כרטיס אחד שלם בקרוסלה, בלי כרטיס חתוך בצד */
-@media (max-width: 39.99rem) { [data-track] > [data-slot="carousel-item"] { width: 100% !important; } }
+/* טלפון: בקרוסלה רואים שני כרטיסים ועוד חצי, כדי שיהיה ברור שהיא נגללת */
+@media (max-width: 39.99rem) { [data-track] > [data-slot="carousel-item"] { width: calc((100% - 32px) / 2.3) !important; } [data-track] { gap: 12px; } [data-track] .m2-card-ic { width: 30px; height: 30px; right: 8px; bottom: 8px; border-radius: 8px; } [data-track] .m2-card-ic svg { width: 16px; height: 16px; } [data-track] [data-slot="carousel-item"] p { font-size: 13px; line-height: 1.35; } }
+/* טלפון: פס המספרים לכל רוחב המסך, בלי הכותרת, ומספרים גדולים יותר */
+@media (max-width: 39.99rem) {
+  [data-stats-bar] .grid-layout { padding-inline: 0 !important; }
+  [data-stats-bar] .col-span-full > span { display: none; }
+  [data-stats-bar] .tk-view { -webkit-mask-image: none; mask-image: none; }
+  [data-stats-bar] .tk-item { font-size: 17px; }
+  [data-stats-bar] .tk-item b { font-size: 24px; }
+  /* שלושת המספרים (1, ∞, ₪0) לא מוצגים בטלפון */
+  .m2-stats { display: none !important; }
+}
 /* טלפון: התצוגה של המדריך בפתיחה נכנסת כולה לרוחב המסך */
 @media (max-width: 39.99rem) { .w-\[587px\] { width: 100% !important; } }
+/* טלפון: בלי שלושת המספרים, הגל יושב באמצע בין הכפתור למקטע הבא */
+@media (max-width: 39.99rem) { canvas[data-rib="wave"][data-flip] { margin-bottom: -152px !important; position: relative; z-index: 0; } }

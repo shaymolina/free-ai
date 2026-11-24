@@ -423,11 +423,11 @@
         rive.RuntimeLoader.setWasmUrl('assets/rive/rive.wasm');
         var mobile = matchMedia('(max-width: 767px)').matches;
         cvs.forEach(function (cv) {
-          /* בטלפון: "רעיון בבוקר" מקבל את הגרסה הרחבה, מוקטנת כך שכל ההדגמה נכנסת לכרטיס (הקווים בצדדים נחתכים) */
+          /* בטלפון: ההדגמות בכרטיסים גדולות יותר. "רעיון בבוקר" מקבל את הגרסה הרחבה, כדי שכל האתר יופיע */
           var wide = mobile && /build-on-top/.test(cv.dataset.rive);
-          if (wide) { cv.classList.remove('inset-0', 'size-full'); cv.style.cssText = 'position:absolute;top:40%;transform:translateY(-50%);width:150%;left:-25%;height:auto;aspect-ratio:1055/412;-webkit-mask-image:linear-gradient(#0000,#000 18%,#000 82%,#0000);mask-image:linear-gradient(#0000,#000 18%,#000 82%,#0000)'; }
-          /* בטלפון: בכרטיסים שההדגמה בהם יוצאת מהקצה הימני, ההדגמה נגמרת בדעיכה רכה בתוך הכרטיס */
-          if (mobile && /control-who|collaborate/.test(cv.dataset.rive)) { cv.classList.remove('inset-0', 'size-full'); cv.style.cssText = 'position:absolute;top:0;left:0;height:100%;width:88%;-webkit-mask-image:linear-gradient(to left,#0000,#000 14%);mask-image:linear-gradient(to left,#0000,#000 14%)'; }
+          var big = { 'self-updating': 'width:122%;left:-11%', 'control-who': 'width:105%;right:0', 'collaborate': 'width:110%;right:0' };
+          if (wide) { cv.classList.remove('inset-0', 'size-full'); cv.style.cssText = 'position:absolute;top:30%;transform:translateY(-50%);width:162%;left:-31%;height:auto;aspect-ratio:1055/412;-webkit-mask-image:linear-gradient(#0000,#000 14%,#000 86%,#0000);mask-image:linear-gradient(#0000,#000 14%,#000 86%,#0000)'; }
+          else if (mobile) Object.keys(big).forEach(function (k) { if (cv.dataset.rive.indexOf(k) > -1) { cv.classList.remove('inset-0', 'size-full'); cv.style.cssText = 'position:absolute;top:0;height:100%;' + big[k]; } });
           var src = mobile && cv.dataset.riveM && !wide ? cv.dataset.riveM : cv.dataset.rive, hov = null, want = false;
           var r = new rive.Rive({ src: src, canvas: cv, stateMachines: 'State Machine 1', autoplay: !reduce, autoBind: true, shouldDisableRiveListeners: true,
             layout: new rive.Layout({ fit: wide ? rive.Fit.Contain : mobile ? rive.Fit.FitWidth : rive.Fit.Cover, alignment: rive.Alignment.Center }),
@@ -499,5 +499,13 @@
     });
   }
   initToTop();
+  /* בטלפון: בכרטיס "רעיון בבוקר" חוטים זזים ברקע, בין האיור לכותרת */
+  (function () {
+    if (!matchMedia('(max-width: 767px)').matches) return;
+    var rv = document.querySelector('canvas[data-rive*="build-on-top"]'); if (!rv) return;
+    var bg = document.createElement('canvas'); bg.setAttribute('aria-hidden', 'true'); bg.dataset.rib = 'wave';
+    bg.style.cssText = 'position:absolute;left:0;width:100%;top:50%;height:36%;pointer-events:none';
+    rv.parentNode.appendChild(bg);
+  })();
   initTheme(); initRibbons(); initRollers(); initTicker(); initCardDots(); initSectionDots(); initCarousels();
 })();
