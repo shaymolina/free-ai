@@ -152,7 +152,7 @@ def hero_preview(chapters):
 
 
 def sec_tools(n_chapters, n_minutes, n_articles):
-    tools = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-19.html", "cloud"),
+    tools = [("Claude", "guide-3.html", "spark"), ("Claude Code", "guide-4.html", "term"), ("GitHub", "guide-5.html", "branch"), ("4CODE", "guide-20.html", "cloud"),
              ("Connectors", "guide-13.html", "plug"), ("Skills", "guide-14.html", "box"), ("Plugins", "guide-15.html", "layers"), ("Google Drive", "article-github-backup.html", "drive")]
     tiles = "".join(f'<li><a class="tool" href="{h}"><b dir="ltr">{icon(i)}{a}</b><span class="tool-go">{icon("chev-l")}</span></a></li>' for a, h, i in tools)
     items = [("פרקים במדריך", n_chapters), ("שיעורי וידאו", 8), ("דקות קריאה", n_minutes), ("מאמרים", n_articles),
@@ -220,7 +220,7 @@ def sec_stories():
         ("ink", "גיבוי אוטומטי", 'ככה <b>כל הפרויקטים</b> נשמרים לבד בגוגל דרייב, כל לילה', [("03:00", "כל לילה"), ("₪0", "עלות")],
          "article-github-backup.html", "assets/images/guide/backup-1.png"),
         ("orange", "מעלים לאוויר", 'ככה האתר מקבל <b>כתובת אמיתית</b> שאפשר לשלוח לכל אחד', [("1", "כתובת לשתף"), ("30", "ימים בחינם עם הקופון")],
-         "guide-19.html", "assets/images/guide/claude-map.png"),
+         "guide-20.html", "assets/images/guide/claude-map.png"),
     ]
     cards = "".join(f"""<li class="story s-{c}">
                 <div class="st-l"><span class="st-dots d1" aria-hidden="true"></span><span class="st-dots d2" aria-hidden="true"></span><span class="st-dots d3" aria-hidden="true"></span>
@@ -289,7 +289,7 @@ def sec_prompts():
     return f"""
     <section class="m-sec">
         <div class="m-in">
-            {head("מה כותבים לקלוד קוד.", "הודעות אמיתיות, בעברית רגילה.", "guide-17.html", "איך כותבים בקשה טובה")}
+            {head("מה כותבים לקלוד קוד.", "הודעות אמיתיות, בעברית רגילה.", "guide-18.html", "איך כותבים בקשה טובה")}
             <div class="pr-bar"><button type="button" class="pr-pause" id="pr-pause" aria-pressed="false" aria-controls="prompts">עצירת הדוגמאות</button></div>
             <div class="prompts" id="prompts">{"".join(cols)}</div>
         </div>

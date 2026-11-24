@@ -137,9 +137,9 @@ TOOLS = [("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
          ("Skills", "guide-14.html", ["claude-mark.svg", None]),
          ("Connectors", "guide-13.html", ["claude-mark.svg", None]),
          ("GitHub", "guide-5.html", ["github-mark.svg", "github-text.svg"]),
-         ("4CODE", "guide-19.html", ["4code-logo.png"]),
+         ("4CODE", "guide-20.html", ["4code-logo.png"]),
          ("Supabase", "guide-13.html", ["supabase-logo.svg"]),
-         ("Cloudflare", "guide-19.html", ["cloudflare-mark.svg", "cloudflare-text.svg"])]
+         ("Cloudflare", "guide-20.html", ["cloudflare-mark.svg", "cloudflare-text.svg"])]
 
 
 def do_tools(sec, n_ch, n_art):
@@ -197,7 +197,7 @@ STORIES = [
     ("#4763D6", "גיבוי אוטומטי", 'ככה <span class="text-white">כל הפרויקטים</span> נשמרים לבד בגוגל דרייב, כל לילה', [("03:00", "כל לילה"), ("₪0", "עלות")],
      "article-github-backup.html", "assets/images/guide/backup-1.png"),
     ("#C8553A", "מעלים לאוויר", 'ככה האתר מקבל <span class="text-white">כתובת אמיתית</span> שאפשר לשלוח לכל אחד', [("1", "כתובת לשתף"), ("30", "ימים בחינם עם הקופון")],
-     "guide-19.html", "assets/images/guide/claude-map.png"),
+     "guide-20.html", "assets/images/guide/claude-map.png"),
     ("#7A3FC4", "סקילים", 'ככה <span class="text-white">יכולת מוכנה</span> נכנסת לקלוד בלחיצה אחת', [("1", "לחיצה להורדה"), ("₪0", "מחיר")],
      "skills.html", "assets/images/home2/skills-w.webp"),
 ]
@@ -429,9 +429,9 @@ def do_footer(soup, arts):
             st["class"] = [c for c in st["class"] if c not in ("hidden", "lg:mt-auto", "lg:inline-flex")] + ["inline-flex"]
     logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">קלוד קוד בחינם</p><p class="f-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div>'))
     cols = [("לומדים", [("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]),
-            ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-19.html", "מעלים לאוויר")]),
+            ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-20.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
-            ("כלים", [("guide-4.html", "Claude Code"), ("guide-13.html", "Connectors"), ("guide-14.html", "Skills"), ("guide-19.html", "4CODE")]),
+            ("כלים", [("guide-4.html", "Claude Code"), ("guide-13.html", "Connectors"), ("guide-14.html", "Skills"), ("guide-20.html", "4CODE")]),
             ("מידע", [("privacy.html", "פרטיות"), ("terms.html", "תנאי שימוש"), ("accessibility", "נגישות")])]
     for div, (h, links) in zip(f.find("div", class_="lg:grid-cols-5").find_all("div", recursive=False), cols):
         div.find("h3").string = h

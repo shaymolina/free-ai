@@ -16,11 +16,11 @@ NAV = [("index.html", "דף הבית"), ("course.html", "הקורס"), ("guide-1
 # שם הפרק, דקות קריאה
 CHAPTERS = [
     ("לפני שמתחילים", 2), ("קלוד מול קלוד קוד", 3), ("פותחים חשבון קלוד", 4),
-    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("היכרות ראשונה עם קלוד", 3), ("מיקום הפרויקט: מחשב או ענן", 3), ("בחירת המודל", 3), ("הרשאות: כמה קלוד עושה לבד", 3), ("כמה נשאר מהמנוי", 2), ("תוספות: איפה מוסיפים יכולות", 3), ("חיבור לשירותים (Connectors)", 3), ("מיומנויות (Skills)", 3), ("חבילות (Plugins)", 3), ("מתקינים סקיל ומשתמשים בו", 4), ("איך מדברים עם קלוד קוד", 4), ("חיבור GitHub לקלוד ובנייה ראשונה", 8), ("מעלים לאוויר", 5),
+    ("מתקינים את האפליקציה", 5), ("פותחים GitHub", 4), ("מה זה ריפו ופותחים אחד", 5), ("היכרות ראשונה עם קלוד", 3), ("מיקום הפרויקט: מחשב או ענן", 3), ("בחירת המודל", 3), ("הרשאות: כמה קלוד עושה לבד", 3), ("כמה נשאר מהמנוי", 2), ("תוספות: איפה מוסיפים יכולות", 3), ("חיבור לשירותים (Connectors)", 3), ("מיומנויות (Skills)", 3), ("חבילות (Plugins)", 3), ("מתקינים סקיל ומשתמשים בו", 4), ("מחברים קונקטור ומשתמשים בו", 3), ("איך מדברים עם קלוד קוד", 4), ("חיבור GitHub לקלוד ובנייה ראשונה", 8), ("מעלים לאוויר", 5),
      ("Supabase", 3),
     ("סדר ובטיחות", 4), ("כשמשהו נתקע", 4), ("השלב הבא", 3),
 ]
-READY = set(range(1, 24))  # פרקים שכבר כתובים
+READY = set(range(1, 25))  # פרקים שכבר כתובים
 
 
 HERO_DEMO = '<div class="hero-stage"><div class="demo">\n<div class="chat"><div class="who">אתם כותבים:</div><div class="box"><span class="tx"></span><span class="cur"></span></div>\n<div class="who">קלוד קוד עושה:</div><div class="steps"><div><i>✓</i>בונה יומן תורים</div><div><i>✓</i>מוסיף טופס הזמנה ללקוחות</div><div><i>✓</i>מחבר תזכורות בוואטסאפ</div><div><i>✓</i>בונה מסך ניהול להזמנות</div></div></div>\n<div class="app">\n<div class="top p"><b>התורים שלי</b><span class="btn2">+ תור חדש</span></div>\n<div class="stats"><div class="st p"><small>תורים השבוע</small><strong data-n="38">0</strong></div><div class="st p"><small>הזמנות חדשות</small><strong data-n="7">0</strong></div><div class="st p"><small>הכנסות</small><strong data-n="4260" data-c="₪">0</strong></div></div>\n<div class="cal p"><div></div><div class="h">ראשון</div><div class="h">שני</div><div class="h">שלישי</div><div class="h">רביעי</div><div class="t">09:00</div><div class="ap ">נועה<span>תספורת</span></div><div class="slot"></div><div class="ap g">אבי<span>זקן</span></div><div class="slot"></div><div class="t">10:00</div><div class="slot"></div><div class="ap b">מיכל<span>פן</span></div><div class="slot"></div><div class="ap b">דנה<span>החלקה</span></div><div class="t">11:00</div><div class="ap g">רון<span>צבע</span></div><div class="ap" id="last">יוסי<span>תספורת</span></div><div class="slot"></div><div class="slot"></div><div class="t">12:00</div><div class="slot"></div><div class="slot"></div><div class="ap ">שירה<span>תספורת</span></div><div class="ap g">תמר<span>צבע</span></div><div class="t">13:00</div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div></div>\n<div class="toast"><i>✓</i>תור חדש נקבע: יוסי, שני 11:00</div>\n</div></div>\n<script>(function(){\nvar msg="תבנה לי מערכת לניהול הזמנות ותורים של העסק שלי";\nvar d=document.querySelector(\'.demo\'),chat=d.querySelector(\'.chat\'),tx=d.querySelector(\'.tx\'),st=d.querySelectorAll(\'.steps div\'),app=d.querySelector(\'.app\'),ps=app.querySelectorAll(\'.p\'),aps=app.querySelectorAll(\'.ap\'),nums=app.querySelectorAll(\'[data-n]\'),toast=app.querySelector(\'.toast\');\nvar T=[];function at(ms,f){T.push(setTimeout(f,ms))}\nfunction reset(){T.forEach(clearTimeout);T=[];tx.textContent=\'\';chat.classList.remove(\'out\');app.classList.remove(\'in\');st.forEach(function(s){s.classList.remove(\'on\')});aps.forEach(function(a){a.classList.remove(\'on\')});toast.classList.remove(\'on\');nums.forEach(function(n){n.textContent=\'0\'});ps.forEach(function(p){p.style.transitionDelay=\'\'})}\nfunction count(el){var N=+el.dataset.n,c=el.dataset.c||\'\',t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);k=1-Math.pow(1-k,3);el.textContent=c+Math.round(N*k).toLocaleString(\'en-US\');if(k<1)requestAnimationFrame(f)})(t0)}\nfunction run(){reset();var k=0,step=50;\nfor(var i=1;i<=msg.length;i++)(function(i){at(i*step,function(){tx.textContent=msg.slice(0,i)})})(i);\nvar t=msg.length*step+500;\nst.forEach(function(s,n){at(t+n*650,function(){s.classList.add(\'on\')})});\nt+=st.length*650+700;\nat(t,function(){chat.classList.add(\'out\')});\nat(t+300,function(){ps.forEach(function(p,n){p.style.transitionDelay=(n*120)+\'ms\'});app.classList.add(\'in\')});\nat(t+800,function(){nums.forEach(count)});\nvar rest=[].filter.call(aps,function(a){return a.id!=\'last\'});rest.forEach(function(a,n){at(t+1000+n*170,function(){a.classList.add(\'on\')})});\nvar last=app.querySelector(\'#last\');\nat(t+1000+aps.length*170+700,function(){last.classList.add(\'on\');toast.classList.add(\'on\')});\nat(t+1000+aps.length*170+5200,run);}\nrun();})()</script></div>'
@@ -291,7 +291,8 @@ GUIDE_TITLE = {  # כותרת לגוגל לפי מה שאנשים מחפשים (
     5: "מה זה GitHub ואיך פותחים חשבון – מדריך למתחילים",
     14: "סקילים בקלוד (Claude Skills): מה זה ואיך משתמשים",
     16: "איך מתקינים סקיל בקלוד ומשתמשים בו – צעד אחרי צעד",
-    17: "איך כותבים פרומפט לקלוד קוד – בלי מילים טכניות",
+    17: "איך מחברים קונקטור לקלוד (Gmail) ומשתמשים בו",
+    18: "איך כותבים פרומפט לקלוד קוד – בלי מילים טכניות",
 }
 
 GUIDE_DESC = {
@@ -637,7 +638,23 @@ build_chapter(
 
 
 build_chapter(
-    17, "ככל שמסבירים לקלוד ברור יותר, מקבלים משהו קרוב יותר למה שרציתם.",
+    17, "קונקטור הוא החיבור מפרק 13. ככה מחברים את Gmail לקלוד, ומבקשים ממנו למצוא מידע במיילים.",
+    [("החיבור בסרטון", "Gmail: קלוד קורא את המיילים שלכם ומוצא בהם מה שביקשתם"),
+     ("איפה מחברים", "באפליקציה של קלוד, בכפתור + שליד השירות בעמוד Plugins"),
+     ("איך מאשרים", "בוחרים את חשבון הגוגל שלכם ולוחצים \"המשך\"")],
+    "מחברים פעם אחת, והחיבור זמין בכל משימה",
+    extra=tip("רוצים לנתק? בעמוד Plugins לוחצים על שלוש הנקודות שליד השירות."),
+    flow=flow([
+        ("מגיעים לרשימת החיבורים", 'לוחצים על השם שלכם למטה בצד, ובתפריט בוחרים Settings. בהגדרות לוחצים Plugins, עוברים ללשונית Connectors ולוחצים Browse plugins.', "connect-1.mp4"),
+        ("מחברים את Gmail", 'מוצאים את Gmail ולוחצים על ה-+ שלידו. בדפדפן שנפתח לוחצים Continue connecting, בוחרים את חשבון הגוגל ולוחצים "המשך".<small class="fnote">כשמופיעה ההודעה "Connected to Gmail", החיבור מוכן.</small>', "connect-2.mp4"),
+        ("פותחים משימה ומבקשים", 'לוחצים New וכותבים בעברית מה רוצים. אצלנו: "תמצא לי מייל מ-eBay ותגיד לי איזה קלפי פוקימון קניתי בשנה האחרונה".', "connect-3.mp4"),
+        ("קלוד עובד עם החיבור", 'קלוד מחפש במיילים לבד וכותב תשובה מסודרת: מה קניתם, מתי ובכמה.<small class="fnote">אצלנו הוא עבר על 10 מיילים ומצא 14 קלפים ב-6 הזמנות, בפחות מדקה.</small>', "connect-4.mp4"),
+    ]),
+)
+
+
+build_chapter(
+    18, "ככל שמסבירים לקלוד ברור יותר, מקבלים משהו קרוב יותר למה שרציתם.",
     [(None, "דוגמאות"),
      ("בקשה חלשה", "\"תבנה לי אתר\""),
      ("בקשה טובה", "\"תבנה דף נחיתה לנגר. בראש תמונות עבודות וכותרת, אחריהן השירותים: פרגולות, גדרות ושולחנות. בסוף טופס יצירת קשר. צבעים חמים של עץ.\"")],
@@ -652,7 +669,7 @@ build_chapter(
 
 
 build_chapter(
-    18, "מחברים את הריפו לקלוד, ובונים בו את האתר הראשון.",
+    19, "מחברים את הריפו לקלוד, ובונים בו את האתר הראשון.",
     [("חיבור GitHub", "פעם אחת. קלוד מקבל אישור להיכנס לחשבון שלכם"),
      ("בחירת הריפו", "בכל משימה בוחרים על איזה פרויקט עובדים"),
      ("הבנייה", "קלוד בונה את האתר ושומר אותו בריפו")],
@@ -668,7 +685,7 @@ build_chapter(
 
 
 build_chapter(
-    19, "כדי שכל אחד יוכל להיכנס לאתר, מחברים את הפרויקט ל-4CODE.",
+    20, "כדי שכל אחד יוכל להיכנס לאתר, מחברים את הפרויקט ל-4CODE.",
     [("מה זה 4CODE", "שרת. כדי שכולם יוכלו להיכנס למערכת שבניתם, מעלים אותה לשרת מאובטח באינטרנט")],
     "מעכשיו האתר באוויר, וכל שינוי עולה לבד",
     extra=f'''
@@ -677,7 +694,7 @@ build_chapter(
         ("בוחרים מסלול", 'ב-<a href="https://4code.co.il/pricing" target="_blank" rel="noopener">4code.co.il</a> לוחצים על מסלולים ובוחרים מסלול.', "4code-1.mp4"),
         ("ממלאים את הפרטים שלכם", "ממלאים את הטופס, מאשרים, ונכנסים ללוח הבקרה של 4CODE.", "4code-details.mp4"),
         ("יוצרים פרויקט", "בתפריט הצד בוחרים בפרויקטים, ואז \"יצירת פרויקט חדש\". נותנים שם ונכנסים אליו.", "4code-3.mp4"),
-        ("בוחרים את פרויקט ה-GitHub שלכם", 'לוחצים על GitHub, בוחרים את הריפו מפרק 18 ומאשרים.<small class="fnote">מחברים את הפרויקט פעם אחת ל-4CODE, וזהו. הכול מתעדכן לבד.</small>', "4code-4.mp4"),
+        ("בוחרים את פרויקט ה-GitHub שלכם", 'לוחצים על GitHub, בוחרים את הריפו מפרק 19 ומאשרים.<small class="fnote">מחברים את הפרויקט פעם אחת ל-4CODE, וזהו. הכול מתעדכן לבד.</small>', "4code-4.mp4"),
         ("בוחרים את הריפו ומפרסמים", 'בוחרים את הריפו שלכם ולוחצים "פריסה". 4CODE מעלה את האתר לבד.<small class="fnote">כשרואים "פועל" בירוק, האתר באוויר.</small>', "4code-repo.mp4"),
         ("מקבלים כתובת בחינם", 'האתר מקבל כתובת חינמית מ-4CODE (סאב-דומיין). מוצאים אותה תחת דומיין.<small class="fnote">ככה לא חייבים לקנות דומיין בהתחלה.</small>', "4code-domain.png"),
     ]),
@@ -685,7 +702,7 @@ build_chapter(
 
 
 build_chapter(
-    20, "דאטה בייס (מסד נתונים)",
+    21, "דאטה בייס (מסד נתונים)",
     [("דאטה בייס", "המקום שבו האתר שומר מידע. אם המערכת שלכם צריכה לנהל משתמשים, הזמנות, תורים, תשלומים או הודעות מטפסים, צריך דאטה בייס"),
      ("Supabase", "החברה שמחזיקה את הדאטה בייס בשבילכם. קלוד יודע לחבר אותו לאתר"),
      ("מה אנחנו בוחרים", "מתחילים בלי. כשצריך, מבקשים מקלוד לחבר Supabase והוא מסביר מה לעשות")],
@@ -701,7 +718,7 @@ build_chapter(
 
 
 build_chapter(
-    21, "כמה הרגלים קטנים ששומרים על הפרויקט מסודר ובטוח.",
+    22, "כמה הרגלים קטנים ששומרים על הפרויקט מסודר ובטוח.",
     [("ריפו אחד לכל פרויקט", "לא מערבבים שני אתרים באותו ריפו"),
      ("בודקים את הריפו לפני ששולחים", "למטה בתיבת הכתיבה רואים על איזה ריפו קלוד עובד"),
      ("ריפו פרטי", "בוחרים Private, ככה רק אתם רואים את הקוד"),
@@ -713,7 +730,7 @@ build_chapter(
 
 
 build_chapter(
-    22, "משהו לא עובד? כמעט תמיד מספיק לספר לקלוד מה קרה.",
+    23, "משהו לא עובד? כמעט תמיד מספיק לספר לקלוד מה קרה.",
     [("מופיעה שגיאה", "מצלמים את המסך או מעתיקים את ההודעה, ושולחים לקלוד"),
      ("משהו התקלקל אחרי שינוי", "כותבים לקלוד: \"תחזיר את האתר למצב שהיה לפני השינוי האחרון\""),
      ("השינוי לא מופיע באתר", "מחכים דקה-שתיים ומרעננים את הדף"),
@@ -726,15 +743,15 @@ build_chapter(
 
 
 build_chapter(
-    23, "יש לכם אתר באוויר. מכאן ממשיכים לפי מה שהעסק צריך.",
+    24, "יש לכם אתר באוויר. מכאן ממשיכים לפי מה שהעסק צריך.",
     [("כתובת פרטית", "קונים שם כמו carpenter.co.il דרך 4CODE ומחברים לאתר"),
      ("עוד עמודים", "מבקשים מקלוד להוסיף עמוד שירותים, גלריה או שאלות נפוצות"),
      ("להופיע בגוגל", "מבקשים מקלוד לסדר את האתר כך שגוגל ימצא אותו"),
-     ("מערכת שזוכרת", "תורים, הרשמה או הזמנות, עם Supabase מפרק 20"),
+     ("מערכת שזוכרת", "תורים, הרשמה או הזמנות, עם Supabase מפרק 21"),
      (None, "דוגמאות לבקשה הבאה"),
      ("עמוד חדש", "\"תוסיף עמוד גלריה עם 12 תמונות של עבודות, וקישור אליו בתפריט\""),
      ("גוגל", "\"תסדר את האתר כך שיופיע בגוגל כשמחפשים נגר בחיפה\"")],
-    "נתקעתם? חוזרים לפרק 22",
+    "נתקעתם? חוזרים לפרק 23",
     extra='\n                <p class="more-link">רוצים עוד? <a href="articles.html">כל המאמרים</a></p>',
 )
 
