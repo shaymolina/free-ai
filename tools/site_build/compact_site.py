@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "55"
+CSS_VERSION = "56"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]

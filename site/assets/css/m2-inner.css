@@ -343,3 +343,18 @@ footer:has(> .f-bigword) > :not(.f-bigword) { position: relative; z-index: 1; }
   .a2 .plan-ok { order: 2; }
   .a2 .plan.yes:nth-child(2)::after { order: 1; margin: 2px 0 6px; }
 }
+/* טלפון: "עוד מאמרים / עוד סקילים" בשני טורים, ורשימות המאמרים והסקילים בכרטיסים נמוכים יותר */
+@media (max-width: 39.99rem) {
+  .m2-arts > .ac { aspect-ratio: 5 / 4; }
+  .a2-more .m2-arts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .a2-more .m2-arts > .ac { aspect-ratio: 3 / 4; border-radius: 12px; }
+  .a2-more .ac-b { padding: 12px; gap: 6px; }
+  .a2-more .ac-t { font-size: 15px; line-height: 1.25; }
+  .a2-more .ac-m { font-size: 11px; gap: 5px; }
+  .a2-more .a2-band-head { margin-bottom: 20px; }
+}
+/* טלפון: הקוד נשבר לשורות במקום להיחתך, והקופסה "מאמרים נוספים" לא מוצגת (יש מתחת "עוד מאמרים") */
+@media (max-width: 39.99rem) {
+  .a2 .code-box pre { white-space: pre-wrap; word-break: break-word; }
+  .a2-side .a2-smore { display: none; }
+}
