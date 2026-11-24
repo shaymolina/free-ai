@@ -315,7 +315,7 @@ footer:has(> .f-bigword) > :not(.f-bigword) { position: relative; z-index: 1; }
 .sk .a2-sec .sk-btns a.a2-btn.ghost { color: var(--ink); }
 .sk .a2-sec .sk-btns a.a2-btn:not(.ghost) { color: #fff; }
 .sk .tbl td:first-child { width: 180px; white-space: nowrap; }
-@media (max-width: 540px) { .sk .sk-find { width: 100%; } .sk .sk-btns .a2-btn { width: auto; flex: 1; } }
+@media (max-width: 540px) { .sk .sk-find { width: 100%; } .sk .sk-btns { flex-direction: column; } .sk .sk-btns .a2-btn { width: 100%; white-space: nowrap; } }
 .sk .sk-list .a2-band-head h2 { font-size: 48px; font-weight: 800; letter-spacing: -.02em; }
 /* צעדי ההתקנה: טקסט וצילום מסך אמיתי, בלי קופסאות (docs/design-anti-slop.md) */
 .sk .sk-steps { margin: 0; padding: 0; list-style: none; display: grid; }
@@ -332,3 +332,14 @@ footer:has(> .f-bigword) > :not(.f-bigword) { position: relative; z-index: 1; }
 .sk .sk-dl dd { margin: 0; color: var(--ink-2); }
 @media (max-width: 760px) { .sk .sk-steps li, .sk .sk-dl > div { grid-template-columns: minmax(0, 1fr); gap: 12px; } .sk .sk-dl > div { gap: 2px; } }
 @media (max-width: 640px) { .sk .sk-list .a2-band-head h2 { font-size: 34px; } }
+
+/* זמן קריאה ותאריך מתחת לכפתורי הפתיחה במאמר */
+.m2-meta { display: flex; flex-wrap: wrap; align-items: center; row-gap: 6px; margin-top: 18px; }
+.m2-meta-i { display: inline-flex; align-items: center; gap: 7px; padding: 0 14px; font-size: 14px; color: var(--muted, #66686C); border-inline-start: 1px solid var(--line-2, #E6E5E3); }
+.m2-meta-i:first-child { padding-inline-start: 0; border: 0; }
+.m2-meta svg { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--brand-strong, #D97757); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* מחירון בעמודה צרה: "מספיק למתחילים" יורד מתחת למחיר כדי לא לעלות על שם המנוי */
+@media (max-width: 68rem) {
+  .a2 .plan-ok { order: 2; }
+  .a2 .plan.yes:nth-child(2)::after { order: 1; margin: 2px 0 6px; }
+}

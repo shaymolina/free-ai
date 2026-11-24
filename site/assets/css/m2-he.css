@@ -98,3 +98,7 @@ a:hover .m2-card-ic{transform:translateY(-2px)}
 .f-tag-p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
 .grid-layout .f-tag { margin-top: -12px; }
 .grid-layout .f-tag-h { line-height: 1; }
+/* טלפון צר: הלוגואים של הכלים נכנסים לכרטיס */
+@media (max-width: 380px) { .m2-tools .tool-logo, .m2-tools > :nth-child(-n+5) .tool-logo { transform: scale(.78); } }
+/* 4 כלים בשורה במסך בינוני (טאבלט/מחשב קטן): הלוגו לא נוגע בשולי הכרטיס */
+@media (min-width: 40rem) and (max-width: 79.99rem) { .m2-tools .tool-logo, .m2-tools > :nth-child(-n+5) .tool-logo { transform: scale(.84); } }
