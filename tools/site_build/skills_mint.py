@@ -185,7 +185,7 @@ def build_skill(s):
     vis = f'<img class="sk-full" src="{cover(s).replace(".webp?", "-wide.webp?")}" alt="" decoding="async">'
     html = home2.inner_page(title, desc, "", s["name"], s["desc"], vis, main,
                             btn2=("skills.html", "לכל הסקילים", "box"), legacy_v=CSS_VERSION)
-    html, n = re.subn(r'href="(?:course|guide-1\.html)"([^>]*>\s*)להתחיל ללמוד בחינם', r'href="#download"\1הורדה חינם', html, count=1)
+    html, n = re.subn(r'href="(?:course|guide-1(?:\.html)?)"([^>]*>\s*)להתחיל ללמוד בחינם', r'href="#download"\1הורדה חינם', html, count=1)
     assert n == 1
     open(os.path.join(SITE, s["page"]), "w").write(html)
     print(f"{s['page']} done")
