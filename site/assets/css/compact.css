@@ -713,3 +713,26 @@ body { font-size: 14.5px; }
 .vb-fix b { font-weight: 700; color: var(--brand); white-space: nowrap; font-size: 12.5px; }
 @media (max-width: 520px) { .vb-fix { font-size: 12.5px; } .vb-week i { font-size: 10.5px; } }
 @media (prefers-reduced-motion: reduce) { .vb-cta, .vb-week i, .vb-fix { animation: none; } }
+
+/* איור המאמר "10 סקילים": רשימת סקילים עם מתגים, ובקשה שמפעילה אחד מהם */
+.ill-sk { gap: 10px; }
+.sk-panel { background: var(--bg); border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); padding: 12px 14px; display: grid; gap: 6px; animation: ill-up .8s cubic-bezier(.2,.8,.2,1) both .2s; }
+.sk-h { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 4px; }
+.sk-h b { font-size: 16px; font-weight: 800; color: var(--ink); }
+.sk-h span { font-size: 11.5px; color: var(--soft); }
+.sk-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px solid var(--line-2); font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.sk-row em { font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: .04em; color: var(--brand); background: var(--brand-soft); border-radius: var(--r-xs); padding: 3px 6px; direction: ltr; min-width: 42px; text-align: center; }
+.sk-row span { flex: 1; min-width: 0; display: grid; }
+.sk-row small { font-size: 11px; font-weight: 400; color: var(--soft); }
+.sk-sw { flex: none; width: 30px; height: 18px; border-radius: 99px; background: var(--line-2); position: relative; transition: background .3s; }
+.sk-sw::after { content: ""; position: absolute; top: 2px; inset-inline-end: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.sk-sw.on { background: var(--brand); }
+.sk-sw.on::after { inset-inline-end: auto; inset-inline-start: 2px; }
+.sk-new { animation: ill-up .6s cubic-bezier(.2,.8,.2,1) both .9s; }
+.sk-new .sk-sw { animation: sk-on .01s linear both 1.6s; }
+.sk-new .sk-sw::after { animation: sk-knob .35s cubic-bezier(.2,.8,.2,1) both 1.6s; }
+@keyframes sk-on { to { background: var(--brand); } }
+@keyframes sk-knob { from { inset-inline-end: 2px; } to { inset-inline-end: 14px; } }
+.sk-use { animation-delay: 2.1s; }
+@media (max-width: 520px) { .sk-row { font-size: 12.5px; } }
+@media (prefers-reduced-motion: reduce) { .sk-panel, .sk-new, .sk-new .sk-sw, .sk-new .sk-sw::after, .sk-use { animation: none; } }

@@ -185,6 +185,7 @@ ART = {
     "article-github-backup": dict(bg="#4BE3AC", pattern="field", stroke="#0B5A3E", op=(.35, .45, .35), n=40, width=.9),
     "article-claude-code-price": dict(bg="linear-gradient(160deg,#A8261C,#7E140E)", pattern="sweep", op=(.05, .5, .15)),
     "article-vibe-coding": dict(bg="linear-gradient(160deg,#E6BB35,#D97757)", pattern="s", stroke="#5A1E0B", op=(.15, .55, .2)),
+    "article-claude-skills": dict(bg="linear-gradient(160deg,#2B4C7E,#132544)", pattern="fan", stroke="#BFD6FF", op=(.1, .6, .2)),
     "skill-security": dict(bg="linear-gradient(160deg,#103B2C,#071E16)", pattern="s", op=(.1, .75, .2)),
     "skill-site-speed": dict(bg="linear-gradient(150deg,#FF2D55,#E83EC2 55%,#7C6CF2)", pattern="hourglass", op=(.6, .25, .6)),
 }

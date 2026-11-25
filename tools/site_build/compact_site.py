@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "58"
+CSS_VERSION = "59"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -598,6 +598,7 @@ build_chapter(
      ("כתיבה בעברית", "טקסטים שיווקיים בעברית טובה ונכונה"),
      ("קמפיינים בפייסבוק", "קלוד מנהל קמפיינים כמו קמפיינר מומחה")],
     "אפשר להסיר מיומנות בכל רגע",
+    extra='\n                <p class="more-link">אילו מיומנויות כדאי להוסיף? <a href="article-claude-skills.html">10 סקילים שכדאי להתקין בקלוד</a></p>',
     flow=flow([
         ("איפה מוסיפים", "בלשונית Skills, תחת Discover, או בכפתור Add.", "settings-skills.png"),
         ("איך מפעילים בשם", "כותבים / ואת השם שלה בתיבת הכתיבה.", "skill-slash.png"),
@@ -626,7 +627,8 @@ build_chapter(
      ("איפה מתקינים", "באפליקציה של קלוד, בכפתור Add שבעמוד Plugins")],
     "מתקינים פעם אחת, והסקיל זמין בכל משימה",
     extra=tip("רוצים סקיל מסוים בשם? כותבים / בתיבת הכתיבה ובוחרים אותו מהרשימה.")
-     + '\n                <p class="more-link">סקילים מוכנים בחינם ובעברית: <a href="skills.html">כל הסקילים שלנו</a></p>',
+     + '\n                <p class="more-link">סקילים מוכנים בחינם ובעברית: <a href="skills.html">כל הסקילים שלנו</a></p>'
+     + '\n                <p class="more-link">לא יודעים במה להתחיל? <a href="article-claude-skills.html">10 סקילים שכדאי להתקין בקלוד</a></p>',
     flow=flow([
         ("מורידים את הסקיל", 'נכנסים לעמוד של הסקיל, למשל <a href="skill-site-speed.html">בדיקת מהירות לאתר</a>, ולוחצים "הורדה חינם (ZIP)". מתקבל קובץ אחד בתיקיית ההורדות, ולא צריך לפתוח אותו.', "skilluse-1.mp4"),
         ("מגיעים למקום ההוספה", 'באפליקציה של קלוד לוחצים על השם שלכם למטה בצד, ובתפריט בוחרים Settings. בהגדרות לוחצים Plugins, עוברים ללשונית Skills ולוחצים Browse plugins. בעמוד שנפתח לוחצים Add למעלה, ואז Upload plugin.', "skilluse-2.mp4"),
@@ -863,6 +865,18 @@ ILL_VIBE = """<div class="ill ill-vb" aria-hidden="true">
         <div class="vb-week"><i>א׳ 08:00</i><i>ג׳ 19:00</i><i>ה׳ 18:30</i></div>
     </div>
     <div class="vb-fix"><span>תעשה את כפתור ההרשמה גדול יותר</span><b>עודכן ✓</b></div>
+</div>"""
+
+
+ILL_SKILLS = """<div class="ill ill-sk" aria-hidden="true">
+    <div class="sk-panel">
+        <div class="sk-h"><b>סקילים</b><span>מופעלים אצלכם</span></div>
+        <div class="sk-row"><em>XLSX</em><span>Excel<small>טבלאות וגרפים</small></span><i class="sk-sw on"></i></div>
+        <div class="sk-row"><em>DOCX</em><span>Word<small>מסמכים וחוזים</small></span><i class="sk-sw on"></i></div>
+        <div class="sk-row sk-new"><em>ZIP</em><span>בדיקת אבטחה לאתר<small>הורד מ-Free AI</small></span><i class="sk-sw"></i></div>
+    </div>
+    <div class="ill-msg"><small>אתם כותבים:</small><span>תכין לי טבלת הוצאות לחודש, עם גרף</span></div>
+    <div class="vb-fix sk-use"><span>קלוד בחר לבד בסקיל Excel</span><b>expenses.xlsx ✓</b></div>
 </div>"""
 
 
@@ -1270,6 +1284,76 @@ build_article(
     seo_title="מה זה וייב קודינג (Vibe Coding)? הסבר פשוט בעברית",
     lead="וייב קודינג הוא לבנות אתר או תוכנה בלי לכתוב קוד: אומרים במילים מה רוצים, וה-AI בונה. עם קלוד קוד אפשר להתחיל כבר הערב, גם בלי שום ידע בתכנות.",
     visual=ILL_VIBE,
+    date="25 בנובמבר 2026",
+)
+
+build_article(
+    "article-claude-skills.html",
+    "10 סקילים שכדאי להתקין בקלוד",
+    "אילו סקילים (Claude Skills) כדאי להפעיל בקלוד ובקלוד קוד: ארבעה של Anthropic, שלושה שמגיעים עם קלוד קוד ועוד שלושה. מה כל אחד עושה ואיך מתקינים.",
+    5,
+    f'''
+            <h2>סקיל במשפט אחד</h2>
+            <p>סקיל (Skill) הוא דף הוראות שמלמד את קלוד לעשות משימה אחת כמו מומחה. קלוד טוען אותו לבד כשהבקשה שלכם מתאימה, ככה שלא צריך להסביר כל פעם מחדש איך עושים טבלה באקסל או בודקים אבטחה (<a href="https://claude.com/docs/skills/overview" target="_blank" rel="noopener">מקור</a>).</p>
+            <p>חשבו על עובד חדש שמקבל תיקייה של נהלים. הוא לא קורא את כולה בבוקר. הוא פותח את הדף הנכון כשמגיעה משימה. <a href="guide-14.html">הסבר מלא על מיומנויות בקלוד</a>.</p>
+
+            <h2>הרשימה</h2>
+            {rows_html([
+                (None, "ארבעה ש-Anthropic כבר בנתה"),
+                ("Excel", "טבלאות, חישובים וגרפים. מבקשים \"תכין לי טבלת הוצאות עם גרף\" ומקבלים קובץ xlsx אמיתי"),
+                ("Word", "מסמכים מעוצבים: הצעת מחיר, חוזה פשוט, מכתב ללקוח"),
+                ("PowerPoint", "מצגת שלמה מתוך כמה שורות של תוכן, או תיקון למצגת קיימת"),
+                ("PDF", "יוצר קובצי PDF, ומוציא טקסט וטבלאות מתוך PDF שקיבלתם"),
+                (None, "שלושה שמגיעים עם קלוד קוד"),
+                ('<span dir="ltr">/init</span>', "קורא את הפרויקט וכותב לקלוד קובץ CLAUDE.md: דף הכרות שהוא קורא בתחילת כל משימה"),
+                ('<span dir="ltr">/code-review</span>', "עובר על השינויים האחרונים ומחפש באגים לפני שהם מגיעים לאתר"),
+                ('<span dir="ltr">/security-review</span>', "בודק את השינויים שעוד לא עלו ומחפש פרצות אבטחה"),
+                (None, "ועוד שלושה שכדאי להוסיף"),
+                ("skill-creator", "סקיל שבונה סקילים. מסבירים לו בעברית מה אתם עושים כל שבוע, והוא כותב מזה סקיל"),
+                ("בדיקת אבטחה לאתר", '<a href="skill-security.html">הסקיל שלנו</a>. בודק את כל האתר, לא רק את השינוי האחרון, ומסביר בעברית מה לתקן'),
+                ("בדיקת מהירות לאתר", '<a href="skill-site-speed.html">הסקיל שלנו</a>. אצלנו דף הבית בטלפון עלה מציון של 45 לציון של 72, תוך עשר דקות'),
+            ])}
+
+            <h2>איפה כל סקיל עובד</h2>
+            {table(["סקיל", "בצ'אט של קלוד", "בקלוד קוד", "צריך להתקין?"], [
+                ["Excel, Word, PowerPoint, PDF", "כן", "לא", "לא, רק להפעיל"],
+                ['<span dir="ltr">/init</span>, <span dir="ltr">/code-review</span>, <span dir="ltr">/security-review</span>', "לא", "כן", "לא, כבר שם"],
+                ["skill-creator", "כן", "כן", "כן"],
+                ["הסקילים של Free AI", "כן", "כן", "כן, קובץ ZIP"],
+            ])}
+            <p>ארבעת סקילי הקבצים של Anthropic לא זמינים בקלוד קוד, רק בצ'אט (<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" target="_blank" rel="noopener">מקור</a>). בשביל טבלה או מצגת פותחים שיחה רגילה.</p>
+
+            <h2>איך מתקינים סקיל</h2>
+            {steps([
+                ("מדליקים יצירת קבצים", ["בהגדרות של קלוד, תחת Capabilities, מפעילים את Code execution and file creation. בלי זה סקילים לא רצים."]),
+                ("מפעילים את הסקילים של Anthropic", ["נכנסים ל-Customize ואז Skills, ומדליקים את המתג ליד כל סקיל."]),
+                ("מעלים סקיל שהורדתם", ['באותו מקום לוחצים + ומעלים את קובץ ה-ZIP. <a href="guide-16.html">איך מתקינים סקיל, צעד אחרי צעד ובסרטון</a>.']),
+                ("מבקשים כרגיל", ["כותבים מה רוצים בעברית. קלוד בוחר את הסקיל לבד, או שכותבים / ואת שם הסקיל."]),
+            ])}
+
+            <h2>על מה לשים לב</h2>
+            {rows_html([
+                ("מתקינים רק ממקור מוכר", 'Anthropic כותבת את זה במפורש: סקיל זדוני יכול לגרום לקלוד להריץ דברים שלא קשורים למה שהוא אמור לעשות (<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" target="_blank" rel="noopener">מקור</a>)'),
+                ("עדיף סקיל לכל משימה", "סקיל אחד שעושה חמישה דברים נטען ברגעים הלא נכונים. כמה קטנים עובדים טוב יותר"),
+                ("לא צריך עשרים", "כל סקיל מופעל רק כשהוא מתאים, אבל רשימה ארוכה קשה לזכור. מתחילים מהארבעה של Anthropic ומוסיפים כשיש צורך"),
+            ])}
+            <div class="note-box"><b>מה אנחנו בוחרים:</b> Excel ו-Word של Anthropic לעבודה היומיומית, ו<a href="skill-security.html">בדיקת האבטחה</a> שלנו לפני שכל אתר עולה לאוויר. זה מכסה את רוב מה שמתחילים צריכים.</div>
+
+            <h2>שאלות נפוצות</h2>
+            {faq_html([
+                ("מה זה skills בקלוד?", "הוראות כתובות שמלמדות את קלוד משימה מסוימת. הוא קורא אותן רק כשהן מתאימות לבקשה."),
+                ("איך מוסיפים סקילים לקלוד?", 'בהגדרות: Customize ואז Skills. מדליקים סקיל קיים, או לוחצים + ומעלים ZIP. <a href="guide-16.html">המדריך המלא</a>.'),
+                ("סקילים זה בחינם?", 'לפי מרכז העזרה של Anthropic, סקילים זמינים בכל המסלולים, גם ב-Free, כשיצירת קבצים מופעלת (<a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" target="_blank" rel="noopener">מקור</a>, נבדק ב-25 בנובמבר 2026). קלוד קוד עצמו דורש מנוי, <a href="article-claude-code-price.html">כמה הוא עולה</a>.'),
+                ("יש סקילים לקלוד בעברית?", 'כן. <a href="skills.html">הסקילים שלנו</a> כתובים בעברית ומחזירים תשובות בעברית, ומורידים אותם בחינם.'),
+                ("מה ההבדל בין סקיל ל-MCP?", 'סקיל הוא ידע: הוא מלמד את קלוד איך לעבוד. MCP הוא חיבור: הוא נותן לקלוד גישה לחשבון, כמו Gmail או יומן. <a href="guide-13.html">מה זה MCP</a>.'),
+                ("אפשר לבנות סקיל משלי?", "כן. skill-creator בונה אותו איתכם בשיחה. מתארים משימה שאתם עושים שוב ושוב, והוא כותב את ההוראות."),
+            ])}
+            <p class="more-link">רוצים ללמוד לבנות עם קלוד קוד מההתחלה? <a href="course.html">קורס קלוד קוד בחינם ובעברית</a>.</p>
+            <p class="art-src">מקורות: <a href="https://claude.com/docs/skills/overview" target="_blank" rel="noopener">סקירת הסקילים של Claude</a>, <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" target="_blank" rel="noopener">תיעוד Agent Skills</a>, <a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" target="_blank" rel="noopener">מרכז העזרה של Anthropic</a>, <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">סקילים בקלוד קוד</a>. נבדק ב-25 בנובמבר 2026.</p>'''
+,
+    seo_title="10 סקילים לקלוד (Claude Skills) שכדאי להתקין",
+    lead="להתחיל מארבעת הסקילים ש-Anthropic כבר בנתה: Excel, Word, PowerPoint ו-PDF. אחריהם שלושה שמגיעים עם קלוד קוד, ועוד שלושה לבנייה ולבדיקה של אתרים.",
+    visual=ILL_SKILLS,
     date="25 בנובמבר 2026",
 )
 
