@@ -358,3 +358,5 @@ footer:has(> .f-bigword) > :not(.f-bigword) { position: relative; z-index: 1; }
   .a2 .code-box pre { white-space: pre-wrap; word-break: break-word; }
   .a2-side .a2-smore { display: none; }
 }
+/* כל האנגלית בפונט של האתר, גם קוד */
+code, kbd, samp, pre { font-family: 'Kobi', ui-monospace, Menlo, Consolas, monospace; }

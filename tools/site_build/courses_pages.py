@@ -335,7 +335,7 @@ def build_single():
         .hosting-note { display: flex; gap: 16px; align-items: flex-start; padding: 24px; border-radius: 16px; background: rgba(127,127,127,.08); }
         .coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--white, #fff); border: 1px dashed rgba(127,127,127,.5); }
         .coupon-label { font-weight: 600; }
-        .coupon-code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
+        .coupon-code { direction: ltr; font-family: 'Kobi', ui-monospace, Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: .04em; padding: 6px 12px; border-radius: 8px; background: rgba(127,127,127,.12); user-select: all; }
         .coupon-copy { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
         .hosting-note > .icon { font-size: 24px; margin-top: 2px; }
         @media (max-width: 575px) {

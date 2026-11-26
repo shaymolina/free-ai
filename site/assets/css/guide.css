@@ -17,7 +17,7 @@
   --radius-card:12px; --radius-control:8px; --radius-popover:6px; --radius-item:4.8px;
   --card-gap:1.5rem; --sidebar-width:264px; --topbar-height:56px;
   --font-sans:"Kobi",ui-sans-serif,sans-serif,system-ui;
-  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,"Kobi",monospace;
+  --font-mono:"Kobi",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   color-scheme:light;
 }
 .dark {

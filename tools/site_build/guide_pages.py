@@ -58,7 +58,7 @@ CSS = '''
         .guide-row small { margin-inline-start: auto; font-size: 16px; font-weight: 500; color: #8d8985; text-align: end; }
         .guide-num { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 15px; background: var(--brand, #D97757); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; box-shadow: 0 -3px 0 rgba(0,0,0,.18) inset, 0 10px 18px rgba(217,119,87,.35); }
         .guide-coupon { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 1px dashed rgba(127,127,127,.5); border-radius: 18px; padding: 14px 18px; font-size: 16px; font-weight: 600; }
-        .guide-coupon code { direction: ltr; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: #1F1E1D; background: #fff; border-radius: 8px; padding: 5px 12px; user-select: all; }
+        .guide-coupon code { direction: ltr; font-family: 'Kobi', ui-monospace, Menlo, Consolas, monospace; font-size: 17px; font-weight: 700; color: #1F1E1D; background: #fff; border-radius: 8px; padding: 5px 12px; user-select: all; }
         .guide-coupon button { border: 0; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 7px 16px; border-radius: 999px; background: #1F1E1D; color: #fff; }
         .guide-foot { margin-top: auto; padding-top: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
         .guide-foot .guide-note { font-size: 16px; color: #6b6763; }
