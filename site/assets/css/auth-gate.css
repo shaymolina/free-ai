@@ -101,3 +101,8 @@ html.ag-lock body > *:not(#ag) { filter: blur(2px); -webkit-filter: blur(2px); p
 .ds-out { flex: none; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; margin-inline-start: auto; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--muted-foreground, #64748b); cursor: pointer; }
 .ds-out svg { width: 16px; height: 16px; transform: scaleX(-1); }
 .ds-out:hover { color: var(--foreground, #08090A); background: var(--accent, #f1f5f9); }
+
+.ag-x { position: absolute; top: 10px; left: 10px; width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: #6b6b6b; cursor: pointer; }
+.ag-x:hover { background: rgba(0,0,0,.05); color: #141413; }
+.ag-x svg { width: 18px; height: 18px; }
+[data-notify].is-done { pointer-events: none; opacity: .85; }

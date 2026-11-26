@@ -74,6 +74,13 @@
       requestAnimationFrame(function () { requestAnimationFrame(function () { box && box.classList.add('is-in'); }); });
     }
     box.innerHTML = mode === 'reset' ? cardReset() : cardSignIn();
+    // בעמוד פתוח (למשל הרשמה להודעה על קורס) אפשר לסגור את החלון
+    if (!CFG.locked && mode !== 'reset') {
+      var x = el('button', 'ag-x', ic('<path d="M18 6 6 18M6 6l12 12"/>'));
+      x.type = 'button'; x.setAttribute('aria-label', 'סגירה');
+      x.addEventListener('click', closeGate);
+      box.querySelector('.ag-card').appendChild(x);
+    }
     var form = box.querySelector('.ag-form'), submit = box.querySelector('.ag-submit');
     var pw = form.password, eye = box.querySelector('.ag-eye');
     eye.addEventListener('click', function () {
@@ -141,6 +148,46 @@
     });
   }
 
+  function closeGate() {
+    try { localStorage.removeItem(NKEY); } catch (e) {}
+    document.documentElement.classList.remove('ag-lock');
+    if (box) { var b = box; box = null; b.classList.remove('is-in'); setTimeout(function () { b.remove(); }, 400); }
+  }
+
+  // ---- הרשמה להודעה כשקורס עולה: כפתור עם data-notify="<שם>". נשמר בטבלת progress כ-notify-<שם> ----
+  var NKEY = 'freeai-notify';
+  function notifyDone() {
+    document.querySelectorAll('[data-notify]').forEach(function (b) {
+      b.classList.add('is-done'); b.setAttribute('aria-disabled', 'true');
+      b.textContent = b.getAttribute('data-done') || 'נרשמתם. נשלח הודעה כשהקורס עולה.';
+    });
+  }
+  function notifySave(name) {
+    if (!user || !name) return;
+    SB.from('progress').upsert({ item: 'notify-' + name }, { onConflict: 'user_id,item', ignoreDuplicates: true }).then(function (r) {
+      if (!r.error) { try { localStorage.removeItem(NKEY); } catch (e) {} notifyDone(); }
+    });
+  }
+  function notifyCheck() {
+    var btns = document.querySelectorAll('[data-notify]');
+    if (!user || !btns.length) return;
+    var pending = null; try { pending = localStorage.getItem(NKEY); } catch (e) {}
+    if (pending) return notifySave(pending);
+    SB.from('progress').select('item').eq('item', 'notify-' + btns[0].getAttribute('data-notify')).then(function (r) {
+      if (!r.error && r.data && r.data.length) notifyDone();
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-notify]');
+    if (!b) return;
+    e.preventDefault();
+    if (b.classList.contains('is-done')) return;
+    var name = b.getAttribute('data-notify');
+    if (user) return notifySave(name);
+    try { localStorage.setItem(NKEY, name); } catch (e2) {}
+    showGate();
+  });
+
   function unlock() {
     document.documentElement.classList.remove('ag-lock');
     if (box) { var b = box; box = null; b.classList.remove('is-in'); setTimeout(function () { b.remove(); }, 400); }
@@ -148,6 +195,7 @@
     renderSide();
     touch();
     syncProgress();
+    notifyCheck();
   }
 
   // ---- התקדמות במדריך: נשמרת בדפדפן (freeai-guide-done) ובטבלת progress, ומתמזגת בכל כניסה ----

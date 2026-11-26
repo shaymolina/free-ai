@@ -11,7 +11,7 @@ SITE = Path(__file__).resolve().parents[2] / "site"
 CSS_VERSION = "59"
 COUPON = "RVJ34jcn4j1"
 
-NAV = [("index.html", "דף הבית"), ("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
+NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
 
 # שם הפרק, דקות קריאה
 CHAPTERS = [
@@ -119,7 +119,7 @@ def build_home():
     ])
     body = home_mint.body(header("index.html"), HERO_DEMO, STRINGS, CHAPTERS, READY, ARTICLES, f'<div class="faq">{faq}</div>')
     (SITE / "index.html").write_text(page(
-        "קורס קלוד קוד בחינם בעברית | Free AI",
+        "ללמוד AI בחינם ובעברית: קורסים ומדריכים | Free AI",
         "קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.", body,
         home_mint.HOME_JS, css="home.css"))
     print("index.html done")
@@ -221,7 +221,7 @@ ICO = {  # Lucide
     "down": '<path d="M12 5v14m-6-6 6 6 6-6"/>',
     "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
 }
-SITE_LINKS = [("index.html", "דף הבית", "home"), ("course.html", "הקורס", "play"), ("guide-1.html", "המדריך", "book"), ("skills.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
+SITE_LINKS = [("index.html", "דף הבית", "home"), ("courses.html", "קורסים", "play"), ("guide-1.html", "המדריך", "book"), ("skills.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
 
 THEME_HEAD = """<script>(function(){var m='light';try{m=localStorage.getItem('theme')||'light'}catch(e){}if(window.self!==window.top)m='light';
 var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>"""
@@ -1492,6 +1492,10 @@ _lp.build()
 # עמודי הסקילים בעיצוב החדש
 import skills_mint as _sk
 _sk.build()
+
+# עמודי הקורסים (כל הקורסים, Lovable, Claude Code)
+import courses_mint as _cm
+_cm.build()
 
 # שכבת SEO (canonical, שיתוף, נתונים מובנים, sitemap) – תמיד בסוף הבנייה
 import runpy as _runpy

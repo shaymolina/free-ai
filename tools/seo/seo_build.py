@@ -72,8 +72,9 @@ def schema(s, title, desc, url, mod, faqs=()):
         graph.append({"@type": "Article", "headline": title.split(" | ")[0], "description": desc,
                       "inLanguage": "he", "url": url, "dateModified": mod, "isAccessibleForFree": True,
                       "author": {"@id": BASE + "/#org"}, "publisher": org, "image": OG_IMAGE})
-    elif s == "course":
-        graph.append({"@type": "Course", "name": "קורס קלוד קוד מאפס", "description": desc, "inLanguage": "he",
+    elif s in ("course", "course-lovable"):
+        crumbs.append({"@type": "ListItem", "position": 2, "name": "קורסים", "item": BASE + "/courses"})
+        graph.append({"@type": "Course", "name": "קורס Lovable" if s == "course-lovable" else "קורס Claude Code", "description": desc, "inLanguage": "he",
                       "url": url, "isAccessibleForFree": True, "provider": org,
                       "offers": {"@type": "Offer", "price": 0, "priceCurrency": "ILS", "category": "Free"},
                       "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online",
@@ -149,7 +150,7 @@ def main():
     (SITE / "sitemap.xml").write_text("\n".join(xml + ["</urlset>", ""]))
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /files/\n\nSitemap: {BASE}/sitemap.xml\n")
     order = lambda x: (x[0] != "index", not x[0].startswith("guide-"), int(x[0][6:]) if x[0].startswith("guide-") else 0, x[0])
-    txt = [f"# {SITE_NAME}", "", "> לומדים קלוד קוד (Claude Code) בעברית ובחינם, בלי לדעת לתכנת: קורס, מדריך כתוב, סקילים ומאמרים.", ""]
+    txt = [f"# {SITE_NAME}", "", "> לומדים AI בעברית ובחינם, בלי ידע קודם: קורס Lovable, קורס Claude Code, מדריך כתוב, סקילים ומאמרים.", ""]
     txt += [f"- [{t}]({url_of(s)}): {d}" for s, t, d in sorted(llms, key=order)]
     (SITE / "llms.txt").write_text("\n".join(txt) + "\n")
     print(f"SEO: {len(pages)} pages in sitemap")

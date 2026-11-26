@@ -12,7 +12,7 @@ START, END = "<!-- site-footer -->", "<!-- /site-footer -->"
 GUIDE = [("guide-1", "לפני שמתחילים"), ("guide-3", "פותחים חשבון קלוד"), ("guide-5", "פותחים GitHub"),
          ("guide-7", "היכרות ראשונה עם קלוד"), ("guide-20", "מעלים לאוויר")]
 TOOLS = [("guide-4", "Claude Code"), ("guide-13", "Connectors"), ("guide-14", "Skills"), ("guide-20", "4CODE")]
-LEARN = [("course", "הקורס"), ("guide-1", "המדריך"), ("skills", "סקילים"), ("articles", "מאמרים")]
+LEARN = [("courses", "כל הקורסים"), ("course-lovable", "קורס Lovable"), ("course", "קורס Claude Code"), ("guide-1", "המדריך"), ("skills", "סקילים"), ("articles", "מאמרים")]
 INFO = [("privacy", "פרטיות"), ("terms", "תנאי שימוש"), ("accessibility", "נגישות")]
 
 
@@ -42,7 +42,7 @@ def footer_html():
             '<div class="sf-word" aria-hidden="true"><img src="assets/images/logo/logo-footer.png" alt="" width="1280" height="399" loading="lazy"></div>'
             '<div class="sf-in">'
             '<div class="sf-brand"><a class="sf-logo" href="/" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>'
-            '<div><p class="sf-tag-h">קלוד קוד בחינם</p><p class="sf-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div>'
+            '<div><p class="sf-tag-h">ללמוד AI בחינם</p><p class="sf-tag-p">קורסים, מדריכים וסקילים לכלי AI, בעברית ובלי ידע קודם.</p></div>'
             '<a class="sf-mail" href="mailto:hello@free-ai.co.il">hello@free-ai.co.il</a></div>'
             f'<nav class="sf-cols" aria-label="קישורים בפוטר">{c}</nav>'
             '</div>'

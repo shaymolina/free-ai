@@ -22,8 +22,8 @@ HEAD = """<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="utf-8">
-    <title>קורס קלוד קוד בחינם בעברית | Free AI</title>
-    <meta name="description" content="קורס קלוד קוד (Claude Code) בחינם ובעברית למתחילים, בלי ידע בתכנות: שיעורי וידאו, מדריך כתוב וסקילים מוכנים, עד אתר שעובד באוויר.">
+    <title>ללמוד AI בחינם ובעברית: קורסים ומדריכים | Free AI</title>
+    <meta name="description" content="לומדים AI בחינם ובעברית, בלי ידע קודם: קורס Lovable, קורס Claude Code (בקרוב), מדריך כתוב, סקילים ומאמרים.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261125" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261125" as="font" type="font/woff2" crossorigin>
@@ -81,7 +81,7 @@ def do_header(soup):
     logo = h.find("a", attrs={"aria-label": "Go to homepage"})
     logo["href"] = "index.html"; logo["aria-label"] = "Free AI, לדף הבית"
     put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:30px;width:auto">')
-    nav = [("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
+    nav = [("courses.html", "קורסים"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
     for li, (href, txt) in zip(h.find("ul").find_all("li", recursive=False), nav):
         b = li.find(["button", "a"])
         a = soup.new_tag("a", href=href); a["class"] = b["class"]; a.string = txt
@@ -91,37 +91,47 @@ def do_header(soup):
         if a.get("href") == "https://app.mintlify.com":
             a["href"] = "guide-1.html"; put(a, "למדריך הכתוב")
         elif a.get("href") == "/contact/sales":
-            a["href"] = "course.html"; put(a, "התחל ללמוד")
+            a["href"] = "course-lovable.html"; put(a, "התחל ללמוד")
     vp = h.find("div", class_="top-full")
     if vp: vp.decompose()
+
+
+def courses_cards_html():
+    """שני הקורסים בכרטיסים (תמונת שער, שם ומצב): האיור בפתיחה של דף הבית ושל עמוד הקורסים."""
+    # שני הקורסים: תמונת שער, שם ומצב (זמין / בקרוב)
+    crs = [("course-lovable.html", "course-lovable", "קורס Lovable", "זמין עכשיו", "on"),
+           ("course.html", "course-claude-code", "קורס Claude Code", "עולה בשבוע הבא", "")]
+    cards = "".join(f'<a class="hc-card" href="{h}"><img src="assets/images/articles/{im}.webp?v=4" alt="" decoding="async">'
+                    f'<span class="hc-b"><b>{t}</b><small class="{c}">{st}</small></span></a>' for h, im, t, st, c in crs)
+    return (f'<div class="hc">{cards}</div>'
+        '<style>.hc{position:absolute;inset:0;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,min(42%,340px)));justify-content:start;grid-template-rows:1fr;gap:16px;padding:22px 22px 60px;background:#fff}'
+        '.hc-card{position:relative;display:block;overflow:hidden;border-radius:10px;color:#fff}'
+        '.hc-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease-out-soft,ease)}'
+        '.hc-card:hover img{transform:scale(1.03)}'
+        '.hc-b{position:absolute;inset:0 0 auto;padding:20px;display:flex;flex-direction:column;gap:6px;background:linear-gradient(rgba(0,0,0,.28),transparent)}'
+        '.hc-b b{font-size:clamp(18px,2vw,26px);font-weight:800;line-height:1.15}'
+        '.hc-b small{font-size:14px;font-weight:600;opacity:.9}.hc-b small.on::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#7CF0A0;margin-inline-end:7px}'
+        '@media (max-width:640px){.hc{gap:10px;padding:12px;grid-template-columns:repeat(2,minmax(0,1fr))}.hc-b{padding:12px}.hc-b small{font-size:12px}}</style>')
 
 
 # ---------------------------------------------------------------- פתיחה
 def do_hero(sec, n_ch):
     cv = sec.find("canvas"); cv["data-rib"] = "hero"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
     sec.find("a", href="/data").decompose()  # בלי התגית מעל הכותרת
-    h1 = sec.find("h1"); put(h1, "קורס קלוד קוד בחינם ובעברית"); h1["class"] = h1.get("class", []) + ["m2-h1"]
+    h1 = sec.find("h1"); put(h1, "ללמוד AI בחינם, בעברית"); h1["class"] = h1.get("class", []) + ["m2-h1"]
     p = h1.find_next("p")
-    put(p, 'קורס Claude Code למתחילים, בלי ידע בתכנות. <span class="font-medium text-text-main">שיעורי וידאו</span>, <span class="font-medium text-text-main">מדריך כתוב</span> ו<span class="font-medium text-text-main">סקילים</span>.')
-    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "guide-1.html"
-    a1.contents[0].replace_with("להתחיל ללמוד בחינם")
+    put(p, 'קורסים, מדריכים וסקילים לכלי ה-AI שכדאי להכיר, בלי ידע קודם. <span class="font-medium text-text-main">קורס Lovable</span> כבר כאן, <span class="font-medium text-text-main">קורס Claude Code</span> עולה בשבוע הבא.')
+    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "course-lovable.html"
+    a1.contents[0].replace_with("לקורס Lovable")
     for k in ("target", "rel"): a1.attrs.pop(k, None)
-    a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = "guide-1.html"
-    put(a2, icon("book", "size-4 text-brand") + "למדריך הכתוב")
+    a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = "courses.html"
+    for k in ("target", "rel", "referrerpolicy"): a2.attrs.pop(k, None)
+    put(a2, icon("play", "size-4 text-brand") + "לכל הקורסים")
     a2.find_parent("div").find_next_sibling("div").decompose()  # בלי "מה צריך כדי להתחיל"
     box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
-    box["aria-label"] = "המדריך הכתוב של Free AI"
+    box["aria-label"] = "הקורסים של Free AI"
     imgs = box.find_all("img")
-    # תצוגה חיה של העמוד הראשון במדריך (לא צילום), כך שכל שינוי במדריך מופיע כאן לבד
-    live = BeautifulSoup(
-        '<iframe class="m2-live" data-src="guide-1.html" title="המדריך הכתוב: פרק 1" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
-        '<span class="m2-live-fade" aria-hidden="true"></span>'
-        '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
-        'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
-        'fit();addEventListener("resize",fit);'
-        'function go(){f.src=f.dataset.src}if(document.readyState==="complete")setTimeout(go,300);else addEventListener("load",function(){setTimeout(go,300)});'
-        'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";d.documentElement.classList.remove("dark");'
-        'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>', "html.parser")
+    live = BeautifulSoup(courses_cards_html(), "html.parser")
     imgs[0].replace_with(live)
     imgs[1].decompose()
 
@@ -133,19 +143,19 @@ def soup_tag(node, name, **attrs):
 
 # ---------------------------------------------------------------- כלים + פס מספרים
 # כל כלי: שם, קישור, והלוגו האמיתי (סימן + שם כמו שהחברה מציירת אותו). לסקילים, לקונקטורים ולפלאגינים אין לוגו משלהם, אז הם מקבלים את הסימן של קלוד.
-TOOLS = [("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
+TOOLS = [("Lovable", "course-lovable.html", [None]),
+         ("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
          ("Claude Code", "guide-4.html", ["claudecode-mark.svg", "claudecode-text.svg"]),
          ("Skills", "guide-14.html", ["claude-mark.svg", None]),
          ("Connectors", "guide-13.html", ["claude-mark.svg", None]),
          ("GitHub", "guide-5.html", ["github-mark.svg", "github-text.svg"]),
          ("4CODE", "guide-20.html", ["4code-logo.png"]),
-         ("Supabase", "guide-13.html", ["supabase-logo.svg"]),
-         ("Cloudflare", "guide-20.html", ["cloudflare-mark.svg", "cloudflare-text.svg"])]
+         ("Supabase", "guide-13.html", ["supabase-logo.svg"])]
 
 
 def do_tools(sec, n_ch, n_art):
-    h2 = sec.find("h2"); put(h2, f'<strong class="font-medium text-text-main">{len(TOOLS)} הכלים</strong> שהופכים אדם אחד לצוות שלם.')
-    a = h2.find_next("a"); a["href"] = "guide-1.html"; a.contents[0].replace_with("למדריך המלא")
+    h2 = sec.find("h2"); put(h2, f'<strong class="font-medium text-text-main">{len(TOOLS)} כלי AI</strong> שתלמדו כאן, בעברית ובחינם.')
+    a = h2.find_next("a"); a["href"] = "courses.html"; a.contents[0].replace_with("לכל הקורסים")
     cards = sec.find_all("div", class_="group/card")
     cards[0].parent["class"] = cards[0].parent["class"] + ["m2-tools"]
     while len(cards) < len(TOOLS):  # שורה עליונה: 4 כלים של קלוד, שורה תחתונה: 4 כלים חיצוניים
@@ -163,10 +173,10 @@ def do_tools(sec, n_ch, n_art):
             link = frag(f'<a class="absolute inset-0 rounded-[6px] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand" href="{href}" aria-label="{name}">{arrow}</a>')
             card.append(link)
     tk = sec.find(string=re.compile("Agents at work today")).parent
-    tk.string = "הקורס במספרים"
-    items = [("פרקים במדריך", str(n_ch)), ("שיעורי וידאו", "8"), ("מאמרים", str(n_art)), ("מחיר", "₪0"), ("בעברית", "100%")]
+    tk.string = "Free AI במספרים"
+    items = [("קורסים", "2"), ("פרקים במדריך", str(n_ch)), ("מאמרים", str(n_art)), ("מחיר", "₪0"), ("בעברית", "100%")]
     rows = sec.find("div", attrs={"aria-label": "Live stats, focus to pause"})
-    rows["aria-label"] = "הקורס במספרים"; rows["data-ticker"] = ""
+    rows["aria-label"] = "Free AI במספרים"; rows["data-ticker"] = ""
     rows["class"] = ["tk-view"]
     one = "".join(f'<span class="tk-item"><b dir="ltr">{val}</b>{lab}</span>' for lab, val in items)
     group = f'<div class="tk-group">{one}{one}</div>'
@@ -245,9 +255,9 @@ RIVES = [("agent-native-platform-warm3", "agent-native-platform-mobile-warm3"), 
          ("connect-with-your-systems-warm3", None), ("collaborate-with-your-team-and-agents-warm3", None), ("build-on-top-of-your-existing-setup-warm3", "build-on-top-of-your-existing-setup-mobile-warm3")]
 
 
-BENTO_TITLES = ["כותבים בעברית, קלוד קוד בונה",
+BENTO_TITLES = ["כותבים בעברית, ה-AI בונה",
                 "מתחילים מאפס, בלי ידע ובחינם",
-                "אתם מחליטים, קלוד עושה את העבודה",
+                "אתם מחליטים, ה-AI עושה את העבודה",
                 "מתחברים לשירותים",
                 "עובדים כבר על קורס סוכנים. כן, גם בחינם.",
                 "רעיון בבוקר, אתר באוויר בערב"]
@@ -255,7 +265,7 @@ BENTO_TITLES = ["כותבים בעברית, קלוד קוד בונה",
 
 def do_bento(sec):
     """הכרטיסים המקוריים שלהם עם אנימציות ה-Rive המקוריות, והכותרות בעברית."""
-    do_head(sec, "כל מה שצריך לאתר הראשון.", "בלי לכתוב שורת קוד.", "course.html", "התחל ללמוד")
+    do_head(sec, "לומדים AI מאפס.", "ובונים איתו דברים אמיתיים, בלי לכתוב קוד.", "course-lovable.html", "התחל ללמוד")
     titles = BENTO_TITLES
     for art, title, (src, mob) in zip(sec.find_all("article"), titles, RIVES):
         box = art.find("div", class_="absolute")
@@ -288,9 +298,9 @@ STAT_ICONS = {
 }
 
 def do_scale(sec, n_ch):
-    do_head(sec, "קלוד קוד כבר משנה את הדרך שבה אנשים עובדים.", "הגיע הזמן שגם אתם תדעו לעבוד איתו.", "guide-1.html", "לפרק הראשון")
+    do_head(sec, "AI כבר משנה את הדרך שבה אנשים עובדים.", "הגיע הזמן שגם אתם תדעו לעבוד איתו.", "courses.html", "לכל הקורסים")
     cv = sec.find("canvas"); cv["data-rib"] = "wave"; cv["data-flip"] = "1"; cv["aria-hidden"] = "true"
-    stats = [("1", "אדם, היכולת של צוות", "users"), ("∞", "דברים שתוכלו לבנות", "blocks"), ("₪0", "לקורס. למדריכים. לכל הידע", "gift")]
+    stats = [("1", "אדם, היכולת של צוות", "users"), ("∞", "דברים שתוכלו לבנות", "blocks"), ("₪0", "לקורסים. למדריכים. לכל הידע", "gift")]
     grid = sec.find_all("div", class_="gap-6")[0].parent  # בעברית הריפוד צריך להיות בצד של הקו המפריד
     grid["class"] = grid["class"] + ["m2-stats"]
     for blk, (n, lab, ic) in zip(sec.find_all("div", class_="gap-6"), stats):
@@ -299,11 +309,11 @@ def do_scale(sec, n_ch):
 
 
 # ---------------------------------------------------------------- כרטיסים צבעוניים
-STARTS = [("הקורס", "8 שיעורי וידאו, לפי הסדר.", "course.html", "לקורס"),
-          ("המדריך", "{n} פרקים לקריאה, צעד אחרי צעד.", "guide-1.html", "למדריך"),
+STARTS = [("קורס Lovable", "שיעורי וידאו מוקלטים, זמין עכשיו.", "course-lovable.html", "לקורס"),
+          ("קורס Claude Code", "עולה בשבוע הבא. נרשמים ומקבלים הודעה.", "course.html", "להרשמה"),
+          ("המדריך", "{n} פרקים על Claude Code, צעד אחרי צעד.", "guide-1.html", "למדריך"),
           ("סקילים", "יכולות מוכנות לקלוד, להורדה בחינם.", "skills.html", "לסקילים"),
-          ("מאמרים", "מדריכים קצרים שאפשר לעשות היום.", "articles.html", "למאמרים"),
-          ("הפרק הראשון", "שלושה דברים להכין, ואפשר לצאת לדרך.", "guide-1.html", "לפרק 1")]
+          ("מאמרים", "מדריכים קצרים שאפשר לעשות היום.", "articles.html", "למאמרים")]
 
 
 # אייקונים לכרטיסי הלמידה: Phosphor Icons (duotone), רישיון MIT
@@ -314,11 +324,11 @@ START_ICONS = {
     "article": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\"><path d=\"M224,56V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z\" opacity=\"0.2\"/><path d=\"M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM184,96a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,96Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,128Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,160Z\"/></svg>",
     "rocket-launch": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\"><path d=\"M184,120v61.65a8,8,0,0,1-2.34,5.65l-34.35,34.35a8,8,0,0,1-13.57-4.53L128,176ZM136,72H74.35a8,8,0,0,0-5.65,2.34L34.35,108.69a8,8,0,0,0,4.53,13.57L80,128ZM40,216c37.65,0,50.69-19.69,54.56-28.18L68.18,161.44C59.69,165.31,40,178.35,40,216Z\" opacity=\"0.2\"/><path d=\"M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z\"/></svg>"
 }
-START_ICON_NAMES = ["play", "book-open-text", "sparkle", "article", "rocket-launch"]
+START_ICON_NAMES = ["play", "rocket-launch", "book-open-text", "sparkle", "article"]
 
 
 def do_starts(sec, n_ch):
-    do_head(sec, "קורס, מדריך, סקילים, מאמרים ועוד.", "הכול כאן, בחינם.")
+    do_head(sec, "קורסים, מדריך, סקילים ומאמרים.", "הכול כאן, בחינם.")
     sec.find("header").find("a").decompose()  # בלי כפתור "התחל ללמוד" ליד החצים
     carousel_buttons(sec, "דרך להתחיל")
     track = sec.find(attrs={"aria-label": "Startup customer stories"})
@@ -379,22 +389,22 @@ def do_posts(sec, arts):
 # ---------------------------------------------------------------- פס סיום
 def do_cta(sec):
     sec.find("svg")["data-flow"] = ""
-    h2 = sec.find("h2"); put(h2, "קורס קלוד קוד, בחינם ובעברית")
+    h2 = sec.find("h2"); put(h2, "ללמוד AI, בחינם ובעברית")
     links = h2.find_next("div").find_all("a")
-    links[0]["href"] = "guide-1.html"; put(links[0], "למדריך הכתוב")
-    links[1]["href"] = "course.html"; links[1].contents[0].replace_with("התחל ללמוד")
+    links[0]["href"] = "courses.html"; put(links[0], "לכל הקורסים")
+    links[1]["href"] = "course-lovable.html"; links[1].contents[0].replace_with("לקורס Lovable")
 
 
 # ---------------------------------------------------------------- שאלות נפוצות
 # השאלות שאנשים באמת מחפשים בגוגל (docs/seo/longtail-2026-11-18.md). המחירים נבדקו ב-claude.com/pricing.
-FAQ = [("מה זה קלוד קוד?", "כלי של Anthropic שבונה אתרים, אפליקציות ומערכות לפי מה שכותבים לו בשפה רגילה.", ("article-what-is-claude-code.html", "הסבר פשוט על קלוד קוד")),
-       ("האם קלוד קוד בחינם?", "קלוד קוד עצמו דורש מנוי בתשלום לקלוד, החל מ-Pro. הקורס שלנו, המדריך וכל הידע כאן בחינם.", None),
+FAQ = [("מה זה Free AI?", "אתר שמלמד לעבוד עם כלי AI, בעברית ובחינם: קורסים מוקלטים, מדריך כתוב, סקילים ומאמרים.", ("courses.html", "לכל הקורסים")),
+       ("זה באמת בחינם?", "כן. הקורסים, המדריך והסקילים בחינם. על חלק מהכלים עצמם, כמו Claude, צריך מנוי.", None),
+       ("צריך ידע קודם?", "לא. כל קורס מתחיל מאפס, גם למי שלא כתב שורת קוד.", None),
+       ("אילו קורסים יש?", "קורס Lovable זמין עכשיו. קורס Claude Code עולה בשבוע הבא, ואפשר כבר להירשם ולקבל הודעה.", ("courses.html", "לכל הקורסים")),
+       ("מה זה Lovable?", "כלי שבונה אתר או אפליקציה לפי מה שכותבים לו. עובד בדפדפן, ויש לו תוכנית חינמית להתחלה.", ("course-lovable.html", "לקורס Lovable")),
+       ("מה זה קלוד קוד?", "כלי של Anthropic שבונה אתרים, אפליקציות ומערכות לפי מה שכותבים לו בשפה רגילה.", ("article-what-is-claude-code.html", "הסבר פשוט על קלוד קוד")),
        ("כמה עולה קלוד קוד לחודש?", "המנוי הזול שכולל אותו הוא Pro: ‏20$ לחודש, או 17$ לחודש בתשלום שנתי. יש גם Max ב-100$.", ("article-claude-code-price.html", "כל המחירים")),
-       ("האם קלוד קוד עובד בעברית?", "כן. כותבים לו בעברית רגילה, והוא בונה גם אתרים בעברית.", None),
-       ("איך מתקינים קלוד קוד על המחשב?", "מורידים את אפליקציית Claude למחשב, ל-Mac או ל-Windows, וקלוד קוד נמצא בתוכה. אפשר לעבוד איתו גם בדפדפן.", ("guide-4.html", "מדריך ההתקנה")),
-       ("מה ההבדל בין קלוד לקלוד קוד?", "קלוד משוחח איתכם ועונה. קלוד קוד עובד על הקבצים שלכם ובונה בפועל.", ("guide-2.html", "ההבדל בפירוט")),
-       ("צריך לדעת לתכנת?", "לא. הקורס מתחיל מאפס ומתאים לכל רמה.", ("guide-1.html", "לפרק הראשון")),
-       ("איך מתחילים ללמוד קלוד קוד?", "נכנסים לקורס: 8 שיעורי וידאו ומדריך כתוב בעברית, בקצב שלכם.", ("course.html", "לקורס"))]
+       ("זה עובד בעברית?", "כן. גם ל-Lovable וגם לקלוד קוד כותבים בעברית רגילה, והם בונים גם אתרים בעברית.", None)]
 
 
 def do_faq(sec):
@@ -428,8 +438,8 @@ def do_footer(soup, arts):
             st.decompose()
         else:
             st["class"] = [c for c in st["class"] if c not in ("hidden", "lg:mt-auto", "lg:inline-flex")] + ["inline-flex"]
-    logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">קלוד קוד בחינם</p><p class="f-tag-p">קורס Claude Code למתחילים, בלי ידע בתכנות. שיעורי וידאו, מדריך כתוב וסקילים.</p></div>'))
-    cols = [("לומדים", [("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]),
+    logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">ללמוד AI בחינם</p><p class="f-tag-p">קורסים, מדריכים וסקילים לכלי AI, בעברית ובלי ידע קודם.</p></div>'))
+    cols = [("לומדים", [("courses.html", "כל הקורסים"), ("course-lovable.html", "קורס Lovable"), ("course.html", "קורס Claude Code"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-20.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
             ("כלים", [("guide-4.html", "Claude Code"), ("guide-13.html", "Connectors"), ("guide-14.html", "Skills"), ("guide-20.html", "4CODE")]),
@@ -450,10 +460,10 @@ def do_mobile_header(soup):
     put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:30px;width:auto">')
     b = h.find("button"); b["aria-label"] = "תפריט"; b["aria-controls"] = "m-menu"; b["data-menu"] = ""
     b["class"] = [c if c != "-mr-1.5" else "-ml-1.5" for c in b["class"]]
-    links = [("index.html", "דף הבית"), ("course.html", "הקורס"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
+    links = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
     lis = "".join(f'<li><a class="flex h-12 items-center border-b border-border-line text-base/6 font-medium text-text-main" href="{a}">{t}</a></li>' for a, t in links)
     h.append(frag(f'<nav id="m-menu" hidden aria-label="תפריט ראשי" class="absolute inset-x-0 top-16 z-[105] bg-neutral-0 px-5 pb-6 shadow-[0_12px_24px_-12px_rgba(0,0,0,.15)]"><ul>{lis}</ul>'
-                  f'<a class="mt-5 flex h-11 items-center justify-center rounded-[4px] bg-neutral-900 text-sm/4 font-medium text-white" href="course.html">התחל ללמוד</a></nav>'))
+                  f'<a class="mt-5 flex h-11 items-center justify-center rounded-[4px] bg-neutral-900 text-sm/4 font-medium text-white" href="course-lovable.html">התחל ללמוד</a></nav>'))
 
 
 SHOW_PROMPTS = False  # "מה כותבים לקלוד קוד": מוסתר כרגע, נחזיר בהמשך
@@ -523,7 +533,7 @@ INNER_HEAD = """<!DOCTYPE html>
 """
 
 
-def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None, buttons=True, meta=None):
+def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.html", "לכל המאמרים", "file"), script="", legacy_v="1", live=None, buttons=True, meta=None, btn1=("guide-1.html", "להתחיל ללמוד בחינם", None)):
     """עמוד פנימי: כותרת עליונה, פתיחה (חוטים מונפשים, כותרת עבה, כפתורים, איור במסגרת) ופוטר כמו בדף הבית.
     main_html: התוכן שמתחת לפתיחה (תגית <main> שלמה)."""
     _, arts = counts()
@@ -540,8 +550,9 @@ def inner_page(title, desc, chip, h1, lead, visual, main_html, btn2=("articles.h
     tag.decompose()  # בלי תגית קטנה מעל הכותרת, אף פעם (בקשת בעל האתר). הפרמטר chip נשאר רק לתאימות.
     h = sec.find("h1"); put(h, h1); h["class"] = h.get("class", []) + ["m2-h1", "m2-h1-wrap"]
     put(h.find_next("p"), lead)
-    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = "guide-1.html"
-    a1.contents[0].replace_with("להתחיל ללמוד בחינם")
+    a1 = sec.find("a", href="https://app.mintlify.com/signup"); a1["href"] = btn1[0]
+    a1.contents[0].replace_with(btn1[1])
+    if btn1[2]: a1["data-notify"] = btn1[2]  # כפתור הרשמה להודעה (auth-gate.js)
     for k in ("target", "rel"): a1.attrs.pop(k, None)
     a2 = sec.find("a", href="https://app.mintlify.com/api/auth/google/discovery"); a2["href"] = btn2[0]
     for k in ("target", "rel", "referrerpolicy"): a2.attrs.pop(k, None)

@@ -87,7 +87,7 @@ http.createServer((req, res) => {
     return res.end();
   }
   // הקורס בשיפוצים: עמודי הקורס (לא המדריך) מראים את עמוד "תכף חוזרים"
-  if (/^\/(course|course-lessons)\/?$/.test(p)) return send(res, path.join(ROOT, 'soon.html'), 200, req);
+  if (/^\/course-lessons\/?$/.test(p)) return send(res, path.join(ROOT, 'soon.html'), 200, req);
   let file = path.normalize(path.join(ROOT, p));
   if (!file.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
   if (p.endsWith('/')) file = path.join(file, 'index.html');
