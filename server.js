@@ -16,7 +16,7 @@ const TYPES = {
 };
 
 const OLD = {
-  '/service': '/course', '/service-single': '/course-lessons',
+  '/service': '/course', '/service-single': '/course-lessons', '/course-lovable': '/lovable-1',
   '/work': '/skills', '/work-single': '/skill-security', '/work-site-speed': '/skill-site-speed',
 };
 

@@ -11,7 +11,7 @@ START, END = "<!-- site-header -->", "<!-- /site-header -->"
 SUPABASE_URL = "https://utkbzapqkucetphugmul.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2J6YXBxa3VjZXRwaHVnbXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTQ2MjksImV4cCI6MjExMDk5MDYyOX0.VbAtIlS9kxXrTkrezkE3JlzZMsGH2QRG3OlqCQY018o"  # anon (ציבורי)
 SUPABASE_JS = "assets/js/vendor/supabase-2.45.4.js"
-OPEN = {"index", "privacy", "terms", "accessibility", "articles", "skills", "courses", "course", "course-lovable", "guides"}
+OPEN = {"index", "privacy", "terms", "accessibility", "articles", "skills", "courses", "course", "guides"}
 A_START, A_END = "<!-- auth-gate -->", "<!-- /auth-gate -->"
 # סרגל הנגישות (נבנה מ-tools/a11y-toolbar עם npm run build:a11y). מעל מסך ההתחברות, כדי שיעבוד גם שם.
 X_START, X_END = "<!-- a11y-toolbar -->", "<!-- /a11y-toolbar -->"
@@ -28,6 +28,7 @@ def _v(files=("css/site-header.css", "js/site-header.js")):
 def _active(slug):
     if slug.startswith("course"): return "courses"
     if slug.startswith("guide"): return "guides"
+    if slug.startswith("lovable-"): return "courses"
     if slug.startswith("skill"): return "skills"
     if slug.startswith("article"): return "articles"
     return ""
@@ -45,10 +46,10 @@ def header_html(slug):
             '<header class="gh" id="gh"><div class="gh-in">'
             '<a class="gh-logo" href="/" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/logo.svg" alt="Free AI"></a>'
             f'<nav class="gh-nav" aria-label="ניווט ראשי">{nav}</nav>'
-            '<a class="gh-btn" href="course-lovable">התחל ללמוד</a>'
+            '<a class="gh-btn" href="lovable-1">התחל ללמוד</a>'
             '<button class="gh-burger" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="gh-m">'
             '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>'
-            f'</div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden>{mob}<a class="gh-btn" href="course-lovable">התחל ללמוד</a></nav></header>'
+            f'</div><nav class="gh-m" id="gh-m" aria-label="תפריט" hidden>{mob}<a class="gh-btn" href="lovable-1">התחל ללמוד</a></nav></header>'
             f'<script src="assets/js/site-header.js?v={v}" defer></script>{END}')
 
 
@@ -130,7 +131,7 @@ def _cut(s, open_re):
 
 def apply(path):
     slug = os.path.basename(path)[:-5]
-    if slug.startswith("guide-"): return False
+    if slug.startswith(("guide-", "lovable-")): return False  # למדריך ולקורס Lovable יש מסך משלהם
     s = open(path).read()
     s = re.sub(re.escape(START) + ".*?" + re.escape(END), "", s, flags=re.S)
     for pat in (r'<header[^>]*\bid="top"', r'<header[^>]*\bid="top-m"', r'<header class="tf-header[^"]*"', r'<header class="c-header[^"]*"'):

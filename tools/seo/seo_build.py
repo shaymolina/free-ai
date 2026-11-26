@@ -72,9 +72,9 @@ def schema(s, title, desc, url, mod, faqs=()):
         graph.append({"@type": "Article", "headline": title.split(" | ")[0], "description": desc,
                       "inLanguage": "he", "url": url, "dateModified": mod, "isAccessibleForFree": True,
                       "author": {"@id": BASE + "/#org"}, "publisher": org, "image": OG_IMAGE})
-    elif s in ("course", "course-lovable"):
+    elif s in ("course", "lovable-1"):
         crumbs.append({"@type": "ListItem", "position": 2, "name": "קורסים", "item": BASE + "/courses"})
-        graph.append({"@type": "Course", "name": "קורס Lovable" if s == "course-lovable" else "קורס Claude Code", "description": desc, "inLanguage": "he",
+        graph.append({"@type": "Course", "name": "קורס Lovable" if s == "lovable-1" else "קורס Claude Code", "description": desc, "inLanguage": "he",
                       "url": url, "isAccessibleForFree": True, "provider": org,
                       "offers": {"@type": "Offer", "price": 0, "priceCurrency": "ILS", "category": "Free"},
                       "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online",

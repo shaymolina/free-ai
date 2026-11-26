@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "59"
+CSS_VERSION = "60"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -368,6 +368,79 @@ build_chapter(
                 <p class="more-link">לא בטוחים מה זה בכלל? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a></p>''',
 )
 
+
+# =====================================================================
+# קורס Lovable: אותו עיצוב כמו המדריך (תפריט צד עם השיעורים), וסרטון יוטיוב בכל שיעור
+# =====================================================================
+LOVABLE_JS = GUIDE_JS.replace("'freeai-guide-done'", "'freeai-lovable-done'").replace("'guide-' + CURRENT", "'lovable-' + CURRENT").replace(" פרקים'", " שיעורים'").replace("את המדריך", "את הקורס").replace("הפרק הבא בקרוב", "השיעור הבא בקרוב")
+
+
+def lovable_sidebar(lessons, current):
+    items = []
+    for i, (name, _, _) in enumerate(lessons, 1):
+        cls = "ch" + (" is-on" if i == current else "")
+        cur = ' aria-current="page"' if i == current else ""
+        items.append(f'<li><a href="lovable-{i}.html" class="{cls}" data-ch="{i}"{cur}><span class="num">{i}</span><span class="nm">{name}</span>{_ico(ICO["check"], "dot")}</a></li>')
+    return f'''<aside class="ds-side" id="ds-side">
+            <a href="index.html" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
+            <div class="ds-scroll">
+                <div class="ds-group">
+                    <div class="ds-group-title">קורס Lovable</div>
+                    <div class="ds-prog"><div class="bar"><i id="guide-fill"></i></div><span class="count" id="guide-count"></span></div>
+                    <ol class="chs">{"".join(items)}</ol>
+                </div>
+            </div>
+            <div class="ds-profile"><span class="avatar">{_ico(ICO["user"])}</span><span class="who"><b>אורח</b><small id="guide-count-2"></small></span></div>
+        </aside>'''
+
+
+def lovable_video(name, vid):
+    if not vid:
+        return '<div class="lvid empty"><span>הסרטון עולה לכאן בקרוב</span></div>'
+    return (f'<div class="lvid"><iframe src="https://www.youtube-nocookie.com/embed/{vid}?rel=0" title="{name}" loading="lazy" '
+            'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>')
+
+
+def build_lovable():
+    from lovable_lessons import LESSONS
+    total = len(LESSONS)
+    menu = site_menu().replace('href="guide-1.html" class="menu-item on"', 'href="guide-1.html" class="menu-item"').replace('href="courses.html" class="menu-item"', 'href="courses.html" class="menu-item on"')
+    for n, (name, lead, vid) in enumerate(LESSONS, 1):
+        last = n == total
+        nxt = f' data-next="lovable-{n + 1}"' if not last else ' data-next="courses.html"'
+        body = f'''<div class="ds-app">
+        {lovable_sidebar(LESSONS, n)}
+        <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
+        <div class="ds-main">
+            <header class="ds-top has-head">
+                <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
+                <span class="ds-vsep"></span>
+                <div class="page-head"><h1>{name}</h1>{f'<span class="hsep" aria-hidden="true"></span><p class="lead">{lead}</p>' if lead else ''}</div>
+                <div class="ds-actions top-menu"><button type="button" class="icon-btn" id="top-menu-btn" aria-label="תפריט האתר" aria-expanded="false" aria-controls="top-menu">{_ico(ICO["lines"])}</button>
+                    <div class="menu-pop" id="top-menu" hidden>{menu}</div></div>
+            </header>
+            <main class="ds-content">
+                <article class="lesson">
+                    {lovable_video(name, vid)}
+                    <div class="lesson-end"><span>שיעור {n} מתוך {total}</span><div class="end-btns">{f'<a href="lovable-{n - 1}.html" class="btn btn-2">→ השיעור הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לכל הקורסים ←" if last else "סיימתי, לשיעור הבא ←"}</button></div></div>
+                </article>
+                {FOOTER}
+            </main>
+        </div>
+    </div>'''
+        html = clean(GUIDE_PAGE.format(
+            title=f"{name} – קורס Lovable בחינם ובעברית | Free AI",
+            desc=f"שיעור {n} בקורס Lovable בחינם ובעברית, למי שלא מתכנת: {lead or name}",
+            theme=THEME_HEAD, v=CSS_VERSION, body=body,
+            script=LOVABLE_JS % {"total": total, "current": n}))
+        (SITE / f"lovable-{n}.html").write_text(html)
+    for old in SITE.glob("lovable-*.html"):  # שיעורים שירדו מהרשימה
+        if int(old.stem.split("-")[1]) > total:
+            old.unlink()
+    print(f"lovable-1..{total}.html done")
+
+
+build_lovable()
 
 def flow(steps):
     """תרשים זרימה: כל שלב = טקסט + צילום מסך. אם הקובץ עוד לא קיים, מוצג מקום ריק."""

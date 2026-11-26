@@ -12,7 +12,7 @@ START, END = "<!-- site-footer -->", "<!-- /site-footer -->"
 GUIDE = [("guide-1", "לפני שמתחילים"), ("guide-3", "פותחים חשבון קלוד"), ("guide-5", "פותחים GitHub"),
          ("guide-7", "היכרות ראשונה עם קלוד"), ("guide-20", "מעלים לאוויר")]
 TOOLS = [("guide-4", "Claude Code"), ("guide-13", "Connectors"), ("guide-14", "Skills"), ("guide-20", "4CODE")]
-LEARN = [("courses", "כל הקורסים"), ("course-lovable", "קורס Lovable"), ("course", "קורס Claude Code"), ("guides", "מדריכים"), ("skills", "סקילים"), ("articles", "מאמרים")]
+LEARN = [("courses", "כל הקורסים"), ("lovable-1", "קורס Lovable"), ("course", "קורס Claude Code"), ("guides", "מדריכים"), ("skills", "סקילים"), ("articles", "מאמרים")]
 INFO = [("privacy", "פרטיות"), ("terms", "תנאי שימוש"), ("accessibility", "נגישות")]
 
 
@@ -56,7 +56,7 @@ FOOTER_RE = re.compile(r"<footer\b[^>]*>.*?</footer>", re.S)
 
 def apply(path, html=None):
     s = open(path).read()
-    if os.path.basename(path).startswith("guide-"):  # במדריך אין פוטר
+    if os.path.basename(path).startswith(("guide-", "lovable-")):  # במדריך ובקורס Lovable אין פוטר
         s = re.sub(re.escape(START) + ".*?" + re.escape(END), "", s, flags=re.S)
         open(path, "w").write(FOOTER_RE.sub("", s))
         return
