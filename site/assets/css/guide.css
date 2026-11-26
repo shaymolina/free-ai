@@ -483,7 +483,7 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 .lv-bprog { margin: 0 20px 12px; }
 .lv-bprog i { width: 0; }
 .lv-page .ds-side .ds-group { margin: 0 8px 10px; padding: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
-.lv-page .ds-side .ds-group-title { padding: 4px 8px 8px; font-size: 14px; font-weight: 700; color: var(--foreground); }
+.lv-page .ds-side .ds-group-title { margin: 0 0 6px; padding: 4px 8px 10px; font-size: 15px; font-weight: 900; color: var(--foreground); border-bottom: 1px solid var(--border); }
 .lv-page .ds-side .ch { color: var(--foreground); font-size: 14px; }
 .lv-page .ds-side .ch .num { color: color-mix(in oklch, var(--foreground) 55%, transparent); }
 .lv-page .ds-side .ch.is-on { background: color-mix(in oklch, var(--primary) 12%, transparent); box-shadow: none; font-weight: 700; }
