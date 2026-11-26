@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "69"
+CSS_VERSION = "70"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -477,8 +477,8 @@ def build_lovable():
                         <div class="lv-desc">{desc}</div>
                         {lovable_extras(l["links"])}
                         <div class="lv-foot">
-                            {f'<a href="lovable-{n - 1}.html" class="btn btn-2">{LV_ICO["prev"]}<span>הקודם</span></a>' if n > 1 else ''}
                             <button type="button" class="btn btn-primary" id="guide-done"{nxt}><span>{"סיימתי" if last else "לשיעור הבא"}</span>{LV_ICO["check"] if last else LV_ICO["next"]}</button>
+                            {f'<a href="lovable-{n - 1}.html" class="lv-prev">{LV_ICO["prev"]}<span>הקודם</span></a>' if n > 1 else ''}
                         </div>
                     </aside>
                 </article>

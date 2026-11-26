@@ -471,8 +471,8 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 .lv-res.ok { border-style: solid; border-color: var(--success); color: var(--success); }
 .lv-res.ok svg { color: var(--success); }
 .lv-page .lesson a.lv-res { color: var(--foreground); text-decoration: none; }
-.lv-foot { flex: none; display: flex; gap: 8px; }
-.lv-foot .btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; font-size: 15px; font-weight: 600; }
+.lv-foot { flex: none; display: flex; flex-direction: column; gap: 6px; }
+.lv-foot .btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; font-size: 15px; font-weight: 600; }
 .lv-foot .btn svg { width: 16px; height: 16px; }
 /* תפריט הצד: הלוגו, "קורס Lovable" וכמה שיעורים סיימתם למעלה, וכל פרק בכרטיס */
 .lv-brand { display: flex; align-items: center; gap: 10px; padding: 18px 20px 10px; }
@@ -498,4 +498,7 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
   .lv-desc { overflow: visible; }
 }
 @media (min-width: 992px) and (max-width: 1500px) { .lv-panel { width: 290px; padding: 16px; } .lv-stage { padding: 14px; } .lv-stage .lvid { width: min(100cqw - 28px, (100cqh - 28px) * 16 / 9); } }
-@media (min-width: 992px) { .lv-panel { padding-bottom: 80px; } }
+.lv-prev { display: flex; align-items: center; justify-content: center; gap: 4px; height: 36px; font-size: 14px; font-weight: 600; color: var(--muted-foreground); }
+.lv-page .lesson a.lv-prev { color: var(--muted-foreground); text-decoration: none; }
+.lv-page .lesson a.lv-prev:hover { color: var(--foreground); }
+.lv-prev svg { width: 15px; height: 15px; }
