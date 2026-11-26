@@ -447,3 +447,9 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 .lvid { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #111; border: 1px solid var(--line, #e5e5e5); }
 .lvid iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .lvid.empty { display: grid; place-items: center; background: var(--soft, #f6f5f3); color: var(--muted, #6b6b6b); font-size: 17px; }
+.ldesc { margin-top: 20px; font-size: 17px; line-height: 1.7; }
+.ldesc p { margin: 0 0 6px; }
+.llinks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.lcopy { margin-top: 16px; border: 1px solid var(--line, #e5e5e5); border-radius: 10px; overflow: hidden; }
+.lcopy-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--soft, #f6f5f3); }
+.lcopy pre { margin: 0; padding: 14px; white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size: 15px; line-height: 1.6; max-height: 320px; overflow: auto; }

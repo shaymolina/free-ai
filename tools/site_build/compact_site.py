@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "60"
+CSS_VERSION = "61"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -375,20 +375,35 @@ build_chapter(
 LOVABLE_JS = GUIDE_JS.replace("'freeai-guide-done'", "'freeai-lovable-done'").replace("'guide-' + CURRENT", "'lovable-' + CURRENT").replace(" פרקים'", " שיעורים'").replace("את המדריך", "את הקורס").replace("הפרק הבא בקרוב", "השיעור הבא בקרוב")
 
 
-def lovable_sidebar(lessons, current):
-    items = []
-    for i, (name, _, _) in enumerate(lessons, 1):
-        cls = "ch" + (" is-on" if i == current else "")
-        cur = ' aria-current="page"' if i == current else ""
-        items.append(f'<li><a href="lovable-{i}.html" class="{cls}" data-ch="{i}"{cur}><span class="num">{i}</span><span class="nm">{name}</span>{_ico(ICO["check"], "dot")}</a></li>')
+def lovable_lessons():
+    """כל השיעורים לפי הסדר, מתוך lovable_course.json (התוכן מהאתר של קורס Lovable). כל שיעור יודע לאיזה פרק הוא שייך."""
+    import json
+    data = json.load(open(Path(__file__).resolve().parent / "lovable_course.json"))
+    out = []
+    for c in data:
+        for l in c["lessons"]:
+            out.append(dict(l, chapter=c["title"]))
+    return data, out
+
+
+def lovable_sidebar(chapters, current):
+    groups, n = [], 0
+    for c in chapters:
+        items = []
+        for l in c["lessons"]:
+            n += 1
+            cls = "ch" + (" is-on" if n == current else "")
+            cur = ' aria-current="page"' if n == current else ""
+            items.append(f'<li><a href="lovable-{n}.html" class="{cls}" data-ch="{n}"{cur}><span class="num">{n}</span><span class="nm">{l["title"]}</span>{_ico(ICO["check"], "dot")}</a></li>')
+        groups.append(f'<div class="ds-group"><div class="ds-group-title">{c["title"]}</div><ol class="chs">{"".join(items)}</ol></div>')
     return f'''<aside class="ds-side" id="ds-side">
             <a href="index.html" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
             <div class="ds-scroll">
                 <div class="ds-group">
                     <div class="ds-group-title">קורס Lovable</div>
                     <div class="ds-prog"><div class="bar"><i id="guide-fill"></i></div><span class="count" id="guide-count"></span></div>
-                    <ol class="chs">{"".join(items)}</ol>
                 </div>
+                {"".join(groups)}
             </div>
             <div class="ds-profile"><span class="avatar">{_ico(ICO["user"])}</span><span class="who"><b>אורח</b><small id="guide-count-2"></small></span></div>
         </aside>'''
@@ -401,38 +416,63 @@ def lovable_video(name, vid):
             'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>')
 
 
+def lovable_extras(links):
+    """קישורים מהשיעור (כפתורים) ופרומפטים להעתקה."""
+    import html as _h
+    urls = [x for x in links if x.get("url")]
+    copies = [x for x in links if x.get("type") == "copy" and x.get("text")]
+    out = ""
+    if urls:
+        out += '<div class="llinks">' + "".join(
+            f'<a class="btn btn-2" href="{_h.escape(x["url"])}" target="_blank" rel="noopener">{_h.escape((x.get("title") or x.get("label") or x["url"]).strip())} ↗</a>' for x in urls) + '</div>'
+    for x in copies:
+        t = _h.escape(x["text"].strip())
+        out += (f'<div class="lcopy"><div class="lcopy-h"><b>{_h.escape((x.get("label") or "להעתקה").strip())}</b>'
+                f'<button type="button" class="btn btn-2 lcopy-btn">העתקה</button></div><pre dir="auto">{t}</pre></div>')
+    return out
+
+
+LCOPY_JS = """<script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.lcopy-btn');if(!b)return;
+navigator.clipboard.writeText(b.closest('.lcopy').querySelector('pre').textContent);b.textContent='הועתק ✓';setTimeout(function(){b.textContent='העתקה'},1800)});</script>"""
+
+
 def build_lovable():
-    from lovable_lessons import LESSONS
-    total = len(LESSONS)
+    chapters, lessons = lovable_lessons()
+    total = len(lessons)
     menu = site_menu().replace('href="guide-1.html" class="menu-item on"', 'href="guide-1.html" class="menu-item"').replace('href="courses.html" class="menu-item"', 'href="courses.html" class="menu-item on"')
-    for n, (name, lead, vid) in enumerate(LESSONS, 1):
-        last = n == total
+    for n, l in enumerate(lessons, 1):
+        name, last = l["title"], n == total
+        mins = max(1, round((l["seconds"] or 0) / 60))
+        desc = "".join(f"<p>{p.strip()}</p>" for p in l["description"].split("\n") if p.strip())
         nxt = f' data-next="lovable-{n + 1}"' if not last else ' data-next="courses.html"'
         body = f'''<div class="ds-app">
-        {lovable_sidebar(LESSONS, n)}
+        {lovable_sidebar(chapters, n)}
         <div class="ds-overlay" onclick="document.body.classList.remove('side-open')"></div>
         <div class="ds-main">
             <header class="ds-top has-head">
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
                 <span class="ds-vsep"></span>
-                <div class="page-head"><h1>{name}</h1>{f'<span class="hsep" aria-hidden="true"></span><p class="lead">{lead}</p>' if lead else ''}</div>
+                <div class="page-head"><h1>{name}</h1><span class="hsep" aria-hidden="true"></span><p class="lead">{l["chapter"]} · {mins} דקות</p></div>
                 <div class="ds-actions top-menu"><button type="button" class="icon-btn" id="top-menu-btn" aria-label="תפריט האתר" aria-expanded="false" aria-controls="top-menu">{_ico(ICO["lines"])}</button>
                     <div class="menu-pop" id="top-menu" hidden>{menu}</div></div>
             </header>
             <main class="ds-content">
                 <article class="lesson">
-                    {lovable_video(name, vid)}
+                    {lovable_video(name, l.get("youtube"))}
+                    <div class="ldesc">{desc}</div>
+                    {lovable_extras(l["links"])}
                     <div class="lesson-end"><span>שיעור {n} מתוך {total}</span><div class="end-btns">{f'<a href="lovable-{n - 1}.html" class="btn btn-2">→ השיעור הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לכל הקורסים ←" if last else "סיימתי, לשיעור הבא ←"}</button></div></div>
                 </article>
                 {FOOTER}
             </main>
         </div>
     </div>'''
+        short = l["description"].split("\n")[0].strip()
         html = clean(GUIDE_PAGE.format(
             title=f"{name} – קורס Lovable בחינם ובעברית | Free AI",
-            desc=f"שיעור {n} בקורס Lovable בחינם ובעברית, למי שלא מתכנת: {lead or name}",
+            desc=f"שיעור {n} בקורס Lovable בחינם ובעברית: {short}"[:160].replace('"', "'"),
             theme=THEME_HEAD, v=CSS_VERSION, body=body,
-            script=LOVABLE_JS % {"total": total, "current": n}))
+            script=LOVABLE_JS % {"total": total, "current": n} + LCOPY_JS))
         (SITE / f"lovable-{n}.html").write_text(html)
     for old in SITE.glob("lovable-*.html"):  # שיעורים שירדו מהרשימה
         if int(old.stem.split("-")[1]) > total:
