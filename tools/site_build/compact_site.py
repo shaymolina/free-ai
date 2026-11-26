@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "73"
+CSS_VERSION = "75"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -232,24 +232,30 @@ def site_menu():
     return f'{links}<div class="menu-sep"></div><button type="button" class="menu-item theme-btn" id="theme-btn">{_ico(ICO["moon"], "i-moon")}{_ico(ICO["sun"], "i-sun")}<span class="t-dark">מצב כהה</span><span class="t-light">מצב בהיר</span></button>'
 
 
+GUIDE_GROUPS = [("לפני שמתחילים", 1, 6), ("מכירים את המסך", 7, 11), ("מוסיפים יכולות", 12, 17), ("בונים ומעלים לאוויר", 18, 21), ("אחרי הבנייה", 22, 24)]
+
+
 def sidebar(current):
-    items = []
-    for i, (name, _) in enumerate(CHAPTERS, 1):
-        cls = "ch" + (" is-on" if i == current else "")
-        inner = f'<span class="num">{i}</span><span class="nm">{name}</span>{_ico(ICO["check"], "dot")}'
-        if i in READY:
-            cur = ' aria-current="page"' if i == current else ""
-            items.append(f'<li><a href="guide-{i}.html" class="{cls}" data-ch="{i}"{cur}>{inner}</a></li>')
-        else:
-            items.append(f'<li><span class="{cls} is-soon" data-ch="{i}">{inner}</span></li>')
+    """תפריט הצד של המדריך, באותו עיצוב כמו בקורס Lovable: הלוגו, שם המדריך וההתקדמות למעלה, וכל קבוצת פרקים בכרטיס."""
+    groups = []
+    for title, a, b in GUIDE_GROUPS:
+        items = []
+        for i in range(a, b + 1):
+            name = CHAPTERS[i - 1][0]
+            cls = "ch" + (" is-on" if i == current else "")
+            inner = f'<span class="num">{i}</span><span class="nm">{name}</span>{_ico(ICO["check"], "dot")}'
+            if i in READY:
+                cur = ' aria-current="page"' if i == current else ""
+                items.append(f'<li><a href="guide-{i}.html" class="{cls}" data-ch="{i}"{cur}>{inner}</a></li>')
+            else:
+                items.append(f'<li><span class="{cls} is-soon" data-ch="{i}">{inner}</span></li>')
+        groups.append(f'<div class="ds-group"><div class="ds-group-title">{title}</div><ol class="chs">{"".join(items)}</ol></div>')
     return f'''<aside class="ds-side" id="ds-side">
-            <a href="index.html" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
+            <div class="lv-brand"><a href="index.html" class="lv-logo" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/favicon.svg" alt="" width="32" height="32"></a>
+                <div class="lv-bt"><b>המדריך לקלוד קוד</b><small id="guide-count"></small></div></div>
+            <div class="lv-bprog"><i id="guide-fill"></i></div>
             <div class="ds-scroll">
-                <div class="ds-group">
-                    <div class="ds-group-title">המדריך לקלוד קוד</div>
-                    <div class="ds-prog"><div class="bar"><i id="guide-fill"></i></div><span class="count" id="guide-count"></span></div>
-                    <ol class="chs">{"".join(items)}</ol>
-                </div>
+                {"".join(groups)}
             </div>
             <div class="ds-profile"><span class="avatar">{_ico(ICO["user"])}</span><span class="who"><b>אורח</b><small id="guide-count-2"></small></span></div>
         </aside>'''
