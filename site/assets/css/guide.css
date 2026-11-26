@@ -443,30 +443,48 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 /* טלפון: התיאור בפס העליון עד שתי שורות, כדי שהפס לא יתפוס חצי מסך */
 @media (max-width: 575.98px) { .ds-top .page-head .lead { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } }
 
-/* קורס Lovable: כל השיעור במסך אחד, בלי גלילה. הסרטון מתכווץ לפי המקום שנשאר. */
+/* קורס Lovable: כל השיעור במסך אחד, בלי גלילה. הסרטון מתכווץ לפי המקום שנשאר, והכותרת והתיאור ברוחב שלו. */
 .lvid { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #111; }
 .lvid iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.lvid.empty { display: grid; place-items: center; background: var(--muted, #f6f5f3); color: var(--muted-foreground, #6b6b6b); font-size: 17px; }
+.lvid.empty { display: grid; place-items: center; background: var(--muted); color: var(--muted-foreground); font-size: 17px; }
 .lv-page .ds-app { height: 100vh; height: 100dvh; min-height: 0; overflow: hidden; }
 .lv-page .ds-main { height: 100%; min-height: 0; }
-.lv-page .ds-content { flex: 1; min-height: 0; max-width: none; padding: 12px var(--card-gap) var(--card-gap); }
-.lv-page .lesson.lv { flex: 1; min-height: 0; margin: 0; gap: 12px; }
-.lv-stage { flex: 1; min-height: 0; container-type: size; display: flex; align-items: center; justify-content: center; }
+.lv-page .ds-content { flex: 1; min-height: 0; max-width: none; padding: 14px var(--card-gap) var(--card-gap); }
+.lv-page .lesson.lv { flex: 1; min-height: 0; margin: 0; gap: 14px; align-items: center; }
+.lv-fit { width: 100%; }
+.lv-head { flex: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.lv-t { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lv-t small { font-size: 13px; color: var(--muted-foreground); }
+.lv-page .lv-t h1 { font-size: 22px; font-weight: 700; line-height: 1.25; color: var(--foreground); }
+.lv-course { font-size: 15px; font-weight: 700; color: var(--foreground); }
+.lv-nav { flex: none; display: flex; gap: 8px; }
+.lv-nav .btn, .lv-links .btn { display: inline-flex; align-items: center; gap: 6px; }
+.lv-nav .btn svg { width: 16px; height: 16px; }
+.lv-stage { flex: 1; min-height: 0; width: 100%; container-type: size; display: flex; align-items: center; justify-content: center; }
 .lv-stage .lvid { width: min(100cqw, 100cqh * 16 / 9); }
-.lv-bar { flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px 24px; width: 100%; max-width: 1200px; margin-inline: auto; }
-.lv-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
-.lv-desc { font-size: 15px; line-height: 1.6; color: var(--muted-foreground); cursor: pointer; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.lv-desc.open { display: block; max-height: 30vh; overflow: auto; }
+.lv-below { flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px 24px; }
+.lv-desc { flex: 1; min-width: 0; font-size: 15px; line-height: 1.6; color: color-mix(in oklch, var(--foreground) 78%, transparent); }
 .lv-desc p { margin: 0 0 4px; }
-.lv-links { display: flex; flex-wrap: wrap; gap: 6px; }
-.lv-links .btn { height: 32px; padding: 0 12px; font-size: 13px; }
-.lv-bar .end-btns { flex: none; display: flex; gap: 8px; }
+.lv-links { flex: none; display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+.lv-links .btn { height: 34px; padding: 0 12px; font-size: 13px; justify-content: flex-start; }
+.lv-links .btn svg { width: 15px; height: 15px; flex: none; }
+.lv-links .btn.ok { color: var(--success); }
+/* תפריט הצד: כל פרק בכרטיס, טקסט כהה וברור */
+.lv-page .ds-side .ds-group { margin: 0 8px 10px; padding: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+.lv-page .ds-side .ds-group:first-child { background: none; border: 0; padding: 4px 8px 0; }
+.lv-page .ds-side .ds-group-title { padding: 4px 8px 8px; font-size: 14px; font-weight: 700; color: var(--foreground); }
+.lv-page .ds-side .ch { color: var(--foreground); font-size: 14px; }
+.lv-page .ds-side .ch .num { color: color-mix(in oklch, var(--foreground) 55%, transparent); }
+.lv-page .ds-side .ch.is-on { background: color-mix(in oklch, var(--primary) 12%, transparent); box-shadow: none; font-weight: 700; }
+.lv-page .ds-side .ch.is-on .num { color: var(--primary); }
 @media (max-width: 767.98px) {
   .lv-page .ds-app { height: auto; overflow: visible; }
   .lv-page .ds-main { height: auto; }
   .lv-stage { flex: none; container-type: normal; display: block; }
   .lv-stage .lvid { width: 100%; }
-  .lv-bar { flex-direction: column; }
-  .lv-bar .end-btns { width: 100%; }
-  .lv-bar .end-btns .btn { flex: 1; }
+  .lv-fit { max-width: none !important; }
+  .lv-head { flex-direction: column; align-items: stretch; }
+  .lv-nav .btn { flex: 1; justify-content: center; }
+  .lv-below { flex-direction: column; }
+  .lv-links { width: 100%; }
 }

@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "62"
+CSS_VERSION = "63"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -422,20 +422,32 @@ def lovable_extras(links):
     out = []
     for x in links:
         if x.get("url"):
-            out.append(f'<a class="btn btn-2" href="{_h.escape(x["url"])}" target="_blank" rel="noopener">{_h.escape((x.get("title") or x.get("label") or x["url"]).strip())} ↗</a>')
+            out.append(f'<a class="btn btn-2" href="{_h.escape(x["url"])}" target="_blank" rel="noopener">{LV_ICO["out"]}<span>{_h.escape((x.get("title") or x.get("label") or x["url"]).strip())}</span></a>')
         elif x.get("type") == "copy" and x.get("text"):
-            out.append(f'<button type="button" class="btn btn-2 lcopy-btn" data-label="{_h.escape((x.get("label") or "העתקת הפרומפט").strip())}">'
-                       f'{_h.escape((x.get("label") or "העתקת הפרומפט").strip())}</button><template class="lcopy-t">{_h.escape(x["text"].strip())}</template>')
+            lab = _h.escape((x.get("label") or "העתקת הפרומפט").strip())
+            out.append(f'<button type="button" class="btn btn-2 lcopy-btn">{LV_ICO["copy"]}<span>{lab}</span></button><template class="lcopy-t">{_h.escape(x["text"].strip())}</template>')
     return f'<div class="lv-links">{"".join(out)}</div>' if out else ""
 
+
+LV_ICO = {  # Lucide
+    "next": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
+    "prev": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
+    "copy": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
+    "out": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>',
+    "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+}
 
 LCOPY_JS = """<script>
 document.addEventListener('click',function(e){
   var b=e.target.closest&&e.target.closest('.lcopy-btn');
-  if(b){var t=b.nextElementSibling;navigator.clipboard.writeText(t.innerHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#x27;/g,"'").replace(/&amp;/g,'&'));
-    b.textContent='הועתק ✓';setTimeout(function(){b.textContent=b.dataset.label},1800);return;}
-  var d=e.target.closest&&e.target.closest('.lv-desc');if(d)d.classList.toggle('open');
+  if(b){var t=b.nextElementSibling,sp=b.querySelector('span'),old=sp.textContent;
+    navigator.clipboard.writeText(t.innerHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#x27;/g,"'").replace(/&amp;/g,'&'));
+    sp.textContent='הועתק';b.classList.add('ok');setTimeout(function(){sp.textContent=old;b.classList.remove('ok')},1800);}
 });
+// הכותרת והתיאור תמיד ברוחב של הסרטון
+(function(){var v=document.querySelector('.lv-stage .lvid'),cols=document.querySelectorAll('.lv-fit');if(!v)return;
+  function fit(){var w=v.getBoundingClientRect().width;cols.forEach(function(c){c.style.maxWidth=w+'px'})}
+  fit();if(window.ResizeObserver)new ResizeObserver(fit).observe(v);addEventListener('resize',fit);})();
 </script>"""
 
 
@@ -455,17 +467,18 @@ def build_lovable():
             <header class="ds-top has-head">
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
                 <span class="ds-vsep"></span>
-                <div class="page-head"><h1>{name}</h1><span class="hsep" aria-hidden="true"></span><p class="lead">{l["chapter"]} · {mins} דקות</p></div>
+                <div class="page-head"><b class="lv-course">קורס Lovable</b></div>
                 <div class="ds-actions top-menu"><button type="button" class="icon-btn" id="top-menu-btn" aria-label="תפריט האתר" aria-expanded="false" aria-controls="top-menu">{_ico(ICO["lines"])}</button>
                     <div class="menu-pop" id="top-menu" hidden>{menu}</div></div>
             </header>
             <main class="ds-content">
                 <article class="lesson lv">
-                    <div class="lv-stage">{lovable_video(name, l.get("youtube"))}</div>
-                    <div class="lv-bar">
-                        <div class="lv-info"><div class="lv-desc" title="לחיצה לפתיחה או סגירה">{desc}</div>{lovable_extras(l["links"])}</div>
-                        <div class="end-btns">{f'<a href="lovable-{n - 1}.html" class="btn btn-2">→ הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי ✓" if last else "סיימתי, לשיעור הבא ←"}</button></div>
+                    <div class="lv-head lv-fit">
+                        <div class="lv-t"><small>{l["chapter"]} · שיעור {n} מתוך {total} · {mins} דקות</small><h1>{name}</h1></div>
+                        <div class="lv-nav">{f'<a href="lovable-{n - 1}.html" class="btn btn-2">{LV_ICO["prev"]}<span>הקודם</span></a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{f'<span>סיימתי</span>{LV_ICO["check"]}' if last else f'<span>לשיעור הבא</span>{LV_ICO["next"]}'}</button></div>
                     </div>
+                    <div class="lv-stage">{lovable_video(name, l.get("youtube"))}</div>
+                    <div class="lv-below lv-fit"><div class="lv-desc">{desc}</div>{lovable_extras(l["links"])}</div>
                 </article>
             </main>
         </div>
