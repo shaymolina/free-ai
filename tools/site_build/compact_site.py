@@ -11,7 +11,7 @@ SITE = Path(__file__).resolve().parents[2] / "site"
 CSS_VERSION = "59"
 COUPON = "RVJ34jcn4j1"
 
-NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
+NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
 
 # שם הפרק, דקות קריאה
 CHAPTERS = [
@@ -221,7 +221,7 @@ ICO = {  # Lucide
     "down": '<path d="M12 5v14m-6-6 6 6 6-6"/>',
     "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
 }
-SITE_LINKS = [("index.html", "דף הבית", "home"), ("courses.html", "קורסים", "play"), ("guide-1.html", "המדריך", "book"), ("skills.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
+SITE_LINKS = [("index.html", "דף הבית", "home"), ("courses.html", "קורסים", "play"), ("guides.html", "מדריכים", "book"), ("skills.html", "סקילים", "box"), ("articles.html", "מאמרים", "news")]
 
 THEME_HEAD = """<script>(function(){var m='light';try{m=localStorage.getItem('theme')||'light'}catch(e){}if(window.self!==window.top)m='light';
 var d=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>"""

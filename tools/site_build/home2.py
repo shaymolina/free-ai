@@ -81,7 +81,7 @@ def do_header(soup):
     logo = h.find("a", attrs={"aria-label": "Go to homepage"})
     logo["href"] = "index.html"; logo["aria-label"] = "Free AI, לדף הבית"
     put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:30px;width:auto">')
-    nav = [("courses.html", "קורסים"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
+    nav = [("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
     for li, (href, txt) in zip(h.find("ul").find_all("li", recursive=False), nav):
         b = li.find(["button", "a"])
         a = soup.new_tag("a", href=href); a["class"] = b["class"]; a.string = txt
@@ -96,18 +96,22 @@ def do_header(soup):
     if vp: vp.decompose()
 
 
-def courses_cards_html():
-    """שני הקורסים בכרטיסים (תמונת שער, שם ומצב): האיור בפתיחה של דף הבית ושל עמוד הקורסים."""
-    # שני הקורסים: תמונת שער, שם ומצב (זמין / בקרוב)
-    crs = [("course-lovable.html", "course-lovable", "קורס Lovable", "זמין עכשיו", "on"),
-           ("course.html", "course-claude-code", "קורס Claude Code", "עולה בשבוע הבא", "")]
-    cards = "".join(f'<a class="hc-card" href="{h}"><img src="assets/images/articles/{im}.webp?v=4" alt="" decoding="async">'
-                    f'<span class="hc-b"><b>{t}</b><small class="{c}">{st}</small></span></a>' for h, im, t, st, c in crs)
+def courses_cards_html(crs=None):
+    """שני כרטיסים (תמונת שער, שם ומצב): האיור בפתיחה של עמוד הקורסים ושל עמוד המדריכים. "soon" = אפור, בלי קישור אם אין עמוד."""
+    crs = crs or [("course-lovable.html", "course-lovable", "קורס Lovable", "זמין עכשיו", "on"),
+                  ("course.html", "course-claude-code", "קורס Claude Code", "בקרוב", "soon")]
+    out = []
+    for h, im, t, st, c in crs:
+        tag = "a" if h else "div"
+        href = f' href="{h}"' if h else ""
+        out.append(f'<{tag} class="hc-card{" is-soon" if c == "soon" else ""}"{href}><img src="assets/images/articles/{im}.webp?v=4" alt="" decoding="async">'
+                   f'<span class="hc-b"><b>{t}</b><small class="{c}">{st}</small></span></{tag}>')
+    cards = "".join(out)
     return (f'<div class="hc">{cards}</div>'
         '<style>.hc{position:absolute;inset:0;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,min(42%,340px)));justify-content:start;grid-template-rows:1fr;gap:16px;padding:22px 22px 60px;background:#fff}'
         '.hc-card{position:relative;display:block;overflow:hidden;border-radius:10px;color:#fff}'
         '.hc-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease-out-soft,ease)}'
-        '.hc-card:hover img{transform:scale(1.03)}'
+        '.hc-card:hover img{transform:scale(1.03)}.hc-card.is-soon img{filter:grayscale(1) brightness(.85)}'
         '.hc-b{position:absolute;inset:0 0 auto;padding:20px;display:flex;flex-direction:column;gap:6px;background:linear-gradient(rgba(0,0,0,.28),transparent)}'
         '.hc-b b{font-size:clamp(18px,2vw,26px);font-weight:800;line-height:1.15}'
         '.hc-b small{font-size:14px;font-weight:600;opacity:.9}.hc-b small.on::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#7CF0A0;margin-inline-end:7px}'
@@ -129,9 +133,18 @@ def do_hero(sec, n_ch):
     put(a2, icon("play", "size-4 text-brand") + "לכל הקורסים")
     a2.find_parent("div").find_next_sibling("div").decompose()  # בלי "מה צריך כדי להתחיל"
     box = sec.find(attrs={"aria-label": "Mintlify documentation preview"})
-    box["aria-label"] = "הקורסים של Free AI"
+    box["aria-label"] = "המדריך הכתוב של Free AI"
     imgs = box.find_all("img")
-    live = BeautifulSoup(courses_cards_html(), "html.parser")
+    # תצוגה חיה של העמוד הראשון במדריך (לא צילום), כך שכל שינוי במדריך מופיע כאן לבד
+    live = BeautifulSoup(
+        '<iframe class="m2-live" data-src="guide-1.html" title="המדריך הכתוב: פרק 1" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>'
+        '<span class="m2-live-fade" aria-hidden="true"></span>'
+        '<script>(function(){var f=document.querySelector(".m2-live");if(!f)return;var W=1200;'
+        'function fit(){var w=f.parentNode.clientWidth;f.style.transform="scale("+(w/W)+")"}'
+        'fit();addEventListener("resize",fit);'
+        'function go(){f.src=f.dataset.src}if(document.readyState==="complete")setTimeout(go,300);else addEventListener("load",function(){setTimeout(go,300)});'
+        'f.addEventListener("load",function(){try{var d=f.contentDocument;d.documentElement.style.overflow="hidden";d.documentElement.classList.remove("dark");'
+        'd.querySelectorAll("a,button,input").forEach(function(e){e.tabIndex=-1})}catch(e){}})})()</script>', "html.parser")
     imgs[0].replace_with(live)
     imgs[1].decompose()
 
@@ -143,14 +156,14 @@ def soup_tag(node, name, **attrs):
 
 # ---------------------------------------------------------------- כלים + פס מספרים
 # כל כלי: שם, קישור, והלוגו האמיתי (סימן + שם כמו שהחברה מציירת אותו). לסקילים, לקונקטורים ולפלאגינים אין לוגו משלהם, אז הם מקבלים את הסימן של קלוד.
-TOOLS = [("Lovable", "course-lovable.html", [None]),
+TOOLS = [("Lovable", "course-lovable.html", ["lovable-mark.svg", "lovable-text.svg"]),
          ("Claude", "guide-3.html", ["claude-mark.svg", "claude-text.svg"]),
          ("Claude Code", "guide-4.html", ["claudecode-mark.svg", "claudecode-text.svg"]),
          ("Skills", "guide-14.html", ["claude-mark.svg", None]),
-         ("Connectors", "guide-13.html", ["claude-mark.svg", None]),
          ("GitHub", "guide-5.html", ["github-mark.svg", "github-text.svg"]),
          ("4CODE", "guide-20.html", ["4code-logo.png"]),
-         ("Supabase", "guide-13.html", ["supabase-logo.svg"])]
+         ("Supabase", "guide-13.html", ["supabase-logo.svg"]),
+         ("Cloudflare", "guide-20.html", ["cloudflare-mark.svg", "cloudflare-text.svg"])]
 
 
 def do_tools(sec, n_ch, n_art):
@@ -174,7 +187,7 @@ def do_tools(sec, n_ch, n_art):
             card.append(link)
     tk = sec.find(string=re.compile("Agents at work today")).parent
     tk.string = "Free AI במספרים"
-    items = [("קורסים", "2"), ("פרקים במדריך", str(n_ch)), ("מאמרים", str(n_art)), ("מחיר", "₪0"), ("בעברית", "100%")]
+    items = [("פרקים במדריך", str(n_ch)), ("מאמרים", str(n_art)), ("מחיר", "₪0"), ("בעברית", "100%")]
     rows = sec.find("div", attrs={"aria-label": "Live stats, focus to pause"})
     rows["aria-label"] = "Free AI במספרים"; rows["data-ticker"] = ""
     rows["class"] = ["tk-view"]
@@ -439,7 +452,7 @@ def do_footer(soup, arts):
         else:
             st["class"] = [c for c in st["class"] if c not in ("hidden", "lg:mt-auto", "lg:inline-flex")] + ["inline-flex"]
     logo.insert_after(frag('<div class="f-tag"><p class="f-tag-h">ללמוד AI בחינם</p><p class="f-tag-p">קורסים, מדריכים וסקילים לכלי AI, בעברית ובלי ידע קודם.</p></div>'))
-    cols = [("לומדים", [("courses.html", "כל הקורסים"), ("course-lovable.html", "קורס Lovable"), ("course.html", "קורס Claude Code"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]),
+    cols = [("לומדים", [("courses.html", "כל הקורסים"), ("course-lovable.html", "קורס Lovable"), ("course.html", "קורס Claude Code"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]),
             ("המדריך", [("guide-1.html", "לפני שמתחילים"), ("guide-3.html", "פותחים חשבון קלוד"), ("guide-5.html", "פותחים GitHub"), ("guide-7.html", "היכרות ראשונה עם קלוד"), ("guide-20.html", "מעלים לאוויר")]),
             ("מאמרים", [(h, t.split(" (")[0].split(" של ")[0].rstrip("?") + ("?" if "?" in t else "")) for h, t in arts[:4]]),
             ("כלים", [("guide-4.html", "Claude Code"), ("guide-13.html", "Connectors"), ("guide-14.html", "Skills"), ("guide-20.html", "4CODE")]),
@@ -460,7 +473,7 @@ def do_mobile_header(soup):
     put(logo, '<img src="assets/images/logo/logo.svg" alt="Free AI" style="height:30px;width:auto">')
     b = h.find("button"); b["aria-label"] = "תפריט"; b["aria-controls"] = "m-menu"; b["data-menu"] = ""
     b["class"] = [c if c != "-mr-1.5" else "-ml-1.5" for c in b["class"]]
-    links = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guide-1.html", "המדריך"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
+    links = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
     lis = "".join(f'<li><a class="flex h-12 items-center border-b border-border-line text-base/6 font-medium text-text-main" href="{a}">{t}</a></li>' for a, t in links)
     h.append(frag(f'<nav id="m-menu" hidden aria-label="תפריט ראשי" class="absolute inset-x-0 top-16 z-[105] bg-neutral-0 px-5 pb-6 shadow-[0_12px_24px_-12px_rgba(0,0,0,.15)]"><ul>{lis}</ul>'
                   f'<a class="mt-5 flex h-11 items-center justify-center rounded-[4px] bg-neutral-900 text-sm/4 font-medium text-white" href="course-lovable.html">התחל ללמוד</a></nav>'))

@@ -16,8 +16,18 @@ COURSES = [
     {"page": "course-lovable.html", "name": "קורס Lovable", "desc": "בונים אתרים ואפליקציות עם Lovable, בלי לכתוב קוד.",
      "status": "זמין עכשיו", "img": "course-lovable", "kind": "שיעורי וידאו"},
     {"page": "course.html", "name": "קורס Claude Code", "desc": "בונים עם Claude Code, מהחשבון הראשון ועד אתר באוויר.",
-     "status": "עולה בשבוע הבא", "img": "course-claude-code", "kind": "שיעורי וידאו"},
+     "status": "בקרוב", "img": "course-claude-code", "kind": "שיעורי וידאו", "soon": True},
 ]
+
+# המדריכים הכתובים: אותו מבנה. מדריך בלי עמוד (page=None) מוצג אפור עם "בקרוב".
+GUIDES = [
+    {"page": "guide-1.html", "name": "מדריך Claude Code", "desc": "24 פרקים קצרים, מהחשבון הראשון ועד אתר באוויר.",
+     "status": "24 פרקים", "img": "guide-claude-code", "kind": "מדריך כתוב"},
+    {"page": None, "name": "מדריך Lovable", "desc": "",
+     "status": "בקרוב", "img": "guide-lovable", "kind": "מדריך כתוב", "soon": True},
+]
+
+SOON_CSS = "<style>.ac.is-soon img{filter:grayscale(1) brightness(.85)}.ac.is-soon{cursor:default}</style>"
 
 NOTIFY = "claude-code-course"  # השם שנשמר בטבלת progress כ-notify-claude-code-course
 
@@ -29,11 +39,13 @@ def img(name, wide=False):
 def course_cards(items):
     out = []
     for k, c in enumerate(items):
-        out.append(f'<a class="ac" href="{c["page"]}">'
+        tag = "a" if c["page"] else "div"
+        href = f' href="{c["page"]}"' if c["page"] else ""
+        out.append(f'<{tag} class="ac{" is-soon" if c.get("soon") else ""}"{href}>'
                    f'<img src="{img(c["img"])}" alt="" loading="{"eager" if k < 3 else "lazy"}" decoding="async">'
                    f'<span class="ac-b"><h3 class="ac-t">{c["name"]}</h3>'
-                   f'<span class="ac-m"><span>{c["status"]}</span><i aria-hidden="true"></i><span>{c["kind"]}</span></span></span></a>')
-    return f'<div class="m2-arts">{"".join(out)}</div>'
+                   f'<span class="ac-m"><span>{c["status"]}</span><i aria-hidden="true"></i><span>{c["kind"]}</span></span></span></{tag}>')
+    return f'{SOON_CSS}<div class="m2-arts">{"".join(out)}</div>'
 
 
 def faq(items):
@@ -167,7 +179,40 @@ def build_claude():
     print("course.html done")
 
 
+# ---------------------------------------------------------------- כל המדריכים
+def guides_visual():
+    """שני המדריכים בכרטיסים, כמו האיור בעמוד הקורסים. Lovable אפור עם "בקרוב"."""
+    return home2.courses_cards_html([("guide-1.html", "guide-claude-code", "מדריך Claude Code", "24 פרקים", "on"),
+                                     (None, "guide-lovable", "מדריך Lovable", "בקרוב", "soon")])
+
+
+def build_guides():
+    main = f"""<main class="a2 sk">
+        <section class="a2-more sk-list" id="guides"><div class="a2-wrap a2-pad">
+            <div class="a2-band-head"><h2>כל המדריכים.</h2></div>
+            {course_cards(GUIDES)}
+        </div></section>
+        <div class="a2-band"><div class="a2-wrap"><div class="a2-body">
+            {sec(1, "שאלות נפוצות", faq([
+                ("מה ההבדל בין מדריך לקורס?", 'מדריך קוראים, פרק אחרי פרק, עם צילומי מסך. קורס רואים בווידאו. <a href="courses.html">לכל הקורסים</a>.'),
+                ("המדריכים בחינם?", "כן, כולם."),
+                ("מתי עולה מדריך Lovable?", 'בקרוב. בינתיים יש <a href="course-lovable.html">קורס Lovable</a> בווידאו.'),
+            ]))}
+        </div></div></div>
+        {cta("מתחילים במדריך Claude Code", "24 פרקים קצרים, צעד אחרי צעד.", [("guide-1.html", "לפרק הראשון", None), ("courses.html", "לכל הקורסים", None)])}
+    </main>"""
+    html = home2.inner_page(
+        "מדריכי AI בחינם ובעברית: Claude Code ו-Lovable | Free AI",
+        "מדריכים כתובים בעברית לכלי AI, בחינם ובלי ידע קודם: מדריך Claude Code ב-24 פרקים, ומדריך Lovable שעולה בקרוב.",
+        "", "מדריכים",
+        "מדריכים כתובים בעברית, פרק אחרי פרק, עם צילומי מסך. בחינם, ובלי ידע קודם.",
+        guides_visual(), main, btn1=("guide-1.html", "למדריך Claude Code", None), btn2=("#guides", "לכל המדריכים", "book"), legacy_v=CSS_VERSION)
+    open(os.path.join(SITE, "guides.html"), "w").write(html)
+    print("guides.html done")
+
+
 def build():
+    build_guides()
     build_courses()
     build_lovable()
     build_claude()

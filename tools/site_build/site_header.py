@@ -3,7 +3,7 @@ apply_all() מחליף את ההדר בכל העמודים (חוץ מהמדרי�
 import hashlib, os, re
 
 SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "site")
-LINKS = [("courses", "קורסים"), ("guide-1", "המדריך"), ("skills", "סקילים"), ("articles", "מאמרים")]
+LINKS = [("courses", "קורסים"), ("guides", "מדריכים"), ("skills", "סקילים"), ("articles", "מאמרים")]
 START, END = "<!-- site-header -->", "<!-- /site-header -->"
 
 # אזור משתמשים (Supabase): כתובת הפרויקט והמפתח הציבורי שלו (publishable, לא סודי). ההתחברות עם גוגל מוגדרת בתוך Supabase.
@@ -11,7 +11,7 @@ START, END = "<!-- site-header -->", "<!-- /site-header -->"
 SUPABASE_URL = "https://utkbzapqkucetphugmul.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0a2J6YXBxa3VjZXRwaHVnbXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0MTQ2MjksImV4cCI6MjExMDk5MDYyOX0.VbAtIlS9kxXrTkrezkE3JlzZMsGH2QRG3OlqCQY018o"  # anon (ציבורי)
 SUPABASE_JS = "assets/js/vendor/supabase-2.45.4.js"
-OPEN = {"index", "privacy", "terms", "accessibility", "articles", "skills", "courses", "course", "course-lovable"}
+OPEN = {"index", "privacy", "terms", "accessibility", "articles", "skills", "courses", "course", "course-lovable", "guides"}
 A_START, A_END = "<!-- auth-gate -->", "<!-- /auth-gate -->"
 # סרגל הנגישות (נבנה מ-tools/a11y-toolbar עם npm run build:a11y). מעל מסך ההתחברות, כדי שיעבוד גם שם.
 X_START, X_END = "<!-- a11y-toolbar -->", "<!-- /a11y-toolbar -->"
@@ -27,7 +27,7 @@ def _v(files=("css/site-header.css", "js/site-header.js")):
 
 def _active(slug):
     if slug.startswith("course"): return "courses"
-    if slug.startswith("guide"): return "guide-1"
+    if slug.startswith("guide"): return "guides"
     if slug.startswith("skill"): return "skills"
     if slug.startswith("article"): return "articles"
     return ""

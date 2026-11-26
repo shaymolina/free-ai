@@ -190,11 +190,13 @@ ART = {
     "skill-site-speed": dict(bg="linear-gradient(150deg,#FF2D55,#E83EC2 55%,#7C6CF2)", pattern="hourglass", op=(.6, .25, .6)),
     # קורסים
     "course-lovable": dict(bg="linear-gradient(150deg,#FF6A3D,#F2387C 55%,#7A5CF0)", pattern="sweep", op=(.15, .7, .25)),
+    "guide-claude-code": dict(bg="linear-gradient(160deg,#C8553A,#5C1E0F)", pattern="field", stroke="#FFE7D6", op=(.15, .5, .15), n=40, width=.9),
+    "guide-lovable": dict(bg="linear-gradient(150deg,#7A5CF0,#F2387C 60%,#FF6A3D)", pattern="hourglass", op=(.5, .25, .5)),
     "course-claude-code": dict(bg="linear-gradient(160deg,#D97757,#9A3B22)", pattern="fan", stroke="#FFE7D6", op=(.1, .6, .2)),
 }
 for _k, _v in ART.items():
     COVERS[_k] = art(**_v)
-    if _k.startswith(("skill-", "course-")):
+    if _k.startswith(("skill-", "course-", "guide-")):
         COVERS[_k + "-wide"] = art(**_v, wide=True)
 
 SHOT = """

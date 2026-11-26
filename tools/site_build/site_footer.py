@@ -12,7 +12,7 @@ START, END = "<!-- site-footer -->", "<!-- /site-footer -->"
 GUIDE = [("guide-1", "לפני שמתחילים"), ("guide-3", "פותחים חשבון קלוד"), ("guide-5", "פותחים GitHub"),
          ("guide-7", "היכרות ראשונה עם קלוד"), ("guide-20", "מעלים לאוויר")]
 TOOLS = [("guide-4", "Claude Code"), ("guide-13", "Connectors"), ("guide-14", "Skills"), ("guide-20", "4CODE")]
-LEARN = [("courses", "כל הקורסים"), ("course-lovable", "קורס Lovable"), ("course", "קורס Claude Code"), ("guide-1", "המדריך"), ("skills", "סקילים"), ("articles", "מאמרים")]
+LEARN = [("courses", "כל הקורסים"), ("course-lovable", "קורס Lovable"), ("course", "קורס Claude Code"), ("guides", "מדריכים"), ("skills", "סקילים"), ("articles", "מאמרים")]
 INFO = [("privacy", "פרטיות"), ("terms", "תנאי שימוש"), ("accessibility", "נגישות")]
 
 
