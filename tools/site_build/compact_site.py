@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "60"
+CSS_VERSION = "61"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -486,7 +486,8 @@ build_chapter(
     "שניהם כלולים באותו מנוי",
     extra=when(("משתמשים בקלוד כש…", ["כותבים מייל או פוסט", "מנתחים מסמך", "מחפשים רעיון או עצה"]),
                ("משתמשים בקלוד קוד כש…", ["בונים אתר", "משנים ומתקנים אתר קיים", "מעלים אותו לאוויר"]))
-          + '\n                <p class="more-link">רוצים את התמונה המלאה? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a></p>',
+          + '\n                <p class="more-link">רוצים את התמונה המלאה? <a href="article-what-is-claude-code.html">מה זה קלוד קוד, בהסבר פשוט</a></p>'
+          + '\n                <p class="more-link">עוד לא הכרתם את קלוד? <a href="article-what-is-claude.html">מה זה קלוד ואיך מתחילים</a></p>',
 )
 
 
@@ -501,6 +502,7 @@ build_chapter(
         ("בוחרים מסלול", 'בשביל לעבוד עם קלוד קוד, חייבים את המנוי בתשלום. לפחות Pro, 20 דולר בחודש.<small class="fnote">בוחרים מנוי חודשי, לא שנתי.</small>', "claude-signup-5.png"),
         ("הגעתם!", "רואים את מסך הצ'אט. החשבון מוכן.", "claude-signup-6.png"),
     ]),
+    extra='\n                <p class="more-link">מה אפשר לבקש ממנו כבר עכשיו? <a href="article-what-is-claude.html">מה זה קלוד ואיך מתחילים</a></p>',
 )
 
 
@@ -950,6 +952,16 @@ ILL_SKILLS = """<div class="ill ill-sk" aria-hidden="true">
     </div>
     <div class="ill-msg"><small>אתם כותבים:</small><span>תכין לי טבלת הוצאות לחודש, עם גרף</span></div>
     <div class="vb-fix sk-use"><span>קלוד בחר לבד בסקיל Excel</span><b>expenses.xlsx ✓</b></div>
+</div>"""
+
+
+ILL_CLAUDE = """<div class="ill ill-cl" aria-hidden="true">
+    <div class="cl-chat">
+        <div class="ill-bar"><span></span><span></span><span></span><em>claude.ai</em></div>
+        <div class="cl-me">תכתוב הודעה מנומסת לבעל הדירה שהמזגן התקלקל</div>
+        <div class="cl-ans"><b>קלוד</b><p>היי יוסי, רציתי לעדכן שהמזגן בסלון הפסיק לקרר מאתמול. מתי נוח לך לשלוח טכנאי?</p></div>
+    </div>
+    <div class="cl-dev"><span>בדפדפן</span><span>במחשב</span><span>בטלפון</span></div>
 </div>"""
 
 
@@ -1428,6 +1440,76 @@ build_article(
     lead="להתחיל מארבעת הסקילים ש-Anthropic כבר בנתה: Excel, Word, PowerPoint ו-PDF. אחריהם שלושה שמגיעים עם קלוד קוד, ועוד שלושה לבנייה ולבדיקה של אתרים.",
     visual=ILL_SKILLS,
     date="25 בנובמבר 2026",
+)
+
+build_article(
+    "article-what-is-claude.html",
+    "מה זה קלוד (Claude) ואיך מתחילים",
+    "קלוד (Claude) הוא עוזר בינה מלאכותית של Anthropic. כותבים לו בעברית ומקבלים תשובה, מסמך או טבלה. מה הוא יודע, כמה עולה ואיך מתחילים בחינם.",
+    5,
+    f"""
+            <h2>קלוד במשפט אחד</h2>
+            <p>קלוד (Claude) הוא בינה מלאכותית שמדברים איתה בכתב. שואלים שאלה או מבקשים משהו, בעברית רגילה, ותוך כמה שניות מקבלים תשובה, מכתב, סיכום או טבלה.</p>
+            <p>תחשבו על חבר שקרא כמעט כל ספר ואתר שיש, יושב לידכם 24 שעות ביממה ולא מתעייף משאלות. את קלוד בנתה חברה אמריקאית בשם Anthropic. הוא לא של גוגל ולא של OpenAI.</p>
+            <p>מאחורי קלוד יש כמה "מוחות" (דגמים) בגדלים שונים: Opus 5.5 הכי חזק, Sonnet 5.5 מהיר וחכם, ו-Haiku 5.5 הכי מהיר (<a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">מקור</a>). <a href="guide-9.html">איך בוחרים ביניהם</a>.</p>
+
+            <h2>מה עושים איתו</h2>
+            {rows_html([
+                ("לכתוב", "מייל לבעל הדירה, פוסט לפייסבוק, ברכה ליום הולדת. אומרים לו למי ובאיזה טון"),
+                ("להבין מסמך", "מעלים חוזה שכירות של 12 עמודים ושואלים \"מה אני מתחייב פה?\""),
+                ("לסדר מספרים", "מדביקים את ההוצאות של החודש ומקבלים קובץ אקסל עם גרף"),
+                ("לחפש באינטרנט", "\"מה שעות הפתיחה של הדואר ברחובות?\" הוא מחפש, ומראה מאיפה לקח"),
+                ("לזכור אתכם", "הוא זוכר דברים משיחות קודמות, ככה שלא צריך להציג את עצמכם כל פעם"),
+                ("לבנות", "את זה עושים עם קלוד קוד, הכלי של אותה חברה שבונה אתרים. <a href=\"article-what-is-claude-code.html\">מה זה קלוד קוד</a>"),
+            ])}
+            <p>כל אלה, חוץ מהשורה האחרונה, נמצאים במסלול החינמי (<a href="https://claude.com/pricing" target="_blank" rel="noopener">מקור</a>). <a href="guide-2.html">מתי משתמשים בקלוד ומתי בקלוד קוד</a>.</p>
+
+            <h2>איפה משתמשים בו</h2>
+            {table(["איפה", "איך נכנסים", "למה זה טוב"], [
+                ["בדפדפן", '<a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>', "לא מתקינים כלום. מתאים לנסות בפעם הראשונה"],
+                ["במחשב", 'אפליקציה ל-Mac ול-Windows, מ-<a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>', "פתוחה תמיד בצד. בקורס עובדים דרכה עם קלוד קוד"],
+                ["בטלפון", "אפליקציה ל-iPhone ול-Android", "שואלים בדרך, גם בהקלטה קולית"],
+            ])}
+            <p>זה אותו חשבון בכל מקום. שיחה שהתחלתם בטלפון מחכה לכם במחשב (<a href="https://support.claude.com/en/articles/8114491-get-started-with-claude" target="_blank" rel="noopener">מקור</a>).</p>
+
+            <h2>כמה זה עולה</h2>
+            {plans([
+                ("Free", "0$", "מגבלת שימוש שמתאפסת כל 5 שעות", False),
+                ("Pro", "20$", "לחודש, או 17$ בתשלום שנתי", True),
+                ("Max", "100$", "לחודש, פי 5 שימוש מ-Pro", True),
+                ("Ultra", "200$", "לחודש, למי שעובד איתו כל היום", True),
+            ])}
+            <p>לשיחות, מסמכים וחיפושים, החינמי מספיק כדי להתחיל. מנוי בתשלום צריך רק כשנגמרת המכסה מהר, או כשרוצים לבנות עם קלוד קוד. <a href="article-claude-code-price.html">כל המחירים בפירוט</a>, ו<a href="guide-11.html">איך רואים כמה נשאר מהמכסה</a>.</p>
+
+            <h2>איך מתחילים</h2>
+            {steps([
+                ("נכנסים לאתר", ['בדפדפן פותחים את <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>. צריך להיות בן 18 ומעלה.']),
+                ("נרשמים", ['עם חשבון Google בלחיצה אחת, או עם מייל וקוד שמגיע אליו. <a href="guide-3.html">פתיחת החשבון, צעד אחרי צעד עם תמונות</a>.']),
+                ("כותבים בקשה ראשונה", ["משהו אמיתי מהשבוע שלכם. למשל: \"יש לי 5 מוצרים בפריג'. מה אפשר לבשל מהם בחצי שעה?\" ואז כותבים מה יש."]),
+                ("ממשיכים לדבר", ["התשובה לא בדיוק מה שרציתם? כותבים \"יותר קצר\" או \"בלי בצל\". לא פותחים שיחה חדשה, פשוט ממשיכים."]),
+            ])}
+
+            <h2>קלוד בעברית</h2>
+            <p>כותבים לו בעברית והוא עונה בעברית. התפריטים והכפתורים באתר עצמו באנגלית, כי עברית עוד לא נמצאת ברשימת השפות של הממשק (<a href="https://support.claude.com/en/articles/10769299-how-to-use-claude-in-your-preferred-language" target="_blank" rel="noopener">מקור</a>). לשיחה זה לא משנה כלום.</p>
+            <p>במדריך שלנו כל כפתור באנגלית מופיע עם ההסבר שלו בעברית, ככה שלא צריך לנחש.</p>
+            <div class="note-box"><b>מה אנחנו בוחרים:</b> להתחיל בחינם בדפדפן, ולעבור ל-Pro רק ביום שרוצים לבנות את האתר הראשון עם קלוד קוד.</div>
+
+            <h2>שאלות נפוצות</h2>
+            {faq_html([
+                ("האם קלוד בחינם?", 'כן, יש מסלול חינמי עם שיחות, חיפוש באינטרנט ויצירת קבצים, עם מגבלת שימוש שמתאפסת כל 5 שעות ובכל שבוע (<a href="https://claude.com/pricing" target="_blank" rel="noopener">מקור</a>, נבדק ב-26 בנובמבר 2026). קלוד קוד לא כלול בו.'),
+                ("קלוד זה של גוגל?", "לא. קלוד שייך ל-Anthropic, חברה אמריקאית שמתמחה בבינה מלאכותית. Gemini הוא של גוגל, ו-ChatGPT של OpenAI."),
+                ("יש קלוד בעברית?", "כן, לשיחה. כותבים בעברית ומקבלים עברית. רק התפריטים באנגלית."),
+                ("איך מורידים קלוד למחשב?", 'מ-<a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>, בוחרים Mac או Windows. <a href="guide-4.html">ההתקנה, צעד אחרי צעד</a>.'),
+                ("למה קלוד לא עובד לי?", 'בדרך כלל נגמרה המכסה, והיא חוזרת אחרי כמה שעות. סיבה אחרת: קלוד עובד רק במדינות שנתמכות, ובחשבון של מי שמעל גיל 18 (<a href="https://support.claude.com/en/articles/8114491-get-started-with-claude" target="_blank" rel="noopener">מקור</a>).'),
+                ("קלוד או ChatGPT?", "שניהם עושים דברים דומים בשיחה, ושניהם אפשר לנסות בחינם. אנחנו עובדים עם קלוד, כי עם קלוד קוד אפשר גם לבנות בעזרתו אתר שלם."),
+            ])}
+            <p class="more-link">רוצים לעבור משיחה לבנייה? <a href="course.html">קורס קלוד קוד בחינם ובעברית</a>, או <a href="guide-1.html">המדריך הכתוב מההתחלה</a>.</p>
+            <p class="art-src">מקורות: <a href="https://support.claude.com/en/articles/8114491-get-started-with-claude" target="_blank" rel="noopener">Get started with Claude</a>, <a href="https://claude.com/pricing" target="_blank" rel="noopener">מחירי Claude</a>, <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener">הדגמים של Claude</a>, <a href="https://support.claude.com/en/articles/10769299-how-to-use-claude-in-your-preferred-language" target="_blank" rel="noopener">שפות בממשק</a>. נבדק ב-26 בנובמבר 2026.</p>"""
+,
+    seo_title="מה זה קלוד (Claude AI)? מדריך למתחילים בעברית",
+    lead="קלוד (Claude) הוא עוזר בינה מלאכותית של חברת Anthropic. כותבים לו בעברית, כמו בוואטסאפ, ומקבלים תשובה, מסמך או טבלה. מתחילים בחינם, באתר claude.ai.",
+    visual=ILL_CLAUDE,
+    date="26 בנובמבר 2026",
 )
 
 _GS = (SITE / "files/github-drive-backup.gs").read_text()
