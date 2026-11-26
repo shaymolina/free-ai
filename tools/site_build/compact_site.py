@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "63"
+CSS_VERSION = "65"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -444,10 +444,12 @@ document.addEventListener('click',function(e){
     navigator.clipboard.writeText(t.innerHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#x27;/g,"'").replace(/&amp;/g,'&'));
     sp.textContent='הועתק';b.classList.add('ok');setTimeout(function(){sp.textContent=old;b.classList.remove('ok')},1800);}
 });
-// הכותרת והתיאור תמיד ברוחב של הסרטון
-(function(){var v=document.querySelector('.lv-stage .lvid'),cols=document.querySelectorAll('.lv-fit');if(!v)return;
-  function fit(){var w=v.getBoundingClientRect().width;cols.forEach(function(c){c.style.maxWidth=w+'px'})}
-  fit();if(window.ResizeObserver)new ResizeObserver(fit).observe(v);addEventListener('resize',fit);})();
+// הסרטון קודם: הכי רחב שאפשר, ומשאיר מקום לשתי שורות תיאור. הכותרת והתיאור ברוחב שלו, ותיאור ארוך נגלל בתוך התיבה שלו.
+(function(){var v=document.querySelector('.lv-stage .lvid'),L=document.querySelector('.lesson.lv'),hd=document.querySelector('.lv-head'),cols=document.querySelectorAll('.lv-fit');if(!v||!L)return;
+  function fit(){if(innerWidth<768){v.style.width='';cols.forEach(function(c){c.style.maxWidth=''});return;}
+    var W=L.clientWidth,H=L.clientHeight,w=Math.max(320,Math.min(W,(H-hd.offsetHeight-28-80)*16/9));
+    v.style.width=w+'px';cols.forEach(function(c){c.style.maxWidth=w+'px'})}
+  fit();if(window.ResizeObserver)new ResizeObserver(fit).observe(L);addEventListener('resize',fit);})();
 </script>"""
 
 
