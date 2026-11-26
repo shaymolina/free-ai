@@ -28,7 +28,7 @@ HEAD = """<!DOCTYPE html>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Black.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261125">
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261126b">
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
     <link rel="stylesheet" href="assets/css/m2.css?v={v}">
     <link rel="stylesheet" href="assets/css/m2-mock.css?v={v}">
@@ -532,7 +532,7 @@ INNER_HEAD = """<!DOCTYPE html>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Black.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261125">
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261126b">
     <style>@layer properties, theme, base, legacy, components, utilities;</style>
     <link rel="stylesheet" href="assets/css/tokens.css?v={v}">
     <link rel="stylesheet" href="assets/css/m2.css?v={v}">

@@ -18,7 +18,7 @@
   --a11y-toolbar-radius-sm: 10px;
   --a11y-toolbar-gap: 16px;
   --a11y-toolbar-btn: 36px;
-  --a11y-toolbar-font: system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
+  --a11y-toolbar-font: "Kobi", system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
   position: fixed;
   inset: 0;
   z-index: var(--a11y-toolbar-z, 95);

@@ -87,7 +87,7 @@ def _page(title, desc, body, script="", cls="", css=""):
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-SemiBold.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Bold.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261125">
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261126b">
     <link rel="stylesheet" href="assets/icon/icomoon/style.css">
     <link rel="stylesheet" href="assets/css/tokens.css?v={CSS_VERSION}">
     <link rel="stylesheet" href="assets/css/compact.css?v={CSS_VERSION}">{f'''
@@ -311,7 +311,7 @@ GUIDE_PAGE = """<!DOCTYPE html>
     <meta name="description" content="{desc}">
     {theme}
     <link rel="preload" href="assets/fonts/files/kobi/Kobi-Regular.woff2?v=20261126" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261125">
+    <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261126b">
     <link rel="stylesheet" href="assets/css/guide.css?v={v}">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/favicon.svg">

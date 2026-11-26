@@ -20,8 +20,7 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 [data-ltr] :is(h2,h3,p,blockquote,figcaption,li,span,a) { unicode-bidi: plaintext; }
 [data-ltr] :is(h2,h3,p,blockquote,figcaption,li) { text-align: left; }
 /* ארבעת המקטעים שנלקחו כמו שהם: הפונט המקורי שלהם (Inter), ועברית בקובי */
-@font-face { font-family: 'InterM2'; src: url(../fonts/inter/InterVariable.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0000-04FF, U+2000-206F, U+20A0-20CF, U+2100-214F; }
-[data-ltr] { --font-inter: 'InterM2', 'Kobi', system-ui, sans-serif; font-family: var(--font-inter); }
+[data-ltr] { --font-inter: 'Kobi', system-ui, sans-serif; font-family: var(--font-inter); }
 /* כותרת הפתיחה: גדולה ובמשקל הכי עבה */
 .m2-h1 { font-weight: 900 !important; font-size: 2.6rem !important; line-height: 1.02 !important; letter-spacing: -.02em !important; }
 @media (min-width: 48rem) { .m2-h1 { white-space: nowrap; font-size: min(3.6rem, calc((100vw - 4rem) * .8 / 15.1)) !important; } }
@@ -38,13 +37,13 @@ a > svg.opacity-50:dir(rtl), a svg.size-4.opacity-50:dir(rtl) { transform: scale
 .tool-logo[data-tool="Supabase"] .tl-word { height: 26px; }
 .tool-logo[data-tool="Claude Code"] .tl-word { height: 28px; }
 .tool-logo[data-tool="Claude Code"] .tl-mark { height: 22px; }
-.tool-logo .tl-name { font: 600 19px/1 'InterM2', system-ui, sans-serif; letter-spacing: -.01em; }
+.tool-logo .tl-name { font: 600 19px/1 'Kobi', system-ui, sans-serif; letter-spacing: -.01em; }
 /* הקורס במספרים: פס שזז משמאל לימין, בלי רווח (אפשרות 1: מספר ירוק עדין) */
 .tk-view { position: relative; flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .tk-track { display: flex; width: max-content; will-change: transform; }
 .tk-group { display: flex; align-items: center; flex: none; }
 .tk-item { display: inline-flex; align-items: center; gap: 8px; padding-inline: 20px; white-space: nowrap; font-size: 15px; color: #666; }
-.tk-item b { font: 500 16px/1 'InterM2', 'Kobi', system-ui, sans-serif; color: #d97757; }
+.tk-item b { font: 500 16px/1 'Kobi', system-ui, sans-serif; color: #d97757; }
 /* 9 כלים: 5 למעלה, 4 למטה */
 @media (max-width: 39.99rem) { .m2-tools > :last-child { grid-column: span 2; } }
 .tool-logo[data-tool="Cloudflare"] .tl-word { height: 11px; }
