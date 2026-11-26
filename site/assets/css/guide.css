@@ -502,3 +502,13 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 .lv-page .lesson a.lv-prev { color: var(--muted-foreground); text-decoration: none; }
 .lv-page .lesson a.lv-prev:hover { color: var(--foreground); }
 .lv-prev svg { width: 15px; height: 15px; }
+/* דף הקורס: משקלים קלים יותר (בקשת בעל האתר) */
+.lv-page .ds-top h1 { font-weight: 600; }
+.lv-bt b { font-weight: 600; }
+.lv-page .ds-side .ds-group-title { font-weight: 700; }
+.lv-page .ds-side .ch.is-on { font-weight: 600; }
+.lv-page .ds-side .ch { font-weight: 400; }
+.lv-res { font-weight: 500; }
+.lv-foot .btn { font-weight: 500; }
+.lv-prev { font-weight: 500; }
+.lv-desc, .lv-meta { font-weight: 300; }
