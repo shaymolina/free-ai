@@ -84,6 +84,19 @@ def apply_buttons(path):
     open(path, "w").write(s)
 
 
+G_START, G_END = "<!-- gtm -->", "<!-- /gtm -->"
+GTM = ('<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NQM8RXC3"></script>'
+       "<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());</script>")
+
+
+def apply_gtm(path):
+    """תג גוגל (GTM-NQM8RXC3) מיד אחרי <head> בכל עמוד."""
+    s = open(path).read()
+    s = re.sub(re.escape(G_START) + ".*?" + re.escape(G_END), "", s, flags=re.S)
+    s = re.sub(r"(<head[^>]*>)", lambda m: m.group(1) + G_START + GTM + G_END, s, count=1)
+    open(path, "w").write(s)
+
+
 def apply_a11y(path):
     s = open(path).read()
     s = re.sub(re.escape(X_START) + ".*?" + re.escape(X_END), "", s, flags=re.S)
@@ -135,6 +148,7 @@ def apply_all():
     for p in pages: apply_a11y(p)
     for p in pages: apply_buttons(p)
     for p in pages: apply_viewport(p)
+    for p in pages: apply_gtm(p)
     print(f"site header: {n} pages")
 
 
