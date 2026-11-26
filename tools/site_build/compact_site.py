@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "67"
+CSS_VERSION = "69"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -420,10 +420,10 @@ def lovable_extras(links):
     out = []
     for x in links:
         if x.get("url"):
-            out.append(f'<a class="btn btn-2" href="{_h.escape(x["url"])}" target="_blank" rel="noopener">{LV_ICO["out"]}<span>{_h.escape((x.get("title") or x.get("label") or x["url"]).strip())}</span></a>')
+            out.append(f'<a class="lv-res" href="{_h.escape(x["url"])}" target="_blank" rel="noopener">{LV_ICO["out"]}<span>{_h.escape((x.get("title") or x.get("label") or x["url"]).strip())}</span></a>')
         elif x.get("type") == "copy" and x.get("text"):
             lab = _h.escape((x.get("label") or "העתקת הפרומפט").strip())
-            out.append(f'<button type="button" class="btn btn-2 lcopy-btn">{LV_ICO["copy"]}<span>{lab}</span></button><template class="lcopy-t">{_h.escape(x["text"].strip())}</template>')
+            out.append(f'<button type="button" class="lv-res lcopy-btn">{LV_ICO["copy"]}<span>{lab}</span></button><template class="lcopy-t">{_h.escape(x["text"].strip())}</template>')
     return f'<div class="lv-links">{"".join(out)}</div>' if out else ""
 
 
@@ -477,8 +477,8 @@ def build_lovable():
                         <div class="lv-desc">{desc}</div>
                         {lovable_extras(l["links"])}
                         <div class="lv-foot">
-                            <button type="button" class="lv-next" id="guide-done"{nxt}><span>{"סיימתי את הקורס" if last else "לשיעור הבא: " + lessons[n]["title"]}</span>{LV_ICO["check"] if last else LV_ICO["next"]}</button>
-                            {f'<a href="lovable-{n - 1}.html" class="lv-prev">{LV_ICO["prev"]}<span>לשיעור הקודם</span></a>' if n > 1 else ''}
+                            {f'<a href="lovable-{n - 1}.html" class="btn btn-2">{LV_ICO["prev"]}<span>הקודם</span></a>' if n > 1 else ''}
+                            <button type="button" class="btn btn-primary" id="guide-done"{nxt}><span>{"סיימתי" if last else "לשיעור הבא"}</span>{LV_ICO["check"] if last else LV_ICO["next"]}</button>
                         </div>
                     </aside>
                 </article>
