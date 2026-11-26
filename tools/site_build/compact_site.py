@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "61"
+CSS_VERSION = "62"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -412,28 +412,31 @@ def lovable_sidebar(chapters, current):
 def lovable_video(name, vid):
     if not vid:
         return '<div class="lvid empty"><span>הסרטון עולה לכאן בקרוב</span></div>'
-    return (f'<div class="lvid"><iframe src="https://www.youtube-nocookie.com/embed/{vid}?rel=0" title="{name}" loading="lazy" '
+    return (f'<div class="lvid"><iframe src="https://www.youtube-nocookie.com/embed/{vid}?rel=0&modestbranding=1" title="{name}" '
             'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>')
 
 
 def lovable_extras(links):
-    """קישורים מהשיעור (כפתורים) ופרומפטים להעתקה."""
+    """קישורים מהשיעור ופרומפטים להעתקה, ככפתורים קטנים בשורה אחת (כדי שהכול ייכנס במסך)."""
     import html as _h
-    urls = [x for x in links if x.get("url")]
-    copies = [x for x in links if x.get("type") == "copy" and x.get("text")]
-    out = ""
-    if urls:
-        out += '<div class="llinks">' + "".join(
-            f'<a class="btn btn-2" href="{_h.escape(x["url"])}" target="_blank" rel="noopener">{_h.escape((x.get("title") or x.get("label") or x["url"]).strip())} ↗</a>' for x in urls) + '</div>'
-    for x in copies:
-        t = _h.escape(x["text"].strip())
-        out += (f'<div class="lcopy"><div class="lcopy-h"><b>{_h.escape((x.get("label") or "להעתקה").strip())}</b>'
-                f'<button type="button" class="btn btn-2 lcopy-btn">העתקה</button></div><pre dir="auto">{t}</pre></div>')
-    return out
+    out = []
+    for x in links:
+        if x.get("url"):
+            out.append(f'<a class="btn btn-2" href="{_h.escape(x["url"])}" target="_blank" rel="noopener">{_h.escape((x.get("title") or x.get("label") or x["url"]).strip())} ↗</a>')
+        elif x.get("type") == "copy" and x.get("text"):
+            out.append(f'<button type="button" class="btn btn-2 lcopy-btn" data-label="{_h.escape((x.get("label") or "העתקת הפרומפט").strip())}">'
+                       f'{_h.escape((x.get("label") or "העתקת הפרומפט").strip())}</button><template class="lcopy-t">{_h.escape(x["text"].strip())}</template>')
+    return f'<div class="lv-links">{"".join(out)}</div>' if out else ""
 
 
-LCOPY_JS = """<script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.lcopy-btn');if(!b)return;
-navigator.clipboard.writeText(b.closest('.lcopy').querySelector('pre').textContent);b.textContent='הועתק ✓';setTimeout(function(){b.textContent='העתקה'},1800)});</script>"""
+LCOPY_JS = """<script>
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.lcopy-btn');
+  if(b){var t=b.nextElementSibling;navigator.clipboard.writeText(t.innerHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#x27;/g,"'").replace(/&amp;/g,'&'));
+    b.textContent='הועתק ✓';setTimeout(function(){b.textContent=b.dataset.label},1800);return;}
+  var d=e.target.closest&&e.target.closest('.lv-desc');if(d)d.classList.toggle('open');
+});
+</script>"""
 
 
 def build_lovable():
@@ -457,13 +460,13 @@ def build_lovable():
                     <div class="menu-pop" id="top-menu" hidden>{menu}</div></div>
             </header>
             <main class="ds-content">
-                <article class="lesson">
-                    {lovable_video(name, l.get("youtube"))}
-                    <div class="ldesc">{desc}</div>
-                    {lovable_extras(l["links"])}
-                    <div class="lesson-end"><span>שיעור {n} מתוך {total}</span><div class="end-btns">{f'<a href="lovable-{n - 1}.html" class="btn btn-2">→ השיעור הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי, לכל הקורסים ←" if last else "סיימתי, לשיעור הבא ←"}</button></div></div>
+                <article class="lesson lv">
+                    <div class="lv-stage">{lovable_video(name, l.get("youtube"))}</div>
+                    <div class="lv-bar">
+                        <div class="lv-info"><div class="lv-desc" title="לחיצה לפתיחה או סגירה">{desc}</div>{lovable_extras(l["links"])}</div>
+                        <div class="end-btns">{f'<a href="lovable-{n - 1}.html" class="btn btn-2">→ הקודם</a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{"סיימתי ✓" if last else "סיימתי, לשיעור הבא ←"}</button></div>
+                    </div>
                 </article>
-                {FOOTER}
             </main>
         </div>
     </div>'''
@@ -473,6 +476,7 @@ def build_lovable():
             desc=f"שיעור {n} בקורס Lovable בחינם ובעברית: {short}"[:160].replace('"', "'"),
             theme=THEME_HEAD, v=CSS_VERSION, body=body,
             script=LOVABLE_JS % {"total": total, "current": n} + LCOPY_JS))
+        html = html.replace('<body class="guide-page">', '<body class="guide-page lv-page">', 1)
         (SITE / f"lovable-{n}.html").write_text(html)
     for old in SITE.glob("lovable-*.html"):  # שיעורים שירדו מהרשימה
         if int(old.stem.split("-")[1]) > total:
