@@ -736,3 +736,16 @@ body { font-size: 14.5px; }
 .sk-use { animation-delay: 2.1s; }
 @media (max-width: 520px) { .sk-row { font-size: 12.5px; } }
 @media (prefers-reduced-motion: reduce) { .sk-panel, .sk-new, .sk-new .sk-sw, .sk-new .sk-sw::after, .sk-use { animation: none; } }
+
+/* איור "מה זה קלוד": שיחה קצרה ב-claude.ai, ושלושת המקומות שבהם הוא עובד */
+.ill-cl { gap: 10px; }
+.cl-chat { background: var(--bg); border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); padding: 10px 12px 14px; display: grid; gap: 10px; animation: ill-up .8s cubic-bezier(.2,.8,.2,1) both .2s; }
+.cl-me { justify-self: start; max-width: 85%; background: var(--card); box-shadow: inset 0 0 0 1px var(--line-2); border-radius: 14px; padding: 10px 13px; font-size: 14px; line-height: 1.45; color: var(--ink); animation: ill-up .5s both .6s; }
+.cl-ans { display: grid; gap: 3px; font-size: 14px; line-height: 1.5; color: var(--ink); animation: ill-up .6s cubic-bezier(.2,.8,.2,1) both 1.3s; }
+.cl-ans b { font-size: 12px; font-weight: 700; color: var(--brand-strong); }
+.cl-ans p { margin: 0; }
+.cl-dev { display: flex; gap: 6px; justify-content: center; }
+.cl-dev span { font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: var(--r-xs); background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--soft); white-space: nowrap; animation: ill-up .5s both; }
+.cl-dev span:nth-child(1) { animation-delay: 1.8s; } .cl-dev span:nth-child(2) { animation-delay: 1.95s; } .cl-dev span:nth-child(3) { animation-delay: 2.1s; }
+@media (max-width: 520px) { .cl-me, .cl-ans { font-size: 13px; } .cl-dev span { font-size: 11px; padding: 4px 9px; } }
+@media (prefers-reduced-motion: reduce) { .cl-chat, .cl-me, .cl-ans, .cl-dev span { animation: none; } }
