@@ -202,7 +202,7 @@
    {
     "id": "5656d711-8755-4542-9063-1216bd5a145d",
     "title": "העלאת הפרויקט לשרת חיצוני",
-    "description": "בשיעור הזה נלמד איך להוציא את הפרויקט שלנו לשרת חיצוני, ולא להיות תלויים בLOVABLE. נלמד לחבר את הפרויקט לGITHUB ומשם לVERCEL.",
+    "description": "בשיעור הזה נלמד איך להוציא את הפרויקט שלנו לשרת חיצוני, ולא להיות תלויים בLOVABLE. נלמד לחבר את הפרויקט לGITHUB ומשם ל-4CODE.",
     "seconds": 646,
     "links": [
      {
@@ -210,8 +210,8 @@
       "title": "GitHub"
      },
      {
-      "url": "https://vercel.com/",
-      "title": "VERCEL"
+      "url": "https://4code.co.il/",
+      "title": "4CODE"
      }
     ],
     "youtube": "8I7J1Yh7rdk"
