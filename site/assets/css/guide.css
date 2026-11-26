@@ -519,3 +519,22 @@ a.ch:hover { background: var(--nav-hover); color: var(--foreground); }
 .guide-page:not(.lv-page) :is(.lesson-end span, .lesson-intro) { font-weight: 500; }
 .guide-page:not(.lv-page) .btn, .guide-page:not(.lv-page) .btn-2 { font-weight: 400; }
 .guide-page:not(.lv-page) :is(.row small, .ftext p, .ds-top .lead, .lesson .lead, .more-link) { font-weight: 300; }
+
+/* תפריט הצד: הלוגו באותו מרחק מלמעלה כמו מימין */
+@media (min-width: 992px) { .lv-brand { padding-top: 9px; } }
+
+/* מעבר בין שיעורים: התפריט והמסגרת נשארים במקום, רק התוכן מתחלף ברכות */
+.ds-side { view-transition-name: side; }
+.ds-top { view-transition-name: top; }
+.ds-content { view-transition-name: lesson; }
+::view-transition-old(root), ::view-transition-new(root),
+::view-transition-group(side), ::view-transition-old(side), ::view-transition-new(side),
+::view-transition-group(lesson) { animation: none; }
+::view-transition-old(top), ::view-transition-new(top) { animation-duration: .22s; }
+::view-transition-old(lesson) { animation: vt-out .16s ease both; }
+::view-transition-new(lesson) { animation: vt-in .34s cubic-bezier(.22,1,.36,1) .05s both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(lesson), ::view-transition-new(lesson) { animation: none; }
+}
