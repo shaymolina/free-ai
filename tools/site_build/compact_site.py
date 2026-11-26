@@ -8,7 +8,7 @@ from pathlib import Path
 from clean_urls import clean
 
 SITE = Path(__file__).resolve().parents[2] / "site"
-CSS_VERSION = "65"
+CSS_VERSION = "67"
 COUPON = "RVJ34jcn4j1"
 
 NAV = [("index.html", "דף הבית"), ("courses.html", "קורסים"), ("guides.html", "מדריכים"), ("skills.html", "סקילים"), ("articles.html", "מאמרים")]
@@ -397,12 +397,10 @@ def lovable_sidebar(chapters, current):
             items.append(f'<li><a href="lovable-{n}.html" class="{cls}" data-ch="{n}"{cur}><span class="num">{n}</span><span class="nm">{l["title"]}</span>{_ico(ICO["check"], "dot")}</a></li>')
         groups.append(f'<div class="ds-group"><div class="ds-group-title">{c["title"]}</div><ol class="chs">{"".join(items)}</ol></div>')
     return f'''<aside class="ds-side" id="ds-side">
-            <a href="index.html" class="ds-brand"><img src="assets/images/logo/favicon.svg" alt="" width="24" height="24"><span>Free AI</span></a>
+            <div class="lv-brand"><a href="index.html" class="lv-logo" aria-label="Free AI, לדף הבית"><img src="assets/images/logo/favicon.svg" alt="" width="32" height="32"></a>
+                <div class="lv-bt"><b>קורס Lovable</b><small id="guide-count"></small></div></div>
+            <div class="lv-bprog"><i id="guide-fill"></i></div>
             <div class="ds-scroll">
-                <div class="ds-group">
-                    <div class="ds-group-title">קורס Lovable</div>
-                    <div class="ds-prog"><div class="bar"><i id="guide-fill"></i></div><span class="count" id="guide-count"></span></div>
-                </div>
                 {"".join(groups)}
             </div>
             <div class="ds-profile"><span class="avatar">{_ico(ICO["user"])}</span><span class="who"><b>אורח</b><small id="guide-count-2"></small></span></div>
@@ -434,6 +432,7 @@ LV_ICO = {  # Lucide
     "prev": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
     "copy": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
     "out": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>',
+    "clock": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
 }
 
@@ -444,12 +443,6 @@ document.addEventListener('click',function(e){
     navigator.clipboard.writeText(t.innerHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#x27;/g,"'").replace(/&amp;/g,'&'));
     sp.textContent='הועתק';b.classList.add('ok');setTimeout(function(){sp.textContent=old;b.classList.remove('ok')},1800);}
 });
-// הסרטון קודם: הכי רחב שאפשר, ומשאיר מקום לשתי שורות תיאור. הכותרת והתיאור ברוחב שלו, ותיאור ארוך נגלל בתוך התיבה שלו.
-(function(){var v=document.querySelector('.lv-stage .lvid'),L=document.querySelector('.lesson.lv'),hd=document.querySelector('.lv-head'),cols=document.querySelectorAll('.lv-fit');if(!v||!L)return;
-  function fit(){if(innerWidth<768){v.style.width='';cols.forEach(function(c){c.style.maxWidth=''});return;}
-    var W=L.clientWidth,H=L.clientHeight,w=Math.max(320,Math.min(W,(H-hd.offsetHeight-28-80)*16/9));
-    v.style.width=w+'px';cols.forEach(function(c){c.style.maxWidth=w+'px'})}
-  fit();if(window.ResizeObserver)new ResizeObserver(fit).observe(L);addEventListener('resize',fit);})();
 </script>"""
 
 
@@ -469,18 +462,25 @@ def build_lovable():
             <header class="ds-top has-head">
                 <button type="button" class="icon-btn ds-burger" aria-label="תפריט" onclick="document.body.classList.toggle('side-open')">{_ico(ICO["menu"])}</button>
                 <span class="ds-vsep"></span>
-                <div class="page-head"><b class="lv-course">קורס Lovable</b></div>
+                <div class="page-head"><h1>{name}</h1></div>
                 <div class="ds-actions top-menu"><button type="button" class="icon-btn" id="top-menu-btn" aria-label="תפריט האתר" aria-expanded="false" aria-controls="top-menu">{_ico(ICO["lines"])}</button>
                     <div class="menu-pop" id="top-menu" hidden>{menu}</div></div>
             </header>
             <main class="ds-content">
                 <article class="lesson lv">
-                    <div class="lv-head lv-fit">
-                        <div class="lv-t"><small>{l["chapter"]} · שיעור {n} מתוך {total} · {mins} דקות</small><h1>{name}</h1></div>
-                        <div class="lv-nav">{f'<a href="lovable-{n - 1}.html" class="btn btn-2">{LV_ICO["prev"]}<span>הקודם</span></a>' if n > 1 else ''}<button type="button" class="btn btn-primary" id="guide-done"{nxt}>{f'<span>סיימתי</span>{LV_ICO["check"]}' if last else f'<span>לשיעור הבא</span>{LV_ICO["next"]}'}</button></div>
-                    </div>
                     <div class="lv-stage">{lovable_video(name, l.get("youtube"))}</div>
-                    <div class="lv-below lv-fit"><div class="lv-desc">{desc}</div>{lovable_extras(l["links"])}</div>
+                    <aside class="lv-panel">
+                        <div class="lv-top">
+                            <div class="lv-meta">{LV_ICO["clock"]}<span>{mins} דקות</span><i>·</i><span>שיעור {n} מתוך {total}</span></div>
+                            <div class="lv-pos"><i style="width:{round(n / total * 100)}%"></i></div>
+                        </div>
+                        <div class="lv-desc">{desc}</div>
+                        {lovable_extras(l["links"])}
+                        <div class="lv-foot">
+                            <button type="button" class="lv-next" id="guide-done"{nxt}><span>{"סיימתי את הקורס" if last else "לשיעור הבא: " + lessons[n]["title"]}</span>{LV_ICO["check"] if last else LV_ICO["next"]}</button>
+                            {f'<a href="lovable-{n - 1}.html" class="lv-prev">{LV_ICO["prev"]}<span>לשיעור הקודם</span></a>' if n > 1 else ''}
+                        </div>
+                    </aside>
                 </article>
             </main>
         </div>
