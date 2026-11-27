@@ -34,15 +34,25 @@ L = [
 ]
 PERSON_ORDER = [3, 1, 4, 2, 5]
 
-def icon(name):
+TINT = {"p": ("#ffffff", "#f0b8ff", "#c45bff"), "o": ("#ffffff", "#ffd28a", "#ff8a1f")}
+
+def icon(name, c="o"):
     s = (ICONS / f"{name}.svg").read_text()
-    s = s[s.index("<svg"):]
-    return s.replace('width="24"', 'width="100%"').replace('height="24"', 'height="100%"')
+    body = s[s.index(">", s.index("<svg")) + 1:s.rindex("</svg>")]
+    a, b, glow = TINT[c]
+    return f"""<svg viewBox="-1 -1 26 26" width="100%" height="100%" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<defs><linearGradient id="g{c}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{a}"/><stop offset="1" stop-color="{b}"/></linearGradient>
+<linearGradient id="f{c}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{b}" stop-opacity=".55"/><stop offset="1" stop-color="{glow}" stop-opacity=".25"/></linearGradient>
+<filter id="b{c}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.1"/></filter></defs>
+<g stroke="{glow}" stroke-width="4.2" opacity=".9" filter="url(#b{c})">{body}</g>
+<g stroke="{glow}" stroke-width="3.4" opacity=".55">{body}</g>
+<g fill="url(#f{c})" stroke="none">{body}</g>
+<g stroke="url(#g{c})" stroke-width="2.1">{body}</g></svg>"""
 
 def page(num, top, pill, center, sats, person):
     colors = ["p", "o", "o", "p"]
     sat_html = "".join(
-        f'<div class="card sat s{k} {colors[k]}"><div class="ic">{icon(n)}</div></div>'
+        f'<div class="card sat s{k} {colors[k]}"><div class="ic">{icon(n, colors[k])}</div></div>'
         for k, n in enumerate(sats))
     top_html = f'<div class="top fit">{top}</div>' if top else ""
     return f"""<!doctype html><html dir="rtl"><head><meta charset="utf-8"><style>
@@ -73,18 +83,23 @@ body{{width:1672px;height:941px;overflow:hidden;background:#07050c;font-family:K
  box-shadow:0 0 34px rgba(255,140,30,.45),0 8px 0 #b54e00;transform:rotate(-1.5deg)}}
 .pill span{{display:block;color:#0a0606;font-size:150px;line-height:1.05;font-weight:900;white-space:nowrap}}
 .cl{{position:absolute;right:40px;width:820px;top:{475 if top else 440}px;height:{410 if top else 445}px}}
-.card{{position:absolute;border-radius:34px;display:flex;align-items:center;justify-content:center}}
-.card .ic{{width:46%;height:46%}}
-.card.p{{background:linear-gradient(160deg,#3a1c58,#160a24 70%);border:4px solid #c46bff;
- box-shadow:0 0 26px rgba(196,107,255,.85),0 0 70px rgba(160,60,255,.45),0 12px 0 #5a1f8f,inset 0 0 26px rgba(196,107,255,.35);color:#f4dcff}}
-.card.o{{background:linear-gradient(160deg,#3b2210,#160c06 70%);border:4px solid #ffa53a;
- box-shadow:0 0 26px rgba(255,150,40,.85),0 0 70px rgba(255,120,20,.45),0 12px 0 #8f4500,inset 0 0 26px rgba(255,150,40,.35);color:#ffd59a}}
-.card .ic svg{{filter:drop-shadow(0 0 8px currentColor)}}
-.main{{left:50%;top:50%;width:300px;height:270px;transform:translate(-50%,-50%) rotate(-2deg)}}
-.main .ic{{width:56%;height:56%}}
-.sat{{width:200px;height:150px}}.sat .ic{{width:56%;height:56%}}
-.s0{{left:40px;top:10px;transform:rotate(-4deg)}}.s1{{right:30px;top:0;transform:rotate(3deg)}}
-.s2{{left:10px;bottom:10px;transform:rotate(3deg)}}.s3{{right:40px;bottom:0;transform:rotate(-3deg)}}
+.card{{position:absolute;border-radius:36px;display:flex;align-items:center;justify-content:center;overflow:visible}}
+.card::before{{content:"";position:absolute;inset:3px;border-radius:32px;
+ background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 45%);pointer-events:none}}
+.card .ic{{width:62%;height:62%;position:relative}}
+.card.p{{background:radial-gradient(120% 90% at 30% 15%,#4a2470,#1a0b2b 60%,#10071a);border:4px solid #d58bff;
+ box-shadow:0 0 0 2px rgba(255,255,255,.12) inset,0 0 30px rgba(196,107,255,.9),0 0 90px rgba(160,60,255,.5),
+ 0 4px 0 #8a3fc9,0 8px 0 #6c2aa3,0 12px 0 #521d80,0 16px 0 #3b145d,0 30px 40px rgba(0,0,0,.6)}}
+.card.o{{background:radial-gradient(120% 90% at 30% 15%,#4d2a10,#1c0e05 60%,#120904);border:4px solid #ffb34d;
+ box-shadow:0 0 0 2px rgba(255,255,255,.12) inset,0 0 30px rgba(255,150,40,.9),0 0 90px rgba(255,120,20,.5),
+ 0 4px 0 #d06a10,0 8px 0 #a5520a,0 12px 0 #7c3d06,0 16px 0 #572a03,0 30px 40px rgba(0,0,0,.6)}}
+.main{{left:50%;top:50%;width:330px;height:300px;transform:translate(-50%,-52%) perspective(900px) rotateX(10deg) rotateY(-8deg) rotate(-2deg)}}
+.main .ic{{width:64%;height:64%}}
+.sat{{width:210px;height:165px}}.sat .ic{{width:60%;height:60%}}
+.s0{{left:30px;top:0;transform:perspective(700px) rotateY(10deg) rotate(-5deg)}}.s1{{right:20px;top:-6px;transform:perspective(700px) rotateY(-10deg) rotate(4deg)}}
+.s2{{left:0;bottom:6px;transform:perspective(700px) rotateY(10deg) rotate(4deg)}}.s3{{right:30px;bottom:-4px;transform:perspective(700px) rotateY(-10deg) rotate(-4deg)}}
+.floor{{position:absolute;left:50%;bottom:-30px;width:620px;height:120px;transform:translateX(-50%);
+ background:radial-gradient(closest-side,rgba(255,130,30,.35),transparent);filter:blur(6px)}}
 svg.lines{{position:absolute;inset:0;width:100%;height:100%;overflow:visible}}
 svg.lines path{{fill:none;stroke:#ff9a2e;stroke-width:6;opacity:.85;filter:drop-shadow(0 0 8px #ff8a1f)}}
 </style></head><body><div class="c">
@@ -98,8 +113,9 @@ svg.lines path{{fill:none;stroke:#ff9a2e;stroke-width:6;opacity:.85;filter:drop-
 <path d="M120 {320 if top else 355} C 250 {320 if top else 355}, 250 {205 if top else 222}, 340 {205 if top else 222}"/>
 <path d="M680 {330 if top else 365} C 560 {330 if top else 365}, 560 {205 if top else 222}, 480 {205 if top else 222}"/>
 </svg>
+<div class="floor"></div>
 {sat_html}
-<div class="card main o"><div class="ic">{icon(center)}</div></div>
+<div class="card main o"><div class="ic">{icon(center, "o")}</div></div>
 </div>
 <div class="frame"></div>
 <div class="badge">{num:02d}</div>
