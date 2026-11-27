@@ -1,5 +1,5 @@
 # מחקר SEO – Free AI
-עודכן: 2026-11-26. מתעדכן על ידי סוכן ה-SEO (`.claude/agents/seo.md`).
+עודכן: 2026-11-27. מתעדכן על ידי סוכן ה-SEO (`.claude/agents/seo.md`).
 
 ## מצב נוכחי
 - האתר עוד לא מופיע בגוגל: חיפוש `site:free-ai.co.il` לא החזיר שום עמוד.
@@ -49,6 +49,7 @@
 | גיבוי GitHub לגוגל דרייב | /article-github-backup |
 | מה זה קלוד / claude ai / קלוד בעברית / קלוד איך מתחילים / האם קלוד בחינם | /article-what-is-claude |
 | מה זה וייב קודינג / vibe coding מה זה / וייב קודינג קלוד / וייב קודינג בעברית | /article-vibe-coding |
+| מה זה פרומפט / פרומפט מה זה / איך כותבים פרומפט טוב / איך לכתוב פרומפט נכון / פרומפט בעברית | /article-what-is-prompt (פרומפט לבניית אתר בקלוד קוד נשאר ב-/guide-18) |
 
 ## נתוני Google Keyword Planner (ישראל, 2026-11-18)
 | ביטוי | חיפושים בחודש | תחרות | מגמה בשנה |
@@ -100,8 +101,8 @@
 3. ~~**מה זה וייב קודינג (Vibe Coding), ואיך עושים את זה עם קלוד קוד.**~~ **פורסם 2026-11-25:** https://free-ai.co.il/article-vibe-coding (בריף: `docs/seo/brief-vibe-coding.md`). קישורים נכנסים: /article-what-is-claude-code (מקטע "האם צריך לדעת לתכנת"), /guide-18, /guide-19, עמוד המאמרים.
 4. ~~**10 סקילים שכדאי להתקין בקלוד (Claude Skills).**~~ **פורסם 2026-11-25:** https://free-ai.co.il/article-claude-skills (בריף: `docs/seo/brief-claude-skills.md`). קישורים נכנסים: /guide-14, /guide-16, /skills (שאלות נפוצות), עמוד המאמרים.
 5. ~~**מה זה קלוד (Claude) ואיך מתחילים, בעברית.**~~ **פורסם 2026-11-26:** https://free-ai.co.il/article-what-is-claude (בריף: `docs/seo/brief-what-is-claude.md`). קישורים נכנסים: /guide-2, /guide-3, עמוד המאמרים.
-6. **הבא בתור: פרומפט: מה זה ואיך כותבים פרומפט טוב לקלוד.**
-7. **קלוד קוד, קודקס או קרסר: מה ההבדל ומה מתאים למי שלא מתכנת.**
+6. ~~**פרומפט: מה זה ואיך כותבים פרומפט טוב לקלוד.**~~ **פורסם 2026-11-27:** https://free-ai.co.il/article-what-is-prompt (בריף: `docs/seo/brief-what-is-prompt.md`). קישורים נכנסים: /guide-18, /article-what-is-claude (צעד "כותבים בקשה ראשונה"), עמוד המאמרים.
+7. **הבא בתור: קלוד קוד, קודקס או קרסר: מה ההבדל ומה מתאים למי שלא מתכנת.**
 8. **קלוד קוד לא עובד? הבעיות הנפוצות ואיך פותרים אותן.**
 9. **מה זה MCP, בעברית פשוטה.**
 
@@ -119,6 +120,9 @@
 - 2026-11-26, https://claude.com/pricing: Free כולל צ'אט בכל המכשירים, חיפוש באינטרנט, יצירת קבצים, זיכרון, חיבור אפליקציות ו-Artifacts, מגבלה כל 5 שעות ובכל שבוע.
 - 2026-11-26, https://platform.claude.com/docs/en/about-claude/models/overview: הדגמים החדשים Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.2.
 - 2026-11-26, https://support.claude.com/en/articles/10769299-how-to-use-claude-in-your-preferred-language: אין עברית בשפות הממשק, אבל אפשר לכתוב לקלוד בכל שפה.
+
+- 2026-11-27, https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices: הוראות ברורות ומפורשות; קלוד כמו עובד חדש ומבריק בלי הקשר; מבחן העמית; להסביר למה; דוגמאות; לציין צורה; תפקיד במשפט אחד; להגיד מה כן במקום מה לא.
+- 2026-11-27, https://claude.com/resources/articles/best-practices-for-prompt-engineering: להתחיל מדוגמה אחת; רשות להגיד "לא יודע"; הפרומפט הראשון כמעט אף פעם לא מושלם.
 
 ## מקורות המחקר
 - https://www.mako.co.il/nexter-guide/Article-26bc2c1c2fa6c91026.htm

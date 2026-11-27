@@ -749,3 +749,17 @@ body { font-size: 14.5px; }
 .cl-dev span:nth-child(1) { animation-delay: 1.8s; } .cl-dev span:nth-child(2) { animation-delay: 1.95s; } .cl-dev span:nth-child(3) { animation-delay: 2.1s; }
 @media (max-width: 520px) { .cl-me, .cl-ans { font-size: 13px; } .cl-dev span { font-size: 11px; padding: 4px 9px; } }
 @media (prefers-reduced-motion: reduce) { .cl-chat, .cl-me, .cl-ans, .cl-dev span { animation: none; } }
+
+/* איור "מה זה פרומפט": בקשה חלשה שנמחקת, פרומפט בנוי מחלקים, ותוצאה מוכנה */
+.ill-pm { gap: 10px; }
+.pm-weak { display: flex; align-items: baseline; gap: 8px; justify-content: center; font-size: 14px; color: var(--soft); animation: ill-up .5s both .2s; }
+.pm-weak small { font-size: 11.5px; }
+.pm-weak s { text-decoration-color: var(--brand); text-decoration-thickness: 2px; }
+.pm-card { background: var(--bg); border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); padding: 12px 14px; display: grid; gap: 7px; animation: ill-up .8s cubic-bezier(.2,.8,.2,1) both .5s; }
+.pm-card > small { font-size: 11.5px; color: var(--soft); }
+.pm-card p { margin: 0; display: flex; align-items: baseline; gap: 9px; font-size: 13.5px; line-height: 1.45; color: var(--ink); animation: ill-up .5s both; }
+.pm-card p:nth-of-type(1) { animation-delay: .9s; } .pm-card p:nth-of-type(2) { animation-delay: 1.1s; } .pm-card p:nth-of-type(3) { animation-delay: 1.3s; } .pm-card p:nth-of-type(4) { animation-delay: 1.5s; }
+.pm-card em { flex: none; font-style: normal; font-size: 11px; font-weight: 700; color: var(--brand); background: var(--brand-soft); border-radius: var(--r-xs); padding: 2px 7px; min-width: 58px; text-align: center; }
+.pm-done { animation-delay: 2s; }
+@media (max-width: 520px) { .pm-card p { font-size: 12.5px; } .pm-card em { min-width: 50px; font-size: 10.5px; } }
+@media (prefers-reduced-motion: reduce) { .pm-weak, .pm-card, .pm-card p, .pm-done { animation: none; } }
