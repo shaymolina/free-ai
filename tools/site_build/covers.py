@@ -187,6 +187,7 @@ ART = {
     "article-vibe-coding": dict(bg="linear-gradient(160deg,#E6BB35,#D97757)", pattern="s", stroke="#5A1E0B", op=(.15, .55, .2)),
     "article-claude-skills": dict(bg="linear-gradient(160deg,#2B4C7E,#132544)", pattern="fan", stroke="#BFD6FF", op=(.1, .6, .2)),
     "article-what-is-prompt": dict(bg="linear-gradient(160deg,#F2E8DC,#E3CDB6)", pattern="sweep", stroke="#9A3B22", op=(.15, .55, .2)),
+    "article-claude-code-vs-codex-cursor": dict(bg="linear-gradient(160deg,#1F1F1F,#3A2418)", pattern="hourglass", stroke="#D97757", op=(.2, .7, .25)),
     "skill-security": dict(bg="linear-gradient(160deg,#103B2C,#071E16)", pattern="s", op=(.1, .75, .2)),
     "skill-site-speed": dict(bg="linear-gradient(150deg,#FF2D55,#E83EC2 55%,#7C6CF2)", pattern="hourglass", op=(.6, .25, .6)),
     # קורסים

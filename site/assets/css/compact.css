@@ -763,3 +763,20 @@ body { font-size: 14.5px; }
 .pm-done { animation-delay: 2s; }
 @media (max-width: 520px) { .pm-card p { font-size: 12.5px; } .pm-card em { min-width: 50px; font-size: 10.5px; } }
 @media (prefers-reduced-motion: reduce) { .pm-weak, .pm-card, .pm-card p, .pm-done { animation: none; } }
+
+/* איור: קלוד קוד מול קרסר מול קודקס */
+.ill-vs { gap: 12px; }
+.vs-row { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 8px; align-items: stretch; }
+.vs-c { background: var(--bg); border-radius: var(--r-md); box-shadow: var(--shadow-float), inset 0 0 0 1px var(--line-2); padding: 12px; display: grid; gap: 6px; align-content: start; min-width: 0; animation: ill-up .6s cubic-bezier(.2,.8,.2,1) both; }
+.vs-c:nth-child(1) { animation-delay: .5s; } .vs-c:nth-child(2) { animation-delay: .7s; } .vs-c:nth-child(3) { animation-delay: .9s; }
+.vs-c b { font-size: 15px; font-weight: 800; color: var(--ink); }
+.vs-c small { font-size: 11.5px; color: var(--soft); }
+.vs-c em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--soft); margin-top: auto; white-space: nowrap; }
+.vs-hl { box-shadow: var(--shadow-float), inset 0 0 0 2px var(--brand); }
+.vs-hl em { color: var(--brand); }
+.vs-say { margin: 0; font-size: 13px; line-height: 1.45; color: var(--ink); background: var(--brand-soft); border-radius: 12px; padding: 8px 10px; animation: ill-up .5s both 1.4s; }
+.vs-code { margin: 0; display: grid; gap: 5px; padding: 8px; border-radius: 10px; background: #1f1f1f; direction: ltr; }
+.vs-code i { display: block; height: 6px; border-radius: 3px; background: #4a4a4a; }
+.vs-code i:nth-child(1) { width: 70%; } .vs-code i:nth-child(2) { width: 90%; background: #7a5a3a; } .vs-code i:nth-child(3) { width: 55%; } .vs-code i:nth-child(4) { width: 80%; }
+@media (max-width: 520px) { .vs-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } .vs-c { padding: 9px; gap: 4px; } .vs-say, .vs-code { display: none; } .vs-c b { font-size: 13px; } .vs-c small, .vs-c em { font-size: 10.5px; white-space: normal; } }
+@media (prefers-reduced-motion: reduce) { .vs-c, .vs-say { animation: none; } }
